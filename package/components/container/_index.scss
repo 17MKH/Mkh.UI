@@ -1,0 +1,29 @@
+#{$prefix}-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+
+  &_main {
+    height: 100%;
+
+    > #{$prefix}-scrollbar {
+      > .el-scrollbar__wrap {
+        overflow-x: hidden;
+      }
+
+      &.is-horizontal {
+        display: none;
+      }
+    }
+  }
+
+  &.is-horizontal {
+    .is-horizontal {
+      display: block;
+    }
+  }
+}

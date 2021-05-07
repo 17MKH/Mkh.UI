@@ -1,0 +1,125 @@
+#{$prefix}-head {
+  padding: 0 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex-shrink: 0;
+  height: 50px;
+  line-height: 50px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid $border-color-3;
+
+  &_icon {
+    flex-shrink: 0;
+    padding-top: 2px;
+    width: 40px;
+    text-align: center;
+
+    #{$prefix}-icon {
+      font-size: 20px;
+    }
+  }
+
+  &_title {
+    flex-grow: 1;
+    font-size: 18px;
+  }
+
+  &_toolbar {
+    flex-shrink: 0;
+    position: relative;
+
+    #{$prefix}-button {
+      padding: 0;
+      margin: 0 10px 0 0;
+      background: 0 0;
+      border: none;
+      outline: 0;
+      cursor: pointer;
+      font-size: 16px;
+      height: 100%;
+      min-height: 100%;
+      transition: all 0.3s ease;
+      color: #606266;
+
+      &:focus {
+        color: #606266;
+      }
+
+      &:hover {
+        color: $text-color-1;
+        transform: scale(1.2);
+      }
+
+      #{$prefix}-icon {
+        transform: scale(1) !important;
+      }
+    }
+  }
+
+  &.medium {
+    height: 45px;
+    line-height: 45px;
+
+    #{$prefix}-head_icon {
+      padding-top: 2px;
+      #{$prefix}-icon {
+        font-size: 18px;
+      }
+    }
+
+    #{$prefix}-head_title {
+      font-size: 16px;
+    }
+
+    #{$prefix}-head_toolbar {
+      #{$prefix}-button {
+        font-size: 15px;
+      }
+    }
+  }
+
+  &.small {
+    height: 40px;
+    line-height: 40px;
+
+    #{$prefix}-head_icon {
+      padding-top: 1px;
+      #{$prefix}-icon {
+        font-size: 17px;
+      }
+    }
+
+    #{$prefix}-head_title {
+      font-size: 15px;
+    }
+
+    #{$prefix}-head_toolbar {
+      #{$prefix}-button {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &.mini {
+    height: 35px;
+    line-height: 35px;
+
+    #{$prefix}-head_icon {
+      padding-top: 0;
+      #{$prefix}-icon {
+        font-size: 16px;
+      }
+    }
+
+    #{$prefix}-head_title {
+      font-size: 14px;
+    }
+
+    #{$prefix}-head_toolbar {
+      #{$prefix}-button {
+        font-size: 13px;
+      }
+    }
+  }
+}

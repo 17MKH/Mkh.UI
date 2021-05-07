@@ -1,0 +1,18 @@
+export default [
+  { name: 'header', desc: '显示头部', type: 'Boolean', values: '-', default: 'true' },
+  { name: 'title', desc: '标题', type: 'String', values: '-', default: '-' },
+  { name: 'icon', desc: '标题左侧图标', type: 'String', values: '-', default: '-' },
+  { name: 'icon-color', desc: '标题左侧图标的颜色', type: 'String', values: '-', default: '-' },
+  { name: 'height', desc: '高度', type: 'String', values: '-', default: '-' },
+  { name: 'size', desc: '尺寸', type: 'String', values: 'medium / small / mini', default: '-' },
+  { name: 'horizontal-scrollbar', desc: '显示水平滚动条', type: 'Boolean', values: '-', default: 'false' },
+  { name: 'loading', desc: '显示加载动画', type: 'Boolean', values: '-', default: 'false' },
+  { name: 'loading-text', desc: '加载动画文本', type: 'String', values: '-', default: '-' },
+  { name: 'loading-background', desc: '加载动画模态框的背景色', type: 'String', values: '-', default: '-' },
+  { name: 'loading-spinner', desc: '加载动画图标', type: 'String', values: '-', default: '-' },
+  { name: 'page', desc: '页面模式，开启后盒子高度为100%，会填充满父级', type: 'String', values: '-', default: '-' },
+  { name: 'no-scrollbar', desc: '不显示滚动条', type: 'Boolean', values: '-', default: 'false' },
+  { name: 'no-padding', desc: '内容区域不显示内边距', type: 'Boolean', values: '-', default: 'false' },
+  { name: 'show-collapse', desc: '显示折叠按钮', type: 'Boolean', values: '-', default: 'false' },
+  { name: 'show-fullscreen', desc: '显示全屏按钮', type: 'Boolean', values: '-', default: 'false' },
+]

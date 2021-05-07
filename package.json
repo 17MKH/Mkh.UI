@@ -1,0 +1,51 @@
+{
+  "id": 0,
+  "name": "@mkh/ui",
+  "version": "0.0.1",
+  "description": "17MKH前端框架",
+  "author": "OLDLI",
+  "main": "lib/index.es.js",
+  "scripts": {
+    "dev": "vite",
+    "serve": "vite preview",
+    "build": "vite build && npm run build:locale && npm run build:plugins",
+    "build:lib": "vite build",
+    "build:locale": "rollup -c ./build/locale.config.js",
+    "build:plugins": "rollup ./plugins/plugin-mkh.js --file ./lib/plugins/index.js --format cjs"
+  },
+  "dependencies": {
+    "clipboard-copy": "^4.0.1",
+    "echarts": "^5.0.2",
+    "element-plus": "^1.0.2-beta.34",
+    "highlight.js": "^10.7.1",
+    "lodash": "^4.17.21",
+    "nprogress": "^0.2.0",
+    "screenfull": "^5.1.0",
+    "sortablejs": "^1.13.0",
+    "vue": "^3.0.5",
+    "vue-echarts": "^6.0.0-rc.4",
+    "vue-i18n": "^9.1.6",
+    "vue-router": "^4.0.5",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-image": "^2.0.6",
+    "@rollup/pluginutils": "^4.1.0",
+    "@vitejs/plugin-vue": "^1.1.5",
+    "@vue/compiler-sfc": "^3.0.5",
+    "ejs": "^3.1.6",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-vue": "^7.7.0",
+    "fast-glob": "^3.2.5",
+    "html-minifier-terser": "^5.1.1",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-multi-input": "^1.2.0",
+    "sass": "^1.32.8",
+    "vite": "^2.0.5"
+  },
+  "files": [
+    "entries",
+    "lib"
+  ]
+}

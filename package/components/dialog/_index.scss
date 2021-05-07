@@ -1,0 +1,82 @@
+#{$prefix}-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 3px;
+  overflow: hidden;
+
+  > .el-dialog__header {
+    position: relative;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  > .el-dialog__body {
+    position: relative;
+    flex-grow: 1;
+    padding: 0;
+
+    > #{$prefix}-dialog_content {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      height: 100%;
+
+      > #{$prefix}-dialog_body {
+        flex-grow: 1;
+
+        > #{$prefix}-scrollbar {
+          > .el-scrollbar__wrap {
+            > .el-scrollbar__view {
+              padding: 10px 15px;
+            }
+          }
+        }
+      }
+
+      > #{$prefix}-dialog_footer {
+        flex-shrink: 0;
+        padding: 10px;
+        border-top: 1px solid $border-color-3;
+        text-align: right;
+      }
+    }
+  }
+
+  &.no-padding {
+    > .el-dialog__body {
+      > #{$prefix}-dialog_body {
+        > #{$prefix}-scrollbar {
+          > .el-scrollbar__wrap {
+            > .el-scrollbar__view {
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.draggable {
+    position: fixed;
+    margin-top: 0 !important;
+
+    > .el-dialog__header {
+      #{$prefix}-head_title {
+        cursor: move;
+        user-select: none;
+      }
+    }
+  }
+
+  &.is-fullscreen {
+    position: fixed;
+    left: 0 !important;
+    top: 0 !important;
+    margin-top: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    z-index: $z-index-dialog-fullscreen;
+  }
+}

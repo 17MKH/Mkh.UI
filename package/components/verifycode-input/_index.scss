@@ -1,0 +1,11 @@
+#{$prefix}-verifycode-input {
+  position: relative;
+  padding-right: 110px;
+
+  &_img {
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    cursor: pointer;
+  }
+}

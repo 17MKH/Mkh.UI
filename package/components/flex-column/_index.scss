@@ -1,0 +1,30 @@
+#{$prefix}-flex-column {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  width: 100%;
+
+  &.top {
+    #{$prefix}-flex-top {
+      flex-shrink: 0;
+    }
+
+    #{$prefix}-flex-bottom {
+      flex-grow: 1;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+  }
+
+  &.bottom {
+    #{$prefix}-flex-top {
+      flex-grow: 1;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    #{$prefix}-flex-bottom {
+      flex-shrink: 0;
+    }
+  }
+}

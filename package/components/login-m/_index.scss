@@ -1,0 +1,80 @@
+#{$prefix}-login-m {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0) linear-gradient(to right, #667eea 0%, #764ba2 100%) repeat scroll 0 0;
+
+  &_wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 15px auto;
+    padding: 20px 50px 50px;
+    width: 510px;
+    background: #e1f0fc none repeat scroll 0 0;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      height: 0;
+      width: 0;
+      border-width: 0 255px 37px;
+      border-color: transparent transparent #6d68cb;
+      border-style: solid;
+    }
+  }
+
+  &_logo {
+    text-align: center;
+
+    img {
+      width: 50px;
+    }
+  }
+
+  &_title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  &_tip {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    color: #888888;
+  }
+
+  &_form {
+    .el-input__inner {
+      background-color: #fff !important;
+    }
+
+    .el-input__prefix {
+      .mu-icon {
+        position: relative;
+        top: 2px;
+        font-size: 17px;
+        color: #888;
+      }
+    }
+  }
+
+  &_btn {
+    padding: 17px 20px;
+    width: 100%;
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0) linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%) repeat scroll 0 0;
+    color: #fff;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: #333;
+      color: #fff;
+    }
+  }
+}

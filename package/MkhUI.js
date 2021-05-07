@@ -24,6 +24,11 @@ window.MkhUI = {
       /**默认页，路由名称 */
       defaultPage: '',
     },
+    /**认证和授权 */
+    auth: {
+      /**启用按钮权限 */
+      enableButtonPermissions: true,
+    },
     /**组件配置 */
     component: {
       /**加载动画 */

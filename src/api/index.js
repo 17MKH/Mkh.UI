@@ -68,7 +68,7 @@ const getAccountInfo = () => {
       /** 权限列表 */
       permissions: [],
       /** 按钮列表 */
-      buttons: [],
+      buttons: ['admin_account_add', 'admin_account_edit'],
       /** 皮肤设置 */
       skin: {
         /** 名称 */

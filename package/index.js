@@ -10,6 +10,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 import 'element-plus/lib/theme-chalk/display.css'
 import Components from './components'
+import Directives from './directives'
 import './styles/app.scss'
 /** 导入内置皮肤 */
 import './skins/brief'
@@ -58,6 +59,9 @@ const start = async () => {
 
   //注册全局组件
   app.use(Components)
+
+  //注册指令
+  app.use(Directives)
 
   //注册皮肤
   MkhUI.skins.forEach(skin => {

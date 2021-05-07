@@ -1,5 +1,6 @@
 <template>
   <el-button
+    v-mu-has="code"
     class="mu-button"
     :type="type"
     :size="size_"

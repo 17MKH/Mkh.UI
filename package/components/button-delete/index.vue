@@ -1,5 +1,6 @@
 <template>
   <mu-button
+    v-mu-has="code"
     class="mu-button-delete"
     :type="type"
     :size="size_"

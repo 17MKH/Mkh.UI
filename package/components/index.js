@@ -23,6 +23,8 @@ import LoginK from './login-k/index.vue'
 import LoginM from './login-m/index.vue'
 import Menu from './menu/index.vue'
 import Scrollbar from './scrollbar/index.vue'
+import Select from './select/index.vue'
+import SelectSearch from './select-search/index.vue'
 import ToolbarFullscreen from './toolbar-fullscreen/index.vue'
 import ToolbarLang from './toolbar-lang/index.vue'
 import ToolbarSkin from './toolbar-skin/index.vue'
@@ -54,6 +56,8 @@ const components = [
   LoginM,
   Menu,
   Scrollbar,
+  Select,
+  SelectSearch,
   ToolbarFullscreen,
   ToolbarLang,
   ToolbarSkin,

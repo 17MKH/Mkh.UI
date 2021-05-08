@@ -11,6 +11,7 @@ import 'element-plus/lib/theme-chalk/index.css'
 import 'element-plus/lib/theme-chalk/display.css'
 import Components from './components'
 import Directives from './directives'
+export * from './composables'
 import './styles/app.scss'
 /** 导入内置皮肤 */
 import './skins/brief'

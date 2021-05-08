@@ -138,4 +138,29 @@ export default [
       },
     ],
   },
+  {
+    name: '表单组件',
+    type: 0,
+    icon: 'form',
+    level: 1,
+    show: true,
+    children: [
+      {
+        name: '下拉框(Select)',
+        type: 1,
+        icon: 'icon',
+        level: 2,
+        show: true,
+        routeName: 'doc_form_select',
+      },
+      {
+        name: '可搜索下拉框(SelectSearch)',
+        type: 1,
+        icon: 'icon',
+        level: 2,
+        show: true,
+        routeName: 'doc_form_select_search',
+      },
+    ],
+  },
 ]

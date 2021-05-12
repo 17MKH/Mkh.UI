@@ -56,7 +56,7 @@
 <script>
 import { computed, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
-import { on, off } from '../../utils/dom'
+import dom from '../../utils/dom'
 import { useStore } from 'vuex'
 import props from './props'
 export default {
@@ -151,14 +151,14 @@ export default {
         dialogEl.style.left = (document.body.offsetWidth - widthNumber.value) / 2 + 'px'
         dialogEl.style.top = props.top
 
-        on(headerEl, 'mousedown', handleDragDown)
+        dom.on(headerEl, 'mousedown', handleDragDown)
       }
 
       resize()
 
       //监听window窗口大小改变事件
       if (!height) {
-        on(window, 'resize', resize)
+        dom.on(window, 'resize', resize)
       }
       ctx.emit('opened')
     }
@@ -167,7 +167,7 @@ export default {
       ctx.emit('close')
 
       //关闭window窗口大小改变事件
-      if (!props.height) off(window, 'resize', resize)
+      if (!props.height) dom.off(window, 'resize', resize)
     }
 
     const handleClosed = () => {
@@ -179,8 +179,8 @@ export default {
       if (props.draggable && !isFullscreen.value) {
         dragDownState = e
 
-        on(document, 'mousemove', handleDragMove)
-        on(document, 'mouseup', handleDragUp)
+        dom.on(document, 'mousemove', handleDragMove)
+        dom.on(document, 'mouseup', handleDragUp)
       }
     }
 
@@ -206,8 +206,8 @@ export default {
     }
 
     const handleDragUp = e => {
-      off(document, 'mousemove', handleDragMove)
-      off(document, 'mouseup', handleDragUp)
+      dom.off(document, 'mousemove', handleDragMove)
+      dom.off(document, 'mouseup', handleDragUp)
     }
 
     return {

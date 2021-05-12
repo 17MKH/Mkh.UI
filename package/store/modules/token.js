@@ -15,7 +15,7 @@ export default {
      * @description 退出
      */
     logout({ commit }) {
-      // 清楚令牌信息
+      // 清除令牌信息
       commit('clear')
 
       // 清除账户信息

@@ -2,6 +2,7 @@
 import mod from '@mkh-module-doc'
 import VCharts from 'vue-echarts'
 import * as echarts from 'echarts'
+console.log(mod)
 
 /** 模块注册回调函数，当vue根实例挂载前调用 */
 mod.callback = ({ app }) => {
@@ -13,8 +14,6 @@ mod.callback = ({ app }) => {
   app.config.globalProperties.$echarts = echarts
 }
 
-/** 配置登录组件 */
-MkhUI.config.component.login = 'k'
 /** 设置登录方法 */
 MkhUI.config.actions.login = mod.api.login
 /** 设置获取验证码方法 */

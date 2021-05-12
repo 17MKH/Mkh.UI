@@ -12,6 +12,7 @@ import 'element-plus/lib/theme-chalk/display.css'
 import Components from './components'
 import Directives from './directives'
 export * from './composables'
+export * from './utils'
 import './styles/app.scss'
 /** 导入内置皮肤 */
 import './skins/brief'
@@ -80,7 +81,12 @@ const start = async () => {
     //注册全局组件
     if (m.components) {
       m.components.forEach(c => {
-        app.component(`mu-${m.code}-${c.name}`, c.component)
+        //过滤下登录组件
+        if (c.name.startsWith('login-')) {
+          app.component(`mu-${c.name}`, c.component)
+        } else {
+          app.component(`mu-${m.code}-${c.name}`, c.component)
+        }
       })
     }
 

@@ -65,11 +65,11 @@ import events from './_events'
 import methods from './_methods'
 import slots from './_slots'
 import demo1 from './demos/1.vue'
-import code1 from '!./demos/1.vue'
+import code1 from './demos/1.vue?raw'
 import demo2 from './demos/2.vue'
-import code2 from '!./demos/2.vue'
+import code2 from './demos/2.vue?raw'
 import demo3 from './demos/3.vue'
-import code3 from '!./demos/3.vue'
+import code3 from './demos/3.vue?raw'
 export default {
   components: { demo1, demo2, demo3 },
   setup() {

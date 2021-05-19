@@ -19,9 +19,9 @@
 <script>
 import props from './_props'
 import demo1 from './demos/1.vue'
-import code1 from '!./demos/1.vue'
+import code1 from './demos/1.vue?raw'
 import demo2 from './demos/2.vue'
-import code2 from '!./demos/2.vue'
+import code2 from './demos/2.vue?raw'
 export default {
   components: { demo1, demo2 },
   setup() {

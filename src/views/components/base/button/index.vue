@@ -26,11 +26,11 @@
 </template>
 <script>
 import demo from './demos/1.vue'
-import code from '!./demos/1.vue'
+import code from './demos/1.vue?raw'
 import demo2 from './demos/2.vue'
-import code2 from '!./demos/2.vue'
+import code2 from './demos/2.vue?raw'
 import demo3 from './demos/3.vue'
-import code3 from '!./demos/3.vue'
+import code3 from './demos/3.vue?raw'
 import props from './_props'
 export default {
   components: { demo, demo2, demo3 },

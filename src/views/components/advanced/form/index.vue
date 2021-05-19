@@ -19,7 +19,7 @@ import events from './_events'
 import methods from './_methods'
 import slots from './_slots'
 import demo1 from './demos/1.vue'
-import code1 from '!./demos/1.vue'
+import code1 from './demos/1.vue?raw'
 export default {
   components: { demo1 },
   setup() {

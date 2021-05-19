@@ -34,7 +34,7 @@ import { getCurrentInstance, ref } from 'vue'
 import props from './_props'
 import copy from 'clipboard-copy'
 import demo from './demos/1.vue'
-import code from '!./demos/1.vue'
+import code from './demos/1.vue?raw'
 export default {
   components: { demo },
   setup() {

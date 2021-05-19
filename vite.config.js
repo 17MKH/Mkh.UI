@@ -2,7 +2,6 @@ const { resolve } = require('path')
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mkh from './plugins/plugin-mkh'
-import loadCode from './plugins/load-code'
 
 export default defineConfig({
   plugins: [
@@ -22,7 +21,6 @@ export default defineConfig({
         htmlMinify: {},
       },
     }),
-    loadCode(),
     vue(),
   ],
   server: {

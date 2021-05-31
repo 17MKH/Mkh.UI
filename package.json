@@ -1,7 +1,7 @@
 {
   "id": 0,
-  "name": "@mkh/ui",
-  "version": "0.0.1",
+  "name": "@17mkh/ui",
+  "version": "0.0.2",
   "description": "17MKH前端框架",
   "author": "OLDLI",
   "main": "lib/index.es.js",
@@ -49,5 +49,8 @@
   "files": [
     "entries",
     "lib"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }

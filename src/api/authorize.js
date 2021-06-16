@@ -28,11 +28,11 @@ export default http => {
   let t = true
   const getVerifyCode = () => {
     return new Promise(resolve => {
-      const base64String = verifyCodeImages[t ? 0 : 1]
+      const base64 = verifyCodeImages[t ? 0 : 1]
       t = !t
       resolve({
         id: '123',
-        base64String,
+        base64,
       })
     })
   }

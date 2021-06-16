@@ -4,6 +4,6 @@ const directives = [has]
 
 export default app => {
   directives.forEach(m => {
-    app.directive(`Mu${m.name}`, m.directive)
+    app.directive(`M${m.name}`, m.directive)
   })
 }

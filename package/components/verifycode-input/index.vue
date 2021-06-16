@@ -23,7 +23,7 @@ export default {
   props: {
     prop: {
       type: String,
-      default: 'verifyCode.code',
+      default: 'verifyCode',
     },
     modelValue: {
       type: String,

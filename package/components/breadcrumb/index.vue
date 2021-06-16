@@ -17,11 +17,13 @@ export default {
 
     const list = computed(() => {
       const { breadcrumbs, title, icon } = route.meta
+      const last = { label: title, icon: icon }
       if (!breadcrumbs) {
-        return [{ label: title, icon: icon }]
+        console.log(route)
+        return [last]
       }
 
-      return [...breadcrumbs, { label: title, icon: icon }]
+      return [...breadcrumbs, last]
     })
 
     return {

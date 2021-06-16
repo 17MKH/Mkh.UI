@@ -1,5 +1,5 @@
 <template>
-  <section :class="['mu-flex-column', mode]">
+  <section :class="['m-flex-column', mode]">
     <slot />
   </section>
 </template>

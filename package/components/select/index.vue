@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value_" v-loading="loading" class="mu-select" :size="size_" element-loading-background="rgba(255,255,255,.6)" @change="handleChange">
+  <el-select v-model="value_" v-loading="loading" class="m-select" :size="size_" element-loading-background="rgba(255,255,255,.6)" @change="handleChange">
     <slot :options="options">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
     </slot>
@@ -34,7 +34,7 @@ export default {
     })
 
     const store = useStore()
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const loading = ref(false)
     const options = ref([])

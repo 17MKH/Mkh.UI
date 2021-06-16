@@ -1,15 +1,15 @@
 <template>
-  <div :class="['mu-doc-component', isFullscreen ? 'is-fullscreen' : '']">
-    <h1 class="mu-doc-component_title">{{ title }}</h1>
-    <mu-button class="mu-doc-component_fullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
-    <el-tabs class="mu-doc-component_tabs" type="border-card">
+  <div :class="['m-doc-component', isFullscreen ? 'is-fullscreen' : '']">
+    <h1 class="m-doc-component_title">{{ title }}</h1>
+    <m-button class="m-doc-component_fullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
+    <el-tabs class="m-doc-component_tabs" type="border-card">
       <el-tab-pane label="组件示例(Demo)">
-        <mu-scrollbar>
+        <m-scrollbar>
           <slot></slot>
-        </mu-scrollbar>
+        </m-scrollbar>
       </el-tab-pane>
       <el-tab-pane v-if="props" label="属性(Attributes)">
-        <el-table class="mu-doc-component_table" height="100%" :data="props" border>
+        <el-table class="m-doc-component_table" height="100%" :data="props" border>
           <el-table-column prop="name" label="参数"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="type" label="类型"></el-table-column>
@@ -18,21 +18,21 @@
         </el-table>
       </el-tab-pane>
       <el-tab-pane v-if="events" label="事件(Events)">
-        <el-table class="mu-doc-component_table" height="100%" :data="events" border>
+        <el-table class="m-doc-component_table" height="100%" :data="events" border>
           <el-table-column prop="name" label="事件"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
         </el-table>
       </el-tab-pane>
       <el-tab-pane v-if="methods" label="方法(Methods)">
-        <el-table class="mu-doc-component_table" height="100%" :data="methods" border>
+        <el-table class="m-doc-component_table" height="100%" :data="methods" border>
           <el-table-column prop="name" label="方法"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
         </el-table>
       </el-tab-pane>
       <el-tab-pane v-if="slots" label="插槽(Slots)">
-        <el-table class="mu-doc-component_table" height="100%" :data="slots" border>
+        <el-table class="m-doc-component_table" height="100%" :data="slots" border>
           <el-table-column prop="name" label="插槽"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
@@ -76,7 +76,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.mu-doc-component {
+.m-doc-component {
   position: relative;
   padding-top: 60px;
   height: 100%;
@@ -137,13 +137,13 @@ export default {
       transform: scale(1.2);
     }
 
-    .mu-icon {
+    .m-icon {
       transform: scale(1) !important;
     }
   }
 
   &.is-fullscreen {
-    .mu-doc-component_fullscreen {
+    .m-doc-component_fullscreen {
       position: fixed;
       right: 5px;
       top: 5px;

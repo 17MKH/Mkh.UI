@@ -1,19 +1,19 @@
 <template>
-  <mu-form label-width="150px">
+  <m-form label-width="150px">
     <el-form-item label="选择账户">
-      <mu-select v-model="value" :action="query" @change="handleChange" />
+      <m-select v-model="value" :action="query" @change="handleChange" />
     </el-form-item>
     <el-form-item label="可清空">
-      <mu-select v-model="value1" :action="query" clearable @change="handleChange" />
+      <m-select v-model="value1" :action="query" clearable @change="handleChange" />
     </el-form-item>
     <el-form-item label="默认选中第一个">
-      <mu-select v-model="value2" :action="query" checked-first @change="handleChange" />
+      <m-select v-model="value2" :action="query" checked-first @change="handleChange" />
     </el-form-item>
     <el-form-item label="手动刷新">
-      <mu-select ref="selectRef" v-model="value3" :action="query" @change="handleChange" />
-      <mu-button icon="refresh" @click="() => selectRef.query()" />
+      <m-select ref="selectRef" v-model="value3" :action="query" @change="handleChange" />
+      <m-button icon="refresh" @click="() => selectRef.query()" />
     </el-form-item>
-  </mu-form>
+  </m-form>
 </template>
 <script>
 import { ref } from 'vue'

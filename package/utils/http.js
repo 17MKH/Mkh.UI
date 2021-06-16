@@ -1,11 +1,10 @@
 import axios from 'axios'
 import qs from 'qs'
 import { store } from '../store'
-
-function Http(baseURL) {
-  this.axios = axios.create({
-    baseURL,
-  })
+import { router } from '../router'
+import { ElMessage } from 'element-plus'
+function Http(options) {
+  this.axios = axios.create(options)
 
   this.axios.defaults.headers.post['Content-Type'] = 'application/json'
   this.axios.defaults.headers.put['Content-Type'] = 'application/json'
@@ -15,8 +14,9 @@ function Http(baseURL) {
     config => {
       const { accessToken } = store.state.app.token
       if (accessToken) {
-        config.headers.Authorization = 'Bearer ' + t.accessToken
+        config.headers.Authorization = 'Bearer ' + accessToken
       }
+      return config
     },
     error => {
       console.error(error)
@@ -28,9 +28,17 @@ function Http(baseURL) {
   this.axios.interceptors.response.use(
     response => {
       const { config } = response
-
-      if (response.data.code === 1) {
+      if (response.data.successful) {
         return response.data.data
+      } else if (!response.data.successful && !config.noErrorMsg) {
+        //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
+        ElMessage({
+          type: 'error',
+          message: response.data.msg,
+          showClose: true,
+          duration: 1500,
+        })
+        return Promise.reject(response.data.msg)
       } else {
         return response.data
       }
@@ -40,11 +48,33 @@ function Http(baseURL) {
       if (error && error.response) {
         switch (error.response.status) {
           case 401:
+            const refreshTokenAction = MkhUI.config.actions.refreshToken
+            //尝试刷新令牌
+            if (refreshTokenAction) {
+              const { accountId, refreshToken } = store.state.app.token
+              refreshTokenAction({
+                accountId,
+                platform: 0,
+                refreshToken,
+              })
+                .then(data => {
+                  return store.dispatch('app/token/login', data).then(() => {
+                    //重新发一起一次上次的的请求
+                    error.config.headers.Authorization = 'Bearer ' + data.accessToken
+                    return axios.request(error.config)
+                  })
+                })
+                .catch(() => {
+                  store.dispatch('app/token/logout')
+                })
+            }
             break
           case 403:
+            router.push('/error/403')
             break
           default:
             console.error(error.response.data.msg)
+            router.push('/error/500')
             break
         }
       } else {
@@ -57,11 +87,11 @@ function Http(baseURL) {
   )
 }
 
-Http.prototype.post = (url, params, config) => {
+Http.prototype.post = function (url, params, config) {
   return this.axios.post(url, params, config)
 }
 
-Http.prototype.get = (url, params, config) => {
+Http.prototype.get = function (url, params, config) {
   const config_ = Object.assign({}, config, {
     // 参数
     params,
@@ -76,7 +106,7 @@ Http.prototype.get = (url, params, config) => {
   return this.axios.get(url, config_)
 }
 
-Http.prototype.delete = (url, params, config) => {
+Http.prototype.delete = function (url, params, config) {
   const config_ = Object.assign({}, config, {
     // 参数
     params,
@@ -91,7 +121,7 @@ Http.prototype.delete = (url, params, config) => {
   return this.axios.delete(url, config_)
 }
 
-Http.prototype.put = (url, params, config) => {
+Http.prototype.put = function (url, params, config) {
   return this.axios.put(url, params, config)
 }
 

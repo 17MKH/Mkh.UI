@@ -1,5 +1,5 @@
 <template>
-  <div class="mu-doc-demo-block">
+  <div class="m-doc-demo-block">
     <h1 class="title">
       <slot name="title">
         {{ title }}
@@ -15,11 +15,11 @@
     </div>
     <el-collapse-transition>
       <div v-show="showMeta" class="meta">
-        <mu-doc-highlightjs :code="meta"></mu-doc-highlightjs>
+        <m-doc-highlightjs :code="meta"></m-doc-highlightjs>
       </div>
     </el-collapse-transition>
     <div v-show="meta" class="control" @click="handleShowMeta">
-      <mu-button type="text" icon="code" :text="showMeta ? '隐藏代码' : '显示代码'" />
+      <m-button type="text" icon="code" :text="showMeta ? '隐藏代码' : '显示代码'" />
     </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.mu-doc-demo-block {
+.m-doc-demo-block {
   padding: 15px;
 
   .title {

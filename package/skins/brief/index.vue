@@ -1,21 +1,21 @@
 <template>
-  <div class="mu-wrapper">
-    <mu-header />
-    <div class="mu-sub-header">
+  <div class="m-wrapper">
+    <m-header />
+    <div class="m-sub-header">
       <!--菜单折叠-->
-      <mu-icon class="mu-sub-header_menu" :name="menuCollapseIcon" @click="handleMeunCollapse" />
-      <mu-breadcrumb />
+      <m-icon class="m-sub-header_menu" :name="menuCollapseIcon" @click="handleMeunCollapse" />
+      <m-breadcrumb />
     </div>
-    <mu-main />
+    <m-main />
   </div>
 </template>
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import MuHeader from './components/header/index.vue'
-import MuMain from './components/main/index.vue'
+import MHeader from './components/header/index.vue'
+import MMain from './components/main/index.vue'
 export default {
-  components: { MuHeader, MuMain },
+  components: { MHeader, MMain },
   setup() {
     const store = useStore()
     const menuCollapseIcon = computed(() => (store.state.app.skin.brief.menuIsCollapse ? 'unfold' : 'fold'))

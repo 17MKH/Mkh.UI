@@ -1,5 +1,5 @@
 <template>
-  <div class="mu-flex-top" :style="{ height }">
+  <div class="m-flex-top" :style="{ height }">
     <slot />
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
-  <mu-button type="success" text="显示对话框" @click="handleClick" />
-  <mu-dialog v-model="visible" title="短歌行·曹操 〔两汉〕" icon="list">
+  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-dialog v-model="visible" title="短歌行·曹操 〔两汉〕" icon="list">
     <p>对酒当歌，人生几何！</p>
     <p>譬如朝露，去日苦多。</p>
     <p>慨当以慷，忧思难忘。</p>
@@ -18,10 +18,10 @@
     <p>山不厌高，海不厌深。</p>
     <p>周公吐哺，天下归心。</p>
     <template #footer>
-      <mu-button type="success" text="确定" size="small"></mu-button>
-      <mu-button type="info" text="关闭" size="small" @click="visible = false"></mu-button>
+      <m-button type="success" text="确定" size="small"></m-button>
+      <m-button type="info" text="关闭" size="small" @click="visible = false"></m-button>
     </template>
-  </mu-dialog>
+  </m-dialog>
 </template>
 <script>
 import { ref } from 'vue'

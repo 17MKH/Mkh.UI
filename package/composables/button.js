@@ -10,7 +10,7 @@ export default function () {
       return true
     }
 
-    return !store.state.app.account.buttons.every(c => c.toLowerCase() !== code.toLowerCase())
+    return !store.state.app.profile.buttons.every(c => c.toLowerCase() !== code.toLowerCase())
   }
 
   return {

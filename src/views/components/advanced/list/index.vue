@@ -1,7 +1,7 @@
 <template>
-  <mu-container>
-    <mu-doc-component-doc title="列表页组件(mu-list)" :props="props" :events="events" :methods="methods" :slots="slots">
-      <mu-doc-demo-block title="简单列表页" :meta="code1">
+  <m-container>
+    <m-doc-component-doc title="列表页组件(m-list)" :props="props" :events="events" :methods="methods" :slots="slots">
+      <m-doc-demo-block title="简单列表页" :meta="code1">
         <template #desc>
           <p>列表页组件是一个查询展示数据列表的组件，主要由查询栏、数据表格、分页信息三部分组成，用户只需关注自己的业务部分即可。</p>
           <p>列表页组件整体看起来像一个盒子组件<code>nm-box</code>，顶部左侧也有一个工具栏，内置刷新以及全屏两个按钮，与盒子组件一样，您也可以自定义添加工具按钮。</p>
@@ -39,25 +39,25 @@
           >
         </template>
         <demo-1></demo-1>
-      </mu-doc-demo-block>
+      </m-doc-demo-block>
 
-      <mu-doc-demo-block title="查询栏按钮" :meta="code2">
+      <m-doc-demo-block title="查询栏按钮" :meta="code2">
         <template #desc>
           <p>查询栏内置了三个按钮，查询、重置、删除，其中查询和重置默认显示，删除默认不显示，三个按钮都可以通过属性控制是否显示</p>
           <p>同时您也可以通过<code>querybar-buttons</code>插槽，在三个按钮后面添加自定义的按钮</p>
         </template>
         <demo-2></demo-2>
-      </mu-doc-demo-block>
+      </m-doc-demo-block>
 
-      <mu-doc-demo-block title="工具栏" :meta="code2">
+      <m-doc-demo-block title="工具栏" :meta="code2">
         <template #desc>
           <p>工具栏位于列表页组件的头部的右侧区域，内置了两个工具按钮，刷新和全屏按钮，默认都显示，可以通过属性控制是否显示</p>
           <p>同时您也可以通过<code>toolbar</code>插槽，在刷新按钮前面添加自定义的工具按钮</p>
         </template>
         <demo-3></demo-3>
-      </mu-doc-demo-block>
-    </mu-doc-component-doc>
-  </mu-container>
+      </m-doc-demo-block>
+    </m-doc-component-doc>
+  </m-container>
 </template>
 <script>
 import props from './_props'

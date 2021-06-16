@@ -1,6 +1,6 @@
 <template>
-  <mu-button type="success" text="显示对话框" @click="handleClick" />
-  <mu-dialog v-model="visible" title="醉翁亭记·欧阳修 〔宋代〕" icon="list">
+  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-dialog v-model="visible" title="醉翁亭记·欧阳修 〔宋代〕" icon="list">
     <p>
       　　环滁皆山也。其西南诸峰，林壑尤美，望之蔚然而深秀者，琅琊也。山行六七里，渐闻水声潺潺，而泻出于两峰之间者，酿泉也。峰回路转，有亭翼然临于泉上者，醉翁亭也。作亭者谁？山之僧智仙也。名之者谁？太守自谓也。太守与客来饮于此，饮少辄醉，而年又最高，故自号曰醉翁也。醉翁之意不在酒，在乎山水之间也。山水之乐，得之心而寓之酒也。
     </p>
@@ -11,7 +11,7 @@
     <p>
       　　已而夕阳在山，人影散乱，太守归而宾客从也。树林阴翳，鸣声上下，游人去而禽鸟乐也。然而禽鸟知山林之乐，而不知人之乐；人知从太守游而乐，而不知太守之乐其乐也。醉能同其乐，醒能述以文者，太守也。太守谓谁？庐陵欧阳修也。
     </p>
-  </mu-dialog>
+  </m-dialog>
 </template>
 <script>
 import { ref } from 'vue'

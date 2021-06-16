@@ -1,9 +1,9 @@
 <template>
-  <section class="mu-container" :class="{ 'is-horizontal': horizontal }">
-    <section class="mu-container_main">
-      <mu-scrollbar v-if="scrollbar" ref="scrollbarRef" :horizontal="horizontal">
+  <section class="m-container" :class="{ 'is-horizontal': horizontal }">
+    <section class="m-container_main">
+      <m-scrollbar v-if="scrollbar" ref="scrollbarRef" :horizontal="horizontal">
         <slot />
-      </mu-scrollbar>
+      </m-scrollbar>
       <slot v-else />
     </section>
   </section>

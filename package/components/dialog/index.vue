@@ -19,35 +19,35 @@
   >
     <!--头部-->
     <template v-if="header" #title>
-      <mu-head class="mu-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
+      <m-head class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
         <slot name="title">{{ title }}</slot>
         <template #toolbar>
           <!--工具栏插槽-->
           <slot name="toolbar" />
           <!--全屏按钮-->
-          <mu-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
+          <m-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
           <!--关闭按钮-->
-          <mu-button v-if="showClose" icon="close" @click="close" />
+          <m-button v-if="showClose" icon="close" @click="close" />
         </template>
-      </mu-head>
+      </m-head>
     </template>
 
     <div
       v-loading="loading"
-      class="mu-dialog_content"
+      class="m-dialog_content"
       :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
       :element-loading-background="loadingBackground || loadingOptions.background"
       :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
     >
       <!--内容-->
-      <section class="mu-dialog_body">
+      <section class="m-dialog_body">
         <slot v-if="noScrollbar" />
-        <mu-scrollbar v-else>
+        <m-scrollbar v-else>
           <slot />
-        </mu-scrollbar>
+        </m-scrollbar>
       </section>
       <!--尾部-->
-      <footer v-if="$slots.footer" class="mu-dialog_footer">
+      <footer v-if="$slots.footer" class="m-dialog_footer">
         <slot name="footer"></slot>
       </footer>
     </div>
@@ -65,7 +65,7 @@ export default {
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, ctx) {
     const store = useStore()
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     //默认情况下，未手动设置高度时距离顶部的距离
     const top_ = ref('')
     //加载动画配置
@@ -77,7 +77,7 @@ export default {
     //使用当前时间戳创建唯一ID
     const class_ = computed(() => {
       const { customClass, noPadding, draggable } = props
-      let classList = ['mu-dialog', `mu-dialog-${new Date().getTime()}`]
+      let classList = ['m-dialog', `m-dialog-${new Date().getTime()}`]
       if (size_.value) classList.push(size_.value)
       if (noPadding) classList.push('no-padding')
       if (draggable) classList.push('draggable')
@@ -140,7 +140,7 @@ export default {
     const handleOpened = () => {
       dialogEl = elDialogRef.value.dialogRef
       headerEl = dialogEl.querySelector('.el-dialog__header')
-      footerEl = dialogEl.querySelector('.mu-dialog_footer')
+      footerEl = dialogEl.querySelector('.m-dialog_footer')
       headerHeight = headerEl.offsetHeight
       footerHeight = footerEl.offsetHeight
       const { draggable, height } = props

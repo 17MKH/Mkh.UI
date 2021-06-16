@@ -1,7 +1,7 @@
 <template>
-  <mu-button type="success" text="显示对话框" @click="handleClick" />
-  <mu-dialog v-model="visible" title="春江花月夜·张若虚 〔唐代〕" icon="list">
-    <div class="mu-font-size-30 mu-text-center">
+  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-dialog v-model="visible" title="春江花月夜·张若虚 〔唐代〕" icon="list">
+    <div class="m-font-size-30 m-text-center">
       <p>春江潮水连海平，海上明月共潮生。</p>
       <p>滟滟随波千万里，何处春江无月明！</p>
       <p>江流宛转绕芳甸，月照花林皆似霰。</p>
@@ -21,7 +21,7 @@
       <p>斜月沉沉藏海雾，碣石潇湘无限路。</p>
       <p>不知乘月几人归，落月摇情满江树。</p>
     </div>
-  </mu-dialog>
+  </m-dialog>
 </template>
 <script>
 import { ref } from 'vue'

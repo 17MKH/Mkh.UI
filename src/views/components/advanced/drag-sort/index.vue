@@ -1,11 +1,11 @@
 <template>
-  <mu-container>
-    <mu-doc-component-doc title="对话框组件(mu-dialog)" :props="props" :events="events" :methods="methods" :slots="slots">
-      <mu-drag-sort v-model="list">
+  <m-container>
+    <m-doc-component-doc title="对话框组件(m-dialog)" :props="props" :events="events" :methods="methods" :slots="slots">
+      <m-drag-sort v-model="list">
         <li v-for="i in list" :key="i">第{{ i }}</li>
-      </mu-drag-sort>
-    </mu-doc-component-doc>
-  </mu-container>
+      </m-drag-sort>
+    </m-doc-component-doc>
+  </m-container>
 </template>
 <script>
 import { ref } from 'vue'

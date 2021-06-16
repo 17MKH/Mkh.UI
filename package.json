@@ -1,7 +1,7 @@
 {
   "id": 0,
-  "name": "@17mkh/ui",
-  "version": "0.0.2",
+  "name": "mkh-ui",
+  "version": "0.0.1",
   "description": "17MKH前端框架",
   "author": "OLDLI",
   "main": "lib/index.es.js",

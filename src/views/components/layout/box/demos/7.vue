@@ -1,14 +1,14 @@
 <template>
-  <el-row class="mu-box-row" :gutter="20" style="height: 600px">
+  <el-row class="m-box-row" :gutter="20" style="height: 600px">
     <el-col :span="16">
-      <mu-box header title="每日BUG数" icon="chart-pie-fill">
+      <m-box header title="每日BUG数" icon="chart-pie-fill">
         <v-chart :option="option" />
-      </mu-box>
+      </m-box>
     </el-col>
     <el-col :span="8">
-      <mu-box title="堆叠区域图" icon="chart-line-fill-3">
+      <m-box title="堆叠区域图" icon="chart-line-fill-3">
         <v-chart :option="option1" />
-      </mu-box>
+      </m-box>
     </el-col>
   </el-row>
 </template>

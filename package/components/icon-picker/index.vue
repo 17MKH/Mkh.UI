@@ -1,14 +1,14 @@
 <template>
-  <section class="mu-icon-picker">
-    <div class="mu-icon-picker_input">
+  <section class="m-icon-picker">
+    <div class="m-icon-picker_input">
       <el-input v-model="icon" :placeholder="placeholder || $t('mkh.iconPicker.placeholder')">
         <template #prepend>
-          <mu-icon :name="icon" />
+          <m-icon :name="icon" />
         </template>
       </el-input>
     </div>
-    <div class="mu-icon-picker_button">
-      <mu-button icon="search" @click="showPannel = true" />
+    <div class="m-icon-picker_button">
+      <m-button icon="search" @click="showPannel = true" />
     </div>
     <panel v-model="showPannel" @success="handleSelect" />
   </section>

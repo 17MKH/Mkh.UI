@@ -5,12 +5,29 @@ const key = `token`
 export default {
   namespaced: true,
   state: {
+    /** 账户编号 */
+    accountId: '',
     /** 请求令牌 */
     accessToken: '',
     /** 刷新令牌 */
     refreshToken: '',
   },
   actions: {
+    /**
+     * @description 登录
+     */
+    async login({ commit, dispatch }, token) {
+      if (!token) {
+        //尝试从本地加载令牌
+        token = db.get(key)
+      }
+      if (token) {
+        commit('set', token)
+        //只要设置令牌就重新加载个人资料
+        await dispatch('app/profile/init', null, { root: true })
+        db.set(key, token)
+      }
+    },
     /**
      * @description 退出
      */
@@ -19,7 +36,7 @@ export default {
       commit('clear')
 
       // 清除账户信息
-      commit('app/account/clear', null, { root: true })
+      commit('app/profile/clear', null, { root: true })
 
       // 跳转到登录页面
       router.push({
@@ -32,33 +49,18 @@ export default {
   },
   mutations: {
     /**
-     * 从本地存储中加载令牌
+     * 设置令牌信息
      */
-    loadFromlocalStorage(state) {
-      const token = db.get(key)
-      if (token) {
-        state.accessToken = token.accessToken
-        state.refreshToken = token.refreshToken
-      }
-    },
-    /**
-     * 初始化令牌，如果不传则会从本地存储中获取
-     */
-    init(state, token) {
-      if (!token) {
-        token = db.get(key)
-      }
-      if (token) {
-        state.accessToken = token.accessToken
-        state.refreshToken = token.refreshToken
-      }
-
-      db.set(key, token)
+    set(state, { accountId, accessToken, refreshToken }) {
+      state.accountId = accountId
+      state.accessToken = accessToken
+      state.refreshToken = refreshToken
     },
     /**
      * 清楚令牌
      */
     clear(state) {
+      state.accountId = ''
       state.accessToken = ''
       state.refreshToken = ''
       db.remove(key)

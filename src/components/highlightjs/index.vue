@@ -1,5 +1,5 @@
 <template>
-  <div class="mu-highlightjs">
+  <div class="m-highlightjs">
     <pre><code ref="codeRef" class="html hljs xml" v-text="code"></code></pre>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.mu-highlightjs {
+.m-highlightjs {
   pre {
     margin: 0;
   }

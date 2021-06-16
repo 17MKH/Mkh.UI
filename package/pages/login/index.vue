@@ -1,6 +1,6 @@
 <template>
-  <div class="mu-login-container">
-    <component :is="`mu-login-${loginComponent}`"></component>
+  <div class="m-login-container">
+    <component :is="`m-login-${loginComponent}`"></component>
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.mu-login-container {
+.m-login-container {
   position: relative;
   width: 100%;
   min-height: 100%;

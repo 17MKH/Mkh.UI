@@ -1,6 +1,6 @@
 <template>
   <div style="height: 400px">
-    <mu-list title="诗词列表" :cols="cols" :query-model="model" :query-method="query">
+    <m-list title="诗词列表" :cols="cols" :query-model="model" :query-method="query">
       <template #querybar>
         <el-form-item label="名称：" prop="name">
           <el-input v-model="model.name" clearable></el-input>
@@ -18,7 +18,7 @@
           </el-select>
         </el-form-item>
       </template>
-    </mu-list>
+    </m-list>
   </div>
 </template>
 <script>

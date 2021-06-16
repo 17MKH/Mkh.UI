@@ -1,5 +1,5 @@
 <template>
-  <el-breadcrumb class="mu-breadcrumb" separator="/">
+  <el-breadcrumb class="m-breadcrumb" separator="/">
     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
     <template v-for="(bc, i) in list">
       <el-breadcrumb-item v-if="bc.to" :key="i" :to="bc.to"> {{ bc.label }} </el-breadcrumb-item>

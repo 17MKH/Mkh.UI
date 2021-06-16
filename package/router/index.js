@@ -21,15 +21,15 @@ const page2route = (page, parentRoute, pages) => {
    * path                 路由地址
    * name                 路由名称
    * component            路由对应组件
-   * noFrame              页面不在框架中显示，有些页面可能是独立的，比如登陆页面，则该属性需要设置为true
-   * noPermissionValidate 不需要权限验证
+   * inFrame              页面在框架中显示，有些页面可能是独立的，比如登陆页面，则该属性需要设置为false
+   * enablePermissionVerify 启用权限验证
    * permissions          页面绑定的权限列表
    * buttons              页面绑定的按钮信息
    * breadcrumbs          页面的面包屑信息
    * cache                页面是否缓存，路由的keep-alive特性
    * props                路由启用props特性
    */
-  const { title, icon, path, name, component, noFrame, noPermissionValidate, permissions, buttons, breadcrumbs, cache, props } = page
+  const { title, icon, path, name, component, inFrame, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
   const route = {
     path,
     name,
@@ -42,8 +42,8 @@ const page2route = (page, parentRoute, pages) => {
       permissions,
       breadcrumbs,
       cache,
-      noFrame: typeof noFrame === 'undefined' || noFrame === null ? false : noFrame,
-      noPermissionValidate,
+      inFrame: typeof inFrame === 'undefined' || inFrame === null ? true : inFrame,
+      enablePermissionVerify: typeof enablePermissionVerify === 'undefined' || enablePermissionVerify === null ? true : enablePermissionVerify,
     },
     children: [],
   }
@@ -105,11 +105,13 @@ export default (app, modules) => {
     // 开始进度条
     NProgress.start()
 
-    //验证下是否登录
-    const { noPermissionValidate } = to.meta
-    const { accessToken } = store.state.app.token
-    if (!noPermissionValidate && !accessToken) {
-      return '/login'
+    //验证是否登录
+    const { enablePermissionVerify } = to.meta
+    if (enablePermissionVerify) {
+      const { accessToken } = store.state.app.token
+      if (!accessToken) {
+        return '/login'
+      }
     }
 
     store.dispatch('app/page/open', to, { root: true })

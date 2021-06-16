@@ -1,12 +1,12 @@
 <template>
-  <header :class="['mu-head', size_]">
-    <div v-if="icon" class="mu-head_icon">
-      <mu-icon :name="icon" :style="{ color: iconColor || '' }" />
+  <header :class="['m-head', size_]">
+    <div v-if="icon" class="m-head_icon">
+      <m-icon :name="icon" :style="{ color: iconColor || '' }" />
     </div>
-    <div class="mu-head_title">
+    <div class="m-head_title">
       <slot>{{ title }}</slot>
     </div>
-    <div v-if="$slots.toolbar" class="mu-head_toolbar">
+    <div v-if="$slots.toolbar" class="m-head_toolbar">
       <slot name="toolbar"></slot>
     </div>
   </header>
@@ -38,7 +38,7 @@ export default {
     const store = useStore()
 
     return {
-      size_: computed(() => props.size || store.state.app.account.skin.size),
+      size_: computed(() => props.size || store.state.app.profile.skin.size),
     }
   },
 }

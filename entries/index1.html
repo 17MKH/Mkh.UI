@@ -43,7 +43,7 @@
         padding: 0;
       }
 
-      .mu-loader {
+      .m-loader {
         position: absolute;
         top: 0;
         left: 0;
@@ -52,7 +52,7 @@
         background-color: #fff;
       }
 
-      .mu-loader .mu-loader_main {
+      .m-loader .m-loader_main {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -63,27 +63,27 @@
         transform: translate(-50%, -50%);
       }
 
-      .mu-loader_square {
+      .m-loader_square {
         position: relative;
       }
 
-      .mu-loader_square:nth-child(1) {
+      .m-loader_square:nth-child(1) {
         margin-left: 0px;
       }
 
-      .mu-loader_square:nth-child(2) {
+      .m-loader_square:nth-child(2) {
         margin-left: 44px;
       }
 
-      .mu-loader_square:nth-child(3) {
+      .m-loader_square:nth-child(3) {
         margin-left: 88px;
       }
 
-      .mu-loader_square:nth-child(4) {
+      .m-loader_square:nth-child(4) {
         margin-left: 132px;
       }
 
-      .mu-loader_square span {
+      .m-loader_square span {
         position: absolute;
         top: 0px;
         left: 20px;
@@ -93,49 +93,49 @@
         background-color: #409eff;
       }
 
-      .mu-loader_square span:nth-child(1) {
+      .m-loader_square span:nth-child(1) {
         top: 0px;
       }
 
-      .mu-loader_square span:nth-child(2) {
+      .m-loader_square span:nth-child(2) {
         top: 44px;
       }
 
-      .mu-loader_square span:nth-child(3) {
+      .m-loader_square span:nth-child(3) {
         top: 88px;
       }
 
-      .mu-loader_square:nth-child(1) span {
+      .m-loader_square:nth-child(1) span {
         -webkit-animation: animsquare1 2s infinite ease-in;
         animation: animsquare1 2s infinite ease-in;
       }
 
-      .mu-loader_square:nth-child(2) span {
+      .m-loader_square:nth-child(2) span {
         -webkit-animation: animsquare2 2s infinite ease-in;
         animation: animsquare2 2s infinite ease-in;
       }
 
-      .mu-loader_square:nth-child(3) span {
+      .m-loader_square:nth-child(3) span {
         -webkit-animation: animsquare3 2s infinite ease-in;
         animation: animsquare3 2s infinite ease-in;
       }
 
-      .mu-loader_square:nth-child(4) span {
+      .m-loader_square:nth-child(4) span {
         -webkit-animation: animsquare4 2s infinite ease-in;
         animation: animsquare4 2s infinite ease-in;
       }
 
-      .mu-loader_square span:nth-child(1) {
+      .m-loader_square span:nth-child(1) {
         -webkit-animation-delay: 0s;
         animation-delay: 0s;
       }
 
-      .mu-loader_square span:nth-child(2) {
+      .m-loader_square span:nth-child(2) {
         -webkit-animation-delay: 0.15s;
         animation-delay: 0.15s;
       }
 
-      .mu-loader_square span:nth-child(3) {
+      .m-loader_square span:nth-child(3) {
         -webkit-animation-delay: 0.3s;
         animation-delay: 0.3s;
       }
@@ -253,7 +253,7 @@
         }
       }
 
-      .mu-copyright {
+      .m-copyright {
         position: absolute;
         left: 0;
         bottom: 20px;
@@ -261,7 +261,7 @@
         text-align: center;
       }
 
-      .mu-copyright_logo {
+      .m-copyright_logo {
         position: relative;
         top: 10px;
         width: 30px;
@@ -270,16 +270,16 @@
   </head>
   <body>
     <div id="app">
-      <div class="mu-loader">
-        <div class="mu-loader_main">
-          <div class="mu-loader_square"><span></span><span></span><span></span></div>
-          <div class="mu-loader_square"><span></span><span></span><span></span></div>
-          <div class="mu-loader_square"><span></span><span></span><span></span></div>
-          <div class="mu-loader_square"><span></span><span></span><span></span></div>
+      <div class="m-loader">
+        <div class="m-loader_main">
+          <div class="m-loader_square"><span></span><span></span><span></span></div>
+          <div class="m-loader_square"><span></span><span></span><span></span></div>
+          <div class="m-loader_square"><span></span><span></span><span></span></div>
+          <div class="m-loader_square"><span></span><span></span><span></span></div>
         </div>
       </div>
-      <div class="mu-copyright">
-        <img class="mu-copyright_logo" src="<%= logo %>" />
+      <div class="m-copyright">
+        <img class="m-copyright_logo" src="<%= logo %>" />
         <span><%= copyright %></span>
       </div>
     </div>

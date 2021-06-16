@@ -10,7 +10,8 @@ export default [
     name: 'default',
     component: defaultPage,
     meta: {
-      noFrame: false,
+      inFrame: true,
+      enablePermissionVerify: true,
     },
   },
   {
@@ -21,8 +22,7 @@ export default [
     meta: {
       title: '登录',
       cache: false,
-      noFrame: true,
-      noPermissionValidate: true,
+      inFrame: false,
     },
   },
   {
@@ -33,8 +33,7 @@ export default [
     meta: {
       title: 'Error 403',
       cache: false,
-      noFrame: true,
-      noPermissionValidate: true,
+      inFrame: true,
     },
   },
   {
@@ -45,8 +44,7 @@ export default [
     meta: {
       title: 'Error 404',
       cache: false,
-      noFrame: true,
-      noPermissionValidate: true,
+      inFrame: true,
     },
   },
   {
@@ -57,8 +55,7 @@ export default [
     meta: {
       title: 'Error 500',
       cache: false,
-      noFrame: true,
-      noPermissionValidate: true,
+      inFrame: true,
     },
   },
   { path: '/:pathMatch(.*)*', redirect: '/error/404' },

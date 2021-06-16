@@ -1,7 +1,7 @@
 <template>
   <el-button
-    v-mu-has="code"
-    class="mu-button"
+    v-m-has="code"
+    class="m-button"
     :type="type"
     :size="size_"
     :plain="plain"
@@ -13,9 +13,9 @@
     :native-type="nativeType"
     @click="handleClick"
   >
-    <mu-icon v-if="!loading && icon" :name="icon" />
+    <m-icon v-if="!loading && icon" :name="icon" />
     <slot>
-      <span v-if="!circle && text" class="mu-button_text">
+      <span v-if="!circle && text" class="m-button_text">
         {{ text }}
       </span>
     </slot>
@@ -81,7 +81,7 @@ export default {
     const router = useRouter()
     const store = useStore()
 
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const handleClick = event => {
       if (props.to) {

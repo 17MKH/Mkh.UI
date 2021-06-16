@@ -2,7 +2,7 @@
   <el-form
     ref="formRef"
     v-loading="!noLoading && loading"
-    class="mu-form"
+    class="m-form"
     :label-width="labelWidth"
     :size="size_"
     :element-loading-text="loadingText || $t('mkh.form.loadingText')"
@@ -22,7 +22,7 @@ export default {
   emits: ['success', 'error', 'validate-success', 'validate-error'],
   setup(props, { emit }) {
     const store = useStore()
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const loadingOptions = MkhUI.config.component.loading
 
     const formRef = ref(null)

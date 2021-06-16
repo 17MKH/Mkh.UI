@@ -13,7 +13,7 @@ window.MkhUI = {
   skins: [],
   /** 语言集 */
   locales: [],
-  /**配置信息 */
+  /** 配置信息 */
   config: {
     /**站点信息 */
     site: {
@@ -36,17 +36,28 @@ window.MkhUI = {
         background: 'rgba(255, 255, 255, 0.6)',
         spinner: 'el-icon-loading',
       },
-      /**登录组件，默认是mu-login-m */
+      /**登录组件，默认是m-login-m */
       login: 'm',
     },
     /**系统操作，供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能 */
     actions: {
       /**登录方法(异步) */
       login: null,
+      /**刷新令牌 */
+      refreshToken: null,
       /**获取验证码方法 */
       getVerifyCode: null,
       /**获取账户信息(异步) */
-      getAccountInfo: null,
+      getProfile: null,
+    },
+    /** 接口配置 */
+    http: {
+      /** 全局接口地址 */
+      global: {
+        baseURL: '',
+      },
+      /** 模块配置，会覆盖全局配置 */
+      modules: {},
     },
   },
   /** 注册模块 */

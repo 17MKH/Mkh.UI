@@ -8,26 +8,26 @@
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
     <!--头部-->
-    <mu-head v-if="header" class="mu-box_header" :icon="icon" :icon-color="iconColor" :size="size_">
+    <m-head v-if="header" class="m-box_header" :icon="icon" :icon-color="iconColor" :size="size_">
       <slot name="title">{{ title }}</slot>
       <template #toolbar>
         <!--工具栏插槽-->
         <slot name="toolbar" />
         <!--折叠按钮，页模式下折叠功能无效-->
-        <mu-button v-if="showCollapse" :icon="isCollapse ? 'chevron-down' : 'chevron-up'" @click="toggleCollapse" />
+        <m-button v-if="showCollapse" :icon="isCollapse ? 'chevron-down' : 'chevron-up'" @click="toggleCollapse" />
         <!--全屏按钮-->
-        <mu-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
+        <m-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
       </template>
-    </mu-head>
+    </m-head>
     <el-collapse-transition>
-      <section v-show="!isCollapse" class="mu-box_dialog">
-        <section class="mu-box_content">
-          <mu-scrollbar v-if="showScrollbar" ref="scrollbarRef" :horizontal="horizontalScrollbar">
+      <section v-show="!isCollapse" class="m-box_dialog">
+        <section class="m-box_content">
+          <m-scrollbar v-if="showScrollbar" ref="scrollbarRef" :horizontal="horizontalScrollbar">
             <slot />
-          </mu-scrollbar>
+          </m-scrollbar>
           <slot v-else />
         </section>
-        <footer v-if="$slots.footer" class="mu-box_footer">
+        <footer v-if="$slots.footer" class="m-box_footer">
           <slot name="footer"></slot>
         </footer>
       </section>
@@ -47,7 +47,7 @@ export default {
     const store = useStore()
     const scrollbarRef = ref()
     const loadingOptions = MkhUI.config.component.loading
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(ctx.emit)
 
@@ -56,7 +56,7 @@ export default {
 
     const class_ = computed(() => {
       return [
-        'mu-box',
+        'm-box',
         size_,
         isFullscreen.value ? 'is-fullscreen' : '',
         props.height ? 'has-height' : '',

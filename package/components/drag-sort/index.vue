@@ -1,5 +1,5 @@
 <template>
-  <div ref="containerRef" class="mu-drag-sort">
+  <div ref="containerRef" class="m-drag-sort">
     <slot />
   </div>
 </template>

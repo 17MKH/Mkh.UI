@@ -1,6 +1,6 @@
 <template>
   <div style="height: 400px">
-    <mu-list title="诗词列表" :cols="cols" :query-model="model" :query-method="query" :delete-method="deleteMethod" show-delete-btn multiple>
+    <m-list title="诗词列表" :cols="cols" :query-model="model" :query-method="query" :delete-method="deleteMethod" show-delete-btn multiple>
       <template #querybar>
         <el-form-item label="名称：" prop="name">
           <el-input v-model="model.name" clearable></el-input>
@@ -19,9 +19,9 @@
         </el-form-item>
       </template>
       <template #querybar-buttons>
-        <mu-button type="success" icon="plus" text="自定义按钮" @click="handleCustomButton" />
+        <m-button type="success" icon="plus" text="自定义按钮" @click="handleCustomButton" />
       </template>
-    </mu-list>
+    </m-list>
   </div>
 </template>
 <script>

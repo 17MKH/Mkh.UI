@@ -1,5 +1,5 @@
 <template>
-  <mu-form-box title="添加活动" icon="plus" :action="action" :model="model" :rules="rules" :disabled="disabled">
+  <m-form-box title="添加活动" icon="plus" :action="action" :model="model" :rules="rules" :disabled="disabled">
     <el-form-item label="活动名称" prop="name">
       <el-input v-model="model.name"></el-input>
     </el-form-item>
@@ -19,9 +19,9 @@
       </el-col>
     </el-form-item>
     <template #footer>
-      <mu-button type="primary" :text="disabled ? '启用表单' : '禁用表单'" @click="disabled = !disabled"></mu-button>
+      <m-button type="primary" :text="disabled ? '启用表单' : '禁用表单'" @click="disabled = !disabled"></m-button>
     </template>
-  </mu-form-box>
+  </m-form-box>
 </template>
 <script>
 import { reactive, ref } from 'vue'

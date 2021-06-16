@@ -1,9 +1,9 @@
 <template>
-  <mu-form>
+  <m-form>
     <el-form-item label="选择账户">
-      <mu-select-search v-model="value" :action="query" />
+      <m-select-search v-model="value" :action="query" />
     </el-form-item>
-  </mu-form>
+  </m-form>
 </template>
 <script>
 import { ref } from 'vue'

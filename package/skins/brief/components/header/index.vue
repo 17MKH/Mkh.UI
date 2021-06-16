@@ -1,30 +1,30 @@
 <template>
-  <mu-flex-row mode="right" class="mu-header">
-    <mu-flex-left>
-      <ul class="mu-header_left">
+  <m-flex-row mode="right" class="m-header">
+    <m-flex-left>
+      <ul class="m-header_left">
         <li>
-          <img class="mu-header_logo" :src="logo" />
+          <img class="m-header_logo" :src="logo" />
         </li>
         <li>
-          <span class="mu-header_title">{{ title }}</span>
+          <span class="m-header_title">{{ title }}</span>
         </li>
       </ul>
-    </mu-flex-left>
-    <mu-flex-right>
+    </m-flex-left>
+    <m-flex-right>
       <!--账户信息-->
-      <div class="mu-header_userinfo">
+      <div class="m-header_userinfo">
         <el-dropdown trigger="click" @command="handleCommand">
-          <a class="mu-header_userinfo_avatar" href="javascript:void(0);">
+          <a class="m-header_userinfo_avatar" href="javascript:void(0);">
             <img :src="account.avatar" />
           </a>
           <template #dropdown>
-            <el-dropdown-menu class="mu-header_userinfo_dropdown">
+            <el-dropdown-menu class="m-header_userinfo_dropdown">
               <el-dropdown-item command="userinfo">
-                <mu-icon name="user"></mu-icon>
+                <m-icon name="user"></m-icon>
                 账户信息
               </el-dropdown-item>
               <el-dropdown-item divided command="logout">
-                <mu-icon name="sign-out"></mu-icon>
+                <m-icon name="sign-out"></m-icon>
                 退出登录
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -32,16 +32,16 @@
         </el-dropdown>
       </div>
       <!--工具栏-->
-      <div class="mu-header_toolbar">
+      <div class="m-header_toolbar">
         <!--多语言-->
-        <mu-toolbar-lang />
+        <m-toolbar-lang />
         <!--皮肤-->
-        <mu-toolbar-skin />
+        <m-toolbar-skin />
         <!--全屏-->
-        <mu-toolbar-fullscreen />
+        <m-toolbar-fullscreen />
       </div>
-    </mu-flex-right>
-  </mu-flex-row>
+    </m-flex-right>
+  </m-flex-row>
 </template>
 <script>
 import { computed, getCurrentInstance } from 'vue'
@@ -52,7 +52,7 @@ export default {
     const { $confirm } = getCurrentInstance().proxy
     const store = useStore()
     const { title, logo } = MkhUI.config.site
-    const account = computed(() => store.state.app.account)
+    const account = computed(() => store.state.app.profile)
 
     const handleCommand = cmd => {
       switch (cmd) {

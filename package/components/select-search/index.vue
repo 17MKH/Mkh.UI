@@ -37,7 +37,7 @@ export default {
     })
 
     const store = useStore()
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     let timer = null
     const loading = ref(false)

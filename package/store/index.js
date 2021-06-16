@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import account from './modules/account'
+import profile from './modules/profile'
 import page from './modules/page'
 import skin from './modules/skin'
 import token from './modules/token'
@@ -13,7 +13,7 @@ export default (app, modules) => {
       app: {
         namespaced: true,
         modules: {
-          account,
+          profile,
           skin,
           page,
           token,

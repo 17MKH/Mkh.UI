@@ -1,6 +1,6 @@
 <template>
-  <mu-button type="primary" text="打开对话框表单" @click="visible = true"></mu-button>
-  <mu-form-dialog v-model="visible" title="添加活动" icon="plus" :action="action" :model="model" :rules="rules" reset-on-closed @closed="handleOpen">
+  <m-button type="primary" text="打开对话框表单" @click="visible = true"></m-button>
+  <m-form-dialog v-model="visible" title="添加活动" icon="plus" :action="action" :model="model" :rules="rules" reset-on-closed @closed="handleOpen">
     <el-form-item label="活动名称" prop="name">
       <el-input v-model="model.name"></el-input>
     </el-form-item>
@@ -20,9 +20,9 @@
       </el-col>
     </el-form-item>
     <template #footer>
-      <mu-button type="primary" text="朕是自定义按钮"></mu-button>
+      <m-button type="primary" text="朕是自定义按钮"></m-button>
     </template>
-  </mu-form-dialog>
+  </m-form-dialog>
 </template>
 <script>
 import { reactive, ref } from 'vue'

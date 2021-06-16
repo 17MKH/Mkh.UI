@@ -1,10 +1,10 @@
 <template>
-  <div class="mu-main">
-    <mu-menu />
-    <div class="mu-content">
-      <div class="mu-content_wrapper">
+  <div class="m-main">
+    <m-menu />
+    <div class="m-content">
+      <div class="m-content_wrapper">
         <router-view v-slot="{ Component }">
-          <transition name="mu-animate-fade">
+          <transition name="m-animate-fade">
             <component :is="Component" />
           </transition>
         </router-view>

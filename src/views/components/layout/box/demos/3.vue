@@ -1,7 +1,7 @@
 <template>
-  <mu-box title="带工具栏的盒子" icon="box" show-collapse show-fullscreen>
+  <m-box title="带工具栏的盒子" icon="box" show-collapse show-fullscreen>
     <template #toolbar>
-      <mu-button icon="plus" @click="handlePlus" />
+      <m-button icon="plus" @click="handlePlus" />
     </template>
     <pre>
       君不见黄河之水天上来，奔流到海不复回。
@@ -17,7 +17,7 @@
       主人何为言少钱，径须沽取对君酌。
       五花马、千金裘，呼儿将出换美酒，与尔同销万古愁。
     </pre>
-  </mu-box>
+  </m-box>
 </template>
 <script>
 import { getCurrentInstance } from 'vue'

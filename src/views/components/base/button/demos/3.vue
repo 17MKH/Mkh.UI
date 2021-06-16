@@ -1,7 +1,7 @@
 <template>
   <el-row>
-    <mu-button-delete :action="del"></mu-button-delete>
-    <mu-button-delete :action="del" type="danger"></mu-button-delete>
+    <m-button-delete :action="del"></m-button-delete>
+    <m-button-delete :action="del" type="danger"></m-button-delete>
   </el-row>
 </template>
 <script>

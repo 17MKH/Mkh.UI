@@ -8,33 +8,33 @@
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
     <!--头部-->
-    <mu-head class="mu-list_header" :icon="icon" :icon-color="iconColor" :size="size_">
+    <m-head class="m-list_header" :icon="icon" :icon-color="iconColor" :size="size_">
       <slot name="title" :selection="selection" :total="total">{{ title }}</slot>
       <template #toolbar>
         <!--工具栏插槽-->
         <slot name="toolbar" :selection="selection" :total="total" />
         <!--刷新按钮-->
-        <mu-button v-if="!noRefresh" icon="refresh" />
+        <m-button v-if="!noRefresh" icon="refresh" />
         <!--全屏按钮-->
-        <mu-button v-if="!noFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
+        <m-button v-if="!noFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
       </template>
-    </mu-head>
+    </m-head>
     <!--查询栏-->
-    <div v-if="!noQuerybar" class="mu-list_querybar">
+    <div v-if="!noQuerybar" class="m-list_querybar">
       <el-form ref="queryFormRef" :inline="true" :model="queryModel" :size="size_">
         <slot name="querybar" :selection="selection" :total="total" />
         <el-form-item>
-          <mu-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></mu-button>
-          <mu-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></mu-button>
-          <mu-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove" />
+          <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
+          <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
+          <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove" />
           <!--自定义按钮-->
           <slot name="querybar-buttons" :selection="selection" :total="total" @click="remove" />
         </el-form-item>
       </el-form>
     </div>
     <!--数据表格-->
-    <div class="mu-list_body">
-      <div class="mu-list_table">
+    <div class="m-list_body">
+      <div class="m-list_table">
         <slot :rows="rows">
           <el-table
             ref="tableRef"
@@ -115,13 +115,13 @@
       </div>
     </div>
     <!--底部-->
-    <mu-flex-row class="mu-list_footer" mode="right">
-      <mu-flex-left class="mu-list_footer_left">
+    <m-flex-row class="m-list_footer" mode="right">
+      <m-flex-left class="m-list_footer_left">
         <slot name="footer" :selection="selection" :total="total" />
-      </mu-flex-left>
-      <mu-flex-right>
-        <mu-flex-row mode="left">
-          <mu-flex-left class="mu-list_pagination">
+      </m-flex-left>
+      <m-flex-right>
+        <m-flex-row mode="left">
+          <m-flex-left class="m-list_pagination">
             <!--分页-->
             <el-pagination
               :page-size="page.size"
@@ -135,20 +135,20 @@
               @current-change="handlePaginationCurrentChange"
             >
             </el-pagination>
-          </mu-flex-left>
-          <mu-flex-right>
+          </m-flex-left>
+          <m-flex-right>
             <!--配置列-->
-            <mu-button v-if="!disableSetColumn" class="mu-list_setcolumn_btn" :text="$t('mkh.list.setCol')" @click="showSetColDialog = true" />
-          </mu-flex-right>
-        </mu-flex-row>
-      </mu-flex-right>
-    </mu-flex-row>
+            <m-button v-if="!disableSetColumn" class="m-list_setcolumn_btn" :text="$t('mkh.list.setCol')" @click="showSetColDialog = true" />
+          </m-flex-right>
+        </m-flex-row>
+      </m-flex-right>
+    </m-flex-row>
 
     <!--配置列信息-->
-    <mu-dialog
+    <m-dialog
       v-if="!disableSetColumn"
       v-model="showSetColDialog"
-      custom-class="mu-list_setcolumn_dialog"
+      custom-class="m-list_setcolumn_dialog"
       :title="$t('mkh.list.setColDialogTitle')"
       icon="table"
       width="80%"
@@ -157,9 +157,9 @@
       draggable
     >
       <set-column v-model="cols_" :size="size_" />
-    </mu-dialog>
+    </m-dialog>
 
-    <mu-dialog v-model="showExportDialog" :title="$t('mkh.list.exportDialogTitle')" custom-class="mu-list_export_dialog"></mu-dialog>
+    <m-dialog v-model="showExportDialog" :title="$t('mkh.list.exportDialogTitle')" custom-class="m-list_export_dialog"></m-dialog>
   </div>
 </template>
 <script>
@@ -186,9 +186,9 @@ export default {
     const globalLoading = useLoading(cit)
 
     const store = useStore()
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const class_ = computed(() => {
-      return ['mu-list', size_, isFullscreen.value ? 'is-fullscreen' : '']
+      return ['m-list', size_, isFullscreen.value ? 'is-fullscreen' : '']
     })
     const pagination_ = computed(() => Object.assign({}, paginationOptions, props.pagination || {}))
 

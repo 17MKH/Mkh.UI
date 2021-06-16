@@ -1,5 +1,5 @@
 <template>
-  <el-table ref="tableRef" class="mu-list_setcolumn_table" :data="cols" row-key="prop" height="100%" :size="size" border stripe highlight-current-row>
+  <el-table ref="tableRef" class="m-list_setcolumn_table" :data="cols" row-key="prop" height="100%" :size="size" border stripe highlight-current-row>
     <el-table-column :label="$t('mkh.list.setColLabel.label')" prop="label" align="center"> </el-table-column>
     <el-table-column :label="$t('mkh.list.setColLabel.prop')" prop="prop" align="center"> </el-table-column>
     <el-table-column :label="$t('mkh.list.setColLabel.show')" prop="show" align="center" width="80">
@@ -66,7 +66,7 @@ export default {
 
     onMounted(() => {
       new Sortable(tableRef.value.$el.querySelector('.el-table__body>tbody'), {
-        ghostClass: 'mu-list_setcolumn_table_dragging',
+        ghostClass: 'm-list_setcolumn_table_dragging',
         animate: 150,
         onSort(evt) {
           const newList = [...props.modelValue]

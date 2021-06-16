@@ -1,7 +1,7 @@
 <template>
-  <mu-button
-    v-mu-has="code"
-    class="mu-button-delete"
+  <m-button
+    v-m-has="code"
+    class="m-button-delete"
     :type="type"
     :size="size_"
     :plain="plain"
@@ -16,7 +16,7 @@
     :code="code"
     @click="handleClick"
   >
-  </mu-button>
+  </m-button>
 </template>
 <script>
 import { computed, getCurrentInstance } from 'vue'
@@ -88,7 +88,7 @@ export default {
     const cit = getCurrentInstance().proxy
     const { $confirm, $message, $t } = cit
     const store = useStore()
-    const size_ = computed(() => props.size || store.state.app.account.skin.size)
+    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const loading = useLoading(cit)
 

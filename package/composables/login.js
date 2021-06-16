@@ -22,7 +22,7 @@ export default function () {
     return
   }
 
-  const model = reactive({ username: '', password: '', verifyCode: { id: '', code: '' } })
+  const model = reactive({ username: '', password: '', verifyCode: '', verifyCodeId: '' })
   const rules = {
     username: [
       {
@@ -38,7 +38,7 @@ export default function () {
         trigger: 'blur',
       },
     ],
-    'verifyCode.code': [
+    verifyCode: [
       {
         required: true,
         message: '请输入验证码',
@@ -60,7 +60,7 @@ export default function () {
               type: 'success',
               duration: 1500,
               onClose() {
-                store.commit('app/token/init', data)
+                store.dispatch('app/token/login', data)
                 router.push(redirect)
               },
             })

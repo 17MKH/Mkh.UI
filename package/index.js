@@ -13,6 +13,7 @@ import Components from './components'
 import Directives from './directives'
 export * from './composables'
 export * from './utils'
+import Http from './utils/http'
 import './styles/app.scss'
 /** 导入内置皮肤 */
 import './skins/brief'
@@ -68,7 +69,7 @@ const start = async () => {
   //注册皮肤
   MkhUI.skins.forEach(skin => {
     // 注册组件
-    app.component('mu-skin-' + skin.code.toLowerCase(), skin.component)
+    app.component('m-skin-' + skin.code.toLowerCase(), skin.component)
 
     // 注册状态
     if (skin.store) {
@@ -77,29 +78,43 @@ const start = async () => {
   })
 
   //加载模块
+  MkhUI.$api = {}
   MkhUI.modules.forEach(m => {
+    //加载API
+    let api = {}
+    let httpOptions = Object.assign({}, MkhUI.config.http.global)
+    let httpModuleOptions = MkhUI.config.http.modules[m.code]
+    if (httpModuleOptions) {
+      Object.assign(httpOptions, httpModuleOptions)
+    } else {
+      httpOptions.baseURL = `${httpOptions.baseURL}${httpOptions.baseURL.endsWith('/') ? '' : '/'}${m.code}/`
+    }
+    const http = new Http(httpOptions)
+    for (let p in m.api) {
+      api[p] = m.api[p](http)
+    }
+    MkhUI.$api[m.code] = api
+
     //注册全局组件
     if (m.components) {
       m.components.forEach(c => {
         //过滤下登录组件
         if (c.name.startsWith('login-')) {
-          app.component(`mu-${c.name}`, c.component)
+          app.component(`m-${c.name}`, c.component)
         } else {
-          app.component(`mu-${m.code}-${c.name}`, c.component)
+          app.component(`m-${m.code}-${c.name}`, c.component)
         }
       })
     }
 
     //执行回调函数
     if (m.callback) {
-      m.callback({ app, router, store })
+      m.callback({ app, router, store, api })
     }
   })
 
   //从本地存储中加载令牌
-  store.commit('app/token/loadFromlocalStorage')
-  //加载账户信息
-  await store.dispatch('app/account/init')
+  await store.dispatch('app/token/login')
 
   app.mount('#app')
 }

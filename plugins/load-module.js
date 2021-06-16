@@ -4,7 +4,7 @@ import fg from 'fast-glob'
 import { normalizePath } from 'vite'
 
 export default function (modules) {
-  const prefix = '@mkh-module-'
+  const prefix = '@mkh-mod-'
 
   //**匹配需要搜索的文件 */
   async function getFiles(patterns) {
@@ -37,10 +37,21 @@ export default function (modules) {
     }
   }
 
+  //加载API
+  const loadApi = async (dir, api) => {
+    let files = await getFiles([dir + '/*.js'])
+    files.forEach(file => {
+      api.push({
+        name: path.basename(path.basename(file)).replace('.js', ''),
+        path: normalizePath(file),
+      })
+    })
+  }
+
   return {
     name: 'mkh-load-module',
     resolveId(id, importer) {
-      //匹配@mkh-module并从package.json文件中获取模块编码，然后附加到id后面
+      //匹配@mkh-mod并从package.json文件中获取模块编码，然后附加到id后面
       if (id.startsWith(prefix)) {
         const code = id.replace(prefix, '')
         if (importer.indexOf('index.html') > 0) {
@@ -69,11 +80,12 @@ export default function (modules) {
         }
 
         /** 加载接口服务api */
-        const apiDir = normalizePath(path.resolve(dir, 'api/index.js'))
-        if (fs.existsSync(apiDir)) {
-          src += `import api from '${apiDir}'\r\n`
-          exportCode += ',api'
-        }
+        const api = []
+        const apiDir = normalizePath(path.resolve(dir, 'api'))
+        await loadApi(apiDir, api)
+        api.forEach(a => {
+          src += `import api_${a.name} from '${a.path}'\r\n`
+        })
 
         /** 加载状态 */
         const storeDir = normalizePath(path.resolve(dir, 'store/index.js'))
@@ -102,21 +114,28 @@ export default function (modules) {
         })
 
         src += 'const pages = []\r\n'
-        src += 'const components = []\r\n'
         pages.forEach((p, i) => {
           const name = `page_${i}`
           src += `pages.push(${name})\r\n`
         })
+
+        src += 'const components = []\r\n'
         components.forEach((c, i) => {
           const name = `component_${i}`
           src += `components.push({name:\'${c.name}\',component:${name}})\r\n`
         })
 
-        src += `const mod = {${exportCode}, pages, components }\r\n`
+        src += 'const api = {}\r\n'
+        api.forEach(a => {
+          src += `api['${a.name}'] = api_${a.name}\r\n`
+        })
+
+        src += `const mod = {${exportCode}, pages, components, api }\r\n`
         //注册模块
         src += 'MkhUI.useModule(mod);\r\n'
         //导出模块
         src += 'export default mod'
+
         return src
       }
 

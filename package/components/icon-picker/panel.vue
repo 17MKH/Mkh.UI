@@ -1,16 +1,16 @@
 <template>
-  <mu-dialog v-model="visible" title="选择图标" icon="list" height="60%" width="600px">
+  <m-dialog v-model="visible" title="选择图标" icon="list" height="60%" width="600px">
     <template #toolbar>
-      <el-input v-model="filter" class="mu-icon-picker_panel_filter" placeholder="请输入图标名称" clearable></el-input>
+      <el-input v-model="filter" class="m-icon-picker_panel_filter" placeholder="请输入图标名称" clearable></el-input>
     </template>
-    <section class="mu-icon-picker_panel">
+    <section class="m-icon-picker_panel">
       <el-tooltip v-for="icon in filterList" :key="icon" effect="dark" :open-delay="800" :content="icon" placement="top">
-        <div class="mu-icon-picker_panel_item" @click="handleSelect(icon)">
-          <mu-icon :name="icon" />
+        <div class="m-icon-picker_panel_item" @click="handleSelect(icon)">
+          <m-icon :name="icon" />
         </div>
       </el-tooltip>
     </section>
-  </mu-dialog>
+  </m-dialog>
 </template>
 <script>
 import { computed, ref } from 'vue'
@@ -25,7 +25,7 @@ export default {
 
     const filter = ref('')
     const icons = []
-    document.querySelectorAll('body>svg>symbol').forEach(m => icons.push(m.id.replace('mu-', '')))
+    document.querySelectorAll('body>svg>symbol').forEach(m => icons.push(m.id.replace('m-', '')))
 
     const handleSelect = icon => {
       emit('success', icon)

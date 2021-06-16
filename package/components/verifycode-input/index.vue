@@ -1,15 +1,15 @@
 <template>
-  <div class="mu-verifycode-input">
+  <div class="m-verifycode-input">
     <div>
       <el-form-item :label="label" :prop="prop">
         <el-input :model-value="modelValue" autocomplete="off" placeholder="验证码" clearable @input="handleInput">
           <template #prefix>
-            <mu-icon name="captcha"></mu-icon>
+            <m-icon name="captcha"></m-icon>
           </template>
         </el-input>
       </el-form-item>
     </div>
-    <div class="mu-verifycode-input_img">
+    <div class="m-verifycode-input_img">
       <el-tooltip effect="dark" content="点击刷新" placement="top">
         <img :src="verifyCodeUrl" @click="refreshVerifyCode" />
       </el-tooltip>
@@ -46,7 +46,8 @@ export default {
     //刷新验证码
     const refreshVerifyCode = () => {
       getVerifyCode().then(data => {
-        verifyCodeUrl.value = data.base64String
+        console.log(data)
+        verifyCodeUrl.value = data.base64
         emit('update:id', data.id)
         emit('update:modelValue', '')
       })

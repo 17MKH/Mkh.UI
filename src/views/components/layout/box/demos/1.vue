@@ -1,5 +1,5 @@
 <template>
-  <mu-box>
+  <m-box>
     <pre>
       《满江红》
 
@@ -15,5 +15,5 @@
        壮志饥餐胡虏肉，笑谈渴饮匈奴血。
        待从头、收拾旧山河，朝天阙。
     </pre>
-  </mu-box>
+  </m-box>
 </template>

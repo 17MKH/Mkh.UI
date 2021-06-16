@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar ref="scrollbar" :class="['mu-scrollbar', horizontal ? 'is-horizontal' : '']">
+  <el-scrollbar ref="scrollbar" :class="['m-scrollbar', horizontal ? 'is-horizontal' : '']">
     <slot />
   </el-scrollbar>
 </template>

@@ -26,8 +26,8 @@ npm run dev
 
 组件样式的 class 采用连字符`-`连接，组件内部区域的 class 采用下划线`_`连接，如：
 
-> mu-container 组件：`mu-container`、`mu-container_main`
+> m-container 组件：`m-container`、`m-container_main`
 
-> mu-flex-column 组件：`mu-flex-column`、`mu-flex-column_top`
+> m-flex-column 组件：`m-flex-column`、`m-flex-column_top`
 
 # 欢迎贡献代码以及后端开发人员进行适配

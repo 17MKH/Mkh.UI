@@ -66,6 +66,6 @@ const components = [
 
 export default app => {
   components.forEach(m => {
-    app.component(`Mu${m.name}`, m)
+    app.component(`M${m.name}`, m)
   })
 }

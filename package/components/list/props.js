@@ -1,5 +1,6 @@
-import { loading } from '../../helpers/props'
+import { withProps } from '../../composables/loading'
 export default {
+  ...withProps,
   /** 数据列 */
   cols: {
     type: Array,
@@ -165,5 +166,4 @@ export default {
       return { hasChildren: 'hasChildren', children: 'children' }
     },
   },
-  ...loading,
 }

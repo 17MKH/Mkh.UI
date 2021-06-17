@@ -125,4 +125,29 @@ Http.prototype.put = function (url, params, config) {
   return this.axios.put(url, params, config)
 }
 
-export default Http
+export default () => {
+  MkhUI.$api = {}
+
+  MkhUI.modules.forEach(m => {
+    const { code, api } = m
+    let $api = {}
+    //先判断模块的http配置是否存在，如果不存在则使用全局配置
+    let httpOptions = Object.assign({}, MkhUI.config.http.global)
+    let httpModuleOptions = MkhUI.config.http.modules[code]
+    if (httpModuleOptions) {
+      Object.assign(httpOptions, httpModuleOptions)
+    } else {
+      httpOptions.baseURL = `${httpOptions.baseURL}${httpOptions.baseURL.endsWith('/') ? '' : '/'}${code}/`
+    }
+
+    //创建模块的Http实例
+    const http = new Http(httpOptions)
+
+    for (let p in api) {
+      $api[p] = api[p](http)
+    }
+
+    //绑定到MkhUI全局对象的$api属性上，方便访问
+    MkhUI.$api[code] = $api
+  })
+}

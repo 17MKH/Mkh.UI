@@ -1,5 +1,6 @@
-import { loading } from '../../helpers/props'
+import { withProps } from '../../composables/loading'
 export default {
+  ...withProps,
   modelValue: Boolean,
   /** 显示头部 */
   header: {
@@ -104,5 +105,4 @@ export default {
   },
   /** 显示加载动画 */
   loading: Boolean,
-  ...loading,
 }

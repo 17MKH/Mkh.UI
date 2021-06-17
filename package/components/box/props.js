@@ -1,6 +1,8 @@
-import { loading } from '../../helpers/props'
+import { withProps } from '../../composables/loading'
+console.log(withProps)
+
 export default {
-  ...loading,
+  ...withProps,
   /** 显示头部 */
   header: {
     type: Boolean,

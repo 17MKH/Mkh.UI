@@ -80,9 +80,9 @@ const handleDefaultPage = () => {
   }
 }
 
-export default (app, modules) => {
+export default app => {
   //页面转换路由
-  modules
+  MkhUI.modules
     .filter(m => m.pages)
     .forEach(m => {
       m.pages

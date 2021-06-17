@@ -6,7 +6,7 @@ import token from './modules/token'
 
 let store = null
 
-export default (app, modules) => {
+export default app => {
   const options = {
     modules: {
       //系统模块
@@ -27,7 +27,7 @@ export default (app, modules) => {
     },
   }
 
-  modules
+  MkhUI.modules
     .filter(m => m.store)
     .forEach(m => {
       options.modules.mod.modules[m.code] = m.store

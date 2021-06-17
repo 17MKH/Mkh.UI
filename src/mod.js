@@ -4,7 +4,7 @@ import VCharts from 'vue-echarts'
 import * as echarts from 'echarts'
 
 /** 模块注册回调函数，当vue根实例挂载前调用 */
-mod.callback = ({ app, api }) => {
+mod.callback = ({ app }) => {
   /* 注册vue-echarts组件 */
   /* 说明文档 https://github.com/ecomfe/vue-echarts/blob/main/README.zh-Hans.md */
   app.component('VChart', VCharts)
@@ -12,7 +12,7 @@ mod.callback = ({ app, api }) => {
   //绑定到全局变量
   app.config.globalProperties.$echarts = echarts
 
-  const { login, getVerifyCode, getProfile } = api.authorize
+  const { login, getVerifyCode, getProfile } = MkhUI.$api.doc.authorize
 
   /** 设置登录方法 */
   MkhUI.config.actions.login = login

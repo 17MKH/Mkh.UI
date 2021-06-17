@@ -11,13 +11,9 @@ import 'element-plus/lib/theme-chalk/index.css'
 import 'element-plus/lib/theme-chalk/display.css'
 import Components from './components'
 import Directives from './directives'
-export * from './composables'
-export * from './utils'
 import Http from './utils/http'
 import './styles/app.scss'
-/** 导入内置皮肤 */
-import './skins/brief'
-import './skins/youthful'
+import Skins from './skins'
 
 /** 最终的配置信息 */
 let finalOptions = {
@@ -52,10 +48,10 @@ const start = async () => {
   app.use(locale, finalOptions.locale)
 
   //注册路由
-  app.use(MkhRouter, MkhUI.modules)
+  app.use(MkhRouter)
 
   //注册状态
-  app.use(MkhStore, MkhUI.modules)
+  app.use(MkhStore)
 
   //注册ElementPlus
   app.use(ElementPlus, { i18n: i18n.global.t })
@@ -67,49 +63,16 @@ const start = async () => {
   app.use(Directives)
 
   //注册皮肤
-  MkhUI.skins.forEach(skin => {
-    // 注册组件
-    app.component('m-skin-' + skin.code.toLowerCase(), skin.component)
+  app.use(Skins)
 
-    // 注册状态
-    if (skin.store) {
-      store.registerModule(['app', 'skin', skin.code], skin.store)
-    }
-  })
+  //注册Http服务
+  app.use(Http)
 
-  //加载模块
-  MkhUI.$api = {}
+  //执行模块的回调函数
   MkhUI.modules.forEach(m => {
-    //加载API
-    let api = {}
-    let httpOptions = Object.assign({}, MkhUI.config.http.global)
-    let httpModuleOptions = MkhUI.config.http.modules[m.code]
-    if (httpModuleOptions) {
-      Object.assign(httpOptions, httpModuleOptions)
-    } else {
-      httpOptions.baseURL = `${httpOptions.baseURL}${httpOptions.baseURL.endsWith('/') ? '' : '/'}${m.code}/`
-    }
-    const http = new Http(httpOptions)
-    for (let p in m.api) {
-      api[p] = m.api[p](http)
-    }
-    MkhUI.$api[m.code] = api
-
-    //注册全局组件
-    if (m.components) {
-      m.components.forEach(c => {
-        //过滤下登录组件
-        if (c.name.startsWith('login-')) {
-          app.component(`m-${c.name}`, c.component)
-        } else {
-          app.component(`m-${m.code}-${c.name}`, c.component)
-        }
-      })
-    }
-
     //执行回调函数
     if (m.callback) {
-      m.callback({ app, router, store, api })
+      m.callback({ app, router, store })
     }
   })
 
@@ -128,3 +91,5 @@ window.onload = () => {
 }
 
 export { configure }
+export * from './composables'
+export * from './utils'

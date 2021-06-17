@@ -1,6 +1,6 @@
-import { loading } from '../../helpers/props'
+import { withProps } from '../../composables/loading'
 export default {
-  ...loading,
+  ...withProps,
   /** 不显示加载动画 */
   noLoading: Boolean,
   /** 表单提交方法 */

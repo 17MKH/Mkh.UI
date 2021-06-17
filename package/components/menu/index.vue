@@ -14,9 +14,9 @@ export default {
   components: { MenuItem },
   setup() {
     const store = useStore()
-    const { routeMenus, menus } = store.state.app.profile
 
     const defaultActive = computed(() => {
+      const { routeMenus } = store.state.app.profile
       const { current } = store.state.app.page
       if (current.fullPath && routeMenus) {
         let routeMenu = routeMenus.get(current.fullPath)
@@ -29,7 +29,7 @@ export default {
 
     return {
       defaultActive,
-      menus,
+      menus: computed(() => store.state.app.profile.menus),
       isCollapse: computed(() => store.state.app.skin.brief.menuIsCollapse),
     }
   },

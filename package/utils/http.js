@@ -52,7 +52,7 @@ function Http(options) {
             //尝试刷新令牌
             if (refreshTokenAction) {
               const { accountId, refreshToken } = store.state.app.token
-              refreshTokenAction({
+              return refreshTokenAction({
                 accountId,
                 platform: 0,
                 refreshToken,
@@ -68,6 +68,7 @@ function Http(options) {
                   store.dispatch('app/token/logout')
                 })
             }
+            router.push('/login')
             break
           case 403:
             router.push('/error/403')
@@ -125,6 +126,27 @@ Http.prototype.put = function (url, params, config) {
   return this.axios.put(url, params, config)
 }
 
+//通用的增删改查方法
+const crud = (http, root) => {
+  return {
+    query(params) {
+      return http.get(`${root}/query`, params)
+    },
+    add(params) {
+      return http.post(`${root}/add`, params)
+    },
+    remove(id) {
+      return http.delete(`${root}/delete`, { id })
+    },
+    edit(id) {
+      return http.get(`${root}/edit`, { id })
+    },
+    update(params) {
+      return http.post(`${root}/update`, params)
+    },
+  }
+}
+
 export default () => {
   MkhUI.$api = {}
 
@@ -144,9 +166,9 @@ export default () => {
     const http = new Http(httpOptions)
 
     for (let p in api) {
-      $api[p] = api[p](http)
+      $api[p] = { ...crud(http, p), ...api[p](http) }
     }
-
+    console.log($api)
     //绑定到MkhUI全局对象的$api属性上，方便访问
     MkhUI.$api[code] = $api
   })

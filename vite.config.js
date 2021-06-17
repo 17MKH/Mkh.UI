@@ -24,7 +24,7 @@ export default defineConfig({
     vue(),
   ],
   server: {
-    port: 6220,
+    port: 622,
   },
   build: {
     lib: {

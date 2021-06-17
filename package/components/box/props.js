@@ -1,5 +1,4 @@
 import { withProps } from '../../composables/loading'
-console.log(withProps)
 
 export default {
   ...withProps,

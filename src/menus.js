@@ -136,6 +136,14 @@ export default [
         show: true,
         routeName: 'doc_advanced_drag_sort',
       },
+      {
+        name: '抽屉(Drawer)',
+        type: 1,
+        icon: 'list',
+        level: 2,
+        show: true,
+        routeName: 'doc_advanced_drawer',
+      },
     ],
   },
   {

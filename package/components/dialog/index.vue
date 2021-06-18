@@ -40,12 +40,14 @@
       :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
     >
       <!--内容-->
-      <section class="m-dialog_body">
+      <div class="m-dialog_body">
         <slot v-if="noScrollbar" />
-        <m-scrollbar v-else>
-          <slot />
-        </m-scrollbar>
-      </section>
+        <div v-else class="m-dialog_wrapper">
+          <m-scrollbar>
+            <slot />
+          </m-scrollbar>
+        </div>
+      </div>
       <!--尾部-->
       <footer v-if="$slots.footer" class="m-dialog_footer">
         <slot name="footer"></slot>
@@ -54,7 +56,7 @@
   </el-dialog>
 </template>
 <script>
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import dom from '../../utils/dom'
 import { useStore } from 'vuex'
@@ -142,7 +144,7 @@ export default {
       headerEl = dialogEl.querySelector('.el-dialog__header')
       footerEl = dialogEl.querySelector('.m-dialog_footer')
       headerHeight = headerEl.offsetHeight
-      footerHeight = footerEl.offsetHeight
+      footerHeight = footerEl != null ? footerEl.offsetHeight : 0
       const { draggable, height } = props
 
       //开启拖拽功能，先计算初始坐标再计算大小

@@ -1,8 +1,8 @@
 <template>
-  <m-dialog
-    ref="dialogRef"
+  <m-drawer
+    ref="drawerRef"
     v-model="visible"
-    custom-class="m-form-dialog"
+    custom-class="m-form-drawer"
     :loading="loading"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
@@ -14,11 +14,13 @@
     </m-form>
 
     <template #footer>
-      <slot name="footer"> </slot>
-      <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.form.btnOkText')" :disabled="disabled" @click="submit"></m-button>
-      <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.form.btnResetText')" :disabled="disabled" @click="reset"></m-button>
+      <slot name="footer">
+        <slot name="footer-buttons"></slot>
+        <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.form.btnOkText')" :disabled="disabled" @click="submit"></m-button>
+        <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.form.btnResetText')" :disabled="disabled" @click="reset"></m-button>
+      </slot>
     </template>
-  </m-dialog>
+  </m-drawer>
 </template>
 <script>
 import { computed, getCurrentInstance, ref } from 'vue'
@@ -27,13 +29,13 @@ import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
 import { useStore } from 'vuex'
 export default {
-  name: 'FormDialog',
+  name: 'FormDrawer',
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
     const store = useStore()
-    const dialogRef = ref(null)
+    const drawerRef = ref(null)
     const formRef = ref(null)
     const loading = ref(false)
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
@@ -69,8 +71,8 @@ export default {
 
     return {
       ...useVisible(props, emit),
-      ...fullscreenMixins(dialogRef),
-      dialogRef,
+      ...fullscreenMixins(drawerRef),
+      drawerRef,
       formRef,
       size_,
       loading,

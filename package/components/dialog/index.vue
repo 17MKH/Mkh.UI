@@ -19,7 +19,7 @@
   >
     <!--头部-->
     <template v-if="header" #title>
-      <m-head class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
+      <m-head class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size_">
         <slot name="title">{{ title }}</slot>
         <template #toolbar>
           <!--工具栏插槽-->
@@ -56,7 +56,7 @@
   </el-dialog>
 </template>
 <script>
-import { computed, nextTick, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import dom from '../../utils/dom'
 import { useStore } from 'vuex'
@@ -65,7 +65,7 @@ export default {
   name: 'Dialog',
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
-  setup(props, ctx) {
+  setup(props, { emit }) {
     const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     //默认情况下，未手动设置高度时距离顶部的距离
@@ -74,7 +74,7 @@ export default {
     const loadingOptions = MkhUI.config.component.loading
 
     //全屏操作
-    const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(ctx.emit)
+    const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 
     //使用当前时间戳创建唯一ID
     const class_ = computed(() => {
@@ -102,7 +102,6 @@ export default {
 
       return (document.body.offsetWidth / 100) * 50
     })
-    const { visible, open, close } = useVisible(props, ctx.emit)
 
     const elDialogRef = ref(null)
     let dialogEl = null
@@ -213,18 +212,16 @@ export default {
     }
 
     return {
+      ...useVisible(props, emit),
+      elDialogRef,
       size_,
       top_,
       class_,
       loadingOptions,
-      visible,
-      open,
-      close,
       isFullscreen,
       openFullscreen,
       closeFullscreen,
       toggleFullscreen,
-      elDialogRef,
       handleOpen,
       handleOpened,
       handleClose,

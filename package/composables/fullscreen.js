@@ -25,3 +25,17 @@ export default function (emit) {
     toggleFullscreen,
   }
 }
+
+export const fullscreenMixins = componentRef => {
+  return {
+    openFullscreen() {
+      componentRef.value.openFullscreen()
+    },
+    closeFullscreen() {
+      componentRef.value.closeFullscreen()
+    },
+    toggleFullscreen() {
+      componentRef.value.toggleFullscreen()
+    },
+  }
+}

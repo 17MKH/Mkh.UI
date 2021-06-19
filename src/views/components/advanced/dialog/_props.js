@@ -21,4 +21,8 @@ export default [
   { name: 'draggable', desc: '启用拖拽功能', type: 'Boolean', values: '-', default: 'false' },
   { name: 'drag-out-page', desc: '是否可拖出页面', type: 'Boolean', values: '-', default: 'false' },
   { name: 'drag-min-width', desc: '拖拽出页面后保留的最小宽度，单位px', type: 'Number', values: '-', default: '100' },
+  { name: 'loading', desc: '显示加载动画', type: 'Boolean', values: '-', default: 'false' },
+  { name: 'loading-text', desc: '加载动画文本', type: 'String', values: '-', default: '-' },
+  { name: 'loading-background', desc: '加载动画模态框的背景色', type: 'String', values: '-', default: '-' },
+  { name: 'loading-spinner', desc: '加载动画图标', type: 'String', values: '-', default: '-' },
 ]

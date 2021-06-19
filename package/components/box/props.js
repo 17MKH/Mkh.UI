@@ -1,7 +1,7 @@
-import { withProps } from '../../composables/loading'
+import { withProps as loading } from '../../composables/loading'
 
 export default {
-  ...withProps,
+  ...loading,
   /** 显示头部 */
   header: {
     type: Boolean,
@@ -34,11 +34,6 @@ export default {
   },
   /** 是否显示水平滚动条 */
   horizontalScrollbar: {
-    type: Boolean,
-    default: false,
-  },
-  /** 显示加载动画 */
-  loading: {
     type: Boolean,
     default: false,
   },

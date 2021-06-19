@@ -33,7 +33,7 @@ $skin-brief-breadcrumb-height: 50px;
     }
 
     &_logo {
-      margin-top: ($skin-brief-header-height - $skin-brief-logo-width) / 2;
+      margin-top: ($skin-brief-header-height - $skin-brief-logo-width) * 0.5;
       width: $skin-brief-logo-width;
       height: $skin-brief-logo-width;
     }
@@ -46,7 +46,7 @@ $skin-brief-breadcrumb-height: 50px;
 
     &_userinfo {
       float: right;
-      padding: ($skin-brief-header-height - 35) /2 15px;
+      padding: ($skin-brief-header-height - 35) *0.5 15px;
       height: 100%;
       box-sizing: border-box;
 
@@ -69,7 +69,7 @@ $skin-brief-breadcrumb-height: 50px;
         height: 100%;
 
         #{$prefix}-icon {
-          margin-top: ($skin-brief-header-height - $skin-brief-toolbar-icon-font-size) /2;
+          margin-top: ($skin-brief-header-height - $skin-brief-toolbar-icon-font-size) *0.5;
           font-size: $skin-brief-toolbar-icon-font-size;
           cursor: pointer;
           color: #ddd;

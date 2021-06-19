@@ -1,41 +1,52 @@
 <template>
   <m-button type="success" text="显示对话框" @click="handleClick" />
-  <m-drawer v-model="visible" title="春江花月夜·张若虚 〔唐代〕" icon="list">
-    <div class="m-font-size-30 m-text-center">
-      <p>春江潮水连海平，海上明月共潮生。</p>
-      <p>滟滟随波千万里，何处春江无月明！</p>
-      <p>江流宛转绕芳甸，月照花林皆似霰。</p>
-      <p>空里流霜不觉飞，汀上白沙看不见。</p>
-      <p>江天一色无纤尘，皎皎空中孤月轮。</p>
-      <p>江畔何人初见月？江月何年初照人？</p>
-      <p>人生代代无穷已，江月年年望相似。</p>
-      <p>不知江月待何人，但见长江送流水。</p>
-      <p>白云一片去悠悠，青枫浦上不胜愁。</p>
-      <p>谁家今夜扁舟子？何处相思明月楼？</p>
-      <p>可怜楼上月徘徊，应照离人妆镜台。</p>
-      <p>玉户帘中卷不去，捣衣砧上拂还来。</p>
-      <p>此时相望不相闻，愿逐月华流照君。</p>
-      <p>鸿雁长飞光不度，鱼龙潜跃水成文。</p>
-      <p>昨夜闲潭梦落花，可怜春半不还家。</p>
-      <p>江水流春去欲尽，江潭落月复西斜。</p>
-      <p>斜月沉沉藏海雾，碣石潇湘无限路。</p>
-      <p>不知乘月几人归，落月摇情满江树。</p>
-    </div>
+  <m-drawer v-model="visible" title="蜀道难·李白 〔唐代〕" icon="list">
+    <template #toolbar>
+      <m-button icon="plus" @click="handlePlus" />
+      <m-button icon="refresh" @click="handleRefrech" />
+    </template>
+    <p>
+      噫吁嚱，危乎高哉！<br />蜀道之难，难于上青天！<br />蚕丛及鱼凫，开国何茫然！<br />尔来四万八千岁，不与秦塞通人烟。<br />西当太白有鸟道，可以横绝峨眉巅。<br />地崩山摧壮士死，然后天梯石栈相钩连。<br />上有六龙回日之高标，下有冲波逆折之回川。<br />黄鹤之飞尚不得过，猿猱欲度愁攀援。<br />青泥何盘盘，百步九折萦岩峦。<br />扪参历井仰胁息，以手抚膺坐长叹。
+    </p>
+    <p>
+      问君西游何时还？畏途巉岩不可攀。<br />但见悲鸟号古木，雄飞雌从绕林间。<br />又闻子规啼夜月，愁空山。<br />蜀道之难，难于上青天，使人听此凋朱颜！<br />连峰去天不盈尺，枯松倒挂倚绝壁。<br />飞湍瀑流争喧豗，砯崖转石万壑雷。<br />其险也如此，嗟尔远道之人胡为乎来哉！
+    </p>
+    <p>剑阁峥嵘而崔嵬，一夫当关，万夫莫开。<br />所守或匪亲，化为狼与豺。<br />朝避猛虎，夕避长蛇，磨牙吮血，杀人如麻。<br />锦城虽云乐，不如早还家。<br />蜀道之难，难于上青天，侧身西望长咨嗟！</p>
   </m-drawer>
 </template>
 <script>
-import { ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
+import { useLoading } from '@/package/composables'
 export default {
   setup() {
+    const cti = getCurrentInstance().proxy
     const visible = ref(false)
+    const loading = useLoading(cti)
 
     const handleClick = () => {
       visible.value = true
     }
 
+    const handleRefrech = () => {
+      loading.open()
+
+      setTimeout(() => {
+        loading.close()
+      }, 1500)
+    }
+
+    const handlePlus = () => {
+      cti.$message.success({
+        message: '恭喜你，这是一条成功消息',
+        type: 'success',
+      })
+    }
+
     return {
       visible,
       handleClick,
+      handleRefrech,
+      handlePlus,
     }
   },
 }

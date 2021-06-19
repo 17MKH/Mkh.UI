@@ -9,25 +9,25 @@
         <demo-1></demo-1>
       </m-doc-demo-block>
 
-      <m-doc-demo-block title="显示滚动条" :meta="code3">
+      <m-doc-demo-block title="显示滚动条" :meta="code2">
         <template #desc>
-          <p>当对话框的内容超出内容区域时，会自动显示滚动条。</p>
+          <p>当内容超出内容区域时，会自动显示滚动条。</p>
+        </template>
+        <demo-2></demo-2>
+      </m-doc-demo-block>
+
+      <m-doc-demo-block title="自定义工具按钮" :meta="code3">
+        <template #desc>
+          <p>通过<code>toolbar</code>插槽，用户可以在头部左侧的工具栏添加自己的工具按钮。</p>
         </template>
         <demo-3></demo-3>
       </m-doc-demo-block>
 
-      <m-doc-demo-block title="自定义工具按钮" :meta="code5">
-        <template #desc>
-          <p>通过<code>toolbar</code>插槽，用户可以在头部左侧的工具栏添加自己的工具按钮。</p>
-        </template>
-        <demo-5></demo-5>
-      </m-doc-demo-block>
-
-      <m-doc-demo-block title="自定义底部" :meta="code6">
+      <m-doc-demo-block title="自定义底部" :meta="code4">
         <template #desc>
           <p>通过<code>footer</code>插槽，用户可以在添加底部区域。</p>
         </template>
-        <demo-6></demo-6>
+        <demo-4></demo-4>
       </m-doc-demo-block>
     </m-doc-component-doc>
   </m-container>
@@ -39,14 +39,14 @@ import methods from './_methods'
 import slots from './_slots'
 import demo1 from './demos/1.vue'
 import code1 from './demos/1.vue?raw'
+import demo2 from './demos/2.vue'
+import code2 from './demos/2.vue?raw'
 import demo3 from './demos/3.vue'
 import code3 from './demos/3.vue?raw'
-import demo5 from './demos/5.vue'
-import code5 from './demos/5.vue?raw'
-import demo6 from './demos/6.vue'
-import code6 from './demos/6.vue?raw'
+import demo4 from './demos/4.vue'
+import code4 from './demos/4.vue?raw'
 export default {
-  components: { demo1, demo3, demo5, demo6 },
+  components: { demo1, demo2, demo3, demo4 },
   setup() {
     return {
       props,
@@ -54,9 +54,9 @@ export default {
       methods,
       slots,
       code1,
+      code2,
       code3,
-      code5,
-      code6,
+      code4,
     }
   },
 }

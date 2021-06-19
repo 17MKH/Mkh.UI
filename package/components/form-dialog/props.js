@@ -1,6 +1,7 @@
-import { withProps } from '../../composables/loading'
+import { withProps as loading } from '../../composables/loading'
+
 export default {
-  ...withProps,
+  ...loading,
   modelValue: Boolean,
   /** 表单提交方法 */
   action: {

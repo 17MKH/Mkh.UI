@@ -1,6 +1,7 @@
-import { withProps } from '../../composables/loading'
+import { withProps as loading } from '../../composables/loading'
+
 export default {
-  ...withProps,
+  ...loading,
   /** 数据列 */
   cols: {
     type: Array,

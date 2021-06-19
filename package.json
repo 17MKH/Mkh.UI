@@ -6,7 +6,7 @@
   "author": "OLDLI",
   "main": "lib/index.es.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "serve": "vite preview",
     "build": "vite build && npm run build:locale && npm run build:plugins",
     "build:lib": "vite build",

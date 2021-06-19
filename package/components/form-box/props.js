@@ -1,6 +1,7 @@
-import { withProps } from '../../composables/loading'
+import { withProps as loading } from '../../composables/loading'
+
 export default {
-  ...withProps,
+  ...loading,
   /** 表单提交方法 */
   action: {
     type: Function,

@@ -26,6 +26,11 @@ export default function (cit) {
  * 属性
  */
 export const withProps = {
+  /** 显示加载动画 */
+  loading: {
+    type: Boolean,
+    default: false,
+  },
   /** 加载动画文本 */
   loadingText: {
     type: String,

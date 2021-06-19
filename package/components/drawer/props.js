@@ -1,6 +1,7 @@
-import { withProps } from '../../composables/loading'
+import { withProps as loading } from '../../composables/loading'
+
 export default {
-  ...withProps,
+  ...loading,
   modelValue: Boolean,
   /** 显示头部 */
   header: {
@@ -67,14 +68,14 @@ export default {
     type: Boolean,
     default: true,
   },
-  /** 关闭前的回调，会暂停 Dialog 的关闭 */
+  /** 关闭前的回调，会暂停 Drawer 的关闭 */
   beforeClose: {
     type: Function,
     default: null,
   },
-  /** 关闭时销毁 Dialog 中的元素 */
+  /** 关闭时销毁 Drawer 中的元素 */
   destroyOnClose: Boolean,
-  /** Dialog 自身是否插入至 body 元素上。嵌套的 Dialog 必须指定该属性并赋值为 true */
+  /** Drawer 自身是否插入至 body 元素上。嵌套的 Drawer 必须指定该属性并赋值为 true */
   appendToBody: {
     type: Boolean,
     default: true,
@@ -83,6 +84,4 @@ export default {
   noPadding: Boolean,
   /** 不显示滚动条 */
   noScrollbar: Boolean,
-  /** 显示加载动画 */
-  loading: Boolean,
 }

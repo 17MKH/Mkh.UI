@@ -77,7 +77,7 @@ export default {
     },
   },
   emits: ['click'],
-  setup(props, ctx) {
+  setup(props, { emit }) {
     const router = useRouter()
     const store = useStore()
 
@@ -87,7 +87,7 @@ export default {
       if (props.to) {
         router.push(props.to)
       } else {
-        ctx.emit('click', event)
+        emit('click', event)
       }
     }
 

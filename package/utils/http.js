@@ -2,15 +2,17 @@ import axios from 'axios'
 import qs from 'qs'
 import { store } from '../store'
 import { router } from '../router'
-import { ElMessage } from 'element-plus'
-function Http(options) {
-  this.axios = axios.create(options)
+import { ElNotification } from 'element-plus'
+import { i18n } from './locale'
 
-  this.axios.defaults.headers.post['Content-Type'] = 'application/json'
-  this.axios.defaults.headers.put['Content-Type'] = 'application/json'
+function Http(options) {
+  let _axios = axios.create(options)
+
+  _axios.defaults.headers.post['Content-Type'] = 'application/json'
+  _axios.defaults.headers.put['Content-Type'] = 'application/json'
 
   //请求前拦截器，附加令牌
-  this.axios.interceptors.request.use(
+  _axios.interceptors.request.use(
     config => {
       const { accessToken } = store.state.app.token
       if (accessToken) {
@@ -25,15 +27,16 @@ function Http(options) {
   )
 
   // 响应前拦截器
-  this.axios.interceptors.response.use(
+  _axios.interceptors.response.use(
     response => {
       const { config } = response
       if (response.data.successful) {
         return response.data.data
       } else if (!response.data.successful && !config.noErrorMsg) {
         //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
-        ElMessage({
+        ElNotification({
           type: 'error',
+          title: i18n.global.t('mkh.http.apiError'),
           message: response.data.msg,
           showClose: true,
           duration: 1500,
@@ -61,7 +64,7 @@ function Http(options) {
                   return store.dispatch('app/token/login', data).then(() => {
                     //重新发一起一次上次的的请求
                     error.config.headers.Authorization = 'Bearer ' + data.accessToken
-                    return axios.request(error.config)
+                    return _axios.request(error.config)
                   })
                 })
                 .catch(() => {
@@ -80,16 +83,25 @@ function Http(options) {
         }
       } else {
         if (currentRoute.name === 'login') {
+          ElNotification({
+            type: 'error',
+            title: i18n.global.t('mkh.http.noNetwork'),
+            message: response.data.msg,
+            showClose: true,
+            duration: 1500,
+          })
         } else {
+          router.push('/login')
         }
       }
-      return Promise.reject(error)
     }
   )
+
+  this._axios = _axios
 }
 
 Http.prototype.post = function (url, params, config) {
-  return this.axios.post(url, params, config)
+  return this._axios.post(url, params, config)
 }
 
 Http.prototype.get = function (url, params, config) {
@@ -104,7 +116,7 @@ Http.prototype.get = function (url, params, config) {
       })
     },
   })
-  return this.axios.get(url, config_)
+  return this._axios.get(url, config_)
 }
 
 Http.prototype.delete = function (url, params, config) {
@@ -119,11 +131,11 @@ Http.prototype.delete = function (url, params, config) {
       })
     },
   })
-  return this.axios.delete(url, config_)
+  return this._axios.delete(url, config_)
 }
 
 Http.prototype.put = function (url, params, config) {
-  return this.axios.put(url, params, config)
+  return this._axios.put(url, params, config)
 }
 
 //通用的增删改查方法
@@ -147,7 +159,7 @@ const crud = (http, root) => {
   }
 }
 
-export default () => {
+export default app => {
   MkhUI.$api = {}
 
   MkhUI.modules.forEach(m => {
@@ -168,7 +180,7 @@ export default () => {
     for (let p in api) {
       $api[p] = { ...crud(http, p), ...api[p](http) }
     }
-    console.log($api)
+
     //绑定到MkhUI全局对象的$api属性上，方便访问
     MkhUI.$api[code] = $api
   })

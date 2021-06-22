@@ -42,7 +42,7 @@ export default {
       router.push({
         name: 'login',
         query: {
-          redirect: router.currentRoute.fullPath,
+          redirect: router.currentRoute.value.fullPath,
         },
       })
     },

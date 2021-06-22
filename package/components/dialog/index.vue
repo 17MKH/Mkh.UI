@@ -56,7 +56,7 @@
   </el-dialog>
 </template>
 <script>
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import dom from '../../utils/dom'
 import { useStore } from 'vuex'
@@ -135,7 +135,8 @@ export default {
     }
 
     const handleOpen = () => {
-      ctx.emit('open')
+      nextTick(resize)
+      emit('open')
     }
 
     const handleOpened = () => {
@@ -155,24 +156,22 @@ export default {
         dom.on(headerEl, 'mousedown', handleDragDown)
       }
 
-      resize()
-
       //监听window窗口大小改变事件
       if (!height) {
         dom.on(window, 'resize', resize)
       }
-      ctx.emit('opened')
+      emit('opened')
     }
 
     const handleClose = () => {
-      ctx.emit('close')
+      emit('close')
 
       //关闭window窗口大小改变事件
       if (!props.height) dom.off(window, 'resize', resize)
     }
 
     const handleClosed = () => {
-      ctx.emit('closed')
+      emit('closed')
     }
 
     const handleDragDown = e => {

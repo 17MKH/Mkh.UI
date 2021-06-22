@@ -66,8 +66,8 @@ export default {
       default: null,
     },
   },
-  setup(props, ctx) {
-    const { isFullscreen, toggleFullscreen } = useFullscreen(ctx.emit)
+  setup(props, { emit }) {
+    const { isFullscreen, toggleFullscreen } = useFullscreen(emit)
     return {
       isFullscreen,
       toggleFullscreen,

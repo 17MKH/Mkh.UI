@@ -84,7 +84,7 @@ export default {
     },
   },
   emits: ['success', 'error'],
-  setup(props, ctx) {
+  setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
     const { $confirm, $message, $t } = cit
     const store = useStore()
@@ -107,10 +107,10 @@ export default {
                 message: $t('mkh.delete.success'),
                 type: 'success',
               })
-              ctx.emit('success')
+              emit('success')
             })
             .catch(() => {
-              ctx.emit('error')
+              emit('error')
             })
             .finally(() => {
               loading.close()

@@ -2,6 +2,10 @@ export default {
   name: '中文简体',
   code: 'zh-cn',
   messages: {
+    http: {
+      apiError: '接口错误',
+      noNetwork: '无法连接网络',
+    },
     delete: {
       text: '删除',
       msg: '您确认要删除当前数据吗',

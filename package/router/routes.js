@@ -55,7 +55,6 @@ export default [
     meta: {
       title: 'Error 500',
       cache: false,
-      inFrame: true,
     },
   },
   { path: '/:pathMatch(.*)*', redirect: '/error/404' },

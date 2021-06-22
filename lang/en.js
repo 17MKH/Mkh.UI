@@ -2,6 +2,10 @@ export default {
   name: 'English',
   code: 'en',
   messages: {
+    http: {
+      apiError: 'Api Error',
+      noNetwork: 'No Network',
+    },
     delete: {
       text: 'Delete',
       msg: 'Are you sure you want to delete this data?',

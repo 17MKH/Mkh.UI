@@ -43,13 +43,13 @@ export default {
   name: 'Box',
   props,
   emits: ['fullscreen-change', 'collapse-change'],
-  setup(props, ctx) {
+  setup(props, { emit }) {
     const store = useStore()
     const scrollbarRef = ref()
     const loadingOptions = MkhUI.config.component.loading
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
-    const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(ctx.emit)
+    const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 
     //判断是否显示滚动条
     const showScrollbar = computed(() => !props.noScrollbar.value && (props.height || props.page))
@@ -74,7 +74,7 @@ export default {
     }
 
     return {
-      ...useCollapse(ctx.emit),
+      ...useCollapse(emit),
       size_,
       class_,
       scrollbarRef,

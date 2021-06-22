@@ -24,5 +24,4 @@ export default (app, options) => {
   //注册国际化
   app.use(i18n)
 }
-
 export { i18n }

@@ -168,14 +168,36 @@ import { useFullscreen, useLoading } from '../../composables'
 import { useStore } from 'vuex'
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
-import emits from './emits'
 import SetColumn from './components/set-column.vue'
 import _ from 'lodash'
 export default {
   name: 'List',
   components: { SetColumn },
   props,
-  emits,
+  emits: [
+    'select',
+    'select-all',
+    'selection-change',
+    'cell-mouse-enter',
+    'cell-mouse-leave',
+    'cell-click',
+    'cell-dblclick',
+    'row-click',
+    'row-contextmenu',
+    'row-dblclick',
+    'header-click',
+    'header-contextmenu',
+    'sort-change',
+    'current-change',
+    'header-dragend',
+    'expand-change',
+    'pagination-size-change',
+    'pagination-current-change',
+    'query',
+    'reset',
+    'success',
+    'error',
+  ],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
 
@@ -272,10 +294,10 @@ export default {
                 message: $t('mkh.delete.success'),
                 type: 'success',
               })
-              ctx.emit('success')
+              emit('success')
             })
             .catch(() => {
-              ctx.emit('error')
+              emit('error')
             })
             .finally(() => {
               globalLoading.close()

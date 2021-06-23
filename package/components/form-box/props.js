@@ -44,4 +44,9 @@ export default {
   },
   /** 禁用表单 */
   disabled: Boolean,
+  /** 表单左侧外边距，有强迫症的希望左右空白区域对齐的可以使用该属性 */
+  formMarginRight: {
+    type: String,
+    default: '50px',
+  },
 }

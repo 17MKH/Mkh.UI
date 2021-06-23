@@ -3,7 +3,7 @@ export default {
   code: 'en',
   messages: {
     http: {
-      apiError: 'Api Error',
+      errorTitle: 'Api Error',
       noNetwork: 'No Network',
     },
     delete: {

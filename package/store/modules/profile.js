@@ -62,17 +62,22 @@ const actions = {
   async init({ state, commit }) {
     if (state.id) return
 
-    //获取账户信息
-    const accountInfo = await MkhUI.config.actions.getProfile()
-    //初始化皮肤
-    if (accountInfo.skin) commit('app/skin/init', accountInfo.skin, { root: true })
+    try {
+      //获取账户信息
+      const accountInfo = await MkhUI.config.actions.getProfile()
+      if (accountInfo.skin)
+        //初始化皮肤
+        commit('app/skin/init', accountInfo.skin, { root: true })
 
-    //解析路由菜单信息
-    accountInfo.menus.forEach(m => {
-      resolveRouteMenus(m, m.id)
-    })
+      //解析路由菜单信息
+      accountInfo.menus.forEach(m => {
+        resolveRouteMenus(m, m.id)
+      })
 
-    commit('init', accountInfo)
+      commit('init', accountInfo)
+    } catch (error) {
+      console.log(error)
+    }
   },
 }
 

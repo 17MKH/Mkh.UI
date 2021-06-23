@@ -113,10 +113,10 @@ export default {
 
     //重置窗口大小
     const resize = () => {
-      //如果未设置高度，动态计算对话框高度el-scrollbar__view
       if (props.height) {
         dialogEl.style.height = props.height
       } else {
+        //如果未设置高度，动态计算对话框高度el-scrollbar__view
         let height = 0
         if (props.noScrollbar) {
           console.log(dialogEl.querySelector('.el-dialog__body'))
@@ -135,16 +135,23 @@ export default {
     }
 
     const handleOpen = () => {
-      nextTick(resize)
+      nextTick(() => {
+        //如果关闭时销毁元素，则需要重新计算
+        if (props.destroyOnClose || !dialogEl) {
+          dialogEl = elDialogRef.value.dialogRef
+          headerEl = dialogEl.querySelector('.el-dialog__header')
+          footerEl = dialogEl.querySelector('.m-dialog_footer')
+          headerHeight = headerEl.offsetHeight
+          footerHeight = footerEl != null ? footerEl.offsetHeight : 0
+        }
+
+        resize()
+      })
+
       emit('open')
     }
 
     const handleOpened = () => {
-      dialogEl = elDialogRef.value.dialogRef
-      headerEl = dialogEl.querySelector('.el-dialog__header')
-      footerEl = dialogEl.querySelector('.m-dialog_footer')
-      headerHeight = headerEl.offsetHeight
-      footerHeight = footerEl != null ? footerEl.offsetHeight : 0
       const { draggable, height } = props
 
       //开启拖拽功能，先计算初始坐标再计算大小

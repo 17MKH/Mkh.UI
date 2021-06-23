@@ -36,7 +36,7 @@ function Http(options) {
         //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
         ElNotification({
           type: 'error',
-          title: i18n.global.t('mkh.http.apiError'),
+          title: i18n.global.t('mkh.http.errorTitle'),
           message: response.data.msg,
           showClose: true,
           duration: 1500,
@@ -51,25 +51,29 @@ function Http(options) {
       if (error && error.response) {
         switch (error.response.status) {
           case 401:
-            const refreshTokenAction = MkhUI.config.actions.refreshToken
-            //尝试刷新令牌
-            if (refreshTokenAction) {
-              const { accountId, refreshToken } = store.state.app.token
-              return refreshTokenAction({
-                accountId,
-                platform: 0,
-                refreshToken,
-              })
-                .then(data => {
-                  return store.dispatch('app/token/login', data).then(() => {
-                    //重新发一起一次上次的的请求
-                    error.config.headers.Authorization = 'Bearer ' + data.accessToken
-                    return _axios.request(error.config)
+            const { accountId, refreshToken } = store.state.app.token
+            if (refreshToken) {
+              const refreshTokenAction = MkhUI.config.actions.refreshToken
+              //尝试刷新令牌
+              if (refreshTokenAction) {
+                return refreshTokenAction({
+                  accountId,
+                  platform: 0,
+                  refreshToken,
+                })
+                  .then(data => {
+                    return store.dispatch('app/token/login', data).then(() => {
+                      //重新发一起一次上次的的请求
+                      error.config.headers.Authorization = 'Bearer ' + data.accessToken
+                      return _axios.request(error.config)
+                    })
                   })
-                })
-                .catch(() => {
-                  store.dispatch('app/token/logout')
-                })
+                  .catch(e => {
+                    store.dispatch('app/token/logout').then(() => {
+                      Promise.reject(e)
+                    })
+                  })
+              }
             }
             router.push('/login')
             break

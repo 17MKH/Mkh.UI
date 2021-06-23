@@ -23,8 +23,6 @@ export default {
       }
       if (token) {
         commit('set', token)
-        //只要设置令牌就重新加载个人资料
-        await dispatch('app/profile/init', null, { root: true })
         db.set(key, token)
       }
     },

@@ -9,7 +9,19 @@
     :loading-spinner="loadingSpinner"
     @closed="handleClosed"
   >
-    <m-form ref="formRef" :action="action" :model="model" :rules="rules" :size="size_" no-loading :disabled="disabled" @validate-success="loading = true" @success="handleSuccess" @error="handleError">
+    <m-form
+      ref="formRef"
+      :style="{ marginRight: formMarginRight }"
+      :action="action"
+      :model="model"
+      :rules="rules"
+      :size="size_"
+      no-loading
+      :disabled="disabled"
+      @validate-success="loading = true"
+      @success="handleSuccess"
+      @error="handleError"
+    >
       <slot />
     </m-form>
 

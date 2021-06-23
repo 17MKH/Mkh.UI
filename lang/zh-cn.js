@@ -3,7 +3,7 @@ export default {
   code: 'zh-cn',
   messages: {
     http: {
-      apiError: '接口错误',
+      errorTitle: '接口错误',
       noNetwork: '无法连接网络',
     },
     delete: {

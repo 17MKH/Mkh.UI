@@ -101,7 +101,7 @@ export default app => {
     routes,
   })
 
-  router.beforeEach((to, from) => {
+  router.beforeEach(async (to, from) => {
     // 开始进度条
     NProgress.start()
 
@@ -112,9 +112,14 @@ export default app => {
       if (!accessToken) {
         return '/login'
       }
+
+      //加载个人信息
+      if (!store.state.app.profile.id) {
+        await store.dispatch('app/profile/init', null, { root: true })
+      }
     }
 
-    store.dispatch('app/page/open', to, { root: true })
+    await store.dispatch('app/page/open', to, { root: true })
 
     // 关闭进度条
     NProgress.done()

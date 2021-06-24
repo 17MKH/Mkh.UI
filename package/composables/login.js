@@ -47,7 +47,7 @@ export default function () {
     ],
   }
 
-  const { login } = MkhUI.config.actions
+  const { login } = mkh.config.actions
   const tryLogin = () => {
     formRef.value.validate(valid => {
       if (valid) {

@@ -22,7 +22,7 @@ const mutations = {
    * @description 初始化
    */
   init(state, { code, theme, fontSize }) {
-    let skin = MkhUI.skins.find(m => m.code === code)
+    let skin = mkh.skins.find(m => m.code === code)
     if (skin) {
       state.name = skin.name
       state.code = skin.code
@@ -34,7 +34,7 @@ const mutations = {
    * @description 皮肤切换
    */
   toggle(state, code) {
-    let skin = MkhUI.skins.find(m => m.code === code)
+    let skin = mkh.skins.find(m => m.code === code)
     if (skin) {
       state.name = skin.name
       state.code = skin.code

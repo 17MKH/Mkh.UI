@@ -21,7 +21,7 @@ export default {
       if (current.fullPath && routeMenus) {
         let routeMenu = routeMenus.get(current.fullPath)
         if (routeMenu) {
-          return routeMenu.id
+          return routeMenu.id + ''
         }
       }
       return '-1'

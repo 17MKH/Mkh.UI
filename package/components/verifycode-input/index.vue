@@ -40,7 +40,7 @@ export default {
   },
   emits: ['update:modelValue', 'update:id'],
   setup(props, { emit }) {
-    const { getVerifyCode } = MkhUI.config.actions
+    const { getVerifyCode } = mkh.config.actions
     const verifyCodeUrl = ref()
 
     //刷新验证码

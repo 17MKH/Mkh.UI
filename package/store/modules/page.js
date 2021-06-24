@@ -12,7 +12,7 @@ const actions = {
    * @description 打开页面
    */
   open({ commit }, route) {
-    document.title = route.meta.title || MkhUI.config.site.title
+    document.title = route.meta.title || mkh.config.site.title
     commit('setCurrent', route)
   },
 }

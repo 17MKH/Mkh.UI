@@ -5,7 +5,7 @@
  */
 export default function (cit) {
   const { $loading } = cit
-  const defaultOptions = MkhUI.config.component.$loading
+  const defaultOptions = mkh.config.component.$loading
   let loading
 
   const open = (text, options) => {

@@ -16,6 +16,7 @@
       :model="model"
       :rules="rules"
       :size="size_"
+      :auto-focus-ref="autoFocusRef"
       no-loading
       :disabled="disabled"
       @validate-success="loading = true"

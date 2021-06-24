@@ -34,7 +34,7 @@ import { useLogin } from '../../composables'
 export default {
   name: 'LoginM',
   setup() {
-    const { title, logo } = MkhUI.config.site
+    const { title, logo } = mkh.config.site
     const { model, rules, loading, formRef, tryLogin } = useLogin()
 
     return {

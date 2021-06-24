@@ -8,7 +8,7 @@ export default app => {
   })
 
   //模块中的全局组件
-  MkhUI.modules.forEach(m => {
+  mkh.modules.forEach(m => {
     if (m.components) {
       m.components.forEach(c => {
         //登录组件与众不同~

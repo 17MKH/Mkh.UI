@@ -5,7 +5,7 @@ import './youthful'
 
 export default app => {
   //注册皮肤
-  MkhUI.skins.forEach(skin => {
+  mkh.skins.forEach(skin => {
     // 注册组件
     app.component('m-skin-' + skin.code.toLowerCase(), skin.component)
 

@@ -19,7 +19,6 @@ export default {
       const { breadcrumbs, title, icon } = route.meta
       const last = { label: title, icon: icon }
       if (!breadcrumbs) {
-        console.log(route)
         return [last]
       }
 

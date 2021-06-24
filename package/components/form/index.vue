@@ -23,7 +23,7 @@ export default {
   setup(props, { emit }) {
     const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
-    const loadingOptions = MkhUI.config.component.loading
+    const loadingOptions = mkh.config.component.loading
 
     const formRef = ref(null)
     //加载动画
@@ -70,6 +70,10 @@ export default {
     const reset = () => {
       formRef.value.resetFields()
       resetMethods.value.forEach(m => m())
+
+      if (autoFocusRef) {
+        autoFocusRef.value.focus()
+      }
     }
 
     return { size_, loading, loadingOptions, formRef, validate, submit, reset }

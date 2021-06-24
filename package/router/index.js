@@ -63,7 +63,7 @@ const page2route = (page, parentRoute, pages) => {
  * @description 配置默认页，如果用户设置了默认页，则将默认页对应的路由别名设置为'/'，如果没有则添加系统默认页
  */
 const handleDefaultPage = () => {
-  const { defaultPage } = MkhUI.config.site
+  const { defaultPage } = mkh.config.site
   let noDefaultPage = true
   if (defaultPage) {
     //根据路由名称查找路由信息
@@ -82,7 +82,7 @@ const handleDefaultPage = () => {
 
 export default app => {
   //页面转换路由
-  MkhUI.modules
+  mkh.modules
     .filter(m => m.pages)
     .forEach(m => {
       m.pages

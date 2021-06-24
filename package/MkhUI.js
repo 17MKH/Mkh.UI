@@ -1,10 +1,10 @@
 import pkg from '../package.json'
 
 /**
- * 定义全局的MkhUI对象，该对象只用于保存系统加载过程中
+ * 定义全局的mkh对象，该对象只用于保存系统加载过程中
  * 解析出来的一些固定数据，理论上系统启动后，该对象不会再被更改
  */
-window.MkhUI = {
+window.mkh = {
   /** 版本号 */
   version: pkg.version,
   /** 模块列表 */

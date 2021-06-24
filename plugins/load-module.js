@@ -132,7 +132,7 @@ export default function (modules) {
 
         src += `const mod = {${exportCode}, pages, components, api }\r\n`
         //注册模块
-        src += 'MkhUI.useModule(mod);\r\n'
+        src += 'mkh.useModule(mod);\r\n'
         //导出模块
         src += 'export default mod'
 

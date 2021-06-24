@@ -25,7 +25,7 @@ export default {
 
     return {
       handleCommand,
-      locales: MkhUI.locales,
+      locales: mkh.locales,
     }
   },
 }

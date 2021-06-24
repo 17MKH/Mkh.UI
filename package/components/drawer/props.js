@@ -63,11 +63,6 @@ export default {
     type: Boolean,
     default: true,
   },
-  /** 显示全屏按钮 */
-  showFullscreen: {
-    type: Boolean,
-    default: true,
-  },
   /** 关闭前的回调，会暂停 Drawer 的关闭 */
   beforeClose: {
     type: Function,

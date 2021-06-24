@@ -53,7 +53,7 @@ function Http(options) {
           case 401:
             const { accountId, refreshToken } = store.state.app.token
             if (refreshToken) {
-              const refreshTokenAction = MkhUI.config.actions.refreshToken
+              const refreshTokenAction = mkh.config.actions.refreshToken
               //尝试刷新令牌
               if (refreshTokenAction) {
                 return refreshTokenAction({
@@ -164,14 +164,14 @@ const crud = (http, root) => {
 }
 
 export default app => {
-  MkhUI.$api = {}
+  mkh.$api = {}
 
-  MkhUI.modules.forEach(m => {
+  mkh.modules.forEach(m => {
     const { code, api } = m
     let $api = {}
     //先判断模块的http配置是否存在，如果不存在则使用全局配置
-    let httpOptions = Object.assign({}, MkhUI.config.http.global)
-    let httpModuleOptions = MkhUI.config.http.modules[code]
+    let httpOptions = Object.assign({}, mkh.config.http.global)
+    let httpModuleOptions = mkh.config.http.modules[code]
     if (httpModuleOptions) {
       Object.assign(httpOptions, httpModuleOptions)
     } else {
@@ -185,7 +185,7 @@ export default app => {
       $api[p] = { ...crud(http, p), ...api[p](http) }
     }
 
-    //绑定到MkhUI全局对象的$api属性上，方便访问
-    MkhUI.$api[code] = $api
+    //绑定到mkh全局对象的$api属性上，方便访问
+    mkh.$api[code] = $api
   })
 }

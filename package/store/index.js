@@ -27,7 +27,7 @@ export default app => {
     },
   }
 
-  MkhUI.modules
+  mkh.modules
     .filter(m => m.store)
     .forEach(m => {
       options.modules.mod.modules[m.code] = m.store

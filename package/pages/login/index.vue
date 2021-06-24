@@ -7,7 +7,7 @@
 export default {
   setup() {
     return {
-      loginComponent: MkhUI.config.component.login,
+      loginComponent: mkh.config.component.login,
     }
   },
 }

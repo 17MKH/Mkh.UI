@@ -42,7 +42,7 @@ const start = async () => {
   const app = createApp(Layout)
 
   //模块按照id排序
-  MkhUI.modules = MkhUI.modules.sort((a, b) => a.id - b.id)
+  mkh.modules = mkh.modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
   app.use(locale, finalOptions.locale)
@@ -69,7 +69,7 @@ const start = async () => {
   app.use(Http)
 
   //执行模块的回调函数
-  MkhUI.modules.forEach(m => {
+  mkh.modules.forEach(m => {
     //执行回调函数
     if (m.callback) {
       m.callback({ app, router, store })

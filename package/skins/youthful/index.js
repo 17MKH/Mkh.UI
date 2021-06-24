@@ -41,4 +41,4 @@ const options = {
 }
 
 //使用皮肤
-MkhUI.useSkin(options)
+mkh.useSkin(options)

@@ -64,7 +64,7 @@ const actions = {
 
     try {
       //获取账户信息
-      const accountInfo = await MkhUI.config.actions.getProfile()
+      const accountInfo = await mkh.config.actions.getProfile()
       if (accountInfo.skin)
         //初始化皮肤
         commit('app/skin/init', accountInfo.skin, { root: true })

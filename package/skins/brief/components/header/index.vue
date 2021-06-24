@@ -51,7 +51,7 @@ export default {
   setup() {
     const { $confirm } = getCurrentInstance().proxy
     const store = useStore()
-    const { title, logo } = MkhUI.config.site
+    const { title, logo } = mkh.config.site
     const account = computed(() => store.state.app.profile)
 
     const handleCommand = cmd => {

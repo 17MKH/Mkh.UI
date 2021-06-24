@@ -4,7 +4,7 @@
     <div class="m-content">
       <div class="m-content_wrapper">
         <router-view v-slot="{ Component }">
-          <transition name="m-animate-fade">
+          <transition name="m-animate-fade" mode="out-in">
             <component :is="Component" />
           </transition>
         </router-view>

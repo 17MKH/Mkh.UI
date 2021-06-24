@@ -71,7 +71,7 @@ export default {
     //默认情况下，未手动设置高度时距离顶部的距离
     const top_ = ref('')
     //加载动画配置
-    const loadingOptions = MkhUI.config.component.loading
+    const loadingOptions = mkh.config.component.loading
 
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
@@ -143,6 +143,22 @@ export default {
           footerEl = dialogEl.querySelector('.m-dialog_footer')
           headerHeight = headerEl.offsetHeight
           footerHeight = footerEl != null ? footerEl.offsetHeight : 0
+
+          const { draggable, height, top } = props
+
+          //开启拖拽功能，先计算初始坐标再计算大小
+          if (draggable) {
+            //拖拽模式对话框的定位会设置为fixed模式，所以需要重新计算对话框的left属性
+            dialogEl.style.left = (document.body.offsetWidth - widthNumber.value) / 2 + 'px'
+            dialogEl.style.top = top
+
+            dom.on(headerEl, 'mousedown', handleDragDown)
+          }
+
+          //监听window窗口大小改变事件
+          if (!height) {
+            dom.on(window, 'resize', resize)
+          }
         }
 
         resize()
@@ -152,21 +168,6 @@ export default {
     }
 
     const handleOpened = () => {
-      const { draggable, height } = props
-
-      //开启拖拽功能，先计算初始坐标再计算大小
-      if (draggable) {
-        //拖拽模式对话框的定位会设置为fixed模式，所以需要重新计算对话框的left属性
-        dialogEl.style.left = (document.body.offsetWidth - widthNumber.value) / 2 + 'px'
-        dialogEl.style.top = props.top
-
-        dom.on(headerEl, 'mousedown', handleDragDown)
-      }
-
-      //监听window窗口大小改变事件
-      if (!height) {
-        dom.on(window, 'resize', resize)
-      }
       emit('opened')
     }
 

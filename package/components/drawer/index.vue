@@ -22,14 +22,13 @@
         <template #toolbar>
           <!--工具栏插槽-->
           <slot name="toolbar" />
-          <!--全屏按钮-->
-          <m-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
           <!--关闭按钮-->
           <m-button v-if="showClose" icon="close" @click="close" />
         </template>
       </m-head>
     </template>
 
+    <!--内容区域-->
     <div
       v-loading="loading"
       class="m-drawer_content"
@@ -79,7 +78,7 @@ export default {
     })
 
     //加载动画配置
-    const loadingOptions = MkhUI.config.component.loading
+    const loadingOptions = mkh.config.component.loading
 
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)

@@ -7,7 +7,7 @@ export default (app, options) => {
   options.messages.forEach(locale => {
     const { el, mkh, mod } = locale
     //将语言集保存下载
-    MkhUI.locales.push({
+    mkh.locales.push({
       label: mkh.name,
       value: mkh.code,
     })

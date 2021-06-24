@@ -46,7 +46,7 @@ export default {
   setup(props, { emit }) {
     const store = useStore()
     const scrollbarRef = ref()
-    const loadingOptions = MkhUI.config.component.loading
+    const loadingOptions = mkh.config.component.loading
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)

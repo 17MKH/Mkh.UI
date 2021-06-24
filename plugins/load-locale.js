@@ -23,8 +23,8 @@ export default function (modules) {
         /** 导入Element Plus的语言包 */
         code += `import el from 'element-plus/lib/locale/lang/${lang}.js'\r\n`
 
-        /** 导入Mkh.UI中的语言包 */
-        code += `import mkh from '${normalizePath(path.resolve(__dirname, `../lang/${lang}.js`))}'\r\n`
+        /** 导入Mkh中的语言包 */
+        code += `import ui from '${normalizePath(path.resolve(__dirname, `../lang/${lang}.js`))}'\r\n`
 
         /** 导入模块中的语言包 */
         let mods = []
@@ -35,7 +35,7 @@ export default function (modules) {
             mods.push(m)
           }
         }
-        code += `export default { el:el.el, mkh, mod: {${mods.join(',')}}}`
+        code += `export default { el:el.el, ui, mod: {${mods.join(',')}}}`
 
         return code
       }

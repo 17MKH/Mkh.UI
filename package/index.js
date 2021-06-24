@@ -1,6 +1,6 @@
 import './MkhUI'
 import { createApp } from 'vue'
-import locale, { i18n } from './utils/locale'
+import Locale, { i18n } from './utils/locale'
 import Layout from './layout.vue'
 import MkhRouter, { router } from './router'
 import MkhStore, { store } from './store'
@@ -45,7 +45,7 @@ const start = async () => {
   mkh.modules = mkh.modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
-  app.use(locale, finalOptions.locale)
+  app.use(Locale, finalOptions.locale)
 
   //注册路由
   app.use(MkhRouter)

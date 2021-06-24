@@ -110,6 +110,18 @@
                 </template>
               </el-table-column>
             </template>
+
+            <!--操作列-->
+            <el-table-column v-if="$slots.operation" :width="operationWidth" fixed="right" align="center">
+              <template #header>
+                <slot name="operation-header">操作</slot>
+              </template>
+              <template #default="{ row }">
+                <div class="m-list-operation">
+                  <slot name="operation" :row="row" :rows="rows" />
+                </div>
+              </template>
+            </el-table-column>
           </el-table>
         </slot>
       </div>

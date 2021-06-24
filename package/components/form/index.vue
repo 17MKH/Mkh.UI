@@ -5,6 +5,8 @@
     class="m-form"
     :label-width="labelWidth"
     :size="size_"
+    :model="model"
+    :rules="rules"
     :element-loading-text="loadingText || $t('mkh.form.loadingText')"
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
@@ -70,10 +72,6 @@ export default {
     const reset = () => {
       formRef.value.resetFields()
       resetMethods.value.forEach(m => m())
-
-      if (autoFocusRef) {
-        autoFocusRef.value.focus()
-      }
     }
 
     return { size_, loading, loadingOptions, formRef, validate, submit, reset }

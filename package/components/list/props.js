@@ -167,4 +167,9 @@ export default {
       return { hasChildren: 'hasChildren', children: 'children' }
     },
   },
+  /** 操作列的宽度，默认120px */
+  operationWidth: {
+    type: String,
+    default: '120px',
+  },
 }

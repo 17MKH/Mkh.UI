@@ -41,7 +41,7 @@ import { useStore } from 'vuex'
 export default {
   name: 'FormDialog',
   props,
-  emits: ['update:modelValue', 'success', 'error', 'closed'],
+  emits: ['update:modelValue', 'success', 'error', 'closed', 'reset'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
     const store = useStore()
@@ -50,12 +50,15 @@ export default {
     const loading = ref(false)
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
+    const { visible, open, close } = useVisible(props, emit)
+
     const submit = () => {
       formRef.value.submit()
     }
 
     const reset = () => {
       formRef.value.reset()
+      emit('reset')
     }
 
     const handleSuccess = data => {
@@ -64,6 +67,11 @@ export default {
         type: 'success',
         message: cit.$t('mkh.form.successMsg'),
       })
+
+      if (props.closeOnSuccess) {
+        visible.value = false
+      }
+
       emit('success', data)
     }
 
@@ -80,8 +88,10 @@ export default {
     }
 
     return {
-      ...useVisible(props, emit),
       ...fullscreenMixins(dialogRef),
+      visible,
+      open,
+      close,
       dialogRef,
       formRef,
       size_,

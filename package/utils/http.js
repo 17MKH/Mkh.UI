@@ -163,8 +163,8 @@ const crud = (http, root) => {
   }
 }
 
-export default app => {
-  mkh.$api = {}
+export default () => {
+  mkh.api = {}
 
   mkh.modules.forEach(m => {
     const { code, api } = m
@@ -186,6 +186,6 @@ export default app => {
     }
 
     //绑定到mkh全局对象的$api属性上，方便访问
-    mkh.$api[code] = $api
+    mkh.api[code] = $api
   })
 }

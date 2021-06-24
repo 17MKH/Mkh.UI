@@ -46,7 +46,10 @@ export default {
   /** 禁用表单 */
   disabled: Boolean,
   /** 关闭时重置表单 */
-  resetOnClosed: Boolean,
+  resetOnClosed: {
+    type: Boolean,
+    default: true,
+  },
   /** 表单左侧外边距，有强迫症的希望左右空白区域对齐的可以使用该属性 */
   formMarginRight: {
     type: String,

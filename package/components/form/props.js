@@ -9,6 +9,16 @@ export default {
     type: Function,
     default: null,
   },
+  /** 表单模型 */
+  model: {
+    type: Object,
+    required: true,
+  },
+  /** 验证规则 */
+  rules: {
+    type: Object,
+    default: null,
+  },
   /** 标签的宽度 */
   labelWidth: {
     type: String,

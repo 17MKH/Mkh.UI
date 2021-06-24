@@ -18,6 +18,11 @@ export default {
     type: Object,
     default: null,
   },
+  /** 显示底部栏 */
+  footer: {
+    type: Boolean,
+    default: true,
+  },
   /** 显示保存按钮 */
   btnOk: {
     type: Boolean,

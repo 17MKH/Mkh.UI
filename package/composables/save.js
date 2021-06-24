@@ -3,7 +3,6 @@ import { computed, reactive } from 'vue'
 export default function ({ title, api, model, rules, props, emit }) {
   const { add, edit, update } = api
   const model_ = reactive({})
-
   //绑定属性
   const bind = reactive({
     title: '',
@@ -20,6 +19,9 @@ export default function ({ title, api, model, rules, props, emit }) {
   })
 
   const handleOpen = () => {
+    bind.disabled = props.preview
+    bind.footer = !bind.disabled //预览模式不显示底部
+
     if (isAdd.value) {
       bind.title = '添加' + title
       bind.icon = 'plus'
@@ -55,4 +57,15 @@ export default function ({ title, api, model, rules, props, emit }) {
     bind,
     on: { open: handleOpen, reset: handleReset, success: handleSuccess, error: handleError },
   }
+}
+
+//通用属性
+export const withSaveProps = {
+  //主键
+  id: {
+    type: [String, Number],
+    default: 0,
+  },
+  //预览
+  preview: Boolean,
 }

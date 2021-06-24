@@ -163,7 +163,8 @@
       custom-class="m-list_setcolumn_dialog"
       :title="$t('mkh.list.setColDialogTitle')"
       icon="table"
-      width="80%"
+      width="1200px"
+      height="80%"
       no-padding
       no-scrollbar
       draggable

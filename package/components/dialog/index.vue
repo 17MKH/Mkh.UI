@@ -130,35 +130,33 @@ export default {
           height = document.body.clientHeight - 100
           top_.value = '50px'
         }
+
         dialogEl.style.height = height + 'px'
       }
     }
 
     const handleOpen = () => {
       nextTick(() => {
-        //如果关闭时销毁元素，则需要重新计算
-        if (props.destroyOnClose || !dialogEl) {
-          dialogEl = elDialogRef.value.dialogRef
-          headerEl = dialogEl.querySelector('.el-dialog__header')
-          footerEl = dialogEl.querySelector('.m-dialog_footer')
-          headerHeight = headerEl.offsetHeight
-          footerHeight = footerEl != null ? footerEl.offsetHeight : 0
+        dialogEl = elDialogRef.value.dialogRef
+        headerEl = dialogEl.querySelector('.el-dialog__header')
+        footerEl = dialogEl.querySelector('.m-dialog_footer')
+        headerHeight = headerEl.offsetHeight
+        footerHeight = footerEl != null ? footerEl.offsetHeight : 0
 
-          const { draggable, height, top } = props
+        const { draggable, height, top } = props
 
-          //开启拖拽功能，先计算初始坐标再计算大小
-          if (draggable) {
-            //拖拽模式对话框的定位会设置为fixed模式，所以需要重新计算对话框的left属性
-            dialogEl.style.left = (document.body.offsetWidth - widthNumber.value) / 2 + 'px'
-            dialogEl.style.top = top
+        //开启拖拽功能，先计算初始坐标再计算大小
+        if (draggable) {
+          //拖拽模式对话框的定位会设置为fixed模式，所以需要重新计算对话框的left属性
+          dialogEl.style.left = (document.body.offsetWidth - widthNumber.value) / 2 + 'px'
+          dialogEl.style.top = top
 
-            dom.on(headerEl, 'mousedown', handleDragDown)
-          }
+          dom.on(headerEl, 'mousedown', handleDragDown)
+        }
 
-          //监听window窗口大小改变事件
-          if (!height) {
-            dom.on(window, 'resize', resize)
-          }
+        //监听window窗口大小改变事件
+        if (!height) {
+          dom.on(window, 'resize', resize)
         }
 
         resize()
@@ -233,6 +231,7 @@ export default {
       handleOpened,
       handleClose,
       handleClosed,
+      resize,
     }
   },
 }

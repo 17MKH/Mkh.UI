@@ -25,7 +25,7 @@
       <slot />
     </m-form>
 
-    <template #footer>
+    <template v-if="footer" #footer>
       <slot name="footer"> </slot>
       <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.form.btnOkText')" :disabled="disabled" @click="submit"></m-button>
       <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.form.btnResetText')" :disabled="disabled" @click="reset"></m-button>

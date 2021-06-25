@@ -1,6 +1,6 @@
 <template>
-  <m-flex-row mode="right" class="m-header">
-    <m-flex-left>
+  <m-flex-row class="m-header">
+    <m-flex-auto>
       <ul class="m-header_left">
         <li>
           <img class="m-header_logo" :src="logo" />
@@ -9,8 +9,8 @@
           <span class="m-header_title">{{ title }}</span>
         </li>
       </ul>
-    </m-flex-left>
-    <m-flex-right>
+    </m-flex-auto>
+    <m-flex-fixed>
       <!--账户信息-->
       <div class="m-header_userinfo">
         <el-dropdown trigger="click" @command="handleCommand">
@@ -40,7 +40,7 @@
         <!--全屏-->
         <m-toolbar-fullscreen />
       </div>
-    </m-flex-right>
+    </m-flex-fixed>
   </m-flex-row>
 </template>
 <script>

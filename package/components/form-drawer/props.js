@@ -50,9 +50,18 @@ export default {
     type: Boolean,
     default: true,
   },
+  /** 自定义验证 */
+  customValidate: {
+    type: Function,
+    default: null,
+  },
   /** 表单左侧外边距，有强迫症的希望左右空白区域对齐的可以使用该属性 */
   formMarginRight: {
     type: String,
     default: '50px',
+  },
+  /** 需要自动获取焦点的组件引用 */
+  autoFocusRef: {
+    type: Object,
   },
 }

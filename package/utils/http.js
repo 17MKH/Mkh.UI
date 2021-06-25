@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import { store } from '../store'
 import { router } from '../router'
-import { ElNotification } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { i18n } from './locale'
 
 function Http(options) {
@@ -34,7 +34,7 @@ function Http(options) {
         return response.data.data
       } else if (!response.data.successful && !config.noErrorMsg) {
         //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
-        ElNotification({
+        ElMessage({
           type: 'error',
           title: i18n.global.t('mkh.http.errorTitle'),
           message: response.data.msg,

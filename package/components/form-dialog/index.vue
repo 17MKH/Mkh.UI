@@ -7,16 +7,18 @@
     :loading-text="loadingText"
     :loading-background="loadingBackground"
     :loading-spinner="loadingSpinner"
+    @opened="handleOpened"
     @closed="handleClosed"
   >
     <m-form
       ref="formRef"
+      no-loading
       :style="{ marginRight: formMarginRight }"
       :action="action"
       :model="model"
       :rules="rules"
       :size="size_"
-      no-loading
+      :custom-validate="customValidate"
       :disabled="disabled"
       @validate-success="loading = true"
       @success="handleSuccess"
@@ -33,7 +35,7 @@
   </m-dialog>
 </template>
 <script>
-import { computed, getCurrentInstance, ref } from 'vue'
+import { computed, getCurrentInstance, nextTick, ref } from 'vue'
 import { useVisible } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
@@ -41,7 +43,7 @@ import { useStore } from 'vuex'
 export default {
   name: 'FormDialog',
   props,
-  emits: ['update:modelValue', 'success', 'error', 'closed', 'reset'],
+  emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
     const store = useStore()
@@ -80,6 +82,12 @@ export default {
       emit('error', data)
     }
 
+    const handleOpened = () => {
+      if (props.autoFocusRef) props.autoFocusRef.focus()
+
+      emit('opened')
+    }
+
     const handleClosed = () => {
       if (props.resetOnClosed) {
         formRef.value.reset()
@@ -100,6 +108,7 @@ export default {
       reset,
       handleSuccess,
       handleError,
+      handleOpened,
       handleClosed,
     }
   },

@@ -52,7 +52,7 @@ export default {
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 
     //判断是否显示滚动条
-    const showScrollbar = computed(() => !props.noScrollbar.value && (props.height || props.page))
+    const showScrollbar = computed(() => !props.noScrollbar && (props.height || props.page))
 
     const class_ = computed(() => {
       return [

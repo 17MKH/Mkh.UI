@@ -1,12 +1,16 @@
 <template>
-  <div class="m-flex-top" :style="{ height }">
+  <div class="m-flex-fixed" :style="{ width, height }">
     <slot />
   </div>
 </template>
 <script>
 export default {
-  name: 'FlexTop',
+  name: 'FlexFixed',
   props: {
+    width: {
+      type: String,
+      default: '',
+    },
     height: {
       type: String,
       default: '',

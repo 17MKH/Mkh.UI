@@ -22,7 +22,10 @@ export default function ({ title, api, model, rules, props, emit }) {
     bind.disabled = props.preview
     bind.footer = !bind.disabled //预览模式不显示底部
 
-    if (isAdd.value) {
+    if (bind.disabled) {
+      bind.title = '预览' + title
+      bind.icon = 'plus'
+    } else if (isAdd.value) {
       bind.title = '添加' + title
       bind.icon = 'plus'
       bind.action = add

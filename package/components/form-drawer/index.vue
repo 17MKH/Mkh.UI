@@ -7,17 +7,18 @@
     :loading-text="loadingText"
     :loading-background="loadingBackground"
     :loading-spinner="loadingSpinner"
+    @opened="handleOpened"
     @closed="handleClosed"
   >
     <m-form
       ref="formRef"
+      no-loading
       :style="{ marginRight: formMarginRight }"
       :action="action"
       :model="model"
       :rules="rules"
       :size="size_"
-      :auto-focus-ref="autoFocusRef"
-      no-loading
+      :custom-validate="customValidate"
       :disabled="disabled"
       @validate-success="loading = true"
       @success="handleSuccess"
@@ -44,7 +45,7 @@ import { useStore } from 'vuex'
 export default {
   name: 'FormDrawer',
   props,
-  emits: ['update:modelValue', 'success', 'error', 'closed'],
+  emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
     const store = useStore()
@@ -59,6 +60,7 @@ export default {
 
     const reset = () => {
       formRef.value.reset()
+      emit('reset')
     }
 
     const handleSuccess = data => {
@@ -82,6 +84,12 @@ export default {
       emit('closed')
     }
 
+    const handleOpened = () => {
+      if (props.autoFocusRef) props.autoFocusRef.focus()
+
+      emit('opened')
+    }
+
     return {
       ...useVisible(props, emit),
       ...fullscreenMixins(drawerRef),
@@ -93,6 +101,7 @@ export default {
       reset,
       handleSuccess,
       handleError,
+      handleOpened,
       handleClosed,
     }
   },

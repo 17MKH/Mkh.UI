@@ -74,7 +74,13 @@
             @header-dragend="(newWidth, oldWidth, column, event) => $emit('header-dragend', newWidth, oldWidth, column, eventt)"
             @expand-change="(row, expandedRows) => $emit('expand-change', row, expandedRows)"
           >
-            >
+            <!--展开行-->
+            <el-table-column v-if="$slots.expand" type="expand" fixed="left">
+              <template #default="{ row }">
+                <slot name="expand" :row="row"> </slot>
+              </template>
+            </el-table-column>
+
             <!-- 多选 -->
             <el-table-column v-if="multiple" type="selection" fixed="left" align="center" width="55" />
 
@@ -127,13 +133,13 @@
       </div>
     </div>
     <!--底部-->
-    <m-flex-row class="m-list_footer" mode="right">
-      <m-flex-left class="m-list_footer_left">
+    <m-flex-row class="m-list_footer">
+      <m-flex-auto class="m-list_footer_left">
         <slot name="footer" :selection="selection" :total="total" />
-      </m-flex-left>
-      <m-flex-right>
-        <m-flex-row mode="left">
-          <m-flex-left class="m-list_pagination">
+      </m-flex-auto>
+      <m-flex-fixed>
+        <m-flex-row>
+          <m-flex-fixed class="m-list_pagination">
             <!--分页-->
             <el-pagination
               :page-size="page.size"
@@ -147,13 +153,13 @@
               @current-change="handlePaginationCurrentChange"
             >
             </el-pagination>
-          </m-flex-left>
-          <m-flex-right>
+          </m-flex-fixed>
+          <m-flex-auto>
             <!--配置列-->
             <m-button v-if="!disableSetColumn" class="m-list_setcolumn_btn" :text="$t('mkh.list.setCol')" @click="showSetColDialog = true" />
-          </m-flex-right>
+          </m-flex-auto>
         </m-flex-row>
-      </m-flex-right>
+      </m-flex-fixed>
     </m-flex-row>
 
     <!--配置列信息-->

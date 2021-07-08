@@ -3,6 +3,7 @@
     ref="drawerRef"
     v-model="visible"
     custom-class="m-form-drawer"
+    :size="size"
     :loading="loading"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
@@ -17,7 +18,7 @@
       :action="action"
       :model="model"
       :rules="rules"
-      :size="size_"
+      :size="size"
       :custom-validate="customValidate"
       :disabled="disabled"
       :label-width="labelWidth"
@@ -38,22 +39,19 @@
   </m-drawer>
 </template>
 <script>
-import { computed, getCurrentInstance, ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
 import { useVisible } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
-import { useStore } from 'vuex'
 export default {
   name: 'FormDrawer',
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
-    const store = useStore()
     const drawerRef = ref(null)
     const formRef = ref(null)
     const loading = ref(false)
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const submit = () => {
       formRef.value.submit()
@@ -96,7 +94,6 @@ export default {
       ...fullscreenMixins(drawerRef),
       drawerRef,
       formRef,
-      size_,
       loading,
       submit,
       reset,

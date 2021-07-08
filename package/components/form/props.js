@@ -29,4 +29,9 @@ export default {
     type: Function,
     default: null,
   },
+  /** 尺寸 */
+  size: {
+    type: String,
+    default: '',
+  },
 }

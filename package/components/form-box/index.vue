@@ -1,11 +1,12 @@
 <template>
-  <m-box class="m-form-box" :loading="loading" :loading-text="loadingText" :loading-background="loadingBackground" :loading-spinner="loadingSpinner" @closed="handleClosed">
+  <m-box class="m-form-box" :size="size" :loading="loading" :loading-text="loadingText" :loading-background="loadingBackground" :loading-spinner="loadingSpinner" @closed="handleClosed">
     <m-form
       ref="formRef"
       :style="{ marginRight: formMarginRight }"
       :action="action"
       :model="model"
       :rules="rules"
+      :size="size"
       no-loading
       :disabled="disabled"
       @validate-success="loading = true"

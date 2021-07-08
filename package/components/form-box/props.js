@@ -49,4 +49,9 @@ export default {
     type: String,
     default: '50px',
   },
+  /** 尺寸 */
+  size: {
+    type: String,
+    default: '',
+  },
 }

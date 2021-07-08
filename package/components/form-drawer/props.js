@@ -69,4 +69,9 @@ export default {
   autoFocusRef: {
     type: Object,
   },
+  /** 尺寸 */
+  size: {
+    type: String,
+    default: '',
+  },
 }

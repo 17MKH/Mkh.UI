@@ -3,6 +3,7 @@
     ref="dialogRef"
     v-model="visible"
     custom-class="m-form-dialog"
+    :size="size"
     :loading="loading"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
@@ -17,7 +18,7 @@
       :action="action"
       :model="model"
       :rules="rules"
-      :size="size_"
+      :size="size"
       :custom-validate="customValidate"
       :disabled="disabled"
       :label-width="labelWidth"
@@ -36,22 +37,19 @@
   </m-dialog>
 </template>
 <script>
-import { computed, getCurrentInstance, nextTick, ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
 import { useVisible } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
-import { useStore } from 'vuex'
 export default {
   name: 'FormDialog',
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
-    const store = useStore()
     const dialogRef = ref(null)
     const formRef = ref(null)
     const loading = ref(false)
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const { visible, open, close } = useVisible(props, emit)
 
@@ -107,7 +105,6 @@ export default {
       close,
       dialogRef,
       formRef,
-      size_,
       loading,
       submit,
       reset,

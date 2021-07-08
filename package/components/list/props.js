@@ -172,4 +172,6 @@ export default {
     type: String,
     default: '120px',
   },
+  /** 高亮当前行 */
+  highlightCurrentRow: Boolean,
 }

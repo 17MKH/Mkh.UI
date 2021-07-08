@@ -28,6 +28,6 @@ npm run dev
 
 > m-container 组件：`m-container`、`m-container_main`
 
-> m-flex-column 组件：`m-flex-column`、`m-flex-column_top`
+> m-flex-col 组件：`m-flex-col`、`m-flex-col_top`
 
 # 欢迎贡献代码以及后端开发人员进行适配

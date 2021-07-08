@@ -92,7 +92,7 @@ export default {
   /** 可拖拽的 */
   draggable: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   /** 是否可拖出页面 */
   dragOutPage: {

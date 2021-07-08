@@ -14,7 +14,7 @@
         <m-button type="text" text="预览" icon="preview" @click="view(row)" />
       </template>
     </m-list>
-    <save :id="selection.id" v-model="saveVisible" :preview="preview" @success="refresh" />
+    <save :id="selection.id" v-model="saveVisible" :mode="mode" @success="refresh" />
   </m-container>
 </template>
 <script>

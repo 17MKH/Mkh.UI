@@ -75,8 +75,8 @@ export default function (modules) {
         const packageFile = normalizePath(path.resolve(dir, '../package.json'))
         const hasPackageFile = fs.existsSync(packageFile)
         if (hasPackageFile) {
-          src += `import { id, version, description } from '${packageFile}'\r\n`
-          exportCode += `id:id || 0, code:'${code}', version, description`
+          src += `import { id, version, label, description } from '${packageFile}'\r\n`
+          exportCode += `id:id || 0, code:'${code}', version, label, description`
         }
 
         /** 加载接口服务api */

@@ -14,7 +14,7 @@
         <!--工具栏插槽-->
         <slot name="toolbar" :selection="selection" :total="total" />
         <!--刷新按钮-->
-        <m-button v-if="!noRefresh" icon="refresh" />
+        <m-button v-if="!noRefresh" icon="refresh" @click="refresh" />
         <!--全屏按钮-->
         <m-button v-if="!noFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
       </template>
@@ -56,7 +56,7 @@
             :tree-props="treeProps"
             border
             stripe
-            highlight-current-row
+            :highlight-current-row="highlightCurrentRow"
             @select="(selection, row) => $emit('select', selection, row)"
             @select-all="selection => $emit('select-all', selection)"
             @selection-change="handleSelectionChange"
@@ -77,7 +77,9 @@
             <!--展开行-->
             <el-table-column v-if="$slots.expand" type="expand" fixed="left">
               <template #default="{ row }">
-                <slot name="expand" :row="row"> </slot>
+                <div class="m-list_expand">
+                  <slot name="expand" :row="row"> </slot>
+                </div>
               </template>
             </el-table-column>
 
@@ -369,7 +371,9 @@ export default {
       emit('pagination-current-change', index)
     }
 
-    if (props.queryOnCreated) query()
+    if (props.queryOnCreated) {
+      query()
+    }
 
     return {
       isFullscreen,

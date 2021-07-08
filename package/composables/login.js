@@ -15,13 +15,6 @@ export default function () {
     redirect = '/'
   }
 
-  //如果令牌存在，则直接跳转
-  const { accessToken } = store.state.app.token
-  if (accessToken) {
-    router.push(redirect)
-    return
-  }
-
   const model = reactive({ username: '', password: '', verifyCode: '', verifyCodeId: '' })
   const rules = {
     username: [
@@ -85,6 +78,12 @@ export default function () {
       }
     })
   })
+
+  //如果令牌存在，则直接跳转
+  const { accessToken } = store.state.app.token
+  if (accessToken) {
+    router.push(redirect)
+  }
 
   return {
     model,

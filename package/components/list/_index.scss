@@ -78,6 +78,15 @@
       background-color: #8cc5ff !important;
     }
   }
+
+  &_expand {
+    .el-descriptions {
+      td {
+        border: none;
+      }
+    }
+  }
+
   &.is-fullscreen {
     position: fixed;
     left: 0;

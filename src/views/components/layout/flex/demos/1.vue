@@ -12,16 +12,16 @@
     </m-flex-row>
   </div>
   <div class="m-doc-flex-demo3">
-    <m-flex-column>
+    <m-flex-col>
       <m-flex-fixed height="50px">顶部固定 </m-flex-fixed>
       <m-flex-auto>底部自适应 </m-flex-auto>
-    </m-flex-column>
+    </m-flex-col>
   </div>
   <div class="m-doc-flex-demo4">
-    <m-flex-column>
+    <m-flex-col>
       <m-flex-auto>顶部自适应 </m-flex-auto>
       <m-flex-fixed height="50px">底部固定 </m-flex-fixed>
-    </m-flex-column>
+    </m-flex-col>
   </div>
 </template>
 <style lang="scss">

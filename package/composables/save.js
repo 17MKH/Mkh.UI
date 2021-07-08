@@ -1,6 +1,7 @@
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 
-export default function ({ title, api, model, rules, props, emit }) {
+//mode: add、添加 edit、编辑 view、预览
+export default function ({ title, api, model, rules, props, emit, afterEdit }) {
   const { add, edit, update } = api
   const model_ = reactive({})
   //绑定属性
@@ -10,39 +11,45 @@ export default function ({ title, api, model, rules, props, emit }) {
     model,
     rules,
     action: null,
-  })
-
-  //判断是添加还是编辑
-  const isAdd = computed(() => {
-    const { id } = props
-    return id === null || id === '' || id < 1
+    disabled: false,
+    footer: true,
   })
 
   const handleOpen = () => {
-    bind.disabled = props.preview
-    bind.footer = !bind.disabled //预览模式不显示底部
+    switch (props.mode) {
+      case 'add':
+        bind.title = '添加' + title
+        bind.icon = 'plus'
+        bind.action = add
+        bind.disabled = false
+        bind.footer = true
+        break
+      case 'edit':
+        bind.title = '编辑' + title
+        bind.icon = 'edit'
+        bind.action = update
+        bind.disabled = false
+        bind.footer = true
 
-    if (bind.disabled) {
-      bind.title = '预览' + title
-      bind.icon = 'plus'
-    } else if (isAdd.value) {
-      bind.title = '添加' + title
-      bind.icon = 'plus'
-      bind.action = add
-    } else {
-      bind.title = '编辑' + title
-      bind.icon = 'edit'
-      bind.action = update
-      edit(props.id).then(data => {
-        Object.assign(model_, data)
-        Object.assign(model, model_)
-      })
+        edit(props.id).then(data => {
+          Object.assign(model_, data)
+          Object.assign(model, model_)
+
+          afterEdit && afterEdit()
+        })
+        break
+      default:
+        bind.title = '预览' + title
+        bind.icon = 'preview'
+        bind.disabled = true
+        bind.footer = false
+        break
     }
   }
 
   const handleReset = () => {
     //如果编辑模式，重置会将表单数据重置为修改前，而不是清空
-    if (!isAdd.value) {
+    if (props.mode === 'edit') {
       Object.assign(model, model_)
     }
   }
@@ -56,7 +63,6 @@ export default function ({ title, api, model, rules, props, emit }) {
   }
 
   return {
-    isAdd,
     bind,
     on: { open: handleOpen, reset: handleReset, success: handleSuccess, error: handleError },
   }
@@ -70,5 +76,8 @@ export const withSaveProps = {
     default: 0,
   },
   //预览
-  preview: Boolean,
+  mode: {
+    type: String,
+    default: 'add',
+  },
 }

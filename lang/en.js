@@ -3,8 +3,9 @@ export default {
   code: 'en',
   messages: {
     http: {
-      errorTitle: 'Api Error',
-      noNetwork: 'No Network',
+      errorTitle: 'Api error',
+      noNetwork: 'No network',
+      paramError: 'Param error',
     },
     delete: {
       text: 'Delete',

@@ -55,8 +55,5 @@ export default {
   /** 显示折叠按钮 */
   showCollapse: Boolean,
   /** 显示全屏按钮 */
-  showFullscreen: {
-    type: Boolean,
-    default: true,
-  },
+  showFullscreen: Boolean,
 }

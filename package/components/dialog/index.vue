@@ -41,9 +41,9 @@
     >
       <!--内容-->
       <div class="m-dialog_body">
-        <slot v-if="noScrollbar" />
-        <div v-else class="m-dialog_wrapper">
-          <m-scrollbar>
+        <div class="m-dialog_wrapper">
+          <slot v-if="noScrollbar" />
+          <m-scrollbar v-else>
             <slot />
           </m-scrollbar>
         </div>
@@ -89,20 +89,6 @@ export default {
       return classList.join(' ')
     })
 
-    //宽度值，单位px
-    const widthNumber = computed(() => {
-      const width = props.width
-      if (width.endsWith('%')) {
-        return (document.body.offsetWidth / 100) * parseInt(width.replace('%', ''))
-      }
-
-      if (width.endsWith('px')) {
-        return parseInt(width.replace('%', ''))
-      }
-
-      return (document.body.offsetWidth / 100) * 50
-    })
-
     const elDialogRef = ref(null)
     let dialogEl = null
     let headerEl = null
@@ -113,26 +99,24 @@ export default {
 
     //重置窗口大小
     const resize = () => {
-      if (props.height) {
-        dialogEl.style.height = props.height
-      } else {
-        //如果未设置高度，动态计算对话框高度el-scrollbar__view
-        let height = 0
-        if (props.noScrollbar) {
-          console.log(dialogEl.querySelector('.el-dialog__body'))
+      nextTick(() => {
+        headerHeight = headerEl.offsetHeight
+        footerHeight = footerEl != null ? footerEl.offsetHeight : 0
+        if (props.height) {
+          dialogEl.style.height = props.height
         } else {
-          const viewHeight = dialogEl.querySelector('.el-scrollbar__view').offsetHeight
-          height = viewHeight + headerHeight + footerHeight
-        }
+          let viewHeight = dialogEl.querySelector(props.noScrollbar ? '.el-dialog__body' : '.el-scrollbar__view').offsetHeight
+          let height = viewHeight + headerHeight + footerHeight
 
-        //默认高度不能超出body
-        if (height > document.body.clientHeight) {
-          height = document.body.clientHeight - 100
-          top_.value = '50px'
-        }
+          //默认高度不能超出body
+          if (height > document.body.clientHeight) {
+            height = document.body.clientHeight - 100
+            top_.value = '50px'
+          }
 
-        dialogEl.style.height = height + 'px'
-      }
+          dialogEl.style.height = height + 'px'
+        }
+      })
     }
 
     const handleOpen = () => {
@@ -140,15 +124,14 @@ export default {
         dialogEl = elDialogRef.value.dialogRef
         headerEl = dialogEl.querySelector('.el-dialog__header')
         footerEl = dialogEl.querySelector('.m-dialog_footer')
-        headerHeight = headerEl.offsetHeight
-        footerHeight = footerEl != null ? footerEl.offsetHeight : 0
 
         const { draggable, height, top } = props
 
         //开启拖拽功能，先计算初始坐标再计算大小
         if (draggable) {
           //拖拽模式对话框的定位会设置为fixed模式，所以需要重新计算对话框的left属性
-          dialogEl.style.left = (document.body.offsetWidth - widthNumber.value) / 2 + 'px'
+
+          dialogEl.style.left = (document.body.offsetWidth - dialogEl.offsetWidth) / 2 + 'px'
           dialogEl.style.top = top
 
           dom.on(headerEl, 'mousedown', handleDragDown)
@@ -158,9 +141,9 @@ export default {
         if (!height) {
           dom.on(window, 'resize', resize)
         }
-
-        resize()
       })
+
+      resize()
 
       emit('open')
     }

@@ -69,7 +69,7 @@ export default {
     },
     /** 请求参数 */
     data: {
-      type: [String, Number],
+      type: [String, Number, Object],
       default: '',
     },
     /** 二次确认的消息 */
@@ -86,13 +86,14 @@ export default {
   emits: ['success', 'error'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
-    const { $confirm, $message, $t } = cit
+    const { $confirm, $message } = cit
     const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const loading = useLoading(cit)
 
     const handleClick = () => {
+      const { $t } = cit
       $confirm(props.msg || $t('mkh.delete.msg'), $t('mkh.delete.title'), {
         type: 'warning',
         confirmButtonText: $t('mkh.delete.ok'),

@@ -15,9 +15,6 @@
   border: 3px solid transparent;
 }
 
-@import './reset';
+@import 'mkh-ui-style';
 @import './var';
-@import './mixins';
-@import './animations';
 @import './components';
-@import './helper';

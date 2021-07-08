@@ -20,6 +20,7 @@
       :size="size_"
       :custom-validate="customValidate"
       :disabled="disabled"
+      :label-width="labelWidth"
       @validate-success="loading = true"
       @success="handleSuccess"
       @error="handleError"
@@ -61,6 +62,10 @@ export default {
     const reset = () => {
       formRef.value.reset()
       emit('reset')
+    }
+
+    const resize = () => {
+      dialogRef.value.resize()
     }
 
     const handleSuccess = data => {
@@ -106,6 +111,7 @@ export default {
       loading,
       submit,
       reset,
+      resize,
       handleSuccess,
       handleError,
       handleOpened,

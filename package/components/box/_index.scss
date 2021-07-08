@@ -13,6 +13,7 @@ $p: #{$prefix}-box;
   /**/
   > #{$p}_dialog {
     position: relative;
+    padding: 0;
     @include flex-column();
     flex-grow: 1;
     border-bottom-left-radius: 3px;
@@ -20,6 +21,7 @@ $p: #{$prefix}-box;
 
     > #{$p}_content {
       position: relative;
+      padding: 0;
       flex-grow: 1;
 
       > #{$prefix}-scrollbar {
@@ -39,25 +41,13 @@ $p: #{$prefix}-box;
     }
   }
 
-  &.has-height {
+  &.has-height,
+  &.page {
     > #{$prefix}-box_dialog {
       > #{$prefix}-box_content {
         position: absolute;
-        padding-left: 0;
-        padding-right: 0;
         width: 100%;
         height: 100%;
-
-        #{$prefix}-box_wrapper {
-          height: 100%;
-
-          > &-scrollbar {
-            > .el-scrollbar__wrap {
-              padding-left: 10px;
-              padding-right: 10px;
-            }
-          }
-        }
       }
     }
   }
@@ -73,24 +63,6 @@ $p: #{$prefix}-box;
 
   &.page {
     height: 100%;
-
-    > #{$prefix}-box_dialog {
-      padding: 0;
-
-      > #{$prefix}-box_content {
-        padding: 0;
-
-        > #{$prefix}-box_wrapper {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-
-          .el-scrollbar__view {
-            padding: 10px;
-          }
-        }
-      }
-    }
   }
 
   &.no-scrollbar {

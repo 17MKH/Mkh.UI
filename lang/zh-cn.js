@@ -5,10 +5,11 @@ export default {
     http: {
       errorTitle: '接口错误',
       noNetwork: '无法连接网络',
+      paramError: '参数有误，请核实',
     },
     delete: {
       text: '删除',
-      msg: '您确认要删除当前数据吗',
+      msg: '您确认要删除当前数据吗？',
       title: '删除提醒',
       ok: '确认',
       cancel: '取消',

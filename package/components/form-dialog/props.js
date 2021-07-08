@@ -60,6 +60,11 @@ export default {
     type: Boolean,
     default: true,
   },
+  /** 标签的宽度 */
+  labelWidth: {
+    type: String,
+    default: '100px',
+  },
   /** 自定义验证 */
   customValidate: {
     type: Function,

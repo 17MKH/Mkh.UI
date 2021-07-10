@@ -20,16 +20,13 @@
   </m-box>
 </template>
 <script>
-import { getCurrentInstance } from 'vue'
+import { useMessage } from '@/package/composables'
 export default {
   setup() {
-    const { $message } = getCurrentInstance().proxy
+    const message = useMessage()
 
     const handlePlus = () => {
-      $message({
-        message: '恭喜您，您点击了自定义工具栏',
-        type: 'success',
-      })
+      message.success('恭喜您，您点击了自定义工具栏')
     }
     return {
       handlePlus,

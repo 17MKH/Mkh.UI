@@ -20,7 +20,7 @@
 </template>
 <script>
 import { computed, getCurrentInstance } from 'vue'
-import { useLoading } from '../../composables'
+import { useLoading, useMessage } from '../../composables'
 import { useStore } from 'vuex'
 export default {
   name: 'ButtonDelete',
@@ -86,28 +86,25 @@ export default {
   emits: ['success', 'error'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
-    const { $confirm, $message } = cit
+    const message = useMessage()
     const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
-    const loading = useLoading(cit)
+    const loading = useLoading()
 
     const handleClick = () => {
       const { $t } = cit
-      $confirm(props.msg || $t('mkh.delete.msg'), $t('mkh.delete.title'), {
-        type: 'warning',
-        confirmButtonText: $t('mkh.delete.ok'),
-        cancelButtonText: $t('mkh.delete.cancel'),
-      })
+      message
+        .confirm(props.msg || $t('mkh.delete.msg'), $t('mkh.delete.title'), {
+          confirmButtonText: $t('mkh.delete.ok'),
+          cancelButtonText: $t('mkh.delete.cancel'),
+        })
         .then(() => {
           loading.open($t('mkh.delete.loading'))
           props
             .action(props.data)
             .then(() => {
-              $message.success({
-                message: $t('mkh.delete.success'),
-                type: 'success',
-              })
+              message.success($t('mkh.delete.success'))
               emit('success')
             })
             .catch(() => {

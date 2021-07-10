@@ -15,13 +15,13 @@
   </m-dialog>
 </template>
 <script>
-import { getCurrentInstance, ref } from 'vue'
-import { useLoading } from '@/package/composables'
+import { ref } from 'vue'
+import { useLoading, useMessage } from '@/package/composables'
 export default {
   setup() {
-    const cti = getCurrentInstance().proxy
+    const message = useMessage()
     const visible = ref(false)
-    const loading = useLoading(cti)
+    const loading = useLoading()
 
     const handleClick = () => {
       visible.value = true
@@ -36,10 +36,7 @@ export default {
     }
 
     const handlePlus = () => {
-      cti.$message.success({
-        message: '恭喜你，这是一条成功消息',
-        type: 'success',
-      })
+      message.success('恭喜你，这是一条成功消息')
     }
 
     return {

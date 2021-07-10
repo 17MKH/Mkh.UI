@@ -30,16 +30,13 @@
         position: relative;
         flex-grow: 1;
 
-        > #{$prefix}-dialog_wrapper {
+        > #{$prefix}-scrollbar {
           position: absolute;
           height: 100%;
           width: 100%;
-
-          > #{$prefix}-scrollbar {
-            > .el-scrollbar__wrap {
-              > .el-scrollbar__view {
-                padding: 10px 15px;
-              }
+          > .el-scrollbar__wrap {
+            > .el-scrollbar__view {
+              padding: 10px;
             }
           }
         }
@@ -50,6 +47,16 @@
         padding: 10px;
         border-top: 1px solid $border-color-3;
         text-align: right;
+      }
+    }
+  }
+
+  &.no-scrollbar {
+    > .el-dialog__body {
+      > #{$prefix}-dialog_content {
+        > #{$prefix}-dialog_body {
+          padding: 10px 15px;
+        }
       }
     }
   }

@@ -40,7 +40,7 @@
 </template>
 <script>
 import { getCurrentInstance, ref } from 'vue'
-import { useVisible } from '../../composables'
+import { useVisible, useMessage } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
 export default {
@@ -49,6 +49,7 @@ export default {
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
+    const message = useMessage()
     const drawerRef = ref(null)
     const formRef = ref(null)
     const loading = ref(false)
@@ -64,10 +65,7 @@ export default {
 
     const handleSuccess = data => {
       loading.value = false
-      cit.$message({
-        type: 'success',
-        message: cit.$t('mkh.form.successMsg'),
-      })
+      message.success(cit.$t('mkh.form.successMsg'))
       emit('success', data)
     }
 

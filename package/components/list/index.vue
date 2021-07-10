@@ -185,7 +185,7 @@
 </template>
 <script>
 import { computed, getCurrentInstance, reactive, ref } from 'vue'
-import { useFullscreen, useLoading } from '../../composables'
+import { useFullscreen, useLoading, useMessage } from '../../composables'
 import { useStore } from 'vuex'
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
@@ -221,12 +221,13 @@ export default {
   ],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
+    const message = useMessage()
 
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
     //加载动画配置
     const loadingOptions = mkh.config.component.loading
-    const globalLoading = useLoading(cit)
+    const globalLoading = useLoading()
 
     const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
@@ -289,32 +290,23 @@ export default {
 
     //删除
     const remove = () => {
-      const { $confirm, $message, $t } = cit
-      console.log($t)
+      const { $t } = cit
       if (selection.value.length < 1) {
-        $message({
-          message: $t('mkh.list.deleteNoData'),
-          showClose: true,
-          type: 'error',
-          duration: 2000,
-        })
+        message.error($t('mkh.list.deleteNoData'))
         return
       }
 
-      $confirm($t('mkh.list.deleteMsg'), $t('mkh.delete.title'), {
-        type: 'warning',
-        confirmButtonText: $t('mkh.delete.ok'),
-        cancelButtonText: $t('mkh.delete.cancel'),
-      })
+      message
+        .confirm($t('mkh.list.deleteMsg'), $t('mkh.delete.title'), {
+          confirmButtonText: $t('mkh.delete.ok'),
+          cancelButtonText: $t('mkh.delete.cancel'),
+        })
         .then(() => {
           globalLoading.open($t('mkh.delete.loading'))
           props
             .deleteMethod(selection.value.map(item => item.id))
             .then(() => {
-              $message.success({
-                message: $t('mkh.delete.success'),
-                type: 'success',
-              })
+              message.success($t('mkh.delete.success'))
               emit('success')
             })
             .catch(() => {

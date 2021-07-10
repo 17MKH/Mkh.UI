@@ -30,7 +30,8 @@
   </m-container>
 </template>
 <script>
-import { getCurrentInstance, ref } from 'vue'
+import { ref } from 'vue'
+import { useMessage } from '@/package/composables'
 import props from './_props'
 import copy from 'clipboard-copy'
 import demo from './demos/1.vue'
@@ -38,7 +39,7 @@ import code from './demos/1.vue?raw'
 export default {
   components: { demo },
   setup() {
-    const { $message } = getCurrentInstance().proxy
+    const message = useMessage()
     const list = ref([])
     var symbols = document.querySelectorAll('body>svg>symbol')
     symbols.forEach(m => {
@@ -50,10 +51,7 @@ export default {
 
       copy(html)
 
-      $message.success({
-        message: `代码已复制到粘贴板：${html}`,
-        type: 'success',
-      })
+      message.success(`代码已复制到粘贴板：${html}`)
     }
 
     return {

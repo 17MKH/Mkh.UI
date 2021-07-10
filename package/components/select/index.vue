@@ -22,7 +22,7 @@ export default {
     /** 是否选中第一个 */
     checkedFirst: Boolean,
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'update:label', 'change'],
   setup(props, { emit }) {
     const value_ = computed({
       get() {
@@ -57,6 +57,8 @@ export default {
 
     const handleChange = val => {
       const option = options.value.find(m => m.value === val)
+
+      emit('update:label', option != undefined ? option.label : '')
       emit('change', val, option, options)
     }
 

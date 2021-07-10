@@ -1,19 +1,18 @@
-/**
- *
- * @param {Object} cit 当前组件实例
- * @returns
- */
-export default function (cit) {
-  const { $loading } = cit
+import { ElLoading } from 'element-plus'
+
+export default function () {
   const defaultOptions = mkh.config.component.$loading
   let loading
 
   const open = (text, options) => {
-    loading = $loading(Object.assign({}, defaultOptions, { text: text || '正在加载数据，请稍后...' }, options))
+    loading = ElLoading.service(Object.assign({}, defaultOptions, { text: text || '正在加载数据，请稍后...' }, options))
   }
 
   const close = () => {
-    loading.close()
+    this.$nextTick(() => {
+      // 以服务的方式调用的 Loading 需要异步关闭
+      loading.close()
+    })
   }
 
   return {

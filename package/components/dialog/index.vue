@@ -19,34 +19,26 @@
   >
     <!--头部-->
     <template v-if="header" #title>
-      <m-head class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size_">
+      <f-head class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
         <slot name="title">{{ title }}</slot>
         <template #toolbar>
           <!--工具栏插槽-->
           <slot name="toolbar" />
           <!--全屏按钮-->
-          <m-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
+          <f-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
           <!--关闭按钮-->
-          <m-button v-if="showClose" icon="close" @click="close" />
+          <f-button v-if="showClose" icon="close" @click="close" />
         </template>
-      </m-head>
+      </f-head>
     </template>
 
-    <div
-      v-loading="loading"
-      class="m-dialog_content"
-      :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
-      :element-loading-background="loadingBackground || loadingOptions.background"
-      :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
-    >
+    <div v-loading="loading" class="m-dialog_content" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
       <!--内容-->
       <div class="m-dialog_body">
-        <div class="m-dialog_wrapper">
-          <slot v-if="noScrollbar" />
-          <m-scrollbar v-else>
-            <slot />
-          </m-scrollbar>
-        </div>
+        <slot v-if="noScrollbar" />
+        <f-scrollbar v-else>
+          <slot />
+        </f-scrollbar>
       </div>
       <!--尾部-->
       <footer v-if="$slots.footer" class="m-dialog_footer">
@@ -58,30 +50,28 @@
 <script>
 import { computed, nextTick, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
+import { addResizeListener, removeResizeListener } from 'element-plus/packages/utils/resize-event'
 import dom from '../../utils/dom'
-import { useStore } from 'vuex'
 import props from './props'
 export default {
   name: 'Dialog',
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {
-    const store = useStore()
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     //默认情况下，未手动设置高度时距离顶部的距离
     const top_ = ref('')
-    //加载动画配置
-    const loadingOptions = mkh.config.component.loading
 
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 
     //使用当前时间戳创建唯一ID
     const class_ = computed(() => {
-      const { customClass, noPadding, draggable } = props
+      const { customClass, noPadding, noScrollbar, draggable } = props
+
       let classList = ['m-dialog', `m-dialog-${new Date().getTime()}`]
-      if (size_.value) classList.push(size_.value)
+      if (props.size) classList.push(props.size)
       if (noPadding) classList.push('no-padding')
+      if (noScrollbar) classList.push('no-scrollbar')
       if (draggable) classList.push('draggable')
       if (isFullscreen.value) classList.push('is-fullscreen')
       if (customClass) classList.push(props.customClass)
@@ -93,6 +83,8 @@ export default {
     let dialogEl = null
     let headerEl = null
     let footerEl = null
+    let scrollbarEl = null
+    let bodyEl = null
     let dragDownState = null
     let headerHeight = 0
     let footerHeight = 0
@@ -105,7 +97,7 @@ export default {
         if (props.height) {
           dialogEl.style.height = props.height
         } else {
-          let viewHeight = dialogEl.querySelector(props.noScrollbar ? '.el-dialog__body' : '.el-scrollbar__view').offsetHeight
+          let viewHeight = props.noScrollbar ? bodyEl.offsetHeight : scrollbarEl.offsetHeight
           let height = viewHeight + headerHeight + footerHeight
 
           //默认高度不能超出body
@@ -124,6 +116,8 @@ export default {
         dialogEl = elDialogRef.value.dialogRef
         headerEl = dialogEl.querySelector('.el-dialog__header')
         footerEl = dialogEl.querySelector('.m-dialog_footer')
+        scrollbarEl = dialogEl.querySelector('.el-scrollbar__view')
+        bodyEl = dialogEl.querySelector('.m-dialog_body')
 
         const { draggable, height, top } = props
 
@@ -141,6 +135,10 @@ export default {
         if (!height) {
           dom.on(window, 'resize', resize)
         }
+
+        if (!props.noScrollbar) {
+          addResizeListener(scrollbarEl, resize)
+        }
       })
 
       resize()
@@ -157,6 +155,10 @@ export default {
 
       //关闭window窗口大小改变事件
       if (!props.height) dom.off(window, 'resize', resize)
+
+      if (!props.noScrollbar) {
+        removeResizeListener(scrollbarEl, resize)
+      }
     }
 
     const handleClosed = () => {
@@ -202,10 +204,8 @@ export default {
     return {
       ...useVisible(props, emit),
       elDialogRef,
-      size_,
       top_,
       class_,
-      loadingOptions,
       isFullscreen,
       openFullscreen,
       closeFullscreen,

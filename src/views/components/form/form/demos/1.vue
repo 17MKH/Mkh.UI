@@ -28,10 +28,11 @@
   </div>
 </template>
 <script>
-import { getCurrentInstance, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { useMessage } from '@/package/composables'
 export default {
   setup() {
-    const { $message } = getCurrentInstance().proxy
+    const message = useMessage()
     const formRef = ref(null)
     const model = reactive({
       name: '',
@@ -51,7 +52,7 @@ export default {
     }
 
     const handleSuccess = () => {
-      $message({ type: 'success', message: '恭喜你，保存成功' })
+      message.success('恭喜你，保存成功')
     }
 
     return { formRef, model, rules, disabled, action, handleSuccess }

@@ -25,6 +25,7 @@
 </template>
 <script>
 import { getCurrentInstance, ref } from 'vue'
+import { useMessage } from '../../composables'
 import props from './props'
 export default {
   name: 'FormBox',
@@ -32,6 +33,7 @@ export default {
   emits: ['success', 'error'],
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
+    const message = useMessage()
     const formRef = ref(null)
     const loading = ref(false)
 
@@ -45,10 +47,7 @@ export default {
 
     const handleSuccess = data => {
       loading.value = false
-      cit.$message({
-        type: 'success',
-        message: cit.$t('mkh.form.successMsg'),
-      })
+      message.success(cit.$t('mkh.form.successMsg'))
       emit('success', data)
     }
 

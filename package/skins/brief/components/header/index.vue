@@ -44,12 +44,13 @@
   </m-flex-row>
 </template>
 <script>
-import { computed, getCurrentInstance } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { useMessage } from '@/package/composables'
 
 export default {
   setup() {
-    const { $confirm } = getCurrentInstance().proxy
+    const message = useMessage()
     const store = useStore()
     const { title, logo } = mkh.config.site
     const account = computed(() => store.state.app.profile)
@@ -57,11 +58,11 @@ export default {
     const handleCommand = cmd => {
       switch (cmd) {
         case 'logout':
-          $confirm('您确定要退出系统吗?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning',
-          })
+          message
+            .confirm('您确定要退出系统吗?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+            })
             .then(() => {
               store.dispatch('app/token/logout')
             })

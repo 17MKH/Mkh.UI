@@ -1,4 +1,5 @@
 import { ElLoading } from 'element-plus'
+import { nextTick } from 'vue'
 
 export default function () {
   const defaultOptions = mkh.config.component.$loading
@@ -9,7 +10,7 @@ export default function () {
   }
 
   const close = () => {
-    this.$nextTick(() => {
+    nextTick(() => {
       // 以服务的方式调用的 Loading 需要异步关闭
       loading.close()
     })

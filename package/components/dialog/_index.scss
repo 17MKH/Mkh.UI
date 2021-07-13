@@ -63,11 +63,15 @@
 
   &.no-padding {
     > .el-dialog__body {
-      > #{$prefix}-dialog_body {
-        > #{$prefix}-scrollbar {
-          > .el-scrollbar__wrap {
-            > .el-scrollbar__view {
-              padding: 0;
+      > #{$prefix}-dialog_content {
+        > #{$prefix}-dialog_body {
+          padding: 0 !important;
+
+          > #{$prefix}-scrollbar {
+            > .el-scrollbar__wrap {
+              > .el-scrollbar__view {
+                padding: 0 !important;
+              }
             }
           }
         }

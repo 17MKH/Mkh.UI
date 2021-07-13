@@ -27,10 +27,10 @@
   }
 
   &_panel {
-    text-align: center;
+    text-align: left;
     &_filter {
       margin-right: 15px;
-      width: auto;
+      width: 180px !important;
 
       .el-input__inner {
         height: 28px;
@@ -42,11 +42,9 @@
       position: relative;
       margin: 5px;
       display: inline-block;
-      width: 50px;
-      height: 50px;
-      line-height: 50px;
+      width: 120px;
+      height: 120px;
       text-align: center;
-      font-size: 30px;
       background-color: #e1e1e1;
       border-radius: 5px;
       box-sizing: border-box;
@@ -57,8 +55,18 @@
       &:hover {
         background-color: $color-warning;
         color: #fff;
-        transform: scale(1.2);
+        transform: scale(1.1);
       }
+
+      #{$prefix}-icon {
+        margin: 20px 0 10px 0;
+        font-size: 60px;
+      }
+    }
+
+    &_code {
+      width: 100%;
+      font-size: 13px;
     }
   }
 }

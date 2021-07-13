@@ -37,6 +37,7 @@ export default {
         headerAlign: '表头对齐方式',
       },
       exportDialogTitle: '导出数据',
+      operationHeader: '操作',
     },
     iconPicker: {
       placeholder: '请选择图标',

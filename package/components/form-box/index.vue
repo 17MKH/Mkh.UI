@@ -7,8 +7,9 @@
       :model="model"
       :rules="rules"
       :size="size"
-      no-loading
       :disabled="disabled"
+      :before-submit="beforeSubmit"
+      no-loading
       @validate-success="loading = true"
       @success="handleSuccess"
       @error="handleError"

@@ -84,4 +84,6 @@ export default {
     type: String,
     default: '',
   },
+  /** 提交前的操作 */
+  beforeSubmit: Function,
 }

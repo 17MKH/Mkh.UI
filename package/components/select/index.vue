@@ -46,8 +46,9 @@ export default {
         .then(data => {
           options.value = data
           if (props.checkedFirst && data.length > 0) {
-            value_.value = data[0].value
-            handleChange(value_.value)
+            const checkedValue = data[0].value
+            value_.value = checkedValue
+            handleChange(checkedValue)
           }
         })
         .finally(() => {
@@ -57,7 +58,6 @@ export default {
 
     const handleChange = val => {
       const option = options.value.find(m => m.value === val)
-
       emit('update:label', option != undefined ? option.label : '')
       emit('change', val, option, options)
     }

@@ -1,5 +1,5 @@
 <template>
-  <m-dialog v-model="visible" title="选择图标" icon="list" height="60%" width="600px">
+  <m-dialog v-model="visible" title="选择图标" icon="list" height="60%" width="800px">
     <template #toolbar>
       <el-input v-model="filter" class="m-icon-picker_panel_filter" placeholder="请输入图标名称" clearable></el-input>
     </template>
@@ -7,6 +7,7 @@
       <el-tooltip v-for="icon in filterList" :key="icon" effect="dark" :open-delay="800" :content="icon" placement="top">
         <div class="m-icon-picker_panel_item" @click="handleSelect(icon)">
           <m-icon :name="icon" />
+          <div class="m-icon-picker_panel_code">{{ icon }}</div>
         </div>
       </el-tooltip>
     </section>

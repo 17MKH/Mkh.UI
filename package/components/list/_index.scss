@@ -87,6 +87,11 @@
     }
   }
 
+  &_operation {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
   &.is-fullscreen {
     position: fixed;
     left: 0;

@@ -2,10 +2,12 @@ import { reactive, ref } from 'vue'
 
 export default function () {
   //列表组件引用
-  const listRef = ref(null)
-  //当前操作选择的列ID
-  const selection = reactive({})
+  const listRef = ref()
+  //当前操作选择的列
+  const selection = ref({})
+  //当前操作模式
   const mode = ref('')
+  //显示编辑或添加
   const saveVisible = ref(false)
 
   //添加
@@ -16,21 +18,21 @@ export default function () {
 
   //编辑
   const edit = row => {
-    Object.assign(selection, row)
+    selection.value = row
     mode.value = 'edit'
     saveVisible.value = true
   }
 
   //预览
   const view = row => {
-    Object.assign(selection, row)
+    selection.value = row
     mode.value = 'view'
     saveVisible.value = true
   }
 
   //刷新
   const refresh = () => {
-    listRef.value.refresh()
+    if (listRef.value) listRef.value.refresh()
   }
 
   return {
@@ -45,6 +47,7 @@ export default function () {
   }
 }
 
+//基类实体的列信息
 export const entityBaseCols = [
   { prop: 'creator', label: '创建人', width: 80 },
   { prop: 'createdTime', label: '创建时间', width: 150 },

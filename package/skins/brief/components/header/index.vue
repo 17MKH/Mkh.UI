@@ -46,7 +46,7 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { useMessage } from '@/package/composables'
+import { useMessage } from '../../../../composables'
 
 export default {
   setup() {

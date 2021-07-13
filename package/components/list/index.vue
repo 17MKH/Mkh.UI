@@ -120,12 +120,12 @@
             </template>
 
             <!--操作列-->
-            <el-table-column v-if="$slots.operation" :width="operationWidth" fixed="right" align="center">
+            <el-table-column v-if="$slots.operation" :width="operationWidth || operationWidth_" fixed="right" align="center">
               <template #header>
-                <slot name="operation-header">操作</slot>
+                <slot name="operation-header">{{ $t('mkh.list.operationHeader') }}</slot>
               </template>
               <template #default="{ row }">
-                <div class="m-list-operation">
+                <div ref="operationRef" class="m-list_operation">
                   <slot name="operation" :row="row" :rows="rows" />
                 </div>
               </template>
@@ -174,7 +174,6 @@
       width="1200px"
       height="80%"
       no-padding
-      no-scrollbar
       draggable
     >
       <set-column v-model="cols_" :size="size_" />
@@ -184,7 +183,7 @@
   </div>
 </template>
 <script>
-import { computed, getCurrentInstance, reactive, ref } from 'vue'
+import { computed, getCurrentInstance, nextTick, reactive, ref } from 'vue'
 import { useFullscreen, useLoading, useMessage } from '../../composables'
 import { useStore } from 'vuex'
 import { columnOptions, paginationOptions } from './default'
@@ -238,6 +237,8 @@ export default {
 
     //处理列配置信息
     const cols_ = ref(props.cols.map(m => _.merge({}, columnOptions, m)))
+    //操作列宽度
+    const operationWidth_ = ref(0)
 
     //显示设置列信息的对话框
     const showSetColDialog = ref(false)
@@ -254,6 +255,8 @@ export default {
     const queryFormRef = ref(null)
     //表格引用
     const tableRef = ref(null)
+    //操作列引用
+    const operationRef = ref(null)
     //加载动画
     const loading = ref(false)
     //多选模式下已选择项列表
@@ -267,6 +270,10 @@ export default {
         .then(data => {
           rows.value = data.rows
           total.value = data.total
+
+          nextTick(() => {
+            operationWidth_.value = operationRef.value.getBoundingClientRect().width + 30
+          })
 
           emit('query', data)
         })
@@ -379,10 +386,12 @@ export default {
       selection,
       queryFormRef,
       tableRef,
+      operationRef,
       loading,
       size_,
       class_,
       cols_,
+      operationWidth_,
       pagination_,
       query,
       refresh,

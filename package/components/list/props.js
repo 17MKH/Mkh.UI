@@ -170,7 +170,7 @@ export default {
   /** 操作列的宽度，默认120px */
   operationWidth: {
     type: String,
-    default: '120px',
+    default: null,
   },
   /** 高亮当前行 */
   highlightCurrentRow: Boolean,

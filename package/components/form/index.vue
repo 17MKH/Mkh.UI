@@ -52,8 +52,11 @@ export default {
     /** 提交 */
     const submit = () => {
       validate(() => {
-        const { action, model } = props
+        const { action, model, beforeSubmit } = props
         if (action) {
+          //执行器的操作
+          beforeSubmit && beforeSubmit()
+
           loading.value = true
           action(model)
             .then(data => {

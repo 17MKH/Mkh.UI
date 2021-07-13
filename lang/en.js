@@ -37,6 +37,7 @@ export default {
         headerAlign: 'Header Align',
       },
       exportDialogTitle: 'Export Data',
+      operationHeader: 'Action',
     },
     iconPicker: {
       placeholder: 'Please select the icon',

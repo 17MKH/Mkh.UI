@@ -22,6 +22,7 @@
       :custom-validate="customValidate"
       :disabled="disabled"
       :label-width="labelWidth"
+      :before-submit="beforeSubmit"
       @validate-success="loading = true"
       @success="handleSuccess"
       @error="handleError"

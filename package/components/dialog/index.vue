@@ -19,26 +19,26 @@
   >
     <!--头部-->
     <template v-if="header" #title>
-      <f-head class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
+      <m-head class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
         <slot name="title">{{ title }}</slot>
         <template #toolbar>
           <!--工具栏插槽-->
           <slot name="toolbar" />
           <!--全屏按钮-->
-          <f-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
+          <m-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
           <!--关闭按钮-->
-          <f-button v-if="showClose" icon="close" @click="close" />
+          <m-button v-if="showClose" icon="close" @click="close" />
         </template>
-      </f-head>
+      </m-head>
     </template>
 
     <div v-loading="loading" class="m-dialog_content" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
       <!--内容-->
       <div class="m-dialog_body">
         <slot v-if="noScrollbar" />
-        <f-scrollbar v-else>
+        <m-scrollbar v-else>
           <slot />
-        </f-scrollbar>
+        </m-scrollbar>
       </div>
       <!--尾部-->
       <footer v-if="$slots.footer" class="m-dialog_footer">

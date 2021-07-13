@@ -1,8 +1,11 @@
-import { reactive } from 'vue'
+import { reactive, toRef } from 'vue'
 
 //mode: add、添加 edit、编辑 view、预览
-export default function ({ title, api, model, rules, props, emit, afterEdit }) {
+export default function ({ props, title, api, model, rules, emit, afterEdit }) {
   const { add, edit, update } = api
+  const id = toRef(props, 'id')
+  const mode = toRef(props, 'mode')
+
   const model_ = reactive({})
   //绑定属性
   const bind = reactive({
@@ -13,10 +16,11 @@ export default function ({ title, api, model, rules, props, emit, afterEdit }) {
     action: null,
     disabled: false,
     footer: true,
+    destroyOnClose: true,
   })
 
   const handleOpen = () => {
-    switch (props.mode) {
+    switch (mode.value) {
       case 'add':
         bind.title = '添加' + title
         bind.icon = 'plus'
@@ -31,7 +35,7 @@ export default function ({ title, api, model, rules, props, emit, afterEdit }) {
         bind.disabled = false
         bind.footer = true
 
-        edit(props.id).then(data => {
+        edit(id.value).then(data => {
           Object.assign(model_, data)
           Object.assign(model, model_)
 
@@ -49,7 +53,7 @@ export default function ({ title, api, model, rules, props, emit, afterEdit }) {
 
   const handleReset = () => {
     //如果编辑模式，重置会将表单数据重置为修改前，而不是清空
-    if (props.mode === 'edit') {
+    if (mode.value === 'edit') {
       Object.assign(model, model_)
     }
   }

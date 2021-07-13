@@ -27,7 +27,7 @@ export default function () {
   }
 
   const confirm = (msg, title, options) => {
-    return ElMessageBox.alert(
+    return ElMessageBox.confirm(
       msg,
       title || '提示',
       Object.assign(

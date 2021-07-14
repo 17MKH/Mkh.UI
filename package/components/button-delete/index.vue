@@ -14,7 +14,7 @@
     :icon="icon"
     :text="text || $t('mkh.delete.text')"
     :code="code"
-    @click="handleClick"
+    @click.stop="handleClick"
   >
   </m-button>
 </template>

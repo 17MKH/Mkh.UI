@@ -4,6 +4,10 @@
   }
 }
 
+#{$prefix}-button-delete.el-button--text {
+  color: #f56c6c !important;
+}
+
 .el-button--text {
   #{$prefix}-icon + #{$prefix}-button_text {
     margin-left: 5px !important;

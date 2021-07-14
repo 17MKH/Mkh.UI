@@ -2,10 +2,10 @@
   "id": 0,
   "name": "mkh-ui",
   "label": "",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "17MKH前端框架",
   "author": "OLDLI",
-  "main": "package/index",
+  "main": "lib/index.es.js",
   "scripts": {
     "dev": "vite --host",
     "serve": "vite preview",

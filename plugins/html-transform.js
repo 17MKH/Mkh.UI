@@ -1,5 +1,3 @@
-const path = require('path')
-const fse = require('fs-extra')
 import ejs from 'ejs'
 import minifierTerser from 'html-minifier-terser'
 
@@ -42,9 +40,5 @@ const htmlMinify = function (options) {
 
 /** index.html处理 */
 export default function (options) {
-  //复制index.html
-  if (options.custom) {
-    fse.copy(options.custom, path.resolve('index.html'))
-  }
   return [htmlRender(options.render), htmlMinify(options.minify)]
 }

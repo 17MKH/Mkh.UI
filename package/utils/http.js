@@ -47,7 +47,6 @@ function Http(options) {
       }
     },
     error => {
-      let currentRoute = router.currentRoute
       if (error && error.response) {
         switch (error.response.status) {
           case 401:
@@ -86,17 +85,7 @@ function Http(options) {
             break
         }
       } else {
-        if (currentRoute.name === 'login') {
-          ElNotification({
-            type: 'error',
-            title: i18n.global.t('mkh.http.noNetwork'),
-            message: response.data.msg,
-            showClose: true,
-            duration: 1500,
-          })
-        } else {
-          router.push('/login')
-        }
+        return Promise.reject(i18n.global.t('mkh.http.errorTitle'))
       }
     }
   )

@@ -28,6 +28,8 @@ window.mkh = {
     auth: {
       /**启用按钮权限 */
       enableButtonPermissions: true,
+      /**启用验证码功能 */
+      enableVerifyCode: true,
     },
     /**组件配置 */
     component: {

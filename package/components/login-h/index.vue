@@ -27,7 +27,7 @@
               </template>
             </el-input>
           </el-form-item>
-          <m-verifycode-input v-model="model.verifyCode" v-model:id="model.verifyCodeId" label="验证码" />
+          <m-verifycode-input v-if="enableVerifyCode" v-model="model.verifyCode" v-model:id="model.verifyCodeId" label="验证码" />
           <el-form-item>
             <el-button class="m-login-h_btn" type="primary" :loading="loading" @click="tryLogin">{{ loading ? '登录中...' : '登录' }}</el-button>
           </el-form-item>
@@ -69,6 +69,7 @@ export default {
       rules,
       loading,
       tryLogin,
+      enableVerifyCode: mkh.config.auth.enableVerifyCoee,
     }
   },
 }

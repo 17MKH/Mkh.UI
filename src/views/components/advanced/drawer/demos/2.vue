@@ -1,7 +1,7 @@
 <template>
   <m-button type="success" text="显示对话框" @click="handleClick" />
   <m-drawer v-model="visible" title="春江花月夜·张若虚 〔唐代〕" icon="list">
-    <div class="m-font-size-30 m-text-center">
+    <div class="m-font-30 m-text-center">
       <p>春江潮水连海平，海上明月共潮生。</p>
       <p>滟滟随波千万里，何处春江无月明！</p>
       <p>江流宛转绕芳甸，月照花林皆似霰。</p>

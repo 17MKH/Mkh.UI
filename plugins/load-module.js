@@ -54,10 +54,12 @@ export default function (modules) {
       //匹配@mkh-mod并从package.json文件中获取模块编码，然后附加到id后面
       if (id.startsWith(prefix)) {
         const code = id.replace(prefix, '')
-        if (importer.indexOf('index.html') > 0) {
-          modules[code] = path.resolve(path.dirname(normalizePath(importer)), 'src')
-        } else {
-          modules[code] = path.dirname(normalizePath(importer))
+        if (!modules[code]) {
+          if (importer.indexOf('index.html') > 0) {
+            modules[code] = path.resolve(path.dirname(normalizePath(importer)), 'src')
+          } else {
+            modules[code] = path.dirname(normalizePath(importer))
+          }
         }
         return id
       }

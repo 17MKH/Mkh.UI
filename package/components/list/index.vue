@@ -8,7 +8,7 @@
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
     <!--头部-->
-    <m-head class="m-list_header" :icon="icon" :icon-color="iconColor" :size="size_">
+    <m-head v-if="header" class="m-list_header" :icon="icon" :icon-color="iconColor" :size="size_">
       <slot name="title" :selection="selection" :total="total">{{ title }}</slot>
       <template #toolbar>
         <!--工具栏插槽-->

@@ -13,27 +13,26 @@
 
   > .el-dialog__body {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     flex-grow: 1;
     padding: 0;
 
     > #{$prefix}-dialog_content {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      height: 100%;
+      position: relative;
+      flex-grow: 1;
 
       > #{$prefix}-dialog_body {
-        position: relative;
-        flex-grow: 1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
 
         > #{$prefix}-scrollbar {
           position: absolute;
           height: 100%;
           width: 100%;
+
           > .el-scrollbar__wrap {
             > .el-scrollbar__view {
               padding: 10px;
@@ -41,13 +40,13 @@
           }
         }
       }
+    }
 
-      > #{$prefix}-dialog_footer {
-        flex-shrink: 0;
-        padding: 10px;
-        border-top: 1px solid $border-color-3;
-        text-align: right;
-      }
+    > #{$prefix}-dialog_footer {
+      flex-shrink: 0;
+      padding: 10px;
+      border-top: 1px solid $border-color-3;
+      text-align: right;
     }
   }
 

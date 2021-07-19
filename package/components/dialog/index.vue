@@ -32,19 +32,22 @@
       </m-head>
     </template>
 
+    <!--内容-->
     <div v-loading="loading" class="m-dialog_content" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
-      <!--内容-->
       <div class="m-dialog_body">
-        <slot v-if="noScrollbar" />
+        <slot v-if="noScrollbar && height"></slot>
+        <div v-else-if="noScrollbar && !height" class="m-dialog_wrapper">
+          <slot />
+        </div>
         <m-scrollbar v-else>
           <slot />
         </m-scrollbar>
       </div>
-      <!--尾部-->
-      <footer v-if="$slots.footer" class="m-dialog_footer">
-        <slot name="footer"></slot>
-      </footer>
     </div>
+    <!--尾部-->
+    <footer v-if="$slots.footer" class="m-dialog_footer">
+      <slot name="footer"></slot>
+    </footer>
   </el-dialog>
 </template>
 <script>
@@ -84,7 +87,7 @@ export default {
     let headerEl = null
     let footerEl = null
     let scrollbarEl = null
-    let bodyEl = null
+    let wrapperEl = null
     let dragDownState = null
     let headerHeight = 0
     let footerHeight = 0
@@ -97,11 +100,11 @@ export default {
         if (props.height) {
           dialogEl.style.height = props.height
         } else {
-          let viewHeight = props.noScrollbar ? bodyEl.offsetHeight : scrollbarEl.offsetHeight
+          let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
           let height = viewHeight + headerHeight + footerHeight
-
+          console.log(height)
           //默认高度不能超出body
-          if (height > document.body.clientHeight) {
+          if (height > document.body.clientHeight - 100) {
             height = document.body.clientHeight - 100
             top_.value = '50px'
           }
@@ -117,7 +120,7 @@ export default {
         headerEl = dialogEl.querySelector('.el-dialog__header')
         footerEl = dialogEl.querySelector('.m-dialog_footer')
         scrollbarEl = dialogEl.querySelector('.el-scrollbar__view')
-        bodyEl = dialogEl.querySelector('.m-dialog_body')
+        wrapperEl = dialogEl.querySelector('.m-dialog_wrapper')
 
         const { draggable, height, top } = props
 
@@ -136,9 +139,7 @@ export default {
           dom.on(window, 'resize', resize)
         }
 
-        if (!props.noScrollbar) {
-          addResizeListener(scrollbarEl, resize)
-        }
+        addResizeListener(props.noScrollbar ? wrapperEl : scrollbarEl, resize)
       })
 
       resize()
@@ -156,9 +157,7 @@ export default {
       //关闭window窗口大小改变事件
       if (!props.height) dom.off(window, 'resize', resize)
 
-      if (!props.noScrollbar) {
-        removeResizeListener(scrollbarEl, resize)
-      }
+      removeResizeListener(props.noScrollbar ? wrapperEl : scrollbarEl, resize)
     }
 
     const handleClosed = () => {

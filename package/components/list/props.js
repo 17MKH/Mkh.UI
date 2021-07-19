@@ -17,6 +17,11 @@ export default {
     type: Function,
     required: true,
   },
+  /** 显示头部 */
+  header: {
+    type: Boolean,
+    default: true,
+  },
   /** 标题 */
   title: {
     type: String,

@@ -1,7 +1,5 @@
 #{$prefix}-drawer {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  @include flex-column();
   overflow: hidden;
 
   > .el-drawer__header {
@@ -12,45 +10,35 @@
   }
 
   > .el-drawer__body {
+    @include flex-column();
     position: relative;
     flex-grow: 1;
     padding: 0;
 
     > #{$prefix}-drawer_content {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      height: 100%;
+      position: relative;
+      flex-grow: 1;
 
       > #{$prefix}-drawer_body {
-        position: relative;
-        flex-grow: 1;
+        position: absolute;
+        height: 100%;
+        width: 100%;
 
-        > #{$prefix}-drawer_wrapper {
-          position: absolute;
-          height: 100%;
-          width: 100%;
-
-          > #{$prefix}-scrollbar {
-            > .el-scrollbar__wrap {
-              > .el-scrollbar__view {
-                padding: 10px 15px;
-              }
+        > #{$prefix}-scrollbar {
+          > .el-scrollbar__wrap {
+            > .el-scrollbar__view {
+              padding: 10px 15px;
             }
           }
         }
       }
+    }
 
-      > #{$prefix}-drawer_footer {
-        flex-shrink: 0;
-        padding: 10px;
-        border-top: 1px solid $border-color-3;
-        text-align: right;
-      }
+    > #{$prefix}-drawer_footer {
+      flex-shrink: 0;
+      padding: 10px;
+      border-top: 1px solid $border-color-3;
+      text-align: right;
     }
   }
 

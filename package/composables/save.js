@@ -56,19 +56,13 @@ export default function ({ props, title, api, model, rules, emit, afterEdit }) {
     if (mode.value === 'edit') {
       Object.assign(model, model_)
     }
-  }
 
-  const handleSuccess = data => {
-    emit('success', data)
-  }
-
-  const handleError = () => {
-    emit('error', data)
+    emit('reset')
   }
 
   return {
     bind,
-    on: { open: handleOpen, reset: handleReset, success: handleSuccess, error: handleError },
+    on: { open: handleOpen, reset: handleReset },
   }
 }
 

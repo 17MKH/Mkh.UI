@@ -6,7 +6,7 @@
   </el-select>
 </template>
 <script>
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: 'SelectSearch',
@@ -27,6 +27,8 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   setup(props, { emit }) {
+    const resetMethods = inject('resetMethods')
+
     const value_ = computed({
       get() {
         return props.modelValue
@@ -67,6 +69,12 @@ export default {
       emit('change', val, option, options)
     }
 
+    const reset = () => {
+      value_.value = ''
+    }
+
+    if (resetMethods) resetMethods.value.push(reset)
+
     return {
       value_,
       size_,
@@ -74,6 +82,7 @@ export default {
       options,
       remoteMethod,
       handleChange,
+      reset,
     }
   },
 }

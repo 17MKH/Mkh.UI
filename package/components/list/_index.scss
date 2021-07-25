@@ -11,6 +11,12 @@
     border-bottom: 1px solid $border-color-3;
   }
 
+  &_buttons {
+    position: relative;
+    flex-shrink: 0;
+    padding: 7px 10px;
+  }
+
   &_body {
     position: relative;
     flex-grow: 1;

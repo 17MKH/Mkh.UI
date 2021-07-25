@@ -51,7 +51,7 @@ export default {
       icon.value = ''
     }
 
-    resetMethods.value.push(reset)
+    if (resetMethods) resetMethods.value.push(reset)
 
     return {
       icon,

@@ -36,7 +36,7 @@ export default {
     /** 类型 primary/success/warning/danger/info/text */
     type: {
       type: String,
-      default: null,
+      default: 'text',
     },
     /** 是否朴素按钮 */
     plain: Boolean,

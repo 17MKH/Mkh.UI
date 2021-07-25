@@ -27,7 +27,16 @@ export default {
     const router = useRouter()
 
     const handleClick = menu => {
-      router.push(menu.to)
+      //路由菜单
+      if (menu.type === 1) {
+        //解析菜单对应的路由信息
+        let { routeName: name, routeQuery, routeParams: params } = menu
+        let query = routeQuery || {}
+        //传递菜单编号
+        query['_mid'] = menu.id
+
+        router.push({ name, query, params })
+      }
     }
 
     return {

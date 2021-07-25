@@ -41,6 +41,9 @@ const configure = options => {
 const start = async () => {
   const app = createApp(Layout)
 
+  //将mkh实例挂载到vue实例
+  app.config.globalProperties.$mkh = mkh
+
   //模块按照id排序
   mkh.modules = mkh.modules.sort((a, b) => a.id - b.id)
 

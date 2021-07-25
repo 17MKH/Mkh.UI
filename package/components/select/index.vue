@@ -6,7 +6,7 @@
   </el-select>
 </template>
 <script>
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: 'Select',
@@ -24,6 +24,7 @@ export default {
   },
   emits: ['update:modelValue', 'update:label', 'change'],
   setup(props, { emit }) {
+    const resetMethods = inject('resetMethods')
     const value_ = computed({
       get() {
         return props.modelValue
@@ -39,13 +40,14 @@ export default {
     const loading = ref(false)
     const options = ref([])
 
-    const query = () => {
+    const refresh = () => {
       loading.value = true
       props
         .action()
         .then(data => {
           options.value = data
-          if (props.checkedFirst && data.length > 0) {
+
+          if (!props.modelValue && props.checkedFirst && data.length > 0) {
             const checkedValue = data[0].value
             value_.value = checkedValue
             handleChange(checkedValue)
@@ -62,14 +64,21 @@ export default {
       emit('change', val, option, options)
     }
 
-    query()
+    refresh()
+
+    const reset = () => {
+      value_.value = ''
+    }
+
+    if (resetMethods) resetMethods.value.push(reset)
 
     return {
       value_,
       size_,
       loading,
       options,
-      query,
+      refresh,
+      reset,
       handleChange,
     }
   },

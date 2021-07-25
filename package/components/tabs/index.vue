@@ -1,10 +1,10 @@
 <template>
-  <section class="m-flex-col">
+  <el-tabs class="m-tabs">
     <slot />
-  </section>
+  </el-tabs>
 </template>
 <script>
 export default {
-  name: 'FlexCol',
+  name: 'Tabs',
 }
 </script>

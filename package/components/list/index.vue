@@ -27,10 +27,12 @@
           <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
           <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
           <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove" />
-          <!--自定义按钮-->
-          <slot name="querybar-buttons" :selection="selection" :total="total" @click="remove" />
         </el-form-item>
       </el-form>
+    </div>
+    <!--自定义按钮-->
+    <div v-if="$slots.buttons" class="m-list_buttons">
+      <slot name="buttons" :selection="selection" :total="total" @click="remove" />
     </div>
     <!--数据表格-->
     <div class="m-list_body">
@@ -272,7 +274,15 @@ export default {
           total.value = data.total
 
           nextTick(() => {
-            operationWidth_.value = operationRef.value.getBoundingClientRect().width + 30
+            if (operationRef.value) {
+              let wid = operationRef.value.getBoundingClientRect().width + 30
+              if (wid < 40) {
+                wid = 120
+              }
+              operationWidth_.value = wid
+            }
+
+            clearSelection()
           })
 
           emit('query', data)
@@ -370,6 +380,11 @@ export default {
       emit('pagination-current-change', index)
     }
 
+    //清空已选择数据
+    const clearSelection = () => {
+      if (tableRef.value) tableRef.value.clearSelection()
+    }
+
     if (props.queryOnCreated) {
       query()
     }
@@ -404,9 +419,7 @@ export default {
       handleSortChange,
       handlePaginationSizeChange,
       handlePaginationCurrentChange,
-      clearSelection() {
-        tableRef.value.clearSelection()
-      },
+      clearSelection,
       toggleRowSelection(row, selected) {
         tableRef.value.toggleRowSelection(row, selected)
       },

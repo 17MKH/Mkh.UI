@@ -9,21 +9,18 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import MenuItem from './item.vue'
+import { useRoute } from 'vue-router'
 export default {
   name: 'Menu',
   components: { MenuItem },
   setup() {
     const store = useStore()
+    const route = useRoute()
 
     const defaultActive = computed(() => {
-      const { routeMenus } = store.state.app.profile
-      const { current } = store.state.app.page
-      if (current.fullPath && routeMenus) {
-        let routeMenu = routeMenus.get(current.fullPath)
-        if (routeMenu) {
-          return routeMenu.id + ''
-        }
-      }
+      const { _mid } = route.query
+      if (_mid) return _mid + ''
+
       return '-1'
     })
 

@@ -25,7 +25,9 @@
           <m-scrollbar v-if="showScrollbar" ref="scrollbarRef" :horizontal="horizontalScrollbar">
             <slot />
           </m-scrollbar>
-          <slot v-else />
+          <section v-else class="m-box_body">
+            <slot />
+          </section>
         </section>
         <footer v-if="$slots.footer" class="m-box_footer">
           <slot name="footer"></slot>

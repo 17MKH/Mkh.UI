@@ -81,7 +81,7 @@ export default {
 
     const handleError = () => {
       loading.value = false
-      emit('error', data)
+      emit('error')
     }
 
     const handleOpened = () => {

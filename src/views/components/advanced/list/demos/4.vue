@@ -6,7 +6,7 @@
           <el-input v-model="model.name" clearable></el-input>
         </el-form-item>
       </template>
-      <template #querybar-buttons>
+      <template #buttons>
         <m-button type="success" icon="plus" text="添加" @click="add" />
       </template>
       <template #operation="{ row }">

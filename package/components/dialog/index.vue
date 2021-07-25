@@ -102,7 +102,6 @@ export default {
         } else {
           let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
           let height = viewHeight + headerHeight + footerHeight
-          console.log(height)
           //默认高度不能超出body
           if (height > document.body.clientHeight - 100) {
             height = document.body.clientHeight - 100

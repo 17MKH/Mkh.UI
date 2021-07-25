@@ -18,7 +18,7 @@
           </el-select>
         </el-form-item>
       </template>
-      <template #querybar-buttons>
+      <template #buttons>
         <m-button type="success" icon="plus" text="自定义按钮" @click="handleCustomButton" />
       </template>
     </m-list>

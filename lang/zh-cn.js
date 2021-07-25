@@ -7,6 +7,12 @@ export default {
       noNetwork: '无法连接网络',
       paramError: '参数有误，请核实',
     },
+    add: {
+      text: '添加',
+    },
+    edit: {
+      text: '编辑',
+    },
     delete: {
       text: '删除',
       msg: '您确认要删除当前数据吗？',

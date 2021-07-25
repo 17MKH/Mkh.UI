@@ -7,6 +7,12 @@ export default {
       noNetwork: 'No network',
       paramError: 'Param error',
     },
+    add: {
+      text: 'Add',
+    },
+    edit: {
+      text: 'Edit',
+    },
     delete: {
       text: 'Delete',
       msg: 'Are you sure you want to delete this data?',

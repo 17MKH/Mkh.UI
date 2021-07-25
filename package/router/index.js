@@ -114,7 +114,7 @@ export default app => {
       }
 
       //加载个人信息
-      if (!store.state.app.profile.id) {
+      if (!store.state.app.profile.accountId) {
         await store.dispatch('app/profile/init', null, { root: true })
       }
     }

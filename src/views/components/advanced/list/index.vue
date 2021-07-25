@@ -44,7 +44,7 @@
       <m-doc-demo-block title="查询栏按钮" :meta="code2">
         <template #desc>
           <p>查询栏内置了三个按钮，查询、重置、删除，其中查询和重置默认显示，删除默认不显示，三个按钮都可以通过属性控制是否显示</p>
-          <p>同时您也可以通过<code>querybar-buttons</code>插槽，在三个按钮后面添加自定义的按钮</p>
+          <p>同时您也可以通过<code>buttons</code>插槽，在三个按钮后面添加自定义的按钮</p>
         </template>
         <demo-2></demo-2>
       </m-doc-demo-block>

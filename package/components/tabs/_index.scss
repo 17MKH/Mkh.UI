@@ -1,0 +1,29 @@
+#{$prefix}-tabs {
+  @include flex-column();
+  height: 100%;
+  box-shadow: $box-shadow;
+  box-sizing: border-box;
+  border-radius: 3px;
+
+  &.el-tabs--border-card {
+    border-bottom: none;
+  }
+
+  > .el-tabs__header {
+    margin: 0;
+
+    > .el-tabs__nav-wrap {
+      padding: 0 5px;
+    }
+  }
+
+  .el-tabs__content {
+    padding: 0;
+    flex-grow: 1;
+
+    .el-tab-pane {
+      position: relative;
+      height: 100%;
+    }
+  }
+}

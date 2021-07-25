@@ -1,3 +1,4 @@
+import { router } from '../router'
 import { store } from '../store'
 
 // 按钮权限指令
@@ -10,8 +11,11 @@ export default {
       if (!code) return
       // 验证是否开启按钮验证，按钮编码不区分大小写
       if (mkh.config.auth.enableButtonPermissions) {
+        const { _mid } = router.currentRoute.value.query
         const { buttons } = store.state.app.profile
-        if (buttons && buttons.every(c => c.toLowerCase() !== code.toLowerCase())) {
+        const buttonCode = `${_mid}_${code.toLowerCase()}`
+
+        if (buttons && buttons.every(c => c.toLowerCase() !== buttonCode)) {
           el.parentNode.removeChild(el)
         }
       }

@@ -15,7 +15,8 @@ export default defineConfig({
           /** 版权信息 */
           copyright: '版权所有：OLDLI',
           /** Logo */
-          logo: './logo.png',
+          logo: './src/assets/logo.png',
+          favicon: './src/assets/favicon.ico',
         },
         /** 压缩配置 */
         htmlMinify: {},

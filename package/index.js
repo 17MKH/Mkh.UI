@@ -86,13 +86,15 @@ const start = async () => {
 }
 
 /** 页面加载完成后启动系统 */
-if (!window.onload)
+if (!mkh.started) {
+  mkh.started = true
   window.onload = () => {
     //加个延迟，防止预加载页面一闪而过
     setTimeout(() => {
       start()
     }, 1000)
   }
+}
 
 export { configure }
 export * from './composables'

@@ -4,9 +4,11 @@ const resolveRouteMenu = (menus, routeMenus, buttons) => {
     //保存节点路由
     if (m.type === 1) {
       routeMenus.push(m)
-      m.buttons.forEach(b => {
-        buttons.push(`${m.id}_${b}`)
-      })
+      if (m.buttons) {
+        m.buttons.forEach(b => {
+          buttons.push(`${m.id}_${b}`)
+        })
+      }
     } else if (m.children) {
       resolveRouteMenu(m.children, routeMenus, buttons)
     }

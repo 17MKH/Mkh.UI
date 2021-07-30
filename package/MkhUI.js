@@ -19,7 +19,7 @@ if (!window.mkh)
       /**站点信息 */
       site: {
         /**系统Logo */
-        logo: '',
+        logo: './assets/mkh/logo.png',
         /**系统标题 */
         title: '',
         /**默认页，路由名称 */

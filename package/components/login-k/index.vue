@@ -5,7 +5,7 @@
       <span class="m-login-k_logo_title">{{ title }}</span>
     </a>
     <div class="m-login-k_left">
-      <img src="./login-bg.svg" class="m-login-k_bg" />
+      <img class="m-login-k_bg" :src="'./assets/mkh/login-bg.svg'" />
     </div>
     <div class="m-login-k_right">
       <div class="m-login-k_box">

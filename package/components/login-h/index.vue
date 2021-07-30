@@ -3,7 +3,7 @@
     <div class="m-login-h_wrapper">
       <div class="m-login-h_left">
         <div class="m-login-h_modal"></div>
-        <img class="m-login-h_bg" src="./login-bg.jpg" />
+        <img class="m-login-h_bg" :src="'./assets/mkh/login-bg.jpg'" />
         <a href="#" class="m-login-h_logo">
           <img :src="logo" class="m-login-h_logo_img" />
           <span class="m-login-h_logo-title">{{ title }}</span>

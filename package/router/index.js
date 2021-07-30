@@ -119,7 +119,7 @@ export default app => {
       }
     }
 
-    await store.dispatch('app/page/open', to, { root: true })
+    // await store.dispatch('app/page/open', to, { root: true })
 
     // 关闭进度条
     NProgress.done()

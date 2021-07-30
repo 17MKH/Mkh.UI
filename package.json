@@ -2,7 +2,7 @@
   "id": 0,
   "name": "mkh-ui",
   "label": "",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "icon": "document",
   "description": "17MKH前端框架",
   "author": "OLDLI",
@@ -10,10 +10,12 @@
   "scripts": {
     "dev": "vite --host",
     "serve": "vite preview",
-    "build": "vite build && npm run build:locale && npm run build:plugins",
-    "build:lib": "vite build",
+    "build": "vite build",
+    "build:lib": "vite build --mode=lib && npm run build:locale && npm run build:plugins",
     "build:locale": "rollup -c ./build/locale.config.js",
-    "build:plugins": "rollup ./plugins/plugin-mkh.js --file ./lib/plugins/index.js --format cjs"
+    "build:plugins": "rollup ./plugins/plugin-mkh.js --file ./lib/plugins/index.js --format cjs",
+    "cm": "rimraf node_modules",
+    "cv": "rimraf node_modules/.vite"
   },
   "dependencies": {
     "axios": "^0.21.1",

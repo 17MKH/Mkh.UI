@@ -1,11 +1,11 @@
 <template>
   <!--框架内显示-->
-  <component :is="skinCode" v-if="$route.meta.inFrame"></component>
+  <component :is="skinComponent" v-if="$route.meta.inFrame"></component>
   <!--不在框架中显示-->
   <router-view v-else />
 </template>
 <script>
-import { computed, watch } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
@@ -13,23 +13,16 @@ export default {
   setup() {
     const store = useStore()
     const route = useRoute()
+    const skinComponent = ref('')
 
-    const skinCode = computed(() => {
-      return `m-skin-${store.state.app.skin.code.toLowerCase()}`
+    watchEffect(() => {
+      const { skin } = store.state.app
+      skinComponent.value = `m-skin-${skin.code.toLowerCase()}`
+      document.body.className = `${skinComponent.value} theme-${skin.theme}`
     })
 
-    //给body附加皮肤class
-    const app = () => {
-      document.body.className = `${skinCode.value} theme-${store.state.app.skin.theme}`
-    }
-
-    app()
-
-    //监听皮肤切换
-    watch(skinCode, app)
-
     return {
-      skinCode,
+      skinComponent,
     }
   },
 }

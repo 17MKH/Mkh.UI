@@ -1,5 +1,5 @@
 <template>
-  <m-button class="m-button-delete" :icon="icon" :text="text || $t('mkh.delete.text')" :code="code" @click.stop="handleClick"> </m-button>
+  <m-button class="m-button-delete" :icon="icon" :text="text || $t('mkh.delete.text')" @click.stop="handleClick"> </m-button>
 </template>
 <script>
 import { getCurrentInstance } from 'vue'

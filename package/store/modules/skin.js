@@ -13,7 +13,7 @@ const state = {
 
 const getters = {
   fontSize(state) {
-    return state.current.fontSize
+    return state.fontSize
   },
 }
 

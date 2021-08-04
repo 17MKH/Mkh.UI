@@ -14,7 +14,7 @@
   </template>
 </template>
 <script>
-import { useRouter } from 'vue-router'
+import { router } from '../../router'
 export default {
   name: 'MenuItem',
   props: {
@@ -24,8 +24,6 @@ export default {
     },
   },
   setup() {
-    const router = useRouter()
-
     const handleClick = menu => {
       //路由菜单
       if (menu.type === 1) {

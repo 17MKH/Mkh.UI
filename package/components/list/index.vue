@@ -187,7 +187,7 @@
 <script>
 import { computed, getCurrentInstance, nextTick, reactive, ref } from 'vue'
 import { useFullscreen, useLoading, useMessage } from '../../composables'
-import { useStore } from 'vuex'
+import { store } from '../../store'
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
 import SetColumn from './components/set-column.vue'
@@ -230,7 +230,6 @@ export default {
     const loadingOptions = mkh.config.component.loading
     const globalLoading = useLoading()
 
-    const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const class_ = computed(() => {
       return ['m-list', size_, isFullscreen.value ? 'is-fullscreen' : '']
@@ -267,8 +266,16 @@ export default {
     //查询操作
     const query = () => {
       loading.value = true
+
+      const params = { ...props.queryModel, page }
+
+      //查询前执行的函数
+      if (props.beforeQuery) {
+        props.beforeQuery(params)
+      }
+
       props
-        .queryMethod({ ...props.queryModel, page })
+        .queryMethod(params)
         .then(data => {
           rows.value = data.rows
           total.value = data.total

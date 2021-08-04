@@ -96,6 +96,6 @@ if (!mkh.started) {
   }
 }
 
-export { configure }
+export { configure, store, router }
 export * from './composables'
 export * from './utils'

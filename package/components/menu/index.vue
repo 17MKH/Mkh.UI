@@ -7,14 +7,13 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { store } from '../../store'
 import MenuItem from './item.vue'
 import { useRoute } from 'vue-router'
 export default {
   name: 'Menu',
   components: { MenuItem },
   setup() {
-    const store = useStore()
     const route = useRoute()
 
     const defaultActive = computed(() => {

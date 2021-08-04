@@ -6,13 +6,10 @@
 </template>
 <script>
 import { ref, watchEffect } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import { store } from './store'
 
 export default {
   setup() {
-    const store = useStore()
-    const route = useRoute()
     const skinComponent = ref('')
 
     watchEffect(() => {

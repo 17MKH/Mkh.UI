@@ -179,4 +179,6 @@ export default {
   },
   /** 高亮当前行 */
   highlightCurrentRow: Boolean,
+  /** 查询前执行的函数，该函数调用时第一个参数是查询参数对象，可在该函数内对参数进行调整 */
+  beforeQuery: Function,
 }

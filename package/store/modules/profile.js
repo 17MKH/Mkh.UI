@@ -54,17 +54,12 @@ const actions = {
       //获取账户信息
       const profile = await mkh.config.actions.getProfile()
 
-      //解析路由菜单
-      const routeMenus = []
-      const buttons = []
-      resolveRouteMenu(profile.menus, routeMenus, buttons)
-
       if (profile.skin) {
         //初始化皮肤
         commit('app/skin/init', profile.skin, { root: true })
       }
 
-      commit('init', { profile, routeMenus, buttons })
+      commit('init', profile)
     } catch (error) {
       console.log(error)
     }
@@ -72,10 +67,12 @@ const actions = {
 }
 
 const mutations = {
-  init(state, { profile, routeMenus, buttons }) {
+  init(state, profile) {
     Object.assign(state, profile)
-    state.routeMenus = routeMenus
-    state.buttons = buttons
+    state.routeMenus = []
+    state.buttons = []
+
+    resolveRouteMenu(profile.menus, state.routeMenus, state.buttons)
   },
   clear(state) {
     state.accountId = ''

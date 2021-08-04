@@ -7,7 +7,7 @@
 </template>
 <script>
 import { computed, inject, ref } from 'vue'
-import { useStore } from 'vuex'
+import { store } from '../../store'
 export default {
   name: 'Select',
   props: {
@@ -34,7 +34,6 @@ export default {
       },
     })
 
-    const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const loading = ref(false)

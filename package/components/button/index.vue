@@ -23,8 +23,8 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { store } from '../../store'
+import { router } from '../../router'
 export default {
   name: 'Button',
   props: {
@@ -78,9 +78,6 @@ export default {
   },
   emits: ['click'],
   setup(props, { emit }) {
-    const router = useRouter()
-    const store = useStore()
-
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const handleClick = event => {

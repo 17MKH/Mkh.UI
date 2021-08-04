@@ -38,7 +38,7 @@
 </template>
 <script>
 import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
+import { store } from '../../store'
 import { useCollapse, useFullscreen } from '../../composables'
 import props from './props'
 export default {
@@ -46,7 +46,6 @@ export default {
   props,
   emits: ['fullscreen-change', 'collapse-change'],
   setup(props, { emit }) {
-    const store = useStore()
     const scrollbarRef = ref()
     const loadingOptions = mkh.config.component.loading
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)

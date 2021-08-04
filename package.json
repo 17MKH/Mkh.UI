@@ -2,7 +2,7 @@
   "id": 0,
   "name": "mkh-ui",
   "label": "",
-  "version": "0.1.9",
+  "version": "0.2.1",
   "icon": "document",
   "description": "17MKH前端框架",
   "author": "OLDLI",
@@ -21,7 +21,7 @@
     "axios": "^0.21.1",
     "clipboard-copy": "^4.0.1",
     "echarts": "^5.0.2",
-    "element-plus": "^1.0.2-beta.66",
+    "element-plus": "^1.0.2-beta.69",
     "fs-extra": "^10.0.0",
     "highlight.js": "^10.7.1",
     "lodash": "^4.17.21",
@@ -49,7 +49,7 @@
     "html-minifier-terser": "^5.1.1",
     "rimraf": "^3.0.2",
     "rollup-plugin-multi-input": "^1.2.0",
-    "sass": "^1.37.2",
+    "sass": "^1.37.5",
     "vite": "^2.4.4"
   },
   "files": [

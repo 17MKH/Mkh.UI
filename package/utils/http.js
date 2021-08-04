@@ -84,9 +84,8 @@ function Http(options) {
             router.push('/error/500')
             break
         }
-      } else {
-        return Promise.reject(i18n.global.t('mkh.http.errorTitle'))
       }
+      return Promise.reject(i18n.global.t('mkh.http.errorTitle'))
     }
   )
 

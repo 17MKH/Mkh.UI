@@ -42,13 +42,12 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { store } from '../../../../store'
 import { useMessage } from '../../../../composables'
 
 export default {
   setup() {
     const message = useMessage()
-    const store = useStore()
     const { title, logo } = mkh.config.site
     const account = computed(() => store.state.app.profile)
     const toolbars = Object.values(mkh.toolbars)

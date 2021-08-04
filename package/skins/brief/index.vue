@@ -11,13 +11,12 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { store } from '../../store'
 import MHeader from './components/header/index.vue'
 import MMain from './components/main/index.vue'
 export default {
   components: { MHeader, MMain },
   setup() {
-    const store = useStore()
     const menuCollapseIcon = computed(() => (store.state.app.skin.brief.menuIsCollapse ? 'unfold' : 'fold'))
 
     const handleMeunCollapse = () => {

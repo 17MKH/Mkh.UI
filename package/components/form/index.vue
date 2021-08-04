@@ -16,14 +16,13 @@
 </template>
 <script>
 import { computed, provide, ref } from 'vue'
-import { useStore } from 'vuex'
+import { store } from '../../store'
 import props from './props'
 export default {
   name: 'Form',
   props,
   emits: ['success', 'error', 'validate-success', 'validate-error'],
   setup(props, { emit }) {
-    const store = useStore()
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const loadingOptions = mkh.config.component.loading
 

@@ -1,5 +1,5 @@
 <template>
-  <m-button class="m-button-delete" :icon="icon" :text="text || $t('mkh.delete.text')" @click.stop="handleClick"> </m-button>
+  <m-button class="m-button-delete" :icon="icon" :text="text === null ? $t('mkh.delete.text') : text" @click.stop="handleClick"> </m-button>
 </template>
 <script>
 import { getCurrentInstance } from 'vue'
@@ -15,7 +15,7 @@ export default {
     /** 文本 */
     text: {
       type: String,
-      default: '',
+      default: null,
     },
     /** 请求参数 */
     data: {

@@ -5,7 +5,6 @@ import { useStore } from 'vuex'
 export default function () {
   const { $notify } = getCurrentInstance().proxy
   const store = useStore()
-  debugger
   const router = useRouter()
   const route = useRoute()
   const loading = ref(false)

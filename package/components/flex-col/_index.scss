@@ -1,14 +1,17 @@
 #{$prefix}-flex-col {
+  position: relative;
   display: flex;
   align-items: stretch;
   flex-direction: column;
   width: 100%;
 
   #{$prefix}-flex-fixed {
+    position: relative;
     flex-shrink: 0;
   }
 
   #{$prefix}-flex-auto {
+    position: relative;
     flex-grow: 1;
     overflow: hidden;
     box-sizing: border-box;

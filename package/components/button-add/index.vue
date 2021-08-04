@@ -1,5 +1,5 @@
 <template>
-  <m-button class="m-button-add" :type="type" :icon="icon" :text="text || $t('mkh.add.text')">
+  <m-button class="m-button-add" :type="type" :icon="icon" :text="text === null ? $t('mkh.add.text') : ''">
     <slot />
   </m-button>
 </template>
@@ -20,7 +20,7 @@ export default {
     /** 文本 */
     text: {
       type: String,
-      default: '',
+      default: null,
     },
   },
 }

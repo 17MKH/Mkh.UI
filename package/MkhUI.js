@@ -12,6 +12,8 @@ if (!window.mkh)
     modules: [],
     /** 皮肤列表 */
     skins: [],
+    /** 工具栏按钮列表 */
+    toolbars: {},
     /** 语言集 */
     locales: [],
     /** 配置信息 */

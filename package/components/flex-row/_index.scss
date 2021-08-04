@@ -5,10 +5,12 @@
   height: 100%;
 
   #{$prefix}-flex-fixed {
+    position: relative;
     flex-shrink: 0;
   }
 
   #{$prefix}-flex-auto {
+    position: relative;
     flex-grow: 1;
     overflow: hidden;
     box-sizing: border-box;

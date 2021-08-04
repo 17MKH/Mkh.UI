@@ -60,9 +60,17 @@ export default function ({ props, title, api, model, rules, emit, afterEdit }) {
     emit('reset')
   }
 
+  const handleSuccess = data => {
+    emit('success', data)
+  }
+
+  const handleError = () => {
+    emit('error')
+  }
+
   return {
     bind,
-    on: { open: handleOpen, reset: handleReset },
+    on: { open: handleOpen, reset: handleReset, success: handleSuccess, error: handleError },
   }
 }
 

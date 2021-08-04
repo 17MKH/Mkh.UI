@@ -1,0 +1,20 @@
+#{$prefix}-list-box {
+  &_item {
+    padding: 0 20px;
+    height: 45px;
+    line-height: 45px;
+    cursor: pointer;
+    border-bottom: 1px solid #ebeef5;
+    color: #909399;
+
+    &:hover,
+    &.active {
+      background-color: #ecf5ff;
+      color: #303133;
+    }
+
+    &.active {
+      border-left: 3px solid #409eff;
+    }
+  }
+}

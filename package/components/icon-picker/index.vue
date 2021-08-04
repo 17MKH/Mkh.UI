@@ -8,7 +8,7 @@
       </el-input>
     </div>
     <div class="m-icon-picker_button">
-      <m-button icon="search" @click="showPannel = true" />
+      <m-button type="primary" icon="search" @click="showPannel = true" />
     </div>
     <panel v-model="showPannel" @success="handleSelect" />
   </section>

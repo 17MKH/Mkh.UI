@@ -1,5 +1,5 @@
 <template>
-  <m-button class="m-button-edit" :icon="icon" :text="text || $t('mkh.edit.text')">
+  <m-button class="m-button-edit" :icon="icon" :text="text === null ? $t('mkh.edit.text') : text">
     <slot />
   </m-button>
 </template>
@@ -15,7 +15,7 @@ export default {
     /** 文本 */
     text: {
       type: String,
-      default: '',
+      default: null,
     },
   },
 }

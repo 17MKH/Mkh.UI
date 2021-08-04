@@ -33,12 +33,9 @@
       </div>
       <!--工具栏-->
       <div class="m-header_toolbar">
-        <!--多语言-->
-        <m-toolbar-lang />
-        <!--皮肤-->
-        <m-toolbar-skin />
-        <!--全屏-->
-        <m-toolbar-fullscreen />
+        <template v-for="item in toolbars" :key="item.code">
+          <component :is="`m-toolbar-${item.code}`"></component>
+        </template>
       </div>
     </m-flex-fixed>
   </m-flex-row>
@@ -54,6 +51,9 @@ export default {
     const store = useStore()
     const { title, logo } = mkh.config.site
     const account = computed(() => store.state.app.profile)
+    const toolbars = Object.values(mkh.toolbars)
+      .filter(m => m.show)
+      .sort((x, y) => x.sort - y.sort)
 
     const handleCommand = cmd => {
       switch (cmd) {
@@ -74,6 +74,7 @@ export default {
       title,
       logo,
       account,
+      toolbars,
       handleCommand,
     }
   },

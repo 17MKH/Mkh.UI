@@ -11,7 +11,14 @@ export default {
       if (!code) return
       // 验证是否开启按钮验证，按钮编码不区分大小写
       if (mkh.config.auth.enableButtonPermissions) {
-        const { _mid } = router.currentRoute.value.query
+        const currentRoute = router.currentRoute.value
+        let { _mid } = currentRoute.query
+        if (!_mid) {
+          const menu = store.state.app.profile.routeMenus.find(m => m.routeName === currentRoute.name)
+          if (menu) {
+            _mid = menu.id
+          }
+        }
         const { buttons } = store.state.app.profile
         const buttonCode = `${_mid}_${code.toLowerCase()}`
 

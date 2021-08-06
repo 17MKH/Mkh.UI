@@ -6,7 +6,7 @@ import token from './modules/token'
 
 let store = null
 
-export default app => {
+const useStore = app => {
   const options = {
     modules: {
       //系统模块
@@ -39,3 +39,5 @@ export default app => {
 }
 
 export { store }
+
+export default useStore

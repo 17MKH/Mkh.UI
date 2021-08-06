@@ -38,16 +38,18 @@
     >
       <!--内容-->
       <section class="m-drawer_body">
-        <slot v-if="noScrollbar" />
-        <m-scrollbar v-else>
-          <slot />
-        </m-scrollbar>
+        <div class="m-drawer_wrapper">
+          <slot v-if="noScrollbar" />
+          <m-scrollbar v-else>
+            <slot />
+          </m-scrollbar>
+        </div>
       </section>
+      <!--尾部-->
+      <footer v-if="$slots.footer" class="m-drawer_footer">
+        <slot name="footer"></slot>
+      </footer>
     </div>
-    <!--尾部-->
-    <footer v-if="$slots.footer" class="m-drawer_footer">
-      <slot name="footer"></slot>
-    </footer>
   </el-drawer>
 </template>
 <script>

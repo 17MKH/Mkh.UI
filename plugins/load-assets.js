@@ -21,7 +21,7 @@ const copyUIAssets = (packageObj, mode) => {
 }
 
 /**
- * 复制模块中的资源
+ * 复制依赖模块中的资源
  */
 const copyModAssets = mode => {
   if (mode == 'lib') return
@@ -41,6 +41,23 @@ const copyModAssets = mode => {
   })
 }
 
+/**
+ * 复制当前模块中的资源
+ */
+const currentModAssets = (packageObj, mode) => {
+  if (mode == 'lib') return
+
+  if (packageObj.name !== 'mkh-ui') {
+    const assetsPath = path.resolve(`src/assets`)
+    fse.pathExists(assetsPath, (err, exists) => {
+      if (exists) {
+        console.log(`复制模块(${packageObj.name})中的静态资源`)
+        fse.copy(assetsPath, path.resolve(output, packageObj.name.replace('mkh-mod-', '')))
+      }
+    })
+  }
+}
+
 export default function ({ mode }) {
   return {
     name: 'mkh-load-assets',
@@ -48,7 +65,11 @@ export default function ({ mode }) {
       const packageObj = fse.readJSONSync(path.resolve('./package.json'))
       //复制框架中的资源
       copyUIAssets(packageObj, mode)
-      //复制业务模块中的资源
+
+      //复制当前模块中的资源
+      currentModAssets(packageObj, mode)
+
+      //复制依赖模块中的资源
       copyModAssets(mode)
     },
     writeBundle() {

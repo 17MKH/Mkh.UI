@@ -9,6 +9,12 @@ const resolveRouteMenu = (menus, routeMenus, buttons) => {
           buttons.push(`${m.id}_${b}`)
         })
       }
+      if (m.routeQuery) {
+        m.routeQuery = JSON.parse(m.routeQuery)
+      }
+      if (m.routeParams) {
+        m.routeParams = JSON.parse(m.routeParams)
+      }
     } else if (m.children) {
       resolveRouteMenu(m.children, routeMenus, buttons)
     }

@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 
 export default function () {
   //列表组件引用
@@ -35,6 +35,11 @@ export default function () {
     if (listRef.value) listRef.value.refresh()
   }
 
+  //重置
+  const reset = () => {
+    if (listRef.value) listRef.value.reset()
+  }
+
   return {
     listRef,
     selection,
@@ -44,6 +49,7 @@ export default function () {
     edit,
     view,
     refresh,
+    reset,
   }
 }
 

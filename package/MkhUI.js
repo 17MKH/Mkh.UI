@@ -16,6 +16,8 @@ if (!window.mkh)
     toolbars: {},
     /** 语言集 */
     locales: [],
+    /** 全局组件列表 */
+    components: [],
     /** 配置信息 */
     config: {
       /**站点信息 */
@@ -38,7 +40,7 @@ if (!window.mkh)
       component: {
         /**加载动画 */
         loading: {
-          background: 'rgba(255, 255, 255, 0.6)',
+          background: 'rgba(255, 255, 255, 0.4)',
           spinner: 'el-icon-loading',
         },
         /**登录组件，默认是m-login-m */

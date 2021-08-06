@@ -172,7 +172,7 @@ export default {
       return { hasChildren: 'hasChildren', children: 'children' }
     },
   },
-  /** 操作列的宽度，默认120px */
+  /** 操作列的宽度，默认自适应 */
   operationWidth: {
     type: String,
     default: null,

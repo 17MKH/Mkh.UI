@@ -4,7 +4,7 @@
     v-model="visible"
     custom-class="m-form-dialog"
     :size="size"
-    :loading="loading"
+    :loading="loading || loading_"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
     :loading-spinner="loadingSpinner"
@@ -23,7 +23,7 @@
       :disabled="disabled"
       :label-width="labelWidth"
       :before-submit="beforeSubmit"
-      @validate-success="loading = true"
+      @validate-success="loading_ = true"
       @success="handleSuccess"
       @error="handleError"
     >
@@ -51,7 +51,7 @@ export default {
     const message = useMessage()
     const dialogRef = ref(null)
     const formRef = ref(null)
-    const loading = ref(false)
+    const loading_ = ref(false)
 
     const { visible, open, close } = useVisible(props, emit)
 
@@ -69,7 +69,7 @@ export default {
     }
 
     const handleSuccess = data => {
-      loading.value = false
+      loading_.value = false
       message.success(cit.$t('mkh.form.successMsg'))
 
       if (props.closeOnSuccess) {
@@ -80,7 +80,7 @@ export default {
     }
 
     const handleError = () => {
-      loading.value = false
+      loading_.value = false
       emit('error')
     }
 
@@ -104,7 +104,7 @@ export default {
       close,
       dialogRef,
       formRef,
-      loading,
+      loading_,
       submit,
       reset,
       resize,

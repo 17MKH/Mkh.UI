@@ -22,7 +22,7 @@ export default {
   props: {
     modelValue: {
       type: [String, Number],
-      required: true,
+      default: null,
     },
     action: {
       type: Function,

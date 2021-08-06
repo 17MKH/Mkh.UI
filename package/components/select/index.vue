@@ -1,12 +1,12 @@
 <template>
-  <el-select v-model="value_" v-loading="loading" class="m-select" :size="size_" element-loading-background="rgba(255,255,255,.6)" @change="handleChange">
+  <el-select v-model="value_" v-loading="loading" class="m-select" :size="size_" element-loading-background="rgba(255,255,255,.6)">
     <slot :options="options">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
     </slot>
   </el-select>
 </template>
 <script>
-import { computed, inject, ref } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { store } from '../../store'
 export default {
   name: 'Select',
@@ -34,6 +34,9 @@ export default {
       },
     })
 
+    //是否首次刷新
+    let firstRefresh = true
+
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const loading = ref(false)
@@ -46,10 +49,18 @@ export default {
         .then(data => {
           options.value = data
 
-          if (!props.modelValue && props.checkedFirst && data.length > 0) {
-            const checkedValue = data[0].value
-            value_.value = checkedValue
-            handleChange(checkedValue)
+          if (firstRefresh) {
+            if (value_.value) {
+              //首次刷新并且存在初始值
+              handleChange(value_.value)
+            } else if (props.checkedFirst && data.length > 0) {
+              //首次刷新并且默认选中第一个选项
+              const checkedValue = data[0].value
+              value_.value = checkedValue
+              handleChange(checkedValue)
+            }
+
+            firstRefresh = false
           }
         })
         .finally(() => {
@@ -67,7 +78,10 @@ export default {
 
     const reset = () => {
       value_.value = ''
+      handleChange('')
     }
+
+    watch(value_, handleChange)
 
     if (resetMethods) resetMethods.value.push(reset)
 

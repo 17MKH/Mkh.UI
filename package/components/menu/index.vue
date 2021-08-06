@@ -20,6 +20,10 @@ export default {
       const { _mid } = route.query
       if (_mid) return _mid + ''
 
+      //如果不存在_mid参数，则通过路由名称匹配第一个菜单
+      const menu = store.state.app.profile.routeMenus.find(m => m.routeName === route.name)
+      if (menu) return menu.id + ''
+
       return '-1'
     })
 

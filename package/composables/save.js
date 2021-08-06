@@ -17,6 +17,7 @@ export default function ({ props, title, api, model, rules, emit, afterEdit }) {
     disabled: false,
     footer: true,
     destroyOnClose: true,
+    loading: false,
   })
 
   const handleOpen = () => {
@@ -35,18 +36,15 @@ export default function ({ props, title, api, model, rules, emit, afterEdit }) {
         bind.disabled = false
         bind.footer = true
 
+        bind.loading = true
         edit(id.value).then(data => {
           Object.assign(model_, data)
           Object.assign(model, model_)
 
           afterEdit && afterEdit()
+
+          bind.loading = false
         })
-        break
-      default:
-        bind.title = '预览' + title
-        bind.icon = 'preview'
-        bind.disabled = true
-        bind.footer = false
         break
     }
   }

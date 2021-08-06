@@ -127,7 +127,7 @@
                 <slot name="operation-header">{{ $t('mkh.list.operationHeader') }}</slot>
               </template>
               <template #default="{ row }">
-                <div ref="operationRef" class="m-list_operation">
+                <div class="m-list_operation">
                   <slot name="operation" :row="row" :rows="rows" />
                 </div>
               </template>
@@ -256,12 +256,29 @@ export default {
     const queryFormRef = ref(null)
     //表格引用
     const tableRef = ref(null)
-    //操作列引用
-    const operationRef = ref(null)
     //加载动画
     const loading = ref(false)
     //多选模式下已选择项列表
     const selection = ref([])
+
+    //计算操作列最大宽度
+    const computeOperationWidth = () => {
+      if (!tableRef.value) return
+
+      let maxWidth = 0
+      tableRef.value.$el.querySelectorAll('.m-list_operation').forEach(node => {
+        const { width } = node.getBoundingClientRect()
+        if (width > maxWidth) {
+          maxWidth = width
+        }
+      })
+
+      //设置最小宽度
+      if (maxWidth === 0) {
+        maxWidth = 50
+      }
+      operationWidth_.value = maxWidth + +30
+    }
 
     //查询操作
     const query = () => {
@@ -281,13 +298,7 @@ export default {
           total.value = data.total
 
           nextTick(() => {
-            if (operationRef.value) {
-              let wid = operationRef.value.getBoundingClientRect().width + 30
-              if (wid < 40) {
-                wid = 120
-              }
-              operationWidth_.value = wid
-            }
+            computeOperationWidth()
 
             clearSelection()
           })
@@ -408,7 +419,6 @@ export default {
       selection,
       queryFormRef,
       tableRef,
-      operationRef,
       loading,
       size_,
       class_,

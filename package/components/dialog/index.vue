@@ -32,22 +32,27 @@
       </m-head>
     </template>
 
-    <!--内容-->
-    <div v-loading="loading" class="m-dialog_content" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
+    <div
+      v-loading="loading"
+      class="m-dialog_content"
+      :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
+      :element-loading-background="loadingBackground"
+      :element-loading-spinner="loadingSpinner"
+    >
+      <!--内容-->
       <div class="m-dialog_body">
-        <slot v-if="noScrollbar && height"></slot>
-        <div v-else-if="noScrollbar && !height" class="m-dialog_wrapper">
-          <slot />
+        <div class="m-dialog_wrapper">
+          <slot v-if="noScrollbar && height"></slot>
+          <m-scrollbar v-else>
+            <slot />
+          </m-scrollbar>
         </div>
-        <m-scrollbar v-else>
-          <slot />
-        </m-scrollbar>
       </div>
+      <!--尾部-->
+      <footer v-if="$slots.footer" class="m-dialog_footer">
+        <slot name="footer"></slot>
+      </footer>
     </div>
-    <!--尾部-->
-    <footer v-if="$slots.footer" class="m-dialog_footer">
-      <slot name="footer"></slot>
-    </footer>
   </el-dialog>
 </template>
 <script>

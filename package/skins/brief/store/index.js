@@ -3,8 +3,8 @@ const state = {
 }
 
 const mutations = {
-  //折叠菜单
-  collapseMenu(state) {
+  //切换菜单折叠状态
+  toggleMenuCollapse(state) {
     state.menuIsCollapse = !state.menuIsCollapse
   },
 }

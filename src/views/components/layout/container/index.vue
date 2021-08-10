@@ -11,8 +11,8 @@
   </m-container>
 </template>
 <script>
-import props from './_props'
-import methods from './_methods'
+import props from './apis/_props'
+import methods from './apis/_methods'
 export default {
   setup() {
     return {

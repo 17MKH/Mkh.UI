@@ -70,10 +70,10 @@ import demo6 from './demos/6.vue'
 import code6 from './demos/6.vue?raw'
 import demo7 from './demos/7.vue'
 import code7 from './demos/7.vue?raw'
-import props from './_props'
-import events from './_events'
-import methods from './_methods'
-import slots from './_slots'
+import props from './apis/_props'
+import events from './apis/_events'
+import methods from './apis/_methods'
+import slots from './apis/_slots'
 export default {
   components: { demo1, demo2, demo3, demo4, demo5, demo6, demo7 },
   setup() {

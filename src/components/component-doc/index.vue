@@ -1,48 +1,58 @@
 <template>
-  <div :class="['m-doc-component', isFullscreen ? 'is-fullscreen' : '']">
-    <h1 class="m-doc-component_title">{{ title }}</h1>
-    <m-button class="m-doc-component_fullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
-    <el-tabs class="m-doc-component_tabs" type="border-card">
-      <el-tab-pane label="组件示例(Demo)">
-        <m-scrollbar>
-          <slot></slot>
-        </m-scrollbar>
-      </el-tab-pane>
-      <el-tab-pane v-if="props" label="属性(Attributes)">
+  <m-container class="m-doc-component">
+    <el-backtop target=".m-doc-component .el-scrollbar__wrap"> </el-backtop>
+    <div ref="componentRef" class="m-doc-component_wrapper">
+      <h1 class="m-doc-component_title">{{ title }}</h1>
+      <div class="m-doc-component_content">
+        <slot></slot>
+      </div>
+      <section v-if="props" class="m-padding-lr-15">
+        <h3 class="title">属性(Attributes)</h3>
         <el-table class="m-doc-component_table" height="100%" :data="props" border>
-          <el-table-column prop="name" label="参数"></el-table-column>
+          <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="type" label="类型"></el-table-column>
           <el-table-column prop="values" label="可选值"></el-table-column>
           <el-table-column prop="default" label="默认值"></el-table-column>
         </el-table>
-      </el-tab-pane>
-      <el-tab-pane v-if="events" label="事件(Events)">
+      </section>
+      <section v-if="events" class="m-padding-lr-15">
+        <h3 class="title">事件(Events)</h3>
         <el-table class="m-doc-component_table" height="100%" :data="events" border>
-          <el-table-column prop="name" label="事件"></el-table-column>
+          <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
         </el-table>
-      </el-tab-pane>
-      <el-tab-pane v-if="methods" label="方法(Methods)">
+      </section>
+      <section v-if="methods" class="m-padding-lr-15">
+        <h3 class="title">方法(Methods)</h3>
         <el-table class="m-doc-component_table" height="100%" :data="methods" border>
-          <el-table-column prop="name" label="方法"></el-table-column>
+          <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
         </el-table>
-      </el-tab-pane>
-      <el-tab-pane v-if="slots" label="插槽(Slots)">
+      </section>
+      <section v-if="slots" class="m-padding-lr-15">
+        <h3 class="title">插槽(Slots)</h3>
         <el-table class="m-doc-component_table" height="100%" :data="slots" border>
-          <el-table-column prop="name" label="插槽"></el-table-column>
+          <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
         </el-table>
-      </el-tab-pane>
-    </el-tabs>
-  </div>
+      </section>
+      <transition name="el-zoom-in-bottom">
+        <section v-show="catalog.length > 0" class="m-doc-component_catalog">
+          <p>目录</p>
+          <a v-for="(item, i) in catalog" :key="i" @click.prevent="scrollIntoView(i)">
+            <span>{{ item }}</span>
+          </a>
+        </section>
+      </transition>
+    </div>
+  </m-container>
 </template>
 <script>
-import { useFullscreen } from '../../../package/composables'
+import { nextTick, onMounted, ref } from 'vue'
 export default {
   props: {
     title: {
@@ -66,96 +76,79 @@ export default {
       default: null,
     },
   },
-  setup(props, { emit }) {
-    const { isFullscreen, toggleFullscreen } = useFullscreen(emit)
-    return {
-      isFullscreen,
-      toggleFullscreen,
+  setup() {
+    const componentRef = ref()
+    const catalog = ref([])
+
+    const scrollIntoView = i => {
+      componentRef.value.querySelector('#title-' + i).scrollIntoView()
     }
+
+    onMounted(() => {
+      nextTick(() => {
+        componentRef.value.querySelectorAll('.title').forEach((element, i) => {
+          catalog.value.push(element.innerText)
+          element.setAttribute('id', 'title-' + i)
+        })
+      })
+    })
+    return { componentRef, catalog, scrollIntoView }
   },
 }
 </script>
 <style lang="scss">
 .m-doc-component {
-  position: relative;
-  padding-top: 60px;
-  height: 100%;
+  &_wrapper {
+    padding: 10px 200px 10px 10px;
+    background-color: #fff;
+  }
 
   &_title {
-    position: absolute;
-    top: 0;
+    padding: 15px 15px 0 15px;
     font-size: 28px;
     font-weight: 400;
     color: #1f2f3d;
   }
-  &_tabs {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    height: 100%;
 
-    > .el-tabs__header {
-      flex-shrink: 0;
-      height: 39px;
-    }
-
-    > .el-tabs__content {
-      flex-grow: 1;
-      padding: 0;
-
-      > .el-tab-pane {
-        height: 100%;
-      }
-    }
+  h3 {
+    margin: 40px 0 20px;
+    font-weight: 400;
+    font-size: 22px;
+    color: #1f2f3d;
   }
 
   &_table {
     height: 100%;
     width: 100%;
-    border: none;
   }
 
-  &_fullscreen {
+  &_catalog {
     position: absolute;
-    right: 0;
-    top: 65px;
-    padding: 0;
-    margin: 0 10px 0 0;
-    background: 0 0;
-    border: none;
-    outline: 0;
-    cursor: pointer;
-    font-size: 16px;
-    color: #606266;
-    z-index: 1001;
+    padding: 10px;
+    right: 15px;
+    top: 10px;
+    border: 1px solid rgb(220, 223, 230);
+    border-radius: 3px;
+    min-width: 180px;
 
-    &:focus {
+    p {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    a {
+      display: block;
+      margin: 5px 0 5px 15px;
+      font-size: 14px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
       color: #606266;
-    }
-
-    &:hover {
-      transform: scale(1.2);
-    }
-
-    .m-icon {
-      transform: scale(1) !important;
-    }
-  }
-
-  &.is-fullscreen {
-    .m-doc-component_fullscreen {
-      position: fixed;
-      right: 5px;
-      top: 5px;
-    }
-
-    .el-tabs {
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 100%;
-      z-index: 1000;
+      cursor: pointer;
+      &:hover {
+        color: #409eff;
+        text-decoration: underline;
+      }
     }
   }
 }

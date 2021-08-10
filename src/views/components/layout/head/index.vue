@@ -12,8 +12,8 @@
   </m-container>
 </template>
 <script>
-import props from './_props'
-import slots from './_slots'
+import props from './apis/_props'
+import slots from './apis/_slots'
 import demo1 from './demos/1.vue'
 import code1 from './demos/1.vue?raw'
 

@@ -3,28 +3,24 @@
     <m-header />
     <div class="m-sub-header">
       <!--菜单折叠-->
-      <m-icon class="m-sub-header_menu" :name="menuCollapseIcon" @click="handleMeunCollapse" />
+      <m-icon class="m-sub-header_menu" :name="$store.state.skin.brief.menuIsCollapse ? 'unfold' : 'fold'" @click="handleMeunCollapse" />
       <m-breadcrumb />
     </div>
     <m-main />
   </div>
 </template>
 <script>
-import { computed } from 'vue'
 import { store } from '../../store'
 import MHeader from './components/header/index.vue'
 import MMain from './components/main/index.vue'
 export default {
   components: { MHeader, MMain },
   setup() {
-    const menuCollapseIcon = computed(() => (store.state.app.skin.brief.menuIsCollapse ? 'unfold' : 'fold'))
-
     const handleMeunCollapse = () => {
-      store.commit('app/skin/brief/collapseMenu')
+      store.commit('skin/brief/toggleMenuCollapse')
     }
 
     return {
-      menuCollapseIcon,
       handleMeunCollapse,
     }
   },

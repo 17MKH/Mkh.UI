@@ -1,4 +1,4 @@
-export default {
+const page = {
   //标题
   title: '对话框',
   //图标
@@ -7,6 +7,4 @@ export default {
   name: 'doc_advanced_dialog',
   //路由路径
   path: '/doc/advanced/dialog',
-  //路由组件
-  component: () => import('./index.vue'),
 }

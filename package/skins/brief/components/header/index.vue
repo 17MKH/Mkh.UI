@@ -15,7 +15,7 @@
       <div class="m-header_userinfo">
         <el-dropdown trigger="click" @command="handleCommand">
           <a class="m-header_userinfo_avatar" href="javascript:void(0);">
-            <img :src="account.avatar" />
+            <img :src="profile.avatar" />
           </a>
           <template #dropdown>
             <el-dropdown-menu class="m-header_userinfo_dropdown">
@@ -49,7 +49,7 @@ export default {
   setup() {
     const message = useMessage()
     const { title, logo } = mkh.config.site
-    const account = computed(() => store.state.app.profile)
+    const profile = computed(() => store.state.app.profile)
     const toolbars = Object.values(mkh.toolbars)
       .filter(m => m.show)
       .sort((x, y) => x.sort - y.sort)
@@ -72,7 +72,7 @@ export default {
     return {
       title,
       logo,
-      account,
+      profile,
       toolbars,
       handleCommand,
     }

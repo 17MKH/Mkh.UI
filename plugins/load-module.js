@@ -143,5 +143,22 @@ export default function (modules) {
 
       return null
     },
+    transform(code, id) {
+      //处理页面
+      if (id.includes('page.js') && !id.includes('store/modules/page.js')) {
+        //导入页面对应的组件
+        code = "import component from './index.vue'\r\n" + code + '\r\n'
+
+        //绑定组件
+        code += 'page.component = component\r\n'
+
+        //给组件设置name属性，否则keep-alive无法生效
+        code += 'component.name = page.name\r\n'
+
+        //导出页面
+        code += 'export default page'
+        return code
+      }
+    },
   }
 }

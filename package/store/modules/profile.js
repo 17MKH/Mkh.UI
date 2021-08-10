@@ -35,17 +35,6 @@ const state = {
   menus: [],
   /** 权限列表 */
   permissions: [],
-  /** 皮肤 */
-  skin: {
-    /** 名称 */
-    name: '简约',
-    /**编码 */
-    code: 'brief',
-    /** 主题 */
-    theme: '',
-    /** 尺寸  */
-    size: 'small',
-  },
   /**账户详细信息，用于开发者自定义扩展 */
   details: null,
   /** 路由菜单列表 */

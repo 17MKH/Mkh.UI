@@ -6,6 +6,11 @@ import Error500 from '../pages/500/index.vue'
 
 export default [
   {
+    path: '/',
+    name: 'home',
+    redirect: '/default',
+  },
+  {
     path: '/default',
     name: 'default',
     component: defaultPage,

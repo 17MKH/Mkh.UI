@@ -60,10 +60,10 @@
   </m-container>
 </template>
 <script>
-import props from './_props'
-import events from './_events'
-import methods from './_methods'
-import slots from './_slots'
+import props from './apis/_props'
+import events from './apis/_events'
+import methods from './apis/_methods'
+import slots from './apis/_slots'
 import demo1 from './demos/1.vue'
 import code1 from './demos/1.vue?raw'
 import demo2 from './demos/2.vue'

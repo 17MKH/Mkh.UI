@@ -11,7 +11,7 @@ export default app => {
 
     // 注册状态
     if (skin.store) {
-      store.registerModule(['app', 'skin', skin.code], skin.store)
+      store.registerModule(['skin', skin.code], skin.store)
     }
   })
 }

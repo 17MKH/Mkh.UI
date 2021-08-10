@@ -2,10 +2,14 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { store } from '../store'
 import NProgress from 'nprogress'
 import routes from './routes'
-import defaultPage from '../pages/default/index.vue'
 
 // 进度条初始值
 NProgress.configure({ minimum: 0.2 })
+
+//验证值是否为true
+const isTrue = val => {
+  return typeof val === 'undefined' || val === null ? true : val
+}
 
 let router = null
 
@@ -30,6 +34,7 @@ const page2route = (page, parentRoute, pages) => {
    * props                路由启用props特性
    */
   const { title, icon, path, name, component, inFrame, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
+
   const route = {
     path,
     name,
@@ -41,9 +46,9 @@ const page2route = (page, parentRoute, pages) => {
       buttons,
       permissions,
       breadcrumbs,
-      cache,
-      inFrame: typeof inFrame === 'undefined' || inFrame === null ? true : inFrame,
-      enablePermissionVerify: typeof enablePermissionVerify === 'undefined' || enablePermissionVerify === null ? true : enablePermissionVerify,
+      cache: isTrue(cache),
+      inFrame: isTrue(inFrame),
+      enablePermissionVerify: isTrue(enablePermissionVerify),
     },
     children: [],
   }
@@ -57,26 +62,20 @@ const page2route = (page, parentRoute, pages) => {
   } else {
     parentRoute.children.push(route)
   }
+
+  //从page对象中删除component属性
+  delete page.component
 }
 
 /**
- * @description 配置默认页，如果用户设置了默认页，则将默认页对应的路由别名设置为'/'，如果没有则添加系统默认页
+ * @description 配置首页，如果用户自定义了首页地址，则将首页重定向为该页面
  */
 const handleDefaultPage = () => {
-  const { defaultPage } = mkh.config.site
-  let noDefaultPage = true
-  if (defaultPage) {
-    //根据路由名称查找路由信息
-    let defaultRoute = routes.find(m => m.name === defaultPage)
-    if (defaultRoute) {
-      defaultRoute.alias = '/'
-      noDefaultPage = false
-    }
-  }
-
-  //如果未设置默认页，则使用系统自带的默认页并将path设置为'/'
-  if (noDefaultPage) {
-    routes[0].path = '/'
+  const { home } = mkh.config.site
+  if (home) {
+    routes[0].redirect = home
+  } else {
+    mkh.config.site.home = '/default'
   }
 }
 
@@ -112,14 +111,12 @@ export default app => {
       if (!accessToken) {
         return '/login'
       }
-
-      //加载个人信息
-      if (!store.state.app.profile.accountId) {
-        await store.dispatch('app/profile/init', null, { root: true })
-      }
     }
 
-    // await store.dispatch('app/page/open', to, { root: true })
+    //加载个人信息
+    if (!store.state.app.profile.accountId) {
+      await store.dispatch('app/profile/init', null, { root: true })
+    }
 
     // 关闭进度条
     NProgress.done()

@@ -5,17 +5,17 @@
   <router-view v-else />
 </template>
 <script>
-import { ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { store } from './store'
 
 export default {
   setup() {
     const skinComponent = ref('')
+    const skin = computed(() => store.state.app.skin)
 
     watchEffect(() => {
-      const { skin } = store.state.app
-      skinComponent.value = `m-skin-${skin.code.toLowerCase()}`
-      document.body.className = `${skinComponent.value} theme-${skin.theme}`
+      skinComponent.value = `m-skin-${skin.value.code.toLowerCase()}`
+      document.body.className = `${skinComponent.value} theme-${skin.value.theme}`
     })
 
     return {

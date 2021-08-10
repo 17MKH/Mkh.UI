@@ -1,6 +1,6 @@
 <template>
   <template v-for="menu in menus">
-    <el-submenu v-if="menu.type === 0" :key="menu.id" :index="menu.id + ''">
+    <el-submenu v-if="menu.type === 0" :key="menu.id" popper-class="m-menu_popper" :index="menu.id + ''">
       <template #title>
         <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         <span>{{ menu.name }}</span>
@@ -31,7 +31,7 @@ export default {
         let { routeName: name, routeQuery, routeParams: params } = menu
         let query = routeQuery || {}
         //传递菜单编号
-        query['_mid'] = menu.id
+        query['_mid_'] = menu.id
 
         router.push({ name, query, params })
       }

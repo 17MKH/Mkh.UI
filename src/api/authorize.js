@@ -75,8 +75,10 @@ export default http => {
         skin: {
           /** 名称 */
           name: 'brief',
+          /** 编码 */
+          code: 'brief',
           /** 主题 */
-          theme: '',
+          theme: 'dark',
           /** 尺寸 */
           size: 'small',
         },

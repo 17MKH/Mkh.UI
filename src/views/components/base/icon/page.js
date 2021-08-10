@@ -1,4 +1,4 @@
-export default {
+const page = {
   //标题
   title: '图标',
   //图标
@@ -7,6 +7,4 @@ export default {
   name: 'doc_base_icon',
   //路由路径
   path: '/doc/base/icon',
-  //路由组件
-  component: () => import('./index.vue'),
 }

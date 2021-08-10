@@ -5,7 +5,7 @@ export default [
     icon: 'home',
     level: 1,
     show: true,
-    routeName: 'default',
+    routeName: 'home',
   },
   {
     name: '布局组件',

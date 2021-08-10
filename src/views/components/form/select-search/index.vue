@@ -11,7 +11,7 @@
   </m-container>
 </template>
 <script>
-import props from '../select/_props'
+import props from '../select/apis/_props'
 import demo from './demos/1.vue'
 import code from './demos/1.vue?raw'
 export default {

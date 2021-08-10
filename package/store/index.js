@@ -24,6 +24,11 @@ const useStore = app => {
         namespaced: true,
         modules: {},
       },
+      //皮肤
+      skin: {
+        namespaced: true,
+        modules: {},
+      },
     },
   }
 

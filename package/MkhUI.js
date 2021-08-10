@@ -26,8 +26,8 @@ if (!window.mkh)
         logo: './assets/mkh/logo.png',
         /**系统标题 */
         title: '',
-        /**默认页，路由名称 */
-        defaultPage: '',
+        /**自定义首页地址 */
+        home: '',
       },
       /**认证和授权 */
       auth: {
@@ -45,6 +45,11 @@ if (!window.mkh)
         },
         /**登录组件，默认是m-login-m */
         login: 'm',
+        /**标签导航栏 */
+        tabnav: {
+          /**显示图标 */
+          showIcon: true,
+        },
       },
       /**系统操作，供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能 */
       actions: {

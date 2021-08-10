@@ -17,7 +17,7 @@
   </m-container>
 </template>
 <script>
-import props from './_props'
+import props from './apis/_props'
 import demo1 from './demos/1.vue'
 import code1 from './demos/1.vue?raw'
 import demo2 from './demos/2.vue'

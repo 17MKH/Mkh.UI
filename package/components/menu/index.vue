@@ -1,7 +1,7 @@
 <template>
-  <div :class="['m-menu', isCollapse ? 'is-collapse' : '']">
+  <div class="m-menu">
     <m-scrollbar horizontal>
-      <el-menu :default-active="defaultActive" class="m-menu_wrapper" :collapse="isCollapse"> <menu-item :menus="menus" /> </el-menu>
+      <el-menu :default-active="defaultActive" class="m-menu_wrapper" :collapse="collapse"> <menu-item :menus="menus" /> </el-menu>
     </m-scrollbar>
   </div>
 </template>
@@ -13,14 +13,21 @@ import { useRoute } from 'vue-router'
 export default {
   name: 'Menu',
   components: { MenuItem },
+  props: {
+    /** 折叠 */
+    collapse: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup() {
     const route = useRoute()
 
     const defaultActive = computed(() => {
-      const { _mid } = route.query
-      if (_mid) return _mid + ''
+      const { _mid_ } = route.query
+      if (_mid_) return _mid_ + ''
 
-      //如果不存在_mid参数，则通过路由名称匹配第一个菜单
+      //如果不存在_mid_参数，则通过路由名称匹配第一个菜单
       const menu = store.state.app.profile.routeMenus.find(m => m.routeName === route.name)
       if (menu) return menu.id + ''
 
@@ -30,7 +37,6 @@ export default {
     return {
       defaultActive,
       menus: computed(() => store.state.app.profile.menus),
-      isCollapse: computed(() => store.state.app.skin.brief.menuIsCollapse),
     }
   },
 }

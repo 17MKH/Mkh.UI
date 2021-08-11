@@ -36,4 +36,6 @@ export default {
   },
   /** 提交前的操作 */
   beforeSubmit: Function,
+  /** 禁用Enter键提交 */
+  disabledEnter: Boolean,
 }

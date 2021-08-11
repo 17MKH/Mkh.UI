@@ -21,14 +21,14 @@
     </m-head>
     <!--查询栏-->
     <div v-if="!noQuerybar" class="m-list_querybar">
-      <el-form ref="queryFormRef" :inline="true" :model="queryModel" :size="size_">
+      <f-form ref="queryFormRef" :inline="true" :model="queryModel" :size="size_" disabled-enter>
         <slot name="querybar" :selection="selection" :total="total" />
         <el-form-item>
           <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
           <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
           <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove" />
         </el-form-item>
-      </el-form>
+      </f-form>
     </div>
     <!--自定义按钮-->
     <div v-if="$slots.buttons" class="m-list_buttons">
@@ -185,13 +185,15 @@
   </div>
 </template>
 <script>
-import { computed, getCurrentInstance, nextTick, reactive, ref } from 'vue'
+import { computed, getCurrentInstance, nextTick, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
 import { useFullscreen, useLoading, useMessage } from '../../composables'
 import { store } from '../../store'
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
 import SetColumn from './components/set-column.vue'
 import _ from 'lodash'
+import dom from '../../utils/dom'
+
 export default {
   name: 'List',
   components: { SetColumn },
@@ -406,6 +408,24 @@ export default {
     if (props.queryOnCreated) {
       query()
     }
+
+    const handleEnterQuery = e => {
+      if (e.keyCode === 13) {
+        console.log('查询')
+        query()
+      }
+    }
+
+    onMounted(() => {
+      nextTick(() => {
+        console.log(queryFormRef.value.$el)
+        dom.on(queryFormRef.value.$el, 'keydown', handleEnterQuery)
+      })
+    })
+
+    onBeforeUnmount(() => {
+      dom.off(queryFormRef.value.$el, 'keydown', handleEnterQuery)
+    })
 
     return {
       isFullscreen,

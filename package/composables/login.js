@@ -1,7 +1,8 @@
-import { getCurrentInstance, onMounted, reactive, ref } from 'vue'
+import { getCurrentInstance, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { router } from '../router'
 import { store } from '../store'
+import dom from '../utils/dom'
 
 export default function () {
   const { $notify } = getCurrentInstance().proxy
@@ -69,13 +70,19 @@ export default function () {
     })
   }
 
+  const handleEnterLogin = e => {
+    if (e.code === 'Enter') {
+      console.log('登录')
+      tryLogin()
+    }
+  }
+
   onMounted(() => {
-    //监听键盘enter事件
-    document.addEventListener('keydown', e => {
-      if (e.code === 'Enter') {
-        tryLogin()
-      }
-    })
+    dom.on(document, 'keydown', handleEnterLogin)
+  })
+
+  onUnmounted(() => {
+    dom.off(document, 'keydown', handleEnterLogin)
   })
 
   //如果令牌存在，则直接跳转

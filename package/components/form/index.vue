@@ -15,9 +15,11 @@
   </el-form>
 </template>
 <script>
-import { computed, provide, ref } from 'vue'
+import { computed, provide, nextTick, onMounted, onBeforeUnmount, ref } from 'vue'
 import { store } from '../../store'
 import props from './props'
+import dom from '../../utils/dom'
+
 export default {
   name: 'Form',
   props,
@@ -75,6 +77,22 @@ export default {
       formRef.value.resetFields()
       resetMethods.value.forEach(m => m())
     }
+
+    const handleEnterSubmit = e => {
+      if (e.keyCode === 13) {
+        query()
+      }
+    }
+
+    onMounted(() => {
+      nextTick(() => {
+        if (!props.disabledEnter) dom.on(formRef.value.$el, 'keydown', handleEnterSubmit)
+      })
+    })
+
+    onBeforeUnmount(() => {
+      if (!props.disabledEnter) dom.off(formRef.value.$el, 'keydown', handleEnterSubmit)
+    })
 
     return { size_, loading, loadingOptions, formRef, validate, submit, reset }
   },

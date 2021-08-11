@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
 import profile from './modules/profile'
-import page from './modules/page'
 import skin from './modules/skin'
 import token from './modules/token'
 
@@ -15,7 +14,6 @@ const useStore = app => {
         modules: {
           profile,
           skin,
-          page,
           token,
         },
       },

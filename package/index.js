@@ -26,6 +26,8 @@ let finalOptions = {
     /** 语言集 */
     messages: [],
   },
+  /** 挂载前的钩子函数 */
+  beforeMount: null,
 }
 
 /**
@@ -81,6 +83,11 @@ const start = async () => {
 
   //从本地存储中加载令牌
   await store.dispatch('app/token/login')
+
+  //执行挂载前的钩子函数
+  if (finalOptions.beforeMount && typeof finalOptions.beforeMount === 'function') {
+    finalOptions.beforeMount()
+  }
 
   app.mount('#app')
 }

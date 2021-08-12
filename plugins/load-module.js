@@ -5,6 +5,7 @@ import { normalizePath } from 'vite'
 
 export default function (modules) {
   const prefix = '@mkh-mod-'
+  const prefixPage = '@page-'
 
   //**匹配需要搜索的文件 */
   async function getFiles(patterns) {
@@ -18,7 +19,7 @@ export default function (modules) {
 
   //加载路由页面信息
   const loadPages = async (dir, pages) => {
-    let files = await getFiles([dir + '/**/page.js'])
+    let files = await getFiles([dir + '/**/page.json'])
     files.forEach(file => {
       pages.push(normalizePath(file))
     })
@@ -48,6 +49,104 @@ export default function (modules) {
     })
   }
 
+  //加载模块
+  const loadModule = async id => {
+    let src = '' //导入代码
+    let exportCode = '' //导出代码
+    const code = id.replace(prefix, '')
+    const dir = path.resolve(modules[code], 'src')
+    /** 加载package.json */
+    const packageFile = normalizePath(path.resolve(dir, '../package.json'))
+    const hasPackageFile = fs.existsSync(packageFile)
+    if (hasPackageFile) {
+      src += `import { id, version, label, icon, description } from '${packageFile}'\r\n`
+      exportCode += `id:id || 0, code:'${code}', version, label, icon, description`
+    }
+
+    /** 加载接口服务api */
+    const api = []
+    const apiDir = normalizePath(path.resolve(dir, 'api'))
+    await loadApi(apiDir, api)
+    api.forEach(a => {
+      src += `import api_${a.name} from '${a.path}'\r\n`
+    })
+
+    /** 加载状态 */
+    const storeDir = normalizePath(path.resolve(dir, 'store/index.js'))
+    if (fs.existsSync(storeDir)) {
+      src += `import store from '${storeDir}'\r\n`
+      exportCode += ',store'
+    }
+
+    /** 加载模块路由页面 */
+    const pages = []
+    const pagesDir = normalizePath(path.resolve(dir, 'views'))
+    await loadPages(pagesDir, pages)
+
+    pages.forEach((p, i) => {
+      const name = `page_${i}`
+      //这里将page.json替换成@page-模块编码，方便后续处理
+      src += `import ${name} from '${p.replace('page.json', prefixPage + code)}'\r\n`
+    })
+
+    /** 加载模块全局组件 */
+    const components = []
+    const componentsDir = normalizePath(path.resolve(dir, 'components'))
+    await loadComponents(componentsDir, components)
+    components.forEach((c, i) => {
+      const name = `component_${i}`
+      src += `import ${name} from '${c.path}'\r\n`
+    })
+
+    src += 'const pages = []\r\n'
+    pages.forEach((p, i) => {
+      const name = `page_${i}`
+      src += `pages.push(${name})\r\n`
+    })
+
+    src += 'const components = []\r\n'
+    components.forEach((c, i) => {
+      const name = `component_${i}`
+      src += `components.push({name:\'${c.name}\',component:${name}})\r\n`
+    })
+
+    src += 'const api = {}\r\n'
+    api.forEach(a => {
+      src += `api['${a.name}'] = api_${a.name}\r\n`
+    })
+
+    src += `const mod = {${exportCode}, pages, components, api }\r\n`
+    //注册模块
+    src += 'mkh.useModule(mod);\r\n'
+    //导出模块
+    src += 'export default mod'
+    return src
+  }
+
+  //加载单个页面
+  const loadPage = id => {
+    let code = id.split('-').pop()
+    let moduleDir = modules[code]
+    let filePath = normalizePath(moduleDir + id.replace(prefixPage + code, 'page.json'))
+
+    let src = `import component from '${path.dirname(filePath)}/index.vue'\r\n`
+    src += 'const page = '
+    //读取代码
+    src += fs.readFileSync(filePath, 'utf-8')
+    src += '\r\n'
+
+    //绑定组件
+    src += 'page.component = component\r\n'
+
+    //给组件设置name属性，否则keep-alive无法生效
+    src += 'component.name = page.name\r\n'
+
+    //导出页面
+    src += 'export default page'
+
+    return src
+  }
+
   return {
     name: 'mkh-load-module',
     resolveId(id, importer) {
@@ -56,11 +155,13 @@ export default function (modules) {
         const code = id.replace(prefix, '')
         if (!modules[code]) {
           if (importer.indexOf('index.html') > 0) {
-            modules[code] = path.resolve(path.dirname(normalizePath(importer)), 'src')
+            modules[code] = path.resolve(path.dirname(normalizePath(importer)))
           } else {
-            modules[code] = path.dirname(normalizePath(importer))
+            modules[code] = path.resolve(path.dirname(importer), '../')
           }
         }
+        return id
+      } else if (id.includes(prefixPage)) {
         return id
       }
 
@@ -68,97 +169,11 @@ export default function (modules) {
     },
     async load(id) {
       if (id.startsWith(prefix)) {
-        let src = '' //导入代码
-        let exportCode = '' //导出代码
-        const code = id.replace(prefix, '')
-        const dir = modules[code]
-
-        /** 加载package.json */
-        const packageFile = normalizePath(path.resolve(dir, '../package.json'))
-        const hasPackageFile = fs.existsSync(packageFile)
-        if (hasPackageFile) {
-          src += `import { id, version, label, icon, description } from '${packageFile}'\r\n`
-          exportCode += `id:id || 0, code:'${code}', version, label, icon, description`
-        }
-
-        /** 加载接口服务api */
-        const api = []
-        const apiDir = normalizePath(path.resolve(dir, 'api'))
-        await loadApi(apiDir, api)
-        api.forEach(a => {
-          src += `import api_${a.name} from '${a.path}'\r\n`
-        })
-
-        /** 加载状态 */
-        const storeDir = normalizePath(path.resolve(dir, 'store/index.js'))
-        if (fs.existsSync(storeDir)) {
-          src += `import store from '${storeDir}'\r\n`
-          exportCode += ',store'
-        }
-
-        /** 加载模块路由页面 */
-        const pages = []
-        const pagesDir = normalizePath(path.resolve(dir, 'views'))
-        await loadPages(pagesDir, pages)
-
-        pages.forEach((p, i) => {
-          const name = `page_${i}`
-          src += `import ${name} from '${p}'\r\n`
-        })
-
-        /** 加载模块全局组件 */
-        const components = []
-        const componentsDir = normalizePath(path.resolve(dir, 'components'))
-        await loadComponents(componentsDir, components)
-        components.forEach((c, i) => {
-          const name = `component_${i}`
-          src += `import ${name} from '${c.path}'\r\n`
-        })
-
-        src += 'const pages = []\r\n'
-        pages.forEach((p, i) => {
-          const name = `page_${i}`
-          src += `pages.push(${name})\r\n`
-        })
-
-        src += 'const components = []\r\n'
-        components.forEach((c, i) => {
-          const name = `component_${i}`
-          src += `components.push({name:\'${c.name}\',component:${name}})\r\n`
-        })
-
-        src += 'const api = {}\r\n'
-        api.forEach(a => {
-          src += `api['${a.name}'] = api_${a.name}\r\n`
-        })
-
-        src += `const mod = {${exportCode}, pages, components, api }\r\n`
-        //注册模块
-        src += 'mkh.useModule(mod);\r\n'
-        //导出模块
-        src += 'export default mod'
-
-        return src
+        return loadModule(id)
+      } else if (id.includes(prefixPage)) {
+        return loadPage(id)
       }
-
       return null
-    },
-    transform(code, id) {
-      //处理页面
-      if (id.includes('page.js') && !id.includes('store/modules/page.js')) {
-        //导入页面对应的组件
-        code = "import component from './index.vue'\r\n" + code + '\r\n'
-
-        //绑定组件
-        code += 'page.component = component\r\n'
-
-        //给组件设置name属性，否则keep-alive无法生效
-        code += 'component.name = page.name\r\n'
-
-        //导出页面
-        code += 'export default page'
-        return code
-      }
     },
   }
 }

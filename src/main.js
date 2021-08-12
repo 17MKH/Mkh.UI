@@ -1,7 +1,7 @@
 import { configure } from '../package/index.js'
 import zhCN from '@mkh-locale/zh-cn'
 import en from '@mkh-locale/en'
-import './mod.js'
+import './index.js'
 
 mkh.config.site.title = '17MKH'
 mkh.config.site.home = '/doc/home'

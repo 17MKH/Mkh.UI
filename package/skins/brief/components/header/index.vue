@@ -15,7 +15,7 @@
       <div class="m-header_userinfo">
         <el-dropdown trigger="click" @command="handleCommand">
           <a class="m-header_userinfo_avatar" href="javascript:void(0);">
-            <img :src="profile.avatar" />
+            <img :src="profile.avatar || './assets/mkh/avatar.png'" />
           </a>
           <template #dropdown>
             <el-dropdown-menu class="m-header_userinfo_dropdown">

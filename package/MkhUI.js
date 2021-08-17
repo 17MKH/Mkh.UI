@@ -45,11 +45,6 @@ if (!window.mkh)
         },
         /**登录组件，默认是m-login-m */
         login: 'm',
-        /**标签导航栏 */
-        tabnav: {
-          /**显示图标 */
-          showIcon: true,
-        },
       },
       /**系统操作，供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能 */
       actions: {
@@ -61,6 +56,8 @@ if (!window.mkh)
         getVerifyCode: null,
         /**获取账户信息(异步) */
         getProfile: null,
+        /**切换皮肤 */
+        toggleSkin: null,
       },
       /** 接口配置 */
       http: {

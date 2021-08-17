@@ -35,12 +35,19 @@ const state = {
   menus: [],
   /** 权限列表 */
   permissions: [],
-  /**账户详细信息，用于开发者自定义扩展 */
+  /** 账户详细信息，用于开发者自定义扩展 */
   details: null,
   /** 路由菜单列表 */
   routeMenus: null,
   /** 按钮编码列表，说明：此处的按钮编码由菜单编号_按钮唯一编码组成 */
   buttons: [],
+  /** 皮肤 */
+  skin: {
+    name: '简约',
+    code: 'brief',
+    theme: 'dark',
+    size: '',
+  },
 }
 
 const actions = {
@@ -48,11 +55,6 @@ const actions = {
     try {
       //获取账户信息
       const profile = await mkh.config.actions.getProfile()
-
-      if (profile.skin) {
-        //初始化皮肤
-        commit('app/skin/init', profile.skin, { root: true })
-      }
 
       commit('init', profile)
     } catch (error) {
@@ -62,6 +64,9 @@ const actions = {
 }
 
 const mutations = {
+  /**
+   * @description 初始化
+   */
   init(state, profile) {
     Object.assign(state, profile)
     state.routeMenus = []
@@ -69,10 +74,22 @@ const mutations = {
 
     resolveRouteMenu(profile.menus, state.routeMenus, state.buttons)
   },
+  /**
+   * @description 清除账户信息
+   */
   clear(state) {
     state.accountId = ''
     state.username = ''
     state.nickname = ''
+  },
+  /**
+   * @description 切换皮肤
+   */
+  toggleSkin(state, { name, code, theme, size }) {
+    state.skin.name = name
+    state.skin.code = code
+    state.skin.theme = theme
+    state.skin.size = size
   },
 }
 

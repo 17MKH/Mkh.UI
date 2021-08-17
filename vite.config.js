@@ -16,7 +16,7 @@ export default defineConfig(({ mode, command }) => {
             /** 版权信息 */
             copyright: '版权所有：OLDLI',
             /** Logo */
-            logo: './src/assets/logo.png',
+            logo: './assets/mkh/logo.png',
           },
           /** 压缩配置 */
           htmlMinify: {},

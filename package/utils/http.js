@@ -51,30 +51,27 @@ function Http(options) {
         switch (error.response.status) {
           case 401:
             const { accountId, refreshToken } = store.state.app.token
-            if (refreshToken) {
-              const refreshTokenAction = mkh.config.actions.refreshToken
+            const refreshTokenAction = mkh.config.actions.refreshToken
+            if (refreshToken && refreshTokenAction) {
               //尝试刷新令牌
-              if (refreshTokenAction) {
-                return refreshTokenAction({
-                  accountId,
-                  platform: 0,
-                  refreshToken,
+              return refreshTokenAction({
+                accountId,
+                platform: 0,
+                refreshToken,
+              })
+                .then(data => {
+                  return store.dispatch('app/token/login', data).then(() => {
+                    //重新发一起一次上次的的请求
+                    error.config.headers.Authorization = 'Bearer ' + data.accessToken
+                    return _axios.request(error.config)
+                  })
                 })
-                  .then(data => {
-                    return store.dispatch('app/token/login', data).then(() => {
-                      //重新发一起一次上次的的请求
-                      error.config.headers.Authorization = 'Bearer ' + data.accessToken
-                      return _axios.request(error.config)
-                    })
-                  })
-                  .catch(e => {
-                    store.dispatch('app/token/logout').then(() => {
-                      Promise.reject(e)
-                    })
-                  })
-              }
+                .catch(e => {
+                  store.dispatch('app/token/logout')
+                })
+            } else {
+              store.dispatch('app/token/logout')
             }
-            router.push('/login')
             break
           case 403:
             router.push('/error/403')
@@ -84,6 +81,8 @@ function Http(options) {
             router.push('/error/500')
             break
         }
+
+        return
       }
       return Promise.reject(i18n.global.t('mkh.http.errorTitle'))
     }

@@ -21,14 +21,14 @@
     </m-head>
     <!--查询栏-->
     <div v-if="!noQuerybar" class="m-list_querybar">
-      <f-form ref="queryFormRef" :inline="true" :model="queryModel" :size="size_" disabled-enter>
+      <m-form ref="queryFormRef" :inline="true" :model="queryModel" :size="size_" disabled-enter>
         <slot name="querybar" :selection="selection" :total="total" />
         <el-form-item>
           <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
           <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
           <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove" />
         </el-form-item>
-      </f-form>
+      </m-form>
     </div>
     <!--自定义按钮-->
     <div v-if="$slots.buttons" class="m-list_buttons">
@@ -411,14 +411,12 @@ export default {
 
     const handleEnterQuery = e => {
       if (e.keyCode === 13) {
-        console.log('查询')
         query()
       }
     }
 
     onMounted(() => {
       nextTick(() => {
-        console.log(queryFormRef.value.$el)
         dom.on(queryFormRef.value.$el, 'keydown', handleEnterQuery)
       })
     })

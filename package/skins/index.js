@@ -1,7 +1,6 @@
 import { store } from '../store'
 /** 导入内置皮肤 */
 import './brief'
-import './youthful'
 
 export default app => {
   //注册皮肤

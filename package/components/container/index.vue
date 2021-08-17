@@ -16,7 +16,7 @@ export default {
     /** 滚动条 */
     scrollbar: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     /** 是否显示水平滚动条 */
     horizontal: Boolean,

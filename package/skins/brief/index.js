@@ -1,9 +1,11 @@
 import component from './index.vue'
 import store from './store'
+import preview from './preview.png'
 
 const options = {
   name: '简约',
   code: 'brief',
+  preview,
   store,
   component,
   themes: [

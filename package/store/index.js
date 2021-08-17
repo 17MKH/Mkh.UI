@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
 import profile from './modules/profile'
-import skin from './modules/skin'
 import token from './modules/token'
 
 let store = null
@@ -13,7 +12,6 @@ const useStore = app => {
         namespaced: true,
         modules: {
           profile,
-          skin,
           token,
         },
       },

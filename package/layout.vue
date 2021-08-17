@@ -11,7 +11,7 @@ import { store } from './store'
 export default {
   setup() {
     const skinComponent = ref('')
-    const skin = computed(() => store.state.app.skin)
+    const skin = computed(() => store.state.app.profile.skin)
 
     watchEffect(() => {
       skinComponent.value = `m-skin-${skin.value.code.toLowerCase()}`

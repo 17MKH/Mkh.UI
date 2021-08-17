@@ -1,5 +1,4 @@
 import menus from '../menus'
-import avatar from '../assets/avatar.png'
 
 export default http => {
   /**
@@ -7,7 +6,7 @@ export default http => {
    */
   const login = ({ username, password }) => {
     return new Promise((resolve, reject) => {
-      if (username === 'admin' && password === '17mkh') {
+      if (username === '17mkh' && password === '123456') {
         resolve({
           accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
           refreshToken: '',
@@ -64,7 +63,7 @@ export default http => {
         /**昵称 */
         nickname: 'OLDLI',
         /**头像 */
-        avatar,
+        avatar: './assets/mkh/avatar.png',
         /** 菜单列表 */
         menus,
         /** 权限列表 */

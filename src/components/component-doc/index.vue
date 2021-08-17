@@ -1,5 +1,5 @@
 <template>
-  <m-container class="m-doc-component">
+  <m-container class="m-doc-component" scrollbar>
     <el-backtop target=".m-doc-component .el-scrollbar__wrap"> </el-backtop>
     <div ref="componentRef" class="m-doc-component_wrapper">
       <h1 class="m-doc-component_title">{{ title }}</h1>

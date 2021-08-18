@@ -56,6 +56,17 @@ const actions = {
       //获取账户信息
       const profile = await mkh.config.actions.getProfile()
 
+      if (!profile.skin) {
+        let skin = mkh.skins[0]
+
+        profile.skin = {
+          name: skin.name,
+          code: skin.code,
+          theme: skin.themes[0].name,
+          size: '',
+        }
+      }
+      console.log(profile)
       commit('init', profile)
     } catch (error) {
       console.log(error)

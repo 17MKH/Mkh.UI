@@ -13,6 +13,10 @@ const options = {
       name: 'dark',
       color: '#0e1726',
     },
+    {
+      name: 'light',
+      color: '#89e',
+    },
   ],
 }
 

@@ -77,7 +77,7 @@
             @expand-change="(row, expandedRows) => $emit('expand-change', row, expandedRows)"
           >
             <!--展开行-->
-            <el-table-column v-if="$slots.expand" type="expand" fixed="left">
+            <el-table-column v-if="$slots.expand" type="expand">
               <template #default="{ row }">
                 <div class="m-list_expand">
                   <slot name="expand" :row="row"> </slot>
@@ -86,10 +86,10 @@
             </el-table-column>
 
             <!-- 多选 -->
-            <el-table-column v-if="multiple" type="selection" fixed="left" align="center" width="55" />
+            <el-table-column v-if="multiple" type="selection" align="center" width="55" />
 
             <!--序号-->
-            <el-table-column v-if="index" type="index" fixed="left" :index="indexMethod" :label="$t('mkh.list.index')" align="center" width="60"> </el-table-column>
+            <el-table-column v-if="index" type="index" :index="indexMethod" :label="$t('mkh.list.index')" align="center" width="60"> </el-table-column>
 
             <!--渲染列-->
             <template v-for="col in cols_">
@@ -122,7 +122,7 @@
             </template>
 
             <!--操作列-->
-            <el-table-column v-if="$slots.operation" :width="operationWidth || operationWidth_" fixed="right" align="center">
+            <el-table-column v-if="$slots.operation" :width="operationWidth || operationWidth_" align="center">
               <template #header>
                 <slot name="operation-header">{{ $t('mkh.list.operationHeader') }}</slot>
               </template>

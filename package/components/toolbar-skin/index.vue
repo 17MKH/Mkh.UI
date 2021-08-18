@@ -2,7 +2,7 @@
   <div class="m-toolbar_item" @click="show = true">
     <m-icon name="skin"></m-icon>
   </div>
-  <m-dialog v-model="show" custom-class="m-skin-toggle" title="皮肤切换" icon="toggle" width="910px" height="80%" no-padding no-scrollbar>
+  <m-dialog v-model="show" :loading="loading" custom-class="m-skin-toggle" title="皮肤切换" icon="toggle" width="910px" height="80%" no-padding no-scrollbar>
     <m-flex-col>
       <m-flex-auto class="m-skin-toggle_wrapper">
         <m-scrollbar>
@@ -47,19 +47,25 @@ export default {
   name: 'ToolbarSkin',
   setup() {
     const show = ref(false)
-    const current = ref(mkh.skins.find(m => m.code === store.state.app.profile.skin.code))
+    const loading = ref(false)
+
+    const skin = store.state.app.profile.skin
+    const current = ref(mkh.skins.find(m => m.code === skin.code))
+
     const model = reactive({
-      name: '',
-      code: '',
-      theme: '',
-      size: '',
+      name: skin.name,
+      code: skin.code,
+      theme: skin.theme,
+      size: skin.size,
     })
 
     const toggleSkin = skin => {
-      const { name, code, size, themes } = skin
+      const { name, code, themes } = skin
+      if (code === current.value.code) return
+
       model.name = name
       model.code = code
-      model.size = size
+      model.size = ''
 
       if (themes && themes.length > 0) {
         model.theme = themes[0].name
@@ -67,12 +73,6 @@ export default {
 
       current.value = skin
     }
-
-    if (!current.value) {
-      current.value = mkh.skins[0]
-    }
-
-    toggleSkin(current.value)
 
     const toggleTheme = theme => {
       model.theme = theme.name
@@ -82,8 +82,12 @@ export default {
       store.commit('app/profile/toggleSkin', model)
 
       //如果配置了切换服务接口，则调用
-      if (mkh.config.action.toggleSkin) {
-        mkh.config.action.toggleSkin(model)
+      const { toggleSkin: saveSkin } = mkh.config.actions
+      if (saveSkin) {
+        loading.value = true
+        saveSkin(model).finally(() => {
+          loading.value = false
+        })
       }
     }
 
@@ -91,6 +95,7 @@ export default {
       show,
       current,
       model,
+      loading,
       toggleSkin,
       toggleTheme,
       save,

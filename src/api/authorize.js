@@ -1,4 +1,5 @@
 import menus from '../menus'
+import db from '../../package/utils/db'
 
 export default http => {
   /**
@@ -54,6 +55,8 @@ export default http => {
   const getProfile = () => {
     setMenusId(menus)
 
+    let skin = db.get('skin')
+
     return new Promise(resolve => {
       resolve({
         /**编号 */
@@ -71,17 +74,15 @@ export default http => {
         /** 按钮列表 */
         buttons: ['admin_account_add', 'admin_account_edit'],
         /** 皮肤设置 */
-        skin: {
-          /** 名称 */
-          name: 'brief',
-          /** 编码 */
-          code: 'brief',
-          /** 主题 */
-          theme: 'dark',
-          /** 尺寸 */
-          size: 'small',
-        },
+        skin,
       })
+    })
+  }
+
+  const toggleSkin = skin => {
+    return new Promise(resolve => {
+      db.set('skin', skin)
+      resolve()
     })
   }
 
@@ -89,5 +90,6 @@ export default http => {
     login,
     getVerifyCode,
     getProfile,
+    toggleSkin,
   }
 }

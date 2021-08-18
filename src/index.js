@@ -12,7 +12,7 @@ mod.callback = ({ app }) => {
   //绑定到全局变量
   app.config.globalProperties.$echarts = echarts
 
-  const { login, getVerifyCode, getProfile } = mkh.api.doc.authorize
+  const { login, getVerifyCode, getProfile, toggleSkin } = mkh.api.doc.authorize
 
   /** 设置登录方法 */
   mkh.config.actions.login = login
@@ -20,4 +20,6 @@ mod.callback = ({ app }) => {
   mkh.config.actions.getVerifyCode = getVerifyCode
   /** 设置获取账户信息方法 */
   mkh.config.actions.getProfile = getProfile
+  /** 设置切换皮肤方法 */
+  mkh.config.actions.toggleSkin = toggleSkin
 }

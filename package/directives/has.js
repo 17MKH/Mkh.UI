@@ -10,7 +10,7 @@ export default {
       // 如果编码为空则始终显示
       if (!code) return
       // 验证是否开启按钮验证，按钮编码不区分大小写
-      if (mkh.config.auth.enableButtonPermissions) {
+      if (store.state.app.config.auth.enableButtonPermissions) {
         const currentRoute = router.currentRoute.value
         let { _mid_ } = currentRoute.query
         if (!_mid_) {

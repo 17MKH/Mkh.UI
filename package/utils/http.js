@@ -51,7 +51,7 @@ function Http(options) {
         switch (error.response.status) {
           case 401:
             const { accountId, refreshToken } = store.state.app.token
-            const refreshTokenAction = mkh.config.actions.refreshToken
+            const refreshTokenAction = store.state.app.config.actions.refreshToken
             if (refreshToken && refreshTokenAction) {
               //尝试刷新令牌
               return refreshTokenAction({
@@ -150,15 +150,15 @@ const crud = (http, root) => {
   }
 }
 
-export default () => {
+export default (app, config) => {
   mkh.api = {}
 
   mkh.modules.forEach(m => {
     const { code, api } = m
     let $api = {}
     //先判断模块的http配置是否存在，如果不存在则使用全局配置
-    let httpOptions = Object.assign({}, mkh.config.http.global)
-    let httpModuleOptions = mkh.config.http.modules[code]
+    let httpOptions = Object.assign({}, config.global)
+    let httpModuleOptions = config.modules[code]
     if (httpModuleOptions) {
       Object.assign(httpOptions, httpModuleOptions)
     } else {

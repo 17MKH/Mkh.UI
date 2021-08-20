@@ -50,6 +50,7 @@ export default {
     const loading = ref(false)
 
     const skin = store.state.app.profile.skin
+    const actions = store.state.app.config.actions
     const current = ref(mkh.skins.find(m => m.code === skin.code))
 
     const model = reactive({
@@ -82,7 +83,7 @@ export default {
       store.commit('app/profile/toggleSkin', model)
 
       //如果配置了切换服务接口，则调用
-      const { toggleSkin: saveSkin } = mkh.config.actions
+      const { toggleSkin: saveSkin } = actions
       if (saveSkin) {
         loading.value = true
         saveSkin(model).finally(() => {

@@ -229,7 +229,7 @@ export default {
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
     //加载动画配置
-    const loadingOptions = mkh.config.component.loading
+    const loadingOptions = store.state.app.config.component.loading
     const globalLoading = useLoading()
 
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)

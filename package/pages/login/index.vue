@@ -4,10 +4,11 @@
   </div>
 </template>
 <script>
+import { store } from '../../store'
 export default {
   setup() {
     return {
-      loginComponent: mkh.config.component.login,
+      loginComponent: store.state.app.config.component.login,
     }
   },
 }

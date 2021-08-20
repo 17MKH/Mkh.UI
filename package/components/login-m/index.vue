@@ -2,9 +2,9 @@
   <section class="m-login-m">
     <div class="m-login-m_wrapper">
       <div class="m-login-m_logo">
-        <img :src="logo" />
+        <img :src="site.logo" />
       </div>
-      <h1 class="m-login-m_title">{{ title }}</h1>
+      <h1 class="m-login-m_title">{{ site.title }}</h1>
       <h4 class="m-login-m_tip">请输入您的用户名和密码</h4>
       <el-form ref="formRef" class="m-login-m_form" :model="model" :rules="rules">
         <el-form-item prop="username">
@@ -30,22 +30,23 @@
   </section>
 </template>
 <script>
+import { computed } from '@vue/reactivity'
 import { useLogin } from '../../composables'
+import { store } from '../../store'
 export default {
   name: 'LoginM',
   setup() {
-    const { title, logo } = mkh.config.site
+    const site = store.state.app.config.site
     const { model, rules, loading, formRef, tryLogin } = useLogin()
 
     return {
-      title,
-      logo,
+      site,
       formRef,
       model,
       rules,
       loading,
       tryLogin,
-      enableVerifyCode: mkh.config.auth.enableVerifyCoee,
+      enableVerifyCode: computed(() => store.state.app.config.auth.enableVerifyCoee),
     }
   },
 }

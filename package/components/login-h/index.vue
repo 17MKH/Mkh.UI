@@ -5,8 +5,8 @@
         <div class="m-login-h_modal"></div>
         <img class="m-login-h_bg" :src="'./assets/mkh/login-bg.jpg'" />
         <a href="#" class="m-login-h_logo">
-          <img :src="logo" class="m-login-h_logo_img" />
-          <span class="m-login-h_logo-title">{{ title }}</span>
+          <img :src="site.logo" class="m-login-h_logo_img" />
+          <span class="m-login-h_logo-title">{{ site.title }}</span>
         </a>
         <h1 class="m-login-h_tip">欢迎登录</h1>
       </div>
@@ -54,22 +54,23 @@
   </section>
 </template>
 <script>
+import { computed } from '@vue/reactivity'
 import { useLogin } from '../../composables'
+import { store } from '../../store'
 export default {
   name: 'LoginH',
   setup() {
-    const { title, logo } = mkh.config.site
+    const site = store.state.app.config.site
     const { model, rules, loading, formRef, tryLogin } = useLogin()
 
     return {
-      title,
-      logo,
+      site,
       formRef,
       model,
       rules,
       loading,
       tryLogin,
-      enableVerifyCode: mkh.config.auth.enableVerifyCoee,
+      enableVerifyCode: computed(() => store.state.app.config.auth.enableVerifyCoee),
     }
   },
 }

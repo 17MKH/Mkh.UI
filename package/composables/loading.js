@@ -1,8 +1,9 @@
 import { ElLoading } from 'element-plus'
 import { nextTick } from 'vue'
+import { store } from '../store'
 
 export default function () {
-  const defaultOptions = mkh.config.component.$loading
+  const defaultOptions = store.state.app.config.component.loading
   let loading
 
   const open = (text, options) => {

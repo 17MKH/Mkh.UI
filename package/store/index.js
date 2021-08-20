@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import config from './modules/config'
 import profile from './modules/profile'
 import token from './modules/token'
 
@@ -11,6 +12,7 @@ const useStore = app => {
       app: {
         namespaced: true,
         modules: {
+          config,
           profile,
           token,
         },

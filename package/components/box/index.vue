@@ -47,7 +47,7 @@ export default {
   emits: ['fullscreen-change', 'collapse-change'],
   setup(props, { emit }) {
     const scrollbarRef = ref()
-    const loadingOptions = mkh.config.component.loading
+    const loadingOptions = store.state.app.config.component.loading
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)

@@ -3,10 +3,10 @@
     <m-flex-auto>
       <ul class="m-header_left">
         <li>
-          <img class="m-header_logo" :src="logo" />
+          <img class="m-header_logo" :src="site.logo" />
         </li>
         <li>
-          <span class="m-header_title">{{ title }}</span>
+          <span class="m-header_title">{{ site.title }}</span>
         </li>
       </ul>
     </m-flex-auto>
@@ -48,7 +48,7 @@ import { useMessage } from '../../../../composables'
 export default {
   setup() {
     const message = useMessage()
-    const { title, logo } = mkh.config.site
+    const site = store.state.app.config.site
     const profile = computed(() => store.state.app.profile)
     const toolbars = Object.values(mkh.toolbars)
       .filter(m => m.show)
@@ -69,9 +69,9 @@ export default {
           break
       }
     }
+
     return {
-      title,
-      logo,
+      site,
       profile,
       toolbars,
       handleCommand,

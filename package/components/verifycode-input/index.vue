@@ -17,7 +17,8 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { store } from '../../store'
 export default {
   name: 'VerifycodeInput',
   props: {
@@ -40,13 +41,12 @@ export default {
   },
   emits: ['update:modelValue', 'update:id'],
   setup(props, { emit }) {
-    const { getVerifyCode } = mkh.config.actions
+    const getVerifyCode = computed(() => store.state.app.config.actions.getVerifyCode)
     const verifyCodeUrl = ref()
 
     //刷新验证码
     const refreshVerifyCode = () => {
-      getVerifyCode().then(data => {
-        console.log(data)
+      getVerifyCode.value().then(data => {
         verifyCodeUrl.value = data.base64
         emit('update:id', data.id)
         emit('update:modelValue', '')

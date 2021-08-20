@@ -51,10 +51,10 @@ const state = {
 }
 
 const actions = {
-  async init({ commit }) {
+  async init({ commit, rootState }) {
     try {
       //获取账户信息
-      const profile = await mkh.config.actions.getProfile()
+      const profile = await rootState.app.config.actions.getProfile()
 
       if (!profile.skin || !profile.skin.code) {
         let skin = mkh.skins[0]

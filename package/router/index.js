@@ -67,18 +67,6 @@ const page2route = (page, parentRoute, pages) => {
   delete page.component
 }
 
-/**
- * @description 配置首页，如果用户自定义了首页地址，则将首页重定向为该页面
- */
-const handleDefaultPage = () => {
-  const { home } = mkh.config.site
-  if (home) {
-    routes[0].redirect = home
-  } else {
-    mkh.config.site.home = '/default'
-  }
-}
-
 export default app => {
   //页面转换路由
   mkh.modules
@@ -91,9 +79,6 @@ export default app => {
         })
     })
 
-  //处理默认页
-  handleDefaultPage()
-
   //创建路由实例
   router = createRouter({
     history: createWebHashHistory(),
@@ -103,6 +88,14 @@ export default app => {
   router.beforeEach(async (to, from) => {
     // 开始进度条
     NProgress.start()
+
+    //首页跳转
+    if (to.name === 'home') {
+      const { home } = store.state.app.config.site
+      if (home) {
+        return home
+      }
+    }
 
     //验证是否登录
     const { enablePermissionVerify } = to.meta

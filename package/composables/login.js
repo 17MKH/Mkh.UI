@@ -1,4 +1,4 @@
-import { getCurrentInstance, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { computed, getCurrentInstance, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { router } from '../router'
 import { store } from '../store'
@@ -40,12 +40,13 @@ export default function () {
     ],
   }
 
-  const { login } = mkh.config.actions
+  const login = computed(() => store.state.app.config.actions.login)
   const tryLogin = () => {
     formRef.value.validate(valid => {
       if (valid) {
         loading.value = true
-        login(model)
+        login
+          .value(model)
           .then(data => {
             $notify({
               title: '登录提示',

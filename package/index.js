@@ -1,4 +1,4 @@
-import './MkhUI'
+import './mkh'
 import { createApp } from 'vue'
 import Locale, { i18n } from './utils/locale'
 import Layout from './layout.vue'
@@ -14,8 +14,9 @@ import Directives from './directives'
 import Http from './utils/http'
 import './styles/app.scss'
 import Skins from './skins'
+import config from './config'
 
-/** 最终的配置信息 */
+/** 最终的配置项信息 */
 let finalOptions = {
   /** 多语言配置 */
   locale: {
@@ -28,6 +29,15 @@ let finalOptions = {
   },
   /** 挂载前的钩子函数 */
   beforeMount: null,
+  /** 接口配置 */
+  http: {
+    /** 全局接口地址 */
+    global: {
+      baseURL: '',
+    },
+    /** 模块配置，会覆盖全局配置 */
+    modules: {},
+  },
 }
 
 /**
@@ -71,15 +81,18 @@ const start = async () => {
   app.use(Skins)
 
   //注册Http服务
-  app.use(Http)
+  app.use(Http, finalOptions.http)
 
   //执行模块的回调函数
   mkh.modules.forEach(m => {
     //执行回调函数
     if (m.callback) {
-      m.callback({ app, router, store })
+      m.callback({ app, router, store, config })
     }
   })
+
+  //初始化配置
+  await store.commit('app/config/init', config)
 
   //从本地存储中加载令牌
   await store.dispatch('app/token/login')

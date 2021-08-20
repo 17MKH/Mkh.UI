@@ -4,7 +4,7 @@ import VCharts from 'vue-echarts'
 import * as echarts from 'echarts'
 
 /** 模块注册回调函数，当vue根实例挂载前调用 */
-mod.callback = ({ app }) => {
+mod.callback = ({ app, config }) => {
   /* 注册vue-echarts组件 */
   /* 说明文档 https://github.com/ecomfe/vue-echarts/blob/main/README.zh-Hans.md */
   app.component('VChart', VCharts)
@@ -15,11 +15,11 @@ mod.callback = ({ app }) => {
   const { login, getVerifyCode, getProfile, toggleSkin } = mkh.api.doc.authorize
 
   /** 设置登录方法 */
-  mkh.config.actions.login = login
+  config.actions.login = login
   /** 设置获取验证码方法 */
-  mkh.config.actions.getVerifyCode = getVerifyCode
+  config.actions.getVerifyCode = getVerifyCode
   /** 设置获取账户信息方法 */
-  mkh.config.actions.getProfile = getProfile
+  config.actions.getProfile = getProfile
   /** 设置切换皮肤方法 */
-  mkh.config.actions.toggleSkin = toggleSkin
+  config.actions.toggleSkin = toggleSkin
 }

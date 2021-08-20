@@ -28,12 +28,13 @@
 import { computed, nextTick, onMounted, watch, ref, toRef } from 'vue'
 import props from './props'
 import dom from '../../utils/dom'
+import { store } from '../../store'
 export default {
   name: 'Split',
   props,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const loadingOptions = mkh.config.component.loading
+    const loadingOptions = store.state.app.config.component.loading
 
     const modelValue = toRef(props, 'modelValue')
 

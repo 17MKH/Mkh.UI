@@ -1,8 +1,8 @@
 <template>
   <section class="m-login-k">
     <a href="#" class="m-login-k_logo">
-      <img :src="logo" class="m-login-k_logo_img" />
-      <span class="m-login-k_logo_title">{{ title }}</span>
+      <img :src="site.logo" class="m-login-k_logo_img" />
+      <span class="m-login-k_logo_title">{{ site.title }}</span>
     </a>
     <div class="m-login-k_left">
       <img class="m-login-k_bg" :src="'./assets/mkh/login-bg.svg'" />
@@ -36,22 +36,23 @@
   </section>
 </template>
 <script>
+import { computed } from '@vue/reactivity'
 import { useLogin } from '../../composables'
+import { store } from '../../store'
 export default {
   name: 'LoginK',
   setup() {
-    const { title, logo } = mkh.config.site
+    const site = store.state.app.config.site
     const { model, rules, loading, formRef, tryLogin } = useLogin()
 
     return {
-      title,
-      logo,
+      site,
       formRef,
       model,
       rules,
       loading,
       tryLogin,
-      enableVerifyCode: mkh.config.auth.enableVerifyCoee,
+      enableVerifyCode: computed(() => store.state.app.config.auth.enableVerifyCoee),
     }
   },
 }

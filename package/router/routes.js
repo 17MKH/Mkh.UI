@@ -8,11 +8,6 @@ export default [
   {
     path: '/',
     name: 'home',
-    redirect: '/default',
-  },
-  {
-    path: '/default',
-    name: 'default',
     component: defaultPage,
     meta: {
       inFrame: true,

@@ -26,7 +26,7 @@ export default {
   emits: ['success', 'error', 'validate-success', 'validate-error'],
   setup(props, { emit }) {
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
-    const loadingOptions = mkh.config.component.loading
+    const loadingOptions = store.state.app.config.component.loading
 
     const formRef = ref(null)
     //加载动画

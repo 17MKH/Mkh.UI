@@ -7,17 +7,10 @@ configure({
   /** 为什么不设置一个默认语言包呢？ */
   /** 因为不知道有多少模块集成，也就无法在打包的时候动态加载模块的语言包文件，所以必须手动导入语言包 */
   locale: { messages: [zhCN, en] },
-  config: {
-    site: {
-      title: '17MKH',
-      home: '/doc/home',
-    },
-    auth: {
-      enableButtonPermissions: true,
-    },
-    component: {
-      /** 配置登录组件 */
-      login: 'k',
-    },
+  beforeMount({ config }) {
+    config.site.title = '17MKH'
+    config.site.home = '/doc/home'
+    /** 配置登录组件 */
+    config.component.login = 'k'
   },
 })

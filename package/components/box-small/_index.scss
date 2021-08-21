@@ -1,0 +1,68 @@
+#{$prefix}-box-small {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin-bottom: 20px;
+  height: 123px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+
+  &_content {
+    flex-grow: 1;
+  }
+
+  &_icon {
+    flex-shrink: 0;
+
+    #{$prefix}-icon {
+      color: rgba(0, 0, 0, 0.15);
+      margin: 20px 15px;
+      font-size: 60px;
+      transition: all 0.15s ease-in;
+    }
+  }
+
+  &_value {
+    display: inline-block;
+    margin: 15px 0 10px 15px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  &_label {
+    margin-left: 15px;
+    color: #fff;
+  }
+
+  &_unit {
+    margin-left: 7px;
+    font-size: 14px;
+  }
+
+  &_more {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 8px;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &:hover {
+    #{$prefix}-box-small_icon {
+      #{$prefix}-icon {
+        transform: scale(1.2);
+      }
+    }
+  }
+}

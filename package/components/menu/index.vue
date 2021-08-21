@@ -1,5 +1,5 @@
 <template>
-  <div class="m-menu">
+  <div :class="['m-menu', collapse ? 'is-collapse' : '']">
     <m-scrollbar horizontal>
       <el-menu :default-active="defaultActive" class="m-menu_wrapper" :collapse="collapse"> <menu-item :menus="menus" /> </el-menu>
     </m-scrollbar>

@@ -31,6 +31,14 @@ export default [
         routeName: 'doc_layout_box',
       },
       {
+        name: '小盒子(BoxSmall)',
+        type: 1,
+        icon: 'box',
+        level: 2,
+        show: true,
+        routeName: 'doc_layout_boxsmall',
+      },
+      {
         name: '弹性布局(Flex)',
         type: 1,
         icon: 'list',

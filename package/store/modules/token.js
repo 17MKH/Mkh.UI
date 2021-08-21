@@ -16,7 +16,7 @@ export default {
     /**
      * @description 登录
      */
-    async login({ commit, dispatch }, token) {
+    async login({ commit }, token) {
       if (!token) {
         //尝试从本地加载令牌
         token = db.get(key)

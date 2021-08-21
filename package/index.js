@@ -27,8 +27,6 @@ let finalOptions = {
     /** 语言集 */
     messages: [],
   },
-  /** 挂载前的钩子函数 */
-  beforeMount: null,
   /** 接口配置 */
   http: {
     /** 全局接口地址 */
@@ -38,6 +36,8 @@ let finalOptions = {
     /** 模块配置，会覆盖全局配置 */
     modules: {},
   },
+  /** 挂载前的钩子函数 */
+  beforeMount: null,
 }
 
 /**
@@ -91,16 +91,15 @@ const start = async () => {
     }
   })
 
-  //初始化配置
-  await store.commit('app/config/init', config)
-
   //从本地存储中加载令牌
   await store.dispatch('app/token/login')
 
   //执行挂载前的钩子函数
   if (finalOptions.beforeMount && typeof finalOptions.beforeMount === 'function') {
-    finalOptions.beforeMount()
+    finalOptions.beforeMount({ app, router, store, config })
   }
+  //初始化配置
+  await store.commit('app/config/init', config)
 
   app.mount('#app')
 }

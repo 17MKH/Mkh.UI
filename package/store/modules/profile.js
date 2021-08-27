@@ -1,3 +1,14 @@
+//解析自定义菜单
+const resolveMenu = async (profile, menu) => {
+  if (!menu) return
+
+  if (typeof menu === 'function') {
+    profile.menus = await menu(profile)
+  } else if (typeof menu == 'object') {
+    profile.menus = menu
+  }
+}
+
 //解析节点路由并保存
 const resolveRouteMenu = (menus, routeMenus, buttons) => {
   menus.forEach(m => {
@@ -56,16 +67,30 @@ const actions = {
       //获取账户信息
       const profile = await rootState.app.config.actions.getProfile()
 
-      if (!profile.skin || !profile.skin.code) {
-        let skin = mkh.skins[0]
+      //设置菜单
+      await resolveMenu(profile, rootState.app.config.site.menu)
 
-        profile.skin = {
-          name: skin.name,
-          code: skin.code,
-          theme: skin.themes[0].name,
-          size: '',
+      if (!profile.skin || !profile.skin.code) {
+        if (rootState.app.config.skin) {
+          let skin = rootState.app.config.skin
+          profile.skin = {
+            name: skin.name,
+            code: skin.code,
+            theme: skin.theme,
+            size: skin.size,
+          }
+        } else {
+          let skin = fb.skins[0]
+
+          profile.skin = {
+            name: skin.name,
+            code: skin.code,
+            theme: skin.themes[0].name,
+            size: '',
+          }
         }
       }
+
       commit('init', profile)
     } catch (error) {
       console.log(error)

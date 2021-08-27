@@ -9,7 +9,7 @@ configure({
   locale: { messages: [zhCN, en] },
   beforeMount({ config }) {
     config.site.title = '17MKH'
-    config.site.home = '/doc/home'
+    // config.site.home = '/doc/home'
     /** 配置登录组件 */
     config.component.login = 'k'
   },

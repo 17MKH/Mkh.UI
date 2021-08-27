@@ -1,4 +1,4 @@
-export default [
+const menus = [
   {
     name: '首页',
     type: 1,
@@ -204,3 +204,20 @@ export default [
     ],
   },
 ]
+
+const setMenusId = (children, parent) => {
+  children.forEach((sub, index) => {
+    if (parent) {
+      sub.id = parent.id + '-' + index
+    } else {
+      sub.id = index + ''
+    }
+    if (sub.children && sub.children.length > 0) {
+      setMenusId(sub.children, sub)
+    }
+  })
+}
+
+setMenusId(menus)
+
+export default menus

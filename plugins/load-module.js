@@ -127,7 +127,11 @@ export default function (modules) {
   const loadPage = id => {
     let code = id.split('-').pop()
     let moduleDir = modules[code]
-    let filePath = normalizePath(moduleDir + id.replace(prefixPage + code, 'page.json'))
+    let filePath = ''
+    if (id.startsWith('/')) filePath = normalizePath(moduleDir + id.replace(prefixPage + code, 'page.json'))
+    else {
+      filePath = normalizePath(id.replace(prefixPage + code, 'page.json'))
+    }
 
     let src = `import component from '${path.dirname(filePath)}/index.vue'\r\n`
     src += 'const page = '

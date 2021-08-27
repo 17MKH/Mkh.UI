@@ -26,6 +26,7 @@ const page2route = (page, parentRoute, pages) => {
    * name                 路由名称
    * component            路由对应组件
    * inFrame              页面在框架中显示，有些页面可能是独立的，比如登陆页面，则该属性需要设置为false
+   * hideMenu             隐藏菜单
    * enablePermissionVerify 启用权限验证
    * permissions          页面绑定的权限列表
    * buttons              页面绑定的按钮信息
@@ -48,6 +49,7 @@ const page2route = (page, parentRoute, pages) => {
       breadcrumbs,
       cache: isTrue(cache),
       inFrame: isTrue(inFrame),
+      hideMenu: !isTrue(hideMenu),
       enablePermissionVerify: isTrue(enablePermissionVerify),
     },
     children: [],

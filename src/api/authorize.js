@@ -37,24 +37,10 @@ export default http => {
     })
   }
 
-  const setMenusId = (children, parent) => {
-    children.forEach((sub, index) => {
-      if (parent) {
-        sub.id = parent.id + '-' + index
-      } else {
-        sub.id = index + ''
-      }
-      if (sub.children && sub.children.length > 0) {
-        setMenusId(sub.children, sub)
-      }
-    })
-  }
   /**
    * @description 获取账户信息
    */
   const getProfile = () => {
-    setMenusId(menus)
-
     let skin = db.get('skin')
 
     return new Promise(resolve => {

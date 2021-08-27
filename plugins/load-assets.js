@@ -2,6 +2,9 @@ const path = require('path')
 const fse = require('fs-extra')
 const output = path.resolve('public/assets')
 
+//模块前缀
+const modPrefix = 'mkh-mod-'
+
 /**
  * 复制mkh-ui中的资源目录
  * 如果是mkh-ui项目本身，则从package目录中复制，如果是模块，则从node_modules目录中复制
@@ -28,12 +31,12 @@ const copyModAssets = mode => {
 
   fse.readdir(path.resolve('node_modules'), (err, dirs) => {
     dirs.forEach(m => {
-      if (m.startsWith('mkh-mod-')) {
+      if (m.startsWith(modPrefix)) {
         const assetsPath = path.resolve(`node_modules/${m}/lib/assets`)
         fse.pathExists(assetsPath, (err, exists) => {
           if (exists) {
             console.log(`复制模块(${m})中的静态资源`)
-            fse.copy(assetsPath, path.resolve(output, m.replace('mkh-mod-', '')))
+            fse.copy(assetsPath, path.resolve(output, m.replace(modPrefix, '')))
           }
         })
       }
@@ -52,7 +55,7 @@ const currentModAssets = (packageObj, mode) => {
     fse.pathExists(assetsPath, (err, exists) => {
       if (exists) {
         console.log(`复制模块(${packageObj.name})中的静态资源`)
-        fse.copy(assetsPath, path.resolve(output, packageObj.name.replace('mkh-mod-', '')))
+        fse.copy(assetsPath, path.resolve(output, packageObj.name.replace(modPrefix, '')))
       }
     })
   }

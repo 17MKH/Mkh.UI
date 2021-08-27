@@ -49,6 +49,8 @@ const state = {
     /** 模块配置，会覆盖全局配置 */
     modules: {},
   },
+  /**默认皮肤配置 */
+  skin: null,
 }
 
 const mutations = {

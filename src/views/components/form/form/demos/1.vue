@@ -13,11 +13,11 @@
       </el-form-item>
       <el-form-item label="活动时间">
         <el-col :span="11">
-          <el-date-picker v-model="model.date1" type="date" placeholder="选择日期" style="width: 100%"></el-date-picker>
+          <el-date-picker v-model="model.date1" type="date" style="width: 100%"></el-date-picker>
         </el-col>
         <el-col class="line" :span="2">-</el-col>
         <el-col :span="11">
-          <el-time-picker v-model="model.date2" placeholder="选择时间" style="width: 100%"></el-time-picker>
+          <el-time-picker v-model="model.date2" style="width: 100%"></el-time-picker>
         </el-col>
       </el-form-item>
       <el-form-item>
@@ -27,35 +27,31 @@
     </m-form>
   </div>
 </template>
-<script>
+<script setup>
 import { reactive, ref } from 'vue'
 import { useMessage } from '@/package/composables'
-export default {
-  setup() {
-    const message = useMessage()
-    const formRef = ref(null)
-    const model = reactive({
-      name: '',
-      region: '',
-      date1: '',
-      date2: '',
-    })
-    const rules = {
-      name: [{ required: true, message: '请输入名称' }],
-    }
-    const disabled = ref(false)
+const message = useMessage()
+const formRef = ref(null)
+const model = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+})
 
-    const action = () => {
-      return new Promise(resolve => {
-        setTimeout(resolve, 2000)
-      })
-    }
+const rules = {
+  name: [{ required: true, message: '请输入名称' }],
+}
 
-    const handleSuccess = () => {
-      message.success('恭喜你，保存成功')
-    }
+const disabled = ref(false)
 
-    return { formRef, model, rules, disabled, action, handleSuccess }
-  },
+const action = () => {
+  return new Promise(resolve => {
+    setTimeout(resolve, 2000)
+  })
+}
+
+const handleSuccess = () => {
+  message.success('恭喜你，保存成功')
 }
 </script>

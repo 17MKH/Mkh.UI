@@ -34,7 +34,7 @@ const page2route = (page, parentRoute, pages) => {
    * cache                页面是否缓存，路由的keep-alive特性
    * props                路由启用props特性
    */
-  const { title, icon, path, name, component, inFrame, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
+  const { title, icon, path, name, component, inFrame, hideMenu, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
 
   const route = {
     path,

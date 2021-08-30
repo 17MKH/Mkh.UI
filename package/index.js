@@ -1,6 +1,6 @@
 import './mkh'
 import { createApp } from 'vue'
-import Locale, { i18n } from './utils/locale'
+import Locale from './utils/i18n'
 import Layout from './layout.vue'
 import MkhRouter, { router } from './router'
 import MkhStore, { store } from './store'
@@ -69,7 +69,7 @@ const start = async () => {
   app.use(MkhStore)
 
   //注册ElementPlus
-  app.use(ElementPlus, { i18n: i18n.global.t })
+  app.use(ElementPlus)
 
   //注册全局组件
   app.use(Components)
@@ -98,6 +98,7 @@ const start = async () => {
   if (finalOptions.beforeMount && typeof finalOptions.beforeMount === 'function') {
     finalOptions.beforeMount({ app, router, store, config })
   }
+
   //初始化配置
   await store.commit('app/config/init', config)
 

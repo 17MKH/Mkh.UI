@@ -80,7 +80,7 @@ const actions = {
             size: skin.size,
           }
         } else {
-          let skin = fb.skins[0]
+          let skin = mkh.skins[0]
 
           profile.skin = {
             name: skin.name,

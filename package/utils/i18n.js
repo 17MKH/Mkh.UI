@@ -12,7 +12,7 @@ export default (app, options) => {
       value: ui.code,
     })
 
-    messages[ui.code] = { el, mkh: ui.messages, mod }
+    messages[ui.code] = { name: ui.code, el, mkh: ui.messages, mod }
   })
 
   i18n = createI18n({

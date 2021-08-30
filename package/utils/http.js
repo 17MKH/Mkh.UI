@@ -3,7 +3,7 @@ import qs from 'qs'
 import { store } from '../store'
 import { router } from '../router'
 import { ElMessage } from 'element-plus'
-import { i18n } from './locale'
+import { i18n } from './i18n'
 
 function Http(options) {
   let _axios = axios.create(options)

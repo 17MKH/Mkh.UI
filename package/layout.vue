@@ -1,8 +1,10 @@
 <template>
-  <!--框架内显示-->
-  <component :is="skinComponent" v-if="$route.meta.inFrame"></component>
-  <!--不在框架中显示-->
-  <router-view v-else />
+  <el-config-provider :locale="$i18n.messages[$i18n.locale]">
+    <!--框架内显示-->
+    <component :is="skinComponent" v-if="$route.meta.inFrame"></component>
+    <!--不在框架中显示-->
+    <router-view v-else />
+  </el-config-provider>
 </template>
 <script>
 import { computed, ref, watchEffect } from 'vue'

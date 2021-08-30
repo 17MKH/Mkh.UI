@@ -1,6 +1,6 @@
 import './mkh'
 import { createApp } from 'vue'
-import Locale from './utils/i18n'
+import Locale from './utils/locale'
 import Layout from './layout.vue'
 import MkhRouter, { router } from './router'
 import MkhStore, { store } from './store'
@@ -15,6 +15,7 @@ import Http from './utils/http'
 import './styles/app.scss'
 import Skins from './skins'
 import config from './config'
+import '@mkh-locale/zh-cn'
 
 /** 最终的配置项信息 */
 let finalOptions = {
@@ -24,8 +25,6 @@ let finalOptions = {
     default: 'zh-cn',
     /** 备用语言 */
     fallback: 'zh-cn',
-    /** 语言集 */
-    messages: [],
   },
   /** 接口配置 */
   http: {

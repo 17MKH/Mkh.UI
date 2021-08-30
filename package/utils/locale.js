@@ -4,7 +4,7 @@ let i18n
 
 export default (app, options) => {
   const messages = {}
-  options.messages.forEach(locale => {
+  mkh.localeMessages.forEach(locale => {
     const { el, ui, mod } = locale
     //将语言集保存下来
     mkh.locales.push({
@@ -14,6 +14,9 @@ export default (app, options) => {
 
     messages[ui.code] = { name: ui.code, el, mkh: ui.messages, mod }
   })
+
+  //删除无用的属性
+  delete mkh.localeMessages
 
   i18n = createI18n({
     locale: options.default || 'zh-cn',

@@ -35,7 +35,8 @@ export default function (modules) {
             mods.push(m)
           }
         }
-        code += `export default {el:el.el, ui, mod: {${mods.join(',')}}}`
+        code += 'if(!mkh.localeMessages) mkh.localeMessages=[]\r\n'
+        code += `mkh.localeMessages.push({el:el.el, ui, mod: {${mods.join(',')}}})`
 
         return code
       }

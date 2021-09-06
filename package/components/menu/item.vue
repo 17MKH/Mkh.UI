@@ -1,12 +1,12 @@
 <template>
   <template v-for="menu in menus">
-    <el-submenu v-if="menu.type === 0" :key="menu.id" popper-class="m-menu_popper" :index="menu.id + ''">
+    <el-sub-menu v-if="menu.type === 0" :key="menu.id" popper-class="m-menu_popper" :index="menu.id + ''">
       <template #title>
         <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         <span>{{ menu.name }}</span>
       </template>
       <menu-item :menus="menu.children" />
-    </el-submenu>
+    </el-sub-menu>
     <el-menu-item v-else :key="menu.id" :index="menu.id + ''" @click="handleClick(menu)">
       <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
       <span>{{ menu.name }}</span>

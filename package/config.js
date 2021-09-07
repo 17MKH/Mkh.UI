@@ -16,7 +16,7 @@ export default {
     /**启用验证码功能 */
     enableVerifyCode: true,
   },
-  /**组件配置 */
+  /**组件默认配置 */
   component: {
     /**加载动画 */
     loading: {
@@ -25,6 +25,11 @@ export default {
     },
     /**登录组件，默认是m-login-m */
     login: 'm',
+    /**对话框组件 */
+    dialog: {
+      /**默认是否可拖拽 */
+      draggable: true,
+    },
   },
   /**系统操作，供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能 */
   actions: {

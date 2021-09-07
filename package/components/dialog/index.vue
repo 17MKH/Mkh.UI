@@ -2,7 +2,6 @@
   <el-dialog
     ref="elDialogRef"
     v-model="visible"
-    :top="top_ || top"
     :custom-class="class_"
     :show-close="false"
     :width="width"
@@ -59,6 +58,7 @@
 import { computed, nextTick, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import { addResizeListener, removeResizeListener } from 'element-plus/packages/utils/resize-event'
+import { store } from '../../store'
 import dom from '../../utils/dom'
 import props from './props'
 export default {
@@ -66,26 +66,30 @@ export default {
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {
-    //默认情况下，未手动设置高度时距离顶部的距离
-    const top_ = ref('')
-
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 
+    const draggable = computed(() => {
+      return props.draggable !== null ? props.draggable : store.state.app.config.component.dialog.draggable
+    })
+
     //使用当前时间戳创建唯一ID
     const class_ = computed(() => {
-      const { customClass, noPadding, noScrollbar, draggable } = props
+      const { customClass, noPadding, noScrollbar } = props
 
       let classList = ['m-dialog', `m-dialog-${new Date().getTime()}`]
       if (props.size) classList.push(props.size)
       if (noPadding) classList.push('no-padding')
       if (noScrollbar) classList.push('no-scrollbar')
-      if (draggable) classList.push('draggable')
+      if (draggable.value) classList.push('draggable')
       if (isFullscreen.value) classList.push('is-fullscreen')
       if (customClass) classList.push(props.customClass)
 
       return classList.join(' ')
     })
+
+    //标注是否在重置大小中
+    const resizing = ref(false)
 
     const elDialogRef = ref(null)
     let dialogEl = null
@@ -97,24 +101,40 @@ export default {
     let headerHeight = 0
     let footerHeight = 0
 
-    //重置窗口大小
+    /**
+     * 重绘窗口尺寸
+     */
     const resize = () => {
+      if (resizing.value) return
+      resizing.value = true
+
       nextTick(() => {
         headerHeight = headerEl.offsetHeight
         footerHeight = footerEl != null ? footerEl.offsetHeight : 0
-        if (props.height) {
-          dialogEl.style.height = props.height
-        } else {
-          let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
-          let height = viewHeight + headerHeight + footerHeight
-          //默认高度不能超出body
-          if (height > document.body.clientHeight - 100) {
-            height = document.body.clientHeight - 100
-            top_.value = '50px'
-          }
 
-          dialogEl.style.height = height + 'px'
+        let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
+        let height = viewHeight + headerHeight + footerHeight
+        let top = 0
+        //默认高度不能超出body
+        if (height > document.body.clientHeight - 100) {
+          height = document.body.clientHeight - 100
+          top = 50
+        } else {
+          top = (document.body.clientHeight - height) / 2
         }
+
+        if (top > 200) {
+          top = 200
+        }
+
+        dialogEl.style.height = height + 'px'
+
+        if (draggable.value) {
+          dialogEl.style.top = top + 'px'
+        } else {
+          dialogEl.style.marginTop = top + 'px'
+        }
+        resizing.value = false
       })
     }
 
@@ -126,27 +146,18 @@ export default {
         scrollbarEl = dialogEl.querySelector('.el-scrollbar__view')
         wrapperEl = dialogEl.querySelector('.m-dialog_wrapper')
 
-        const { draggable, height, top } = props
-
         //开启拖拽功能，先计算初始坐标再计算大小
-        if (draggable) {
+        if (draggable.value) {
           //拖拽模式对话框的定位会设置为fixed模式，所以需要重新计算对话框的left属性
-
           dialogEl.style.left = (document.body.offsetWidth - dialogEl.offsetWidth) / 2 + 'px'
-          dialogEl.style.top = top
 
           dom.on(headerEl, 'mousedown', handleDragDown)
         }
 
-        //监听window窗口大小改变事件
-        if (!height) {
-          dom.on(window, 'resize', resize)
-        }
+        dom.on(window, 'resize', resize)
 
         addResizeListener(props.noScrollbar ? wrapperEl : scrollbarEl, resize)
       })
-
-      resize()
 
       emit('open')
     }
@@ -170,7 +181,7 @@ export default {
 
     const handleDragDown = e => {
       //开启拖拽并且不是全屏模式的情况才可以拖拽
-      if (props.draggable && !isFullscreen.value) {
+      if (draggable.value && !isFullscreen.value) {
         dragDownState = e
 
         dom.on(document, 'mousemove', handleDragMove)
@@ -207,7 +218,6 @@ export default {
     return {
       ...useVisible(props, emit),
       elDialogRef,
-      top_,
       class_,
       isFullscreen,
       openFullscreen,

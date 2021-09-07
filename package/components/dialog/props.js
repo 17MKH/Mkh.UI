@@ -28,16 +28,6 @@ export default {
     type: String,
     default: '50%',
   },
-  /** 高度 */
-  height: {
-    type: String,
-    default: '',
-  },
-  /** 距离顶部的高度 */
-  top: {
-    type: String,
-    default: '15vh',
-  },
   /** 尺寸 */
   size: {
     type: String,
@@ -92,7 +82,7 @@ export default {
   /** 可拖拽的 */
   draggable: {
     type: Boolean,
-    default: true,
+    default: null,
   },
   /** 是否可拖出页面 */
   dragOutPage: {

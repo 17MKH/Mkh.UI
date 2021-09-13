@@ -23,15 +23,13 @@
     <div v-if="!noQuerybar" class="m-list_querybar">
       <m-form ref="queryFormRef" :inline="true" :model="queryModel" :size="size_" disabled-enter>
         <slot name="querybar" :selection="selection" :total="total" />
-        <el-form-item>
-          <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
-          <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
-          <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove" />
-        </el-form-item>
       </m-form>
     </div>
     <!--自定义按钮-->
-    <div v-if="$slots.buttons" class="m-list_buttons">
+    <div class="m-list_buttons">
+      <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
+      <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
+      <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove"></m-button>
       <slot name="buttons" :selection="selection" :total="total" @click="remove" />
     </div>
     <!--数据表格-->

@@ -2,7 +2,7 @@
   "id": 0,
   "name": "mkh-ui",
   "label": "",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "icon": "document",
   "description": "17MKH前端框架",
   "author": "OLDLI",
@@ -18,7 +18,7 @@
     "cv": "rimraf node_modules/.vite"
   },
   "dependencies": {
-    "axios": "^0.21.3",
+    "axios": "^0.21.4",
     "clipboard-copy": "^4.0.1",
     "echarts": "^5.2.0",
     "element-plus": "^1.1.0-beta.9",
@@ -31,7 +31,7 @@
     "qs": "^6.10.1",
     "screenfull": "^5.1.0",
     "sortablejs": "^1.14.0",
-    "vue": "^3.2.9",
+    "vue": "^3.2.11",
     "vue-echarts": "^6.0.0",
     "vue-i18n": "^9.1.7",
     "vue-router": "^4.0.11",
@@ -40,8 +40,8 @@
   "devDependencies": {
     "@rollup/plugin-image": "^2.1.1",
     "@rollup/pluginutils": "^4.1.1",
-    "@vitejs/plugin-vue": "^1.6.0",
-    "@vue/compiler-sfc": "^3.2.9",
+    "@vitejs/plugin-vue": "^1.6.2",
+    "@vue/compiler-sfc": "^3.2.11",
     "ejs": "^3.1.6",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.1.0",
@@ -49,8 +49,8 @@
     "html-minifier-terser": "^5.1.1",
     "rimraf": "^3.0.2",
     "rollup-plugin-multi-input": "^1.2.0",
-    "sass": "^1.39.0",
-    "vite": "^2.5.3"
+    "sass": "^1.39.2",
+    "vite": "^2.5.7"
   },
   "files": [
     "entries",

@@ -2,7 +2,7 @@
   <div class="m-toolbar_item" @click="show = true">
     <m-icon name="skin"></m-icon>
   </div>
-  <m-dialog v-model="show" :loading="loading" custom-class="m-skin-toggle" title="皮肤切换" icon="toggle" width="910px" height="80%" no-padding no-scrollbar>
+  <m-drawer v-model="show" :loading="loading" custom-class="m-skin-toggle" title="皮肤切换" icon="toggle" width="600px" no-padding no-scrollbar>
     <m-flex-col>
       <m-flex-auto class="m-skin-toggle_wrapper">
         <m-scrollbar>
@@ -38,16 +38,18 @@
       <m-button type="success" text="确认" @click="save"></m-button>
       <m-button type="info" text="取消" @click="show = false"></m-button>
     </template>
-  </m-dialog>
+  </m-drawer>
 </template>
 <script>
 import { reactive, ref } from 'vue'
 import { store } from '../../store'
+import useMessage from '../../composables/message'
 export default {
   name: 'ToolbarSkin',
   setup() {
     const show = ref(false)
     const loading = ref(false)
+    const message = useMessage()
 
     const skin = store.state.app.profile.skin
     const actions = store.state.app.config.actions
@@ -86,9 +88,15 @@ export default {
       const { toggleSkin: saveSkin } = actions
       if (saveSkin) {
         loading.value = true
-        saveSkin(model).finally(() => {
-          loading.value = false
-        })
+        saveSkin(model)
+          .then(() => {
+            message.success('皮肤修改成功')
+          })
+          .finally(() => {
+            loading.value = false
+          })
+      } else {
+        message.success('皮肤修改成功')
       }
     }
 

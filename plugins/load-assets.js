@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const fse = require('fs-extra')
 const output = path.resolve('public/assets')
 
@@ -75,7 +76,7 @@ export default function ({ mode }) {
       //复制依赖模块中的资源
       copyModAssets(mode)
     },
-    writeBundle() {
+    writeBundle(bundle) {
       if (mode == 'lib') {
         //如果是库模式，需要在打包结束后复制资源目录到输出目录
         const packageObj = fse.readJSONSync(path.resolve('./package.json'))
@@ -90,6 +91,15 @@ export default function ({ mode }) {
             }
           })
         }
+
+        //在生成的入口文件中添加导入样式的代码
+        let styleFilePath = path.resolve(bundle.dir, 'style.css')
+        fse.pathExists(styleFilePath, (err, exists) => {
+          if (exists) {
+            let entryFilePath = path.resolve(bundle.dir, bundle.entryFileNames)
+            fs.appendFile(entryFilePath, "import './style.css';", () => {})
+          }
+        })
       }
     },
   }

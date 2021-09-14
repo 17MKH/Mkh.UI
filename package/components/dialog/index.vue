@@ -41,7 +41,7 @@
       <!--内容-->
       <div class="m-dialog_body">
         <div class="m-dialog_wrapper">
-          <slot v-if="noScrollbar && height"></slot>
+          <slot v-if="noScrollbar"></slot>
           <m-scrollbar v-else>
             <slot />
           </m-scrollbar>
@@ -113,6 +113,7 @@ export default {
         footerHeight = footerEl != null ? footerEl.offsetHeight : 0
 
         let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
+        console.log(viewHeight)
         let height = viewHeight + headerHeight + footerHeight
         let top = 0
         //默认高度不能超出body

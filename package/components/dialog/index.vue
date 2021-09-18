@@ -113,7 +113,6 @@ export default {
         footerHeight = footerEl != null ? footerEl.offsetHeight : 0
 
         let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
-        console.log(viewHeight)
         let height = viewHeight + headerHeight + footerHeight
         let top = 0
         //默认高度不能超出body

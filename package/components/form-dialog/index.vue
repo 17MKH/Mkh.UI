@@ -61,6 +61,7 @@ export default {
 
     const reset = () => {
       formRef.value.reset()
+      if (props.autoFocusRef) props.autoFocusRef.focus()
       emit('reset')
     }
 

@@ -1,11 +1,10 @@
 import { computed, getCurrentInstance, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { router } from '../router'
-import { store } from '../store'
 import dom from '../utils/dom'
 
 export default function () {
   const { $notify } = getCurrentInstance().proxy
+  const { router, store } = mkh
   const route = useRoute()
   const loading = ref(false)
   const formRef = ref(null)

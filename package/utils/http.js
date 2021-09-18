@@ -1,7 +1,5 @@
 import axios from 'axios'
 import qs from 'qs'
-import { store } from '../store'
-import { router } from '../router'
 import { ElMessage } from 'element-plus'
 import { i18n } from './locale'
 
@@ -14,7 +12,7 @@ function Http(options) {
   //请求前拦截器，附加令牌
   _axios.interceptors.request.use(
     config => {
-      const { accessToken } = store.state.app.token
+      const { accessToken } = mkh.store.state.app.token
       if (accessToken) {
         config.headers.Authorization = 'Bearer ' + accessToken
       }
@@ -48,6 +46,7 @@ function Http(options) {
     },
     error => {
       if (error && error.response) {
+        const { store } = mkh
         switch (error.response.status) {
           case 401:
             const { accountId, refreshToken } = store.state.app.token
@@ -74,11 +73,11 @@ function Http(options) {
             }
             break
           case 403:
-            router.push('/error/403')
+            mkh.router.push('/error/403')
             break
           default:
             console.error(error.response.data.msg)
-            router.push('/error/500')
+            mkh.router.push('/error/500')
             break
         }
 

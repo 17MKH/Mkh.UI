@@ -14,7 +14,6 @@
     <m-form
       ref="formRef"
       no-loading
-      :style="{ marginRight: formMarginRight }"
       :action="action"
       :model="model"
       :rules="rules"

@@ -42,11 +42,11 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { store } from '../../../../store'
 import { useMessage } from '../../../../composables'
 
 export default {
   setup() {
+    const { store } = mkh
     const message = useMessage()
     const site = store.state.app.config.site
     const profile = computed(() => store.state.app.profile)

@@ -13,7 +13,6 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { store } from '../../store'
 export default {
   name: 'Head',
   props: {
@@ -35,6 +34,8 @@ export default {
     },
   },
   setup(props) {
+    const { store } = mkh
+
     return {
       size_: computed(() => props.size || store.state.app.profile.skin.size),
     }

@@ -3,9 +3,7 @@ import config from './modules/config'
 import profile from './modules/profile'
 import token from './modules/token'
 
-let store = null
-
-const useStore = app => {
+export default app => {
   const options = {
     modules: {
       //系统模块
@@ -36,11 +34,9 @@ const useStore = app => {
       options.modules.mod.modules[m.code] = m.store
     })
 
-  store = createStore(options)
+  const store = createStore(options)
 
   app.use(store)
+
+  mkh.store = store
 }
-
-export { store }
-
-export default useStore

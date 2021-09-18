@@ -2,8 +2,8 @@ import './mkh'
 import { createApp } from 'vue'
 import Locale from './utils/locale'
 import Layout from './layout.vue'
-import MkhRouter, { router } from './router'
-import MkhStore, { store } from './store'
+import MkhRouter from './router'
+import MkhStore from './store'
 import _ from 'lodash'
 /** 导入ElementPlus */
 import ElementPlus from 'element-plus'
@@ -60,11 +60,11 @@ const start = async () => {
   //注册国际化
   app.use(Locale, finalOptions.locale)
 
-  //注册路由
-  app.use(MkhRouter)
-
   //注册状态
   app.use(MkhStore)
+
+  //注册路由
+  app.use(MkhRouter)
 
   //注册ElementPlus
   app.use(ElementPlus)
@@ -85,20 +85,20 @@ const start = async () => {
   mkh.modules.forEach(m => {
     //执行回调函数
     if (m.callback) {
-      m.callback({ app, router, store, config })
+      m.callback({ app, config })
     }
   })
 
   //从本地存储中加载令牌
-  await store.dispatch('app/token/login')
+  await mkh.store.dispatch('app/token/login')
 
   //执行挂载前的钩子函数
   if (finalOptions.beforeMount && typeof finalOptions.beforeMount === 'function') {
-    finalOptions.beforeMount({ app, router, store, config })
+    finalOptions.beforeMount({ app, config })
   }
 
   //初始化配置
-  await store.commit('app/config/init', config)
+  await mkh.store.commit('app/config/init', config)
 
   app.mount('#app')
 }
@@ -114,6 +114,6 @@ if (!mkh.started) {
   }
 }
 
-export { configure, store, router }
+export { configure }
 export * from './composables'
 export * from './utils'

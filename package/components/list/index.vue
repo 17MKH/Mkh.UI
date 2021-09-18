@@ -185,7 +185,6 @@
 <script>
 import { computed, getCurrentInstance, nextTick, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
 import { useFullscreen, useLoading, useMessage } from '../../composables'
-import { store } from '../../store'
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
 import SetColumn from './components/set-column.vue'
@@ -221,6 +220,8 @@ export default {
     'error',
   ],
   setup(props, { emit }) {
+    const { store } = mkh
+
     const cit = getCurrentInstance().proxy
     const message = useMessage()
 

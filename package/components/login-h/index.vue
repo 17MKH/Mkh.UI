@@ -56,10 +56,11 @@
 <script>
 import { computed } from '@vue/reactivity'
 import { useLogin } from '../../composables'
-import { store } from '../../store'
 export default {
   name: 'LoginH',
   setup() {
+    const { store } = mkh
+
     const site = store.state.app.config.site
     const { model, rules, loading, formRef, tryLogin } = useLogin()
 

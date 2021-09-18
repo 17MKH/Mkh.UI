@@ -1,4 +1,3 @@
-import { store } from '../store'
 /** 导入内置皮肤 */
 import './brief'
 
@@ -10,7 +9,7 @@ export default app => {
 
     // 注册状态
     if (skin.store) {
-      store.registerModule(['skin', skin.code], skin.store)
+      mkh.store.registerModule(['skin', skin.code], skin.store)
     }
   })
 }

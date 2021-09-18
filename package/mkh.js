@@ -18,6 +18,10 @@ if (!window.mkh)
     locales: [],
     /** 全局组件列表 */
     components: [],
+    /** 路由实例 */
+    router: null,
+    /** 状态实例 */
+    store: null,
     /** 注册模块 */
     useModule: function (module) {
       if (this.modules.findIndex(m => m.code === module.code) === -1) {

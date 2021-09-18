@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { store } from '../store'
 import NProgress from 'nprogress'
 import routes from './routes'
 
@@ -11,8 +10,6 @@ const isTrue = val => {
   return typeof val === 'undefined' || val === null ? true : val
 }
 
-let router = null
-
 /**
  * @description 页面转路由
  */
@@ -20,10 +17,10 @@ const page2route = (page, parentRoute, pages) => {
   /**********************************************
    * 页面属性与路由属性对应关系以及说明
    **********************************************
-   * title                            页面默认标题，也是菜单默认名称
-   * icon                             页面默认图标，也是菜单默认图标
-   * path                             路由地址
-   * name                             路由名称
+   * title                页面默认标题，也是菜单默认名称
+   * icon                 页面默认图标，也是菜单默认图标
+   * path                 路由地址
+   * name                 路由名称
    * component                        路由对应组件
    * inFrame                          页面在框架中显示，有些页面可能是独立的，比如登陆页面，则该属性需要设置为false
    * hideMenu                         隐藏菜单
@@ -33,9 +30,9 @@ const page2route = (page, parentRoute, pages) => {
    * breadcrumbs                      页面的面包屑信息
    * cache                            页面是否缓存，路由的keep-alive特性
    * props                            路由启用props特性
-   * noMenu                           不能设置为菜单
+   * noMenu
    */
-  const { title, icon, path, name, component, inFrame, hideMenu, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props, noMenu } = page
+  const { title, icon, path, name, component, inFrame, hideMenu, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
 
   const route = {
     path,
@@ -52,7 +49,6 @@ const page2route = (page, parentRoute, pages) => {
       inFrame: isTrue(inFrame),
       hideMenu: !isTrue(hideMenu),
       enablePermissionVerify: isTrue(enablePermissionVerify),
-      noMenu,
     },
     children: [],
   }
@@ -84,12 +80,14 @@ export default app => {
     })
 
   //创建路由实例
-  router = createRouter({
+  const router = createRouter({
     history: createWebHashHistory(),
     routes,
   })
 
   router.beforeEach(async (to, from) => {
+    const { store } = mkh
+
     // 开始进度条
     NProgress.start()
 
@@ -119,6 +117,6 @@ export default app => {
   })
 
   app.use(router)
-}
 
-export { router }
+  mkh.router = router
+}

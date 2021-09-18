@@ -7,7 +7,6 @@
 </template>
 <script>
 import { computed, inject, ref } from 'vue'
-import { store } from '../../store'
 export default {
   name: 'SelectSearch',
   props: {
@@ -27,6 +26,8 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   setup(props, { emit }) {
+    const { store } = mkh
+
     const resetMethods = inject('resetMethods')
 
     const value_ = computed({

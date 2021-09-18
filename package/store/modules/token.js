@@ -1,5 +1,4 @@
 import db from '../../utils/db'
-import { router } from '../../router'
 const key = `token`
 
 export default {
@@ -37,10 +36,10 @@ export default {
       commit('app/profile/clear', null, { root: true })
 
       // 跳转到登录页面
-      router.push({
+      mkh.router.push({
         name: 'login',
         query: {
-          redirect: router.currentRoute.value.fullPath,
+          redirect: mkh.router.currentRoute.value.fullPath,
         },
       })
     },

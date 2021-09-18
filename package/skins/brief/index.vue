@@ -10,12 +10,13 @@
   </div>
 </template>
 <script>
-import { store } from '../../store'
 import MHeader from './components/header/index.vue'
 import MMain from './components/main/index.vue'
 export default {
   components: { MHeader, MMain },
   setup() {
+    const { store } = mkh
+
     const handleMeunCollapse = () => {
       store.commit('skin/brief/toggleMenuCollapse')
     }

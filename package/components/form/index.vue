@@ -16,7 +16,6 @@
 </template>
 <script>
 import { computed, provide, nextTick, onMounted, onBeforeUnmount, ref } from 'vue'
-import { store } from '../../store'
 import props from './props'
 import dom from '../../utils/dom'
 
@@ -25,6 +24,8 @@ export default {
   props,
   emits: ['success', 'error', 'validate-success', 'validate-error'],
   setup(props, { emit }) {
+    const { store } = mkh
+
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const loadingOptions = store.state.app.config.component.loading
 

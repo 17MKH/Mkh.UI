@@ -42,11 +42,12 @@
 </template>
 <script>
 import { reactive, ref } from 'vue'
-import { store } from '../../store'
 import useMessage from '../../composables/message'
 export default {
   name: 'ToolbarSkin',
   setup() {
+    const { store } = mkh
+
     const show = ref(false)
     const loading = ref(false)
     const message = useMessage()

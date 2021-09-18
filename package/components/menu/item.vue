@@ -14,7 +14,6 @@
   </template>
 </template>
 <script>
-import { router } from '../../router'
 export default {
   name: 'MenuItem',
   props: {
@@ -24,6 +23,8 @@ export default {
     },
   },
   setup() {
+    const { router } = mkh
+
     const handleClick = menu => {
       //路由菜单
       if (menu.type === 1) {

@@ -18,7 +18,6 @@
 </template>
 <script>
 import { computed, ref } from 'vue'
-import { store } from '../../store'
 export default {
   name: 'VerifycodeInput',
   props: {
@@ -41,6 +40,8 @@ export default {
   },
   emits: ['update:modelValue', 'update:id'],
   setup(props, { emit }) {
+    const { store } = mkh
+
     const getVerifyCode = computed(() => store.state.app.config.actions.getVerifyCode)
     const verifyCodeUrl = ref()
 

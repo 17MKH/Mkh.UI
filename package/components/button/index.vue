@@ -23,8 +23,6 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { store } from '../../store'
-import { router } from '../../router'
 export default {
   name: 'Button',
   props: {
@@ -78,6 +76,7 @@ export default {
   },
   emits: ['click'],
   setup(props, { emit }) {
+    const { router, store } = mkh
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const handleClick = event => {

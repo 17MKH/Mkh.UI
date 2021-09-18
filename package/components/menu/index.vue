@@ -7,7 +7,6 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { store } from '../../store'
 import MenuItem from './item.vue'
 import { useRoute } from 'vue-router'
 export default {
@@ -21,6 +20,8 @@ export default {
     },
   },
   setup() {
+    const { store } = mkh
+
     const route = useRoute()
 
     const defaultActive = computed(() => {

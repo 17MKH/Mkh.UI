@@ -58,7 +58,6 @@
 import { computed, nextTick, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import { addResizeListener, removeResizeListener } from 'element-plus/packages/utils/resize-event'
-import { store } from '../../store'
 import dom from '../../utils/dom'
 import props from './props'
 export default {
@@ -66,6 +65,8 @@ export default {
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {
+    const { store } = mkh
+
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 

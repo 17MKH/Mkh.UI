@@ -55,13 +55,14 @@
 <script>
 import { computed } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
-import { store } from '../../store'
 import props from './props'
 export default {
   name: 'Drawer',
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {
+    const { store } = mkh
+
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const direction_ = computed(() => {
       switch (props.direction) {

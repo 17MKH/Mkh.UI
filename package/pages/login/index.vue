@@ -4,9 +4,10 @@
   </div>
 </template>
 <script>
-import { store } from '../../store'
 export default {
   setup() {
+    const { store } = mkh
+
     return {
       loginComponent: store.state.app.config.component.login,
     }

@@ -35,12 +35,6 @@ $p: #{$prefix}-box;
       > #{$p}_body {
         padding: 10px !important;
       }
-
-      #{$p}_body {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-      }
     }
 
     > #{$p}_footer {

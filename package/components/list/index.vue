@@ -114,7 +114,14 @@
                 </template>
 
                 <template #default="{ row }">
-                  <slot :name="'col-' + col.prop" :row="row" :rows="rows">{{ formatter(row, col) }}</slot>
+                  <slot :name="'col-' + col.prop" :row="row" :rows="rows">
+                    <!--图标-->
+                    <template v-if="col.formatter && col.formatter === 'icon'">
+                      <m-icon v-if="row[col.prop]" :name="row[col.prop]"></m-icon>
+                      <span v-else>-</span>
+                    </template>
+                    <template v-else>{{ formatter(row, col) }}</template>
+                  </slot>
                 </template>
               </el-table-column>
             </template>
@@ -358,9 +365,25 @@ export default {
     //格式化
     const formatter = (row, col) => {
       const val = row[col.prop]
-      if (!col.formatter) return val
-
-      return col.formatter(row, col, val)
+      const ft = col.formatter
+      if (ft) {
+        const { formatters } = store.state.app.config.component.list
+        const t = typeof ft
+        if (t === 'function') {
+          return ft(row, col, val)
+        } else if (t === 'string') {
+          const func = formatters.get(ft)
+          if (func) {
+            return func(val)
+          }
+        } else if (t === 'object') {
+          const func = formatters.get(ft.type)
+          if (func) {
+            return func(val, ft.params)
+          }
+        }
+      }
+      return val
     }
 
     //处理选择事件

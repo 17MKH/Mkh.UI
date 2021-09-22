@@ -1,3 +1,5 @@
+import formatters from './utils/formatters'
+
 /** 默认配置信息 */
 export default {
   /**站点信息 */
@@ -29,6 +31,11 @@ export default {
     dialog: {
       /**默认是否可拖拽 */
       draggable: true,
+    },
+    /**列表组件 */
+    list: {
+      /**格式化方法集合 */
+      formatters,
     },
   },
   /**系统操作，供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能 */

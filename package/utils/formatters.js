@@ -18,7 +18,7 @@ formatters.set('date', (val, params) => {
   if (params && params.template) {
     template = params.template
   }
-  return dayjs(val).format(template || 'YYYY-MM-DD HH:mm:ss')
+  return dayjs(val).format(templat)
 })
 
 export default formatters

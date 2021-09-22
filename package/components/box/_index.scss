@@ -96,6 +96,13 @@ $p: #{$prefix}-box;
   .el-col {
     > #{$p} {
       height: 100%;
+      > #{$p}_dialog {
+        > #{$p}_content {
+          > #{$p}_body {
+            height: 100%;
+          }
+        }
+      }
     }
   }
 }

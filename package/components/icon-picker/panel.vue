@@ -1,5 +1,5 @@
 <template>
-  <m-dialog v-model="visible" title="选择图标" icon="list" height="60%" width="800px">
+  <m-dialog v-model="visible" title="选择图标" icon="list" width="800px">
     <template #toolbar>
       <el-input v-model="filter" class="m-icon-picker_panel_filter" placeholder="请输入图标名称" clearable></el-input>
     </template>

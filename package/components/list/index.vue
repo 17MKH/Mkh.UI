@@ -172,17 +172,7 @@
     </m-flex-row>
 
     <!--配置列信息-->
-    <m-dialog
-      v-if="!disableSetColumn"
-      v-model="showSetColDialog"
-      custom-class="m-list_setcolumn_dialog"
-      :title="$t('mkh.list.setColDialogTitle')"
-      icon="table"
-      width="1200px"
-      height="80%"
-      no-padding
-      draggable
-    >
+    <m-dialog v-if="!disableSetColumn" v-model="showSetColDialog" custom-class="m-list_setcolumn_dialog" :title="$t('mkh.list.setColDialogTitle')" icon="table" width="1200px" no-padding draggable>
       <set-column v-model="cols_" :size="size_" />
     </m-dialog>
 

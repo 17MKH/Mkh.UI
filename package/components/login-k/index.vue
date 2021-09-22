@@ -9,7 +9,7 @@
     </div>
     <div class="m-login-k_right">
       <div class="m-login-k_box">
-        <h1 class="m-login-k_title">{{ title }}</h1>
+        <h1 class="m-login-k_title">{{ site.title }}</h1>
         <h4 class="m-login-k_tip">请输入您的用户名和密码</h4>
         <el-form ref="formRef" class="m-login-k_form" :model="model" :rules="rules" label-position="top">
           <el-form-item label="用户名" prop="username">

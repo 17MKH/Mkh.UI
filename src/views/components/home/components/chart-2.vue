@@ -1,5 +1,5 @@
 <template>
-  <m-box title="雷达图" icon="chart-pie-fill">
+  <m-box no-scrollbar title="雷达图" icon="chart-pie-fill">
     <v-chart :option="option" class="m-fill-h" />
   </m-box>
 </template>

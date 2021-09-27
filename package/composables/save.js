@@ -1,7 +1,7 @@
 import { reactive, toRef } from 'vue'
 
 //mode: add、添加 edit、编辑 view、预览
-export default function ({ props, title, api, model, rules, emit, afterEdit }) {
+export default function ({ props, title, api, model, emit, afterEdit }) {
   const { add, edit, update } = api
   const id = toRef(props, 'id')
   const mode = toRef(props, 'mode')
@@ -12,7 +12,6 @@ export default function ({ props, title, api, model, rules, emit, afterEdit }) {
     title: '',
     icon: '',
     model,
-    rules,
     action: null,
     disabled: false,
     footer: true,

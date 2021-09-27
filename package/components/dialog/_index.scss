@@ -61,9 +61,21 @@
     > .el-dialog__body {
       > #{$prefix}-dialog_content {
         > #{$prefix}-dialog_body {
-          padding: 10px 15px;
           > #{$prefix}-dialog_wrapper {
+            padding: 10px 15px;
             height: auto;
+          }
+        }
+      }
+    }
+  }
+
+  &.no-scrollbar.has-height {
+    > .el-dialog__body {
+      > #{$prefix}-dialog_content {
+        > #{$prefix}-dialog_body {
+          > #{$prefix}-dialog_wrapper {
+            height: 100%;
           }
         }
       }

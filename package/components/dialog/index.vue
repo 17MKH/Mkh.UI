@@ -76,12 +76,13 @@ export default {
 
     //使用当前时间戳创建唯一ID
     const class_ = computed(() => {
-      const { customClass, noPadding, noScrollbar } = props
+      const { customClass, noPadding, noScrollbar, height } = props
 
       let classList = ['m-dialog', `m-dialog-${new Date().getTime()}`]
       if (props.size) classList.push(props.size)
       if (noPadding) classList.push('no-padding')
       if (noScrollbar) classList.push('no-scrollbar')
+      if (height) classList.push('has-height')
       if (draggable.value) classList.push('draggable')
       if (isFullscreen.value) classList.push('is-fullscreen')
       if (customClass) classList.push(props.customClass)

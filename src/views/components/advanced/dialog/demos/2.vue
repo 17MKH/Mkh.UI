@@ -1,6 +1,6 @@
 <template>
   <m-button type="success" text="显示对话框" @click="handleClick" />
-  <m-dialog v-model="visible" title="关雎·佚名 〔先秦〕" icon="list" width="500px" height="300px">
+  <m-dialog v-model="visible" title="关雎·佚名 〔先秦〕" icon="list" width="500px" no-scrollbar>
     <div class="m-text-center">
       <p>关关雎鸠，在河之洲。窈窕淑女，君子好逑。</p>
       <p>参差荇菜，左右流之。窈窕淑女，寤寐求之。</p>

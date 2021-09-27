@@ -1,5 +1,5 @@
 import { configure } from '../package/index.js'
-import '@mkh-locale/en' //导入英文语言包
+import '$mkh-locale/en' //导入英文语言包
 import './index.js'
 
 configure({

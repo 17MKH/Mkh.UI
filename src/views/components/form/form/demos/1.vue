@@ -29,7 +29,7 @@
 </template>
 <script setup>
 import { reactive, ref } from 'vue'
-import { useMessage } from '@/package/composables'
+import { useMessage } from '../../../../../../package/composables'
 const message = useMessage()
 const formRef = ref(null)
 const model = reactive({

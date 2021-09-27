@@ -3,13 +3,11 @@ const path = require('path')
 import { normalizePath } from 'vite'
 
 export default function (modules) {
-  const filter = '@mkh-locale'
-  let localeFile
+  const filter = '$mkh-locale'
   return {
     name: 'mkh-load-locale',
-    resolveId(id, importer) {
+    resolveId(id) {
       if (id.startsWith(filter)) {
-        localeFile = importer
         return id
       }
 
@@ -35,7 +33,6 @@ export default function (modules) {
             mods.push(m)
           }
         }
-        code += 'if(!mkh.localeMessages) mkh.localeMessages=[]\r\n'
         code += `mkh.localeMessages.push({el:el.el, ui, mod: {${mods.join(',')}}})`
 
         return code

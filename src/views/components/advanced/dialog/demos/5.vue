@@ -16,7 +16,7 @@
 </template>
 <script>
 import { ref } from 'vue'
-import { useLoading, useMessage } from '@/package/composables'
+import { useLoading, useMessage } from '../../../../../../package/composables'
 export default {
   setup() {
     const message = useMessage()

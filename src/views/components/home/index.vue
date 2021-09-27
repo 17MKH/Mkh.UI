@@ -26,7 +26,7 @@
   </m-container>
 </template>
 <script>
-import useMessage from '@/package/composables/message'
+import { useMessage } from '../../../../package/composables'
 import Chart1 from './components/chart-1.vue'
 import Chart2 from './components/chart-2.vue'
 import ListDemo from '../advanced/list/demos/3.vue'

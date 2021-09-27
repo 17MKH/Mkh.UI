@@ -20,7 +20,7 @@
   </m-box>
 </template>
 <script>
-import { useMessage } from '@/package/composables'
+import { useMessage } from '../../../../../../package/composables'
 export default {
   setup() {
     const message = useMessage()

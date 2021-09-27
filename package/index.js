@@ -14,7 +14,7 @@ import Http from './utils/http'
 import './styles/app.scss'
 import Skins from './skins'
 import config from './config'
-import '@mkh-locale/zh-cn'
+import '$mkh-locale/zh-cn'
 
 /** 最终的配置项信息 */
 let finalOptions = {

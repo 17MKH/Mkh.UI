@@ -1,5 +1,5 @@
 /** 导入模块，自动加载模块中的页面pages和全局组件components */
-import mod from '@mkh-mod-doc'
+import mod from '$mkh-mod-doc'
 import VCharts from 'vue-echarts'
 import * as echarts from 'echarts'
 

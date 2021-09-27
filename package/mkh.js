@@ -22,6 +22,8 @@ if (!window.mkh)
     router: null,
     /** 状态实例 */
     store: null,
+    /** 国际化信息 */
+    localeMessages: [],
     /** 注册模块 */
     useModule: function (module) {
       if (this.modules.findIndex(m => m.code === module.code) === -1) {

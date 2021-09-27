@@ -27,11 +27,6 @@ export default defineConfig(({ mode, command }) => {
     server: {
       port: 622,
     },
-    resolve: {
-      alias: {
-        '@': resolve(__dirname),
-      },
-    },
   }
 
   //打包成库

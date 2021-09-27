@@ -4,8 +4,8 @@ import fg from 'fast-glob'
 import { normalizePath } from 'vite'
 
 export default function (modules) {
-  const prefix = '@mkh-mod-'
-  const prefixPage = '@page-'
+  const prefix = '$mkh-mod-'
+  const prefixPage = '$page-'
 
   //**匹配需要搜索的文件 */
   async function getFiles(patterns) {
@@ -154,7 +154,7 @@ export default function (modules) {
   return {
     name: 'mkh-load-module',
     resolveId(id, importer) {
-      //匹配@mkh-mod并从package.json文件中获取模块编码，然后附加到id后面
+      //匹配$mkh-mod并从package.json文件中获取模块编码，然后附加到id后面
       if (id.startsWith(prefix)) {
         const code = id.replace(prefix, '')
         if (!modules[code]) {

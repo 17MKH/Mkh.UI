@@ -2,7 +2,7 @@
   <m-container> </m-container>
 </template>
 <script>
-import useMessage from '@/package/composables/message'
+import { useMessage } from '../../../../package/composables'
 export default {
   setup() {
     const message = useMessage()

@@ -46,7 +46,7 @@ export default defineConfig(({ mode, command }) => {
         fileName: 'index',
       },
       outDir: 'lib',
-      // minify: false,
+      minify: false,
       rollupOptions: {
         /** 排除无需打包进去的依赖库 */
         external: ['vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n'],

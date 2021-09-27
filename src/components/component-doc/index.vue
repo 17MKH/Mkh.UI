@@ -112,8 +112,8 @@ export default {
 
   h3 {
     margin: 40px 0 20px;
-    font-weight: 400;
-    font-size: 22px;
+    font-weight: 700;
+    font-size: 26px;
     color: #1f2f3d;
   }
 
@@ -138,12 +138,12 @@ export default {
 
     a {
       display: block;
-      margin: 5px 0 5px 15px;
-      font-size: 14px;
+      margin: 5px 2px;
+      font-size: 11px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      color: #606266;
+      color: #909399;
       cursor: pointer;
       &:hover {
         color: #409eff;

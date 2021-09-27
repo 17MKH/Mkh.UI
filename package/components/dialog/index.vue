@@ -110,12 +110,26 @@ export default {
       resizing.value = true
 
       nextTick(() => {
-        headerHeight = headerEl.offsetHeight
-        footerHeight = footerEl != null ? footerEl.offsetHeight : 0
-
-        let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
-        let height = viewHeight + headerHeight + footerHeight
+        let height = 0
         let top = 0
+
+        // 如果主动设置了高度
+        if (props.height) {
+          if (typeof props.height === 'number' && props.height > 0) {
+            height = props.height
+          } else if (props.height.endsWith('px')) {
+            height = parseFloat(props.height.replace('px', ''))
+          } else if (props.height.endsWith('%')) {
+            height = (document.body.clientHeight * parseFloat(props.height.replace('%', ''))) / 100
+          }
+        } else {
+          headerHeight = headerEl.offsetHeight
+          footerHeight = footerEl != null ? footerEl.offsetHeight : 0
+
+          let viewHeight = props.noScrollbar ? wrapperEl.offsetHeight : scrollbarEl.offsetHeight
+          height = viewHeight + headerHeight + footerHeight
+        }
+
         //默认高度不能超出body
         if (height > document.body.clientHeight - 100) {
           height = document.body.clientHeight - 100

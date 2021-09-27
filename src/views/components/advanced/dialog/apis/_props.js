@@ -5,6 +5,7 @@ export default [
   { name: 'icon', desc: '标题左侧图标', type: 'String', values: '-', default: '-' },
   { name: 'icon-color', desc: '标题左侧图标的颜色', type: 'String', values: '-', default: '-' },
   { name: 'width', desc: '宽度，仅支持px或者百分比%的格式', type: 'String', values: '-', default: '50%' },
+  { name: 'height', desc: '高度，默认根据内容自适应，也可以手动设置固定高度，仅支持px或者百分比%的格式，但是都不允许超出页面可视区域高度', type: 'String', values: '-', default: '50%' },
   { name: 'size', desc: '尺寸', type: 'String', values: 'medium / small / mini', default: '-' },
   { name: 'custom-class', desc: '自定义样式class', type: 'String', values: '-', default: '-' },
   { name: 'modal', desc: '是否显示模态框', type: 'Boolean', values: '-', default: 'true' },

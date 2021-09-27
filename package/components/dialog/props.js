@@ -28,6 +28,11 @@ export default {
     type: String,
     default: '50%',
   },
+  /** 宽度 */
+  height: {
+    type: String,
+    default: '',
+  },
   /** 尺寸 */
   size: {
     type: String,

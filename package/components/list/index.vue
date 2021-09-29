@@ -316,7 +316,7 @@ export default {
 
     //重置
     const reset = () => {
-      queryFormRef.value.resetFields()
+      queryFormRef.value.reset()
       refresh()
       emit('reset')
     }

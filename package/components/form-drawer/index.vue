@@ -100,6 +100,9 @@ export default {
       handleError,
       handleOpened,
       handleClosed,
+      validateField: (props, callback) => formRef.value.validateField(props, callback),
+      scrollToField: prop => formRef.value.scrollToField(prop),
+      clearValidate: props => formRef.value.clearValidate(props),
     }
   },
 }

@@ -11,7 +11,6 @@ export default function ({ props, title, api, model, emit, afterEdit }) {
   const bind = reactive({
     title: '',
     icon: '',
-    model,
     action: null,
     disabled: false,
     footer: true,

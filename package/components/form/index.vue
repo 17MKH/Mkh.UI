@@ -95,7 +95,18 @@ export default {
       if (!props.disabledEnter) dom.off(formRef.value.$el, 'keydown', handleEnterSubmit)
     })
 
-    return { size_, loading, loadingOptions, formRef, validate, submit, reset }
+    return {
+      size_,
+      loading,
+      loadingOptions,
+      formRef,
+      validate,
+      submit,
+      reset,
+      validateField: (props, callback) => formRef.value.validateField(props, callback),
+      scrollToField: prop => formRef.value.scrollToField(prop),
+      clearValidate: props => formRef.value.clearValidate(props),
+    }
   },
 }
 </script>

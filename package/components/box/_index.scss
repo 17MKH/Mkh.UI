@@ -60,6 +60,16 @@ $p: #{$prefix}-box;
 
   &.page {
     height: 100%;
+
+    &.no-scrollbar {
+      > #{$p}_dialog {
+        > #{$p}_content {
+          > #{$p}_body {
+            height: 100%;
+          }
+        }
+      }
+    }
   }
 
   &.is-fullscreen {

@@ -19,7 +19,7 @@
 import { ref } from 'vue'
 export default {
   setup() {
-    const value = ref('')
+    const value = ref([])
     const value1 = ref('')
     const value2 = ref('')
     const value3 = ref('')

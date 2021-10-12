@@ -1,4 +1,5 @@
 import { reactive, toRef } from 'vue'
+import _ from 'lodash'
 
 //mode: add、添加 edit、编辑 view、预览
 export default function ({ props, title, api, model, emit, afterEdit }) {
@@ -36,8 +37,8 @@ export default function ({ props, title, api, model, emit, afterEdit }) {
 
         bind.loading = true
         edit(id.value).then(data => {
-          Object.assign(model_, data)
-          Object.assign(model, model_)
+          _.merge(model_, data)
+          _.merge(model, model_)
 
           afterEdit && afterEdit()
 
@@ -50,7 +51,7 @@ export default function ({ props, title, api, model, emit, afterEdit }) {
   const handleReset = () => {
     //如果编辑模式，重置会将表单数据重置为修改前，而不是清空
     if (mode.value === 'edit') {
-      Object.assign(model, model_)
+      _.merge(model, model_)
     }
 
     emit('reset')

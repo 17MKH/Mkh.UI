@@ -40,6 +40,7 @@
 import { getCurrentInstance, ref } from 'vue'
 import { useVisible, useMessage } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
+import _ from 'lodash'
 import props from './props'
 export default {
   name: 'FormDialog',
@@ -51,6 +52,8 @@ export default {
     const dialogRef = ref(null)
     const formRef = ref(null)
     const loading_ = ref(false)
+
+    const model_ = _.cloneDeep(props.model)
 
     const { visible, open, close } = useVisible(props, emit)
 
@@ -92,7 +95,7 @@ export default {
 
     const handleClosed = () => {
       if (props.resetOnClosed) {
-        formRef.value.reset()
+        Object.assign(props.model, model_)
       }
       emit('closed')
     }

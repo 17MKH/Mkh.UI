@@ -28,7 +28,31 @@ function Http(options) {
   _axios.interceptors.response.use(
     response => {
       const { config } = response
-      if (response.data.successful) {
+      if (config.responseType && config.responseType === 'blob') {
+        const url = window.URL.createObjectURL(response.data)
+
+        //预览模式直接返回
+        if (response.config.headers['mkh_preview']) return url
+
+        let fileName = ''
+        let cd = response.headers['content-disposition']
+        if (cd) {
+          fileName = decodeURI(cd.split("''")[1])
+        }
+        //如果文件名不存在，则使用时间戳
+        if (!fileName) {
+          fileName = dayjs().format('YYYYMMDDHHMMSSS')
+        }
+
+        //通过模拟a标签点击事件下载文件
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', fileName)
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        return
+      } else if (response.data.successful) {
         return response.data.data
       } else if (!response.data.successful && !config.noErrorMsg) {
         //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
@@ -126,6 +150,25 @@ Http.prototype.delete = function (url, params, config) {
 
 Http.prototype.put = function (url, params, config) {
   return this._axios.put(url, params, config)
+}
+
+Http.prototype.download = function (url, params, config) {
+  return this._axios.post(url, params, Object.assign({ responseType: 'blob' }, config))
+}
+
+Http.prototype.preview = function (url, params, config) {
+  const config_ = Object.assign({ responseType: 'blob', headers: { mkh_preview: true } }, config, {
+    // 参数
+    params,
+    // 修改参数序列化方法
+    paramsSerializer: p => {
+      // 使用逗号分隔参数
+      return qs.stringify(p, {
+        allowDots: true,
+      })
+    },
+  })
+  return this._axios.get(url, config_)
 }
 
 //通用的增删改查方法

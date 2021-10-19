@@ -58,5 +58,12 @@ export default {
       btnOkText: 'Save',
       btnResetText: 'Reset',
     },
+    select: {
+      placeholder: 'Select...',
+    },
+    whether: {
+      yes: 'YES',
+      no: 'NO',
+    },
   },
 }

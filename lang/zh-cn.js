@@ -57,5 +57,12 @@ export default {
       btnResetText: '重置',
       successMsg: '保存成功',
     },
+    select: {
+      placeholder: '请选择...',
+    },
+    whether: {
+      yes: '是',
+      no: '否',
+    },
   },
 }

@@ -13,39 +13,30 @@
       <m-select ref="selectRef" v-model="value3" :action="query" @change="handleChange" />
       <m-button icon="refresh" @click="() => selectRef.query()" />
     </el-form-item>
+    <el-form-item label="是否">
+      <m-select-whether v-model="value4" />
+    </el-form-item>
   </m-form>
 </template>
-<script>
+<script setup>
 import { ref } from 'vue'
-export default {
-  setup() {
-    const value = ref([])
-    const value1 = ref('')
-    const value2 = ref('')
-    const value3 = ref('')
-    const selectRef = ref(null)
-    const query = () => {
-      return new Promise(resolve => {
-        resolve([
-          { label: '张三', value: 1 },
-          { label: '李四', value: 2 },
-        ])
-      })
-    }
+const value = ref([])
+const value1 = ref('')
+const value2 = ref('')
+const value3 = ref('')
+const value4 = ref('')
+const selectRef = ref(null)
 
-    const handleChange = val => {
-      console.log(val)
-    }
+const query = () => {
+  return new Promise(resolve => {
+    resolve([
+      { label: '张三', value: 1 },
+      { label: '李四', value: 2 },
+    ])
+  })
+}
 
-    return {
-      value,
-      value1,
-      value2,
-      value3,
-      selectRef,
-      query,
-      handleChange,
-    }
-  },
+const handleChange = val => {
+  console.log(val)
 }
 </script>

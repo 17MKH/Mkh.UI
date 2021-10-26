@@ -2,7 +2,7 @@
   "id": 0,
   "name": "mkh-ui",
   "label": "",
-  "version": "0.7.0",
+  "version": "0.7.3",
   "icon": "document",
   "description": "17MKH前端框架",
   "author": "OLDLI",
@@ -21,7 +21,7 @@
     "axios": "^0.21.4",
     "clipboard-copy": "^4.0.1",
     "echarts": "^5.2.1",
-    "element-plus": "^1.1.0-beta.20",
+    "element-plus": "^1.1.0-beta.24",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0",
     "highlight.js": "^10.7.1",
@@ -34,7 +34,7 @@
     "vue": "^3.2.20",
     "vue-echarts": "^6.0.0",
     "vue-i18n": "^9.1.9",
-    "vue-router": "^4.0.11",
+    "vue-router": "^4.0.12",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
@@ -45,12 +45,12 @@
     "ejs": "^3.1.6",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-vue": "^7.19.1",
+    "eslint-plugin-vue": "^7.20.0",
     "html-minifier-terser": "^5.1.1",
     "rimraf": "^3.0.2",
     "rollup-plugin-multi-input": "^1.2.0",
-    "sass": "^1.42.1",
-    "vite": "^2.6.5"
+    "sass": "^1.43.3",
+    "vite": "^2.6.11"
   },
   "files": [
     "entries",

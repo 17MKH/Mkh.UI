@@ -1,2 +1,14 @@
 #{$prefix}-breadcrumb {
+  &_back {
+    float: right;
+    margin-right: 20px;
+
+    a {
+      line-height: 2;
+    }
+
+    #{$prefix}-icon {
+      margin-right: 2px;
+    }
+  }
 }

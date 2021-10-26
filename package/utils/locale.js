@@ -4,13 +4,16 @@ let i18n
 
 export default (app, options) => {
   const messages = {}
+
   mkh.localeMessages.forEach(locale => {
     const { el, ui, mod } = locale
-    //将语言集保存下来
-    mkh.locales.push({
-      label: ui.name,
-      value: ui.code,
-    })
+    if (mkh.locales.findIndex(m => m.value === ui.code) < 0) {
+      //将语言集保存下来
+      mkh.locales.push({
+        label: ui.name,
+        value: ui.code,
+      })
+    }
 
     messages[ui.code] = { name: ui.code, el, mkh: ui.messages, mod }
   })

@@ -15,7 +15,7 @@
   </el-row>
 </template>
 <script>
-import useMessage from '../../../../../../package/components'
+import useMessage from '../../../../../../package/composables/message'
 export default {
   setup() {
     const message = useMessage()

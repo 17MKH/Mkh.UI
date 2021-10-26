@@ -57,7 +57,7 @@
 <script>
 import { computed, nextTick, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
-import { addResizeListener, removeResizeListener } from 'element-plus/packages/utils/resize-event'
+import { addResizeListener, removeResizeListener } from 'element-plus/lib/utils/resize-event'
 import dom from '../../utils/dom'
 import props from './props'
 export default {

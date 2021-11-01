@@ -13,6 +13,8 @@ export default defineConfig(({ mode, command }) => {
         htmlTransform: {
           /** 模板渲染数据，如果使用自己的模板，则自己定义渲染数据 */
           render: {
+            //图标
+            favicon: './assets/mkh/favicon.ico',
             /** 版权信息 */
             copyright: '版权所有：OLDLI',
             /** Logo */

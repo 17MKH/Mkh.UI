@@ -120,17 +120,19 @@ export default function (modules) {
     src += 'mkh.useModule(mod);\r\n'
     //导出模块
     src += 'export default mod'
+
     return src
   }
 
   //加载单个页面
   const loadPage = id => {
     let code = id.split('-').pop()
+    id = id.replace(prefixPage + code, 'page.json')
     let moduleDir = modules[code]
     let filePath = ''
-    if (id.startsWith('/')) filePath = normalizePath(moduleDir + id.replace(prefixPage + code, 'page.json'))
+    if (id.startsWith('/') && !id.startsWith(moduleDir)) filePath = normalizePath(moduleDir + id)
     else {
-      filePath = normalizePath(id.replace(prefixPage + code, 'page.json'))
+      filePath = normalizePath(id)
     }
 
     let src = `import component from '${path.dirname(filePath)}/index.vue'\r\n`
@@ -147,7 +149,6 @@ export default function (modules) {
 
     //导出页面
     src += 'export default page'
-
     return src
   }
 

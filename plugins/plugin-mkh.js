@@ -6,5 +6,5 @@ import loadAssets from './load-assets.js'
 export default function (options) {
   //模块列表
   const modules = []
-  return [htmlTransform(options.htmlTransform), loadModule(modules), loadLocale(modules), loadAssets(options)]
+  return [htmlTransform(options.htmlTransform || {}), loadModule(modules), loadLocale(modules), loadAssets(options)]
 }

@@ -5,6 +5,8 @@ const output = path.resolve('public/assets')
 
 //模块前缀
 const modPrefix = 'mkh-mod-'
+//皮肤前缀
+const skinPrefix = 'mkh-skin-'
 
 /**
  * 复制mkh-ui中的资源目录
@@ -22,6 +24,28 @@ const copyUIAssets = (packageObj, mode) => {
   }
   console.log(`复制框架(mkh-ui)中的静态资源`)
   fse.copy(sourceDir, path.resolve(output, 'mkh'))
+}
+
+/**
+ * 复制皮肤中的资源
+ */
+const copySkinAssets = mode => {
+  if (mode == 'lib') return
+
+  fse.readdir(path.resolve('node_modules'), (err, dirs) => {
+    dirs.forEach(m => {
+      if (m.startsWith(skinPrefix)) {
+        console.log(m)
+        const assetsPath = path.resolve(`node_modules/${m}/lib/assets`)
+        fse.pathExists(assetsPath, (err, exists) => {
+          if (exists) {
+            console.log(`复制皮肤(${m})中的静态资源`)
+            fse.copy(assetsPath, path.resolve(output, 'skins', m.replace(skinPrefix, '')))
+          }
+        })
+      }
+    })
+  })
 }
 
 /**
@@ -48,7 +72,7 @@ const copyModAssets = mode => {
 /**
  * 复制当前模块中的资源
  */
-const currentModAssets = (packageObj, mode) => {
+const copyCurrentModAssets = (packageObj, mode) => {
   if (mode == 'lib') return
 
   if (packageObj.name !== 'mkh-ui') {
@@ -70,8 +94,10 @@ export default function ({ mode }) {
       //复制框架中的资源
       copyUIAssets(packageObj, mode)
 
+      copySkinAssets()
+
       //复制当前模块中的资源
-      currentModAssets(packageObj, mode)
+      copyCurrentModAssets(packageObj, mode)
 
       //复制依赖模块中的资源
       copyModAssets(mode)

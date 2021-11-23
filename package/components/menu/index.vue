@@ -32,10 +32,6 @@ export default {
       const menu = store.state.app.profile.routeMenus.find(m => m.routeName === route.name)
       if (menu) return menu.id + ''
 
-      //首页
-      const { home } = store.state.app.config.site
-      if (route.path === home) return store.state.app.profile.routeMenus.find(m => m.routeName === 'home').id + ''
-
       return '-1'
     })
 

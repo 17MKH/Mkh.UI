@@ -70,7 +70,7 @@ const actions = {
       //设置菜单
       await resolveMenu(profile, rootState.app.config.site.menu)
 
-      if (!profile.skin || !profile.skin.code) {
+      if (!profile.skin || !profile.skin.code || mkh.skins.every(m => m.code !== profile.skin.code)) {
         if (rootState.app.config.skin) {
           let skin = rootState.app.config.skin
           profile.skin = {

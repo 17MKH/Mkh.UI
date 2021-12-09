@@ -5,6 +5,9 @@
       <!--菜单折叠-->
       <m-icon class="m-sub-header_menu" :name="$store.state.skin.brief.menuIsCollapse ? 'unfold' : 'fold'" @click="handleMeunCollapse" />
       <m-breadcrumb />
+      <div class="m-back">
+        <el-link type="primary" @click="goBack"><m-icon name="arrow-left" /> <span>返回</span></el-link>
+      </div>
     </div>
     <m-main />
   </div>
@@ -15,14 +18,19 @@ import MMain from './components/main/index.vue'
 export default {
   components: { MHeader, MMain },
   setup() {
-    const { store } = mkh
+    const { store, router } = mkh
 
     const handleMeunCollapse = () => {
       store.commit('skin/brief/toggleMenuCollapse')
     }
 
+    const goBack = () => {
+      router.back()
+    }
+
     return {
       handleMeunCollapse,
+      goBack,
     }
   },
 }

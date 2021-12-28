@@ -8,7 +8,7 @@
       </div>
       <section v-if="props" class="m-padding-lr-15">
         <h3 class="title">属性(Attributes)</h3>
-        <el-table class="m-doc-component_table" height="100%" :data="props" border>
+        <el-table class="m-doc-component_table" :data="props" border>
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="type" label="类型"></el-table-column>
@@ -18,7 +18,7 @@
       </section>
       <section v-if="events" class="m-padding-lr-15">
         <h3 class="title">事件(Events)</h3>
-        <el-table class="m-doc-component_table" height="100%" :data="events" border>
+        <el-table class="m-doc-component_table" :data="events" border>
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
@@ -26,7 +26,7 @@
       </section>
       <section v-if="methods" class="m-padding-lr-15">
         <h3 class="title">方法(Methods)</h3>
-        <el-table class="m-doc-component_table" height="100%" :data="methods" border>
+        <el-table class="m-doc-component_table" :data="methods" border>
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>
@@ -34,7 +34,7 @@
       </section>
       <section v-if="slots" class="m-padding-lr-15">
         <h3 class="title">插槽(Slots)</h3>
-        <el-table class="m-doc-component_table" height="100%" :data="slots" border>
+        <el-table class="m-doc-component_table" :data="slots" border>
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="说明"></el-table-column>
           <el-table-column prop="params" label="参数"></el-table-column>

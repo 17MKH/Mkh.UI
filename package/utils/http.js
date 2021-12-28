@@ -114,10 +114,24 @@ function Http(options) {
   this._axios = _axios
 }
 
+/**
+ * POST请求
+ * @param {*} url 相对路径
+ * @param {*} params 参数
+ * @param {*} config 自定义配置
+ * @returns
+ */
 Http.prototype.post = function (url, params, config) {
   return this._axios.post(url, params, config)
 }
 
+/**
+ * GET请求
+ * @param {*} url 相对路径
+ * @param {*} params 参数
+ * @param {*} config 自定义配置
+ * @returns
+ */
 Http.prototype.get = function (url, params, config) {
   const config_ = Object.assign({}, config, {
     // 参数
@@ -133,6 +147,13 @@ Http.prototype.get = function (url, params, config) {
   return this._axios.get(url, config_)
 }
 
+/**
+ * DELETE请求
+ * @param {*} url 相对路径
+ * @param {*} params 参数
+ * @param {*} config 自定义配置
+ * @returns
+ */
 Http.prototype.delete = function (url, params, config) {
   const config_ = Object.assign({}, config, {
     // 参数
@@ -148,14 +169,35 @@ Http.prototype.delete = function (url, params, config) {
   return this._axios.delete(url, config_)
 }
 
+/**
+ * PUT请求
+ * @param {*} url 相对路径
+ * @param {*} params 参数
+ * @param {*} config 自定义配置
+ * @returns
+ */
 Http.prototype.put = function (url, params, config) {
   return this._axios.put(url, params, config)
 }
 
+/**
+ * 文件下载
+ * @param {*} url 相对路径
+ * @param {*} params 参数
+ * @param {*} config 自定义配置
+ * @returns
+ */
 Http.prototype.download = function (url, params, config) {
   return this._axios.post(url, params, Object.assign({ responseType: 'blob' }, config))
 }
 
+/**
+ * 文件预览
+ * @param {*} url 相对路径
+ * @param {*} params 参数
+ * @param {*} config 自定义配置
+ * @returns
+ */
 Http.prototype.preview = function (url, params, config) {
   const config_ = Object.assign({ responseType: 'blob', headers: { mkh_preview: true } }, config, {
     // 参数
@@ -169,6 +211,15 @@ Http.prototype.preview = function (url, params, config) {
     },
   })
   return this._axios.get(url, config_)
+}
+
+/**
+ * 获取完整接口地址
+ * @param {*} url 相对路径
+ * @returns
+ */
+Http.prototype.getUrl = function (url) {
+  return this._axios.defaults.baseURL + url
 }
 
 //通用的增删改查方法

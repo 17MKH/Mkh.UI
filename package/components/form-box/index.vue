@@ -29,7 +29,6 @@ import { getCurrentInstance, ref } from 'vue'
 import { useMessage } from '../../composables'
 import props from './props'
 export default {
-  name: 'FormBox',
   props,
   emits: ['success', 'error'],
   setup(props, { emit }) {

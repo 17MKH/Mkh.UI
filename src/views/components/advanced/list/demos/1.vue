@@ -18,6 +18,9 @@
           </el-select>
         </el-form-item>
       </template>
+      <template #footer>
+        <m-button type="success" style="">搜索</m-button>
+      </template>
     </m-list>
   </div>
 </template>

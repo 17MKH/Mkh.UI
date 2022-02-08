@@ -19,7 +19,6 @@
 <script>
 import { computed, ref } from 'vue'
 export default {
-  name: 'VerifycodeInput',
   props: {
     prop: {
       type: String,

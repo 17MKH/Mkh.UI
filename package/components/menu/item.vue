@@ -2,47 +2,56 @@
   <template v-for="menu in menus">
     <el-sub-menu v-if="menu.type === 0" :key="menu.id" popper-class="m-menu_popper" :index="menu.id + ''">
       <template #title>
-        <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
-        <span>{{ menu.name }}</span>
+        <i class="el-icon">
+          <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
+        </i>
+        <span>{{ resolveName(menu) }}</span>
       </template>
       <menu-item :menus="menu.children" />
     </el-sub-menu>
     <template v-else>
       <el-menu-item :key="menu.id" :index="menu.id + ''" @click="handleClick(menu)">
-        <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
-        <span>{{ menu.name }}</span>
+        <i class="el-icon">
+          <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
+        </i>
+        <span>{{ resolveName(menu) }}</span>
       </el-menu-item>
     </template>
   </template>
 </template>
-<script>
-export default {
-  name: 'MenuItem',
-  props: {
-    menus: {
-      type: Array,
-      required: true,
-    },
+<script setup>
+import { getCurrentInstance } from 'vue'
+import MenuItem from './item.vue'
+
+const props = defineProps({
+  menus: {
+    type: Array,
+    required: true,
   },
-  setup() {
-    const { router } = mkh
+})
 
-    const handleClick = menu => {
-      //路由菜单
-      if (menu.type === 1) {
-        //解析菜单对应的路由信息
-        let { routeName: name, routeQuery, routeParams: params } = menu
-        let query = routeQuery || {}
-        //传递菜单编号
-        query['_mid_'] = menu.id
+const ctx = getCurrentInstance().proxy
 
-        router.push({ name, query, params })
-      }
+const handleClick = menu => {
+  //路由菜单
+  if (menu.type === 1) {
+    //解析菜单对应的路由信息
+    let { routeName: name, routeQuery, routeParams: params } = menu
+    let query = routeQuery || {}
+    //传递菜单编号
+    query['_mid_'] = menu.id
+
+    mkh.router.push({ name, query, params })
+  }
+}
+
+const resolveName = menu => {
+  if (menu.locales) {
+    let lang = menu.locales[ctx.$i18n.locale]
+    if (lang) {
+      return lang
     }
-
-    return {
-      handleClick,
-    }
-  },
+  }
+  return menu.name
 }
 </script>

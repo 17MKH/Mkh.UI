@@ -1,0 +1,31 @@
+#{$prefix}-list-select {
+  width: 100%;
+  &_item {
+    display: inline-block;
+  }
+
+  &_input {
+    .el-input__icon {
+      cursor: pointer;
+
+      &:hover {
+        color: #409eff;
+      }
+    }
+  }
+}
+#{$prefix}-list-select_dialog {
+  .el-table__row {
+    cursor: pointer;
+
+    &.current-row {
+      > td.el-table__cell {
+        background-color: #d9ecff !important;
+      }
+    }
+  }
+
+  .m-list_footer_left {
+    justify-content: right;
+  }
+}

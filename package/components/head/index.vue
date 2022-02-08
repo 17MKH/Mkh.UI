@@ -14,7 +14,6 @@
 <script>
 import { computed } from 'vue'
 export default {
-  name: 'Head',
   props: {
     title: {
       type: String,

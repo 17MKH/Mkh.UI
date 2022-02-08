@@ -5,7 +5,6 @@
 import { getCurrentInstance } from 'vue'
 import { useLoading, useMessage } from '../../composables'
 export default {
-  name: 'ButtonDelete',
   props: {
     /** 图标 */
     icon: {

@@ -7,7 +7,6 @@
 import { ref } from 'vue'
 import screenfull from 'screenfull'
 export default {
-  name: 'ToolbarFullscreen',
   setup() {
     const state = ref(false)
 

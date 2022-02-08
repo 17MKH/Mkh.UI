@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'ButtonEdit',
   props: {
     /** 图标 */
     icon: {

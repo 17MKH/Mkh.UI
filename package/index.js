@@ -1,6 +1,6 @@
 import './mkh'
 import { createApp } from 'vue'
-import Locale from './utils/locale'
+import Locale from './locale'
 import Layout from './layout.vue'
 import MkhRouter from './router'
 import MkhStore from './store'

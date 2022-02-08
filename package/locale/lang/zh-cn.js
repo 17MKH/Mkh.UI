@@ -64,5 +64,6 @@ export default {
       yes: '是',
       no: '否',
     },
+    home: '首页',
   },
 }

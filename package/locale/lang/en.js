@@ -65,5 +65,6 @@ export default {
       yes: 'YES',
       no: 'NO',
     },
+    home: 'Home',
   },
 }

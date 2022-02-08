@@ -11,7 +11,6 @@
 <script>
 import { ref } from 'vue'
 export default {
-  name: 'Container',
   props: {
     /** 滚动条 */
     scrollbar: {

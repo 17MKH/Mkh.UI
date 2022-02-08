@@ -27,10 +27,13 @@
     </div>
     <!--自定义按钮-->
     <div class="m-list_buttons">
-      <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
-      <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
+      <m-button v-if="!noQuerybar && showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
+      <m-button v-if="!noQuerybar && showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
       <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove"></m-button>
       <slot name="buttons" :selection="selection" :total="total" @click="remove" />
+
+      <!--折叠查询栏-->
+      <m-button :icon="foldQueryBar ? 'fold-b' : 'fold-u'" @click="foldQueryBar = !foldQueryBar" />
     </div>
     <!--数据表格-->
     <div class="m-list_body">
@@ -54,8 +57,8 @@
             :lazy="lazy"
             :load="load"
             :tree-props="treeProps"
-            border
-            stripe
+            :border="border"
+            :stripe="stripe"
             :highlight-current-row="highlightCurrentRow"
             @select="(selection, row) => $emit('select', selection, row)"
             @select-all="selection => $emit('select-all', selection)"
@@ -143,12 +146,12 @@
     </div>
     <!--底部-->
     <m-flex-row class="m-list_footer">
-      <m-flex-auto class="m-list_footer_left">
+      <m-flex-auto class="m-list_footer_left m-center-v">
         <slot name="footer" :selection="selection" :total="total" />
       </m-flex-auto>
       <m-flex-fixed>
         <m-flex-row>
-          <m-flex-fixed class="m-list_pagination">
+          <m-flex-fixed class="m-list_pagination m-center-v">
             <!--分页-->
             <el-pagination
               :page-size="page.size"
@@ -163,7 +166,7 @@
             >
             </el-pagination>
           </m-flex-fixed>
-          <m-flex-auto>
+          <m-flex-auto class="m-center-v">
             <!--配置列-->
             <m-button v-if="!disableSetColumn" class="m-list_setcolumn_btn" :text="$t('mkh.list.setCol')" @click="showSetColDialog = true" />
           </m-flex-auto>
@@ -189,7 +192,6 @@ import _ from 'lodash'
 import dom from '../../utils/dom'
 
 export default {
-  name: 'List',
   components: { SetColumn },
   props,
   emits: [
@@ -228,9 +230,12 @@ export default {
     const loadingOptions = store.state.app.config.component.loading
     const globalLoading = useLoading()
 
+    //折叠查询栏
+    const foldQueryBar = ref(false)
+
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const class_ = computed(() => {
-      return ['m-list', size_, isFullscreen.value ? 'is-fullscreen' : '']
+      return ['m-list', size_, isFullscreen.value ? 'is-fullscreen' : '', foldQueryBar.value ? 'fold-query-bar' : '', props.paginationOnRight ? 'pagination-on-right' : '']
     })
     const pagination_ = computed(() => Object.assign({}, paginationOptions, props.pagination || {}))
 
@@ -449,6 +454,7 @@ export default {
       selection,
       queryFormRef,
       tableRef,
+      foldQueryBar,
       loading,
       size_,
       class_,

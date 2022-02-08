@@ -20,7 +20,6 @@ import props from './props'
 import dom from '../../utils/dom'
 
 export default {
-  name: 'Form',
   props,
   emits: ['success', 'error', 'validate-success', 'validate-error'],
   setup(props, { emit }) {

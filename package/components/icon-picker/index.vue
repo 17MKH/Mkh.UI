@@ -17,7 +17,6 @@
 import { computed, inject, ref } from 'vue'
 import Panel from './panel.vue'
 export default {
-  name: 'IconPicker',
   components: { Panel },
   props: {
     modelValue: {

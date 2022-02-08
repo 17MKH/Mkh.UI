@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'ButtonAdd',
   props: {
     /** 类型 primary/success/warning/danger/info/text */
     type: {

@@ -29,6 +29,23 @@ export default defineConfig(({ mode, command }) => {
     server: {
       port: 622,
     },
+    css: {
+      postcss: {
+        plugins: [
+          {
+            /** 解决打包时出现 warning: "@charset" must be the first rule in the file */
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: atRule => {
+                if (atRule.name === 'charset') {
+                  atRule.remove()
+                }
+              },
+            },
+          },
+        ],
+      },
+    },
   }
 
   //打包成库

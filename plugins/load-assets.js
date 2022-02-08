@@ -12,12 +12,12 @@ const skinPrefix = 'mkh-skin-'
  * 复制mkh-ui中的资源目录
  * 如果是mkh-ui项目本身，则从package目录中复制，如果是模块，则从node_modules目录中复制
  */
-const copyUIAssets = (packageObj, mode) => {
+const copyUIAssets = (pkg, mode) => {
   let sourceDir = ''
   if (mode == 'lib') return
 
   //mkh-ui项目本身
-  if (packageObj.name === 'mkh-ui') {
+  if (pkg.name === 'mkh-ui') {
     sourceDir = path.resolve('package/assets')
   } else {
     sourceDir = path.resolve('node_modules/mkh-ui/lib/assets')
@@ -72,32 +72,31 @@ const copyModAssets = mode => {
 /**
  * 复制当前模块中的资源
  */
-const copyCurrentModAssets = (packageObj, mode) => {
+const copyCurrentModAssets = (pkg, mode) => {
   if (mode == 'lib') return
 
-  if (packageObj.name !== 'mkh-ui') {
+  if (pkg.name !== 'mkh-ui') {
     const assetsPath = path.resolve(`src/assets`)
     fse.pathExists(assetsPath, (err, exists) => {
       if (exists) {
-        console.log(`复制模块(${packageObj.name})中的静态资源`)
-        fse.copy(assetsPath, path.resolve(output, packageObj.name.replace(modPrefix, '')))
+        console.log(`复制模块(${pkg.name})中的静态资源`)
+        fse.copy(assetsPath, path.resolve(output, pkg.name.replace(modPrefix, '')))
       }
     })
   }
 }
 
-export default function ({ mode }) {
+export default function ({ mode }, pkg) {
   return {
     name: 'mkh-load-assets',
     buildStart() {
-      const packageObj = fse.readJSONSync(path.resolve('./package.json'))
       //复制框架中的资源
-      copyUIAssets(packageObj, mode)
+      copyUIAssets(pkg, mode)
 
       copySkinAssets()
 
       //复制当前模块中的资源
-      copyCurrentModAssets(packageObj, mode)
+      copyCurrentModAssets(pkg, mode)
 
       //复制依赖模块中的资源
       copyModAssets(mode)
@@ -105,9 +104,8 @@ export default function ({ mode }) {
     writeBundle(bundle) {
       if (mode == 'lib') {
         //如果是库模式，需要在打包结束后复制资源目录到输出目录
-        const packageObj = fse.readJSONSync(path.resolve('./package.json'))
         let output = path.resolve('lib/assets')
-        if (packageObj.name === 'mkh-ui') {
+        if (pkg.name === 'mkh-ui') {
           fse.copy(path.resolve('package/assets'), output)
         } else {
           let assetsPath = path.resolve('src/assets')

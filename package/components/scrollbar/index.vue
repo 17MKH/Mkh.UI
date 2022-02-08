@@ -6,7 +6,6 @@
 <script>
 import { ref } from 'vue'
 export default {
-  name: 'Scrollbar',
   props: {
     /** 是否显示水平滚动条 */
     horizontal: Boolean,

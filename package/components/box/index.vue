@@ -41,7 +41,6 @@ import { computed, ref } from 'vue'
 import { useCollapse, useFullscreen } from '../../composables'
 import props from './props'
 export default {
-  name: 'Box',
   props,
   emits: ['fullscreen-change', 'collapse-change'],
   setup(props, { emit }) {

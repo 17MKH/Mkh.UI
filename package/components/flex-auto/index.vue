@@ -3,8 +3,3 @@
     <slot />
   </div>
 </template>
-<script>
-export default {
-  name: 'FlexAuto',
-}
-</script>

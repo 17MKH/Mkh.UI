@@ -19,10 +19,9 @@
         <el-divider content-position="center">字号</el-divider>
         <div class="m-skin-toggle_sizes">
           <el-radio-group v-model="model.size">
+            <el-radio label="large" size="large" border>大号</el-radio>
             <el-radio label="" border>默认</el-radio>
-            <el-radio label="medium" size="medium" border>中等</el-radio>
             <el-radio label="small" size="small" border>小号</el-radio>
-            <el-radio label="mini" size="mini" border>迷你</el-radio>
           </el-radio-group>
         </div>
         <el-divider content-position="center">主题</el-divider>
@@ -44,7 +43,6 @@
 import { reactive, ref } from 'vue'
 import useMessage from '../../composables/message'
 export default {
-  name: 'ToolbarSkin',
   setup() {
     const { store } = mkh
 

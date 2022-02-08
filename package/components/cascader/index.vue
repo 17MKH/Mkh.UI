@@ -4,7 +4,6 @@
 <script>
 import { ref } from 'vue'
 export default {
-  name: 'Cascader',
   props: {
     /**数据查询方法 */
     action: {

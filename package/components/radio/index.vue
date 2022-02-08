@@ -8,7 +8,6 @@
 <script>
 import { computed, inject, ref, watch } from 'vue'
 export default {
-  name: 'Radio',
   props: {
     modelValue: {
       type: [String, Number],

@@ -18,6 +18,8 @@ export default (app, options) => {
     messages[ui.code] = { name: ui.code, el, mkh: ui.messages, mod }
   })
 
+  console.log(messages)
+
   //删除无用的属性
   delete mkh.localeMessages
 

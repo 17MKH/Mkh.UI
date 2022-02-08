@@ -29,7 +29,6 @@ import { computed, nextTick, onMounted, watch, ref, toRef } from 'vue'
 import props from './props'
 import dom from '../../utils/dom'
 export default {
-  name: 'Split',
   props,
   emits: ['update:modelValue'],
   setup(props, { emit }) {

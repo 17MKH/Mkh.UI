@@ -10,7 +10,6 @@ import { computed } from 'vue'
 import MenuItem from './item.vue'
 import { useRoute } from 'vue-router'
 export default {
-  name: 'Menu',
   components: { MenuItem },
   props: {
     /** 折叠 */

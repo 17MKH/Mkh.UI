@@ -45,7 +45,6 @@ import { useVisible, useMessage } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
 export default {
-  name: 'FormDrawer',
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {

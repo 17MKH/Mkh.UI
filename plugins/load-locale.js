@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 import { normalizePath } from 'vite'
 
-export default function (modules) {
+export default function (modules, pkg) {
   const filter = '$mkh-locale'
   return {
     name: 'mkh-load-locale',
@@ -19,20 +19,27 @@ export default function (modules) {
         const lang = id.split('/')[1]
 
         /** 导入Element Plus的语言包 */
-        code += `import el from 'element-plus/lib/locale/lang/${lang}.js'\r\n`
+        code += `import el from 'element-plus/es/locale/lang/${lang}'\r\n`
 
         /** 导入Mkh中的语言包 */
-        code += `import ui from '${normalizePath(path.resolve(__dirname, `../lang/${lang}.js`))}'\r\n`
+        if (pkg.name === 'mkh-ui') {
+          code += `import ui from '../package/locale/lang/${lang}'\r\n`
+        } else {
+          code += `import ui from 'mkh-ui/lib/locale/${lang}'\r\n`
+        }
 
-        /** 导入模块中的语言包 */
+        /** 导入依赖模块中的语言包 */
         let mods = []
         for (let m in modules) {
-          const src = normalizePath(path.resolve(modules[m], `locale/${lang}.js`))
+          const src = normalizePath(path.resolve(modules[m], `lib/locale/${lang}`))
           if (fs.existsSync(src)) {
             code += `import ${m} from '${src}'\r\n`
             mods.push(m)
           }
         }
+
+        /** 导入当前模块中的语言包 */
+
         code += `mkh.localeMessages.push({el:el.el, ui, mod: {${mods.join(',')}}})`
 
         return code

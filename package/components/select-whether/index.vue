@@ -4,8 +4,3 @@
     <el-option :label="$t('mkh.whether.no')" :value="false"> </el-option>
   </el-select>
 </template>
-<script>
-export default {
-  name: 'SelectWhether',
-}
-</script>

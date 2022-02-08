@@ -8,7 +8,6 @@
 <script>
 import { computed, inject, ref } from 'vue'
 export default {
-  name: 'SelectSearch',
   props: {
     modelValue: {
       type: [String, Number],

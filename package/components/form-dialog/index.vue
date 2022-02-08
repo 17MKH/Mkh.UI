@@ -43,7 +43,6 @@ import { fullscreenMixins } from '../../composables/fullscreen'
 import _ from 'lodash'
 import props from './props'
 export default {
-  name: 'FormDialog',
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {

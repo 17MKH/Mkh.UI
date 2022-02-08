@@ -57,7 +57,6 @@ import { computed } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import props from './props'
 export default {
-  name: 'Drawer',
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {

@@ -24,12 +24,11 @@
 <script>
 import { computed } from 'vue'
 export default {
-  name: 'Button',
   props: {
     /** 尺寸 */
     size: {
       type: String,
-      default: null,
+      default: 'default',
     },
     /** 类型 primary/success/warning/danger/info/text */
     type: {

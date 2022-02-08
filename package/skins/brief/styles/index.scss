@@ -188,18 +188,12 @@ $skin-brief-breadcrumb-height: 50px;
     transition: all 0.3s ease-in;
 
     &.is-collapse {
-      width: 100px;
-    }
-
-    &_wrapper {
-      padding: 0 15px;
+      width: 65px;
     }
 
     &_item {
       &_icon {
         position: relative;
-        top: 2px;
-        margin-right: 10px;
         font-size: 20px;
         color: #506690;
       }
@@ -213,7 +207,7 @@ $skin-brief-breadcrumb-height: 50px;
         width: auto;
 
         .el-menu-item,
-        .el-submenu__title {
+        .el-sub-menu__title {
           text-align: center;
 
           #{$prefix}-icon {
@@ -224,7 +218,7 @@ $skin-brief-breadcrumb-height: 50px;
     }
 
     .el-menu-item,
-    .el-submenu__title {
+    .el-sub-menu__title {
       margin-bottom: 4px;
       height: 45px;
       line-height: 45px;
@@ -232,7 +226,7 @@ $skin-brief-breadcrumb-height: 50px;
     }
 
     .el-menu-item:hover,
-    .el-submenu__title:hover {
+    .el-sub-menu__title:hover {
       background: #bfc9d4;
       box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
       border-radius: 6px;
@@ -244,14 +238,14 @@ $skin-brief-breadcrumb-height: 50px;
     }
 
     .el-menu-item.is-active,
-    .el-submenu.is-active > .el-submenu__title {
+    .el-sub-menu.is-active > .el-sub-menu__title {
       background: #fff;
       box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
       border-radius: 6px;
       color: #0e1726;
     }
 
-    .el-submenu .el-menu-item {
+    .el-sub-menu .el-menu-item {
       background: none;
       box-shadow: none;
 

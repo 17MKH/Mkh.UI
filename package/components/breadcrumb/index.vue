@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb class="m-breadcrumb" separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/' }">{{ $t('mkh.home') }}</el-breadcrumb-item>
     <template v-for="(bc, i) in list">
       <el-breadcrumb-item v-if="bc.to" :key="i" :to="bc.to"> {{ bc.label }} </el-breadcrumb-item>
       <el-breadcrumb-item v-else :key="i + 1"> {{ bc.label }} </el-breadcrumb-item>
@@ -11,12 +11,12 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 export default {
-  name: 'Breadcrumb',
   setup() {
     const route = useRoute()
 
     const list = computed(() => {
       const { breadcrumbs, title, icon } = route.meta
+      console.log(route)
       if (!breadcrumbs && !title) return []
 
       const last = { label: title, icon: icon }

@@ -2,11 +2,9 @@ const fs = require('fs')
 const path = require('path')
 import fg from 'fast-glob'
 import { normalizePath } from 'vite'
+import { IMPORT_MODULE_PREFIX, IMPORT_PAGE_PREFIX } from './constants'
 
 export default function (modules) {
-  const prefix = '$mkh-mod-'
-  const prefixPage = '$page-'
-
   //**匹配需要搜索的文件 */
   async function getFiles(patterns) {
     const files = await fg(patterns, {
@@ -53,7 +51,7 @@ export default function (modules) {
   const loadModule = async id => {
     let src = '' //导入代码
     let exportCode = '' //导出代码
-    const code = id.replace(prefix, '')
+    const code = id.replace(IMPORT_MODULE_PREFIX, '')
     const dir = path.resolve(modules[code], 'src')
     /** 加载package.json */
     const packageFile = normalizePath(path.resolve(dir, '../package.json'))
@@ -86,7 +84,7 @@ export default function (modules) {
     pages.forEach((p, i) => {
       const name = `page_${i}`
       //这里将page.json替换成@page-模块编码，方便后续处理
-      src += `import ${name} from '${p.replace('page.json', prefixPage + code)}'\r\n`
+      src += `import ${name} from '${p.replace('page.json', IMPORT_PAGE_PREFIX + code)}'\r\n`
     })
 
     /** 加载模块全局组件 */
@@ -127,7 +125,7 @@ export default function (modules) {
   //加载单个页面
   const loadPage = id => {
     let code = id.split('-').pop()
-    id = id.replace(prefixPage + code, 'page.json')
+    id = id.replace(IMPORT_PAGE_PREFIX + code, 'page.json')
     let moduleDir = modules[code]
     let filePath = ''
     if (id.startsWith('/') && !id.startsWith(moduleDir)) filePath = normalizePath(moduleDir + id)
@@ -156,8 +154,8 @@ export default function (modules) {
     name: 'mkh-load-module',
     resolveId(id, importer) {
       //匹配$mkh-mod并从package.json文件中获取模块编码，然后附加到id后面
-      if (id.startsWith(prefix)) {
-        const code = id.replace(prefix, '')
+      if (id.startsWith(IMPORT_MODULE_PREFIX)) {
+        const code = id.replace(IMPORT_MODULE_PREFIX, '')
         if (!modules[code]) {
           if (importer.indexOf('index.html') > 0) {
             modules[code] = path.resolve(path.dirname(normalizePath(importer)))
@@ -166,16 +164,16 @@ export default function (modules) {
           }
         }
         return id
-      } else if (id.includes(prefixPage)) {
+      } else if (id.includes(IMPORT_PAGE_PREFIX)) {
         return id
       }
 
       return null
     },
     async load(id) {
-      if (id.startsWith(prefix)) {
+      if (id.startsWith(IMPORT_MODULE_PREFIX)) {
         return loadModule(id)
-      } else if (id.includes(prefixPage)) {
+      } else if (id.includes(IMPORT_PAGE_PREFIX)) {
         return loadPage(id)
       }
       return null

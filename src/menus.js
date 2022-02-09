@@ -11,6 +11,17 @@ const menus = [
     },
   },
   {
+    name: '国际化',
+    type: 1,
+    icon: 'home',
+    level: 1,
+    show: true,
+    routeName: 'i18n',
+    locales: {
+      en: 'i18n',
+    },
+  },
+  {
     name: '布局组件',
     type: 0,
     icon: 'layout',

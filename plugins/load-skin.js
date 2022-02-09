@@ -1,9 +1,10 @@
+import { IMPORT_SKIN_PREFIX } from './constants'
+
 export default function (skins) {
-  const filter = 'mkh-skin-'
   return {
     name: 'mkh-load-skin',
-    resolveId(id, importer) {
-      if (id.startsWith(filter)) {
+    resolveId(id) {
+      if (id.startsWith(IMPORT_SKIN_PREFIX)) {
         skins.push(id)
         return id
       }

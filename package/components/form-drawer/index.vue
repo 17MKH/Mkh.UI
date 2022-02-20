@@ -33,8 +33,8 @@
     <template #footer>
       <slot name="footer">
         <slot name="footer-buttons"></slot>
-        <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.form.btnOkText')" :disabled="disabled" @click="submit"></m-button>
-        <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.form.btnResetText')" :disabled="disabled" @click="reset"></m-button>
+        <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.save')" :disabled="disabled" @click="submit"></m-button>
+        <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.reset')" :disabled="disabled" @click="reset"></m-button>
       </slot>
     </template>
   </m-drawer>
@@ -65,7 +65,7 @@ export default {
 
     const handleSuccess = data => {
       loading.value = false
-      message.success(cit.$t('mkh.form.successMsg'))
+      message.success(cit.$t('mkh.save_success_msg'))
       emit('success', data)
     }
 

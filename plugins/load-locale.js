@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 import { normalizePath } from 'vite'
-import { UI_NAME, MODULE_PREFIX, IMPORT_LOCALE_PREFIX } from './constants'
+import { UI_NAME, MODULE_PREFIX, IMPORT_LOCALE_PREFIX, SKIN_PREFIX } from './utils/constants'
 
-export default function (modules, skins, pkg) {
+export default function (ctx) {
   return {
     name: 'mkh-load-locale',
     resolveId(id) {
@@ -14,20 +14,23 @@ export default function (modules, skins, pkg) {
       return null
     },
     load(id) {
+      if (ctx.isLib) return null
+
       if (id.startsWith(IMPORT_LOCALE_PREFIX)) {
         let code = ''
         let mods = []
+        let skinList = ''
 
         const lang = id.split('/')[1]
 
         /** 导入Element Plus的语言包 */
         code += `import el from 'element-plus/es/locale/lang/${lang}'\r\n`
 
-        if (pkg.name === UI_NAME) {
+        if (ctx.isUI) {
           code += `import ui from '../package/locale/lang/${lang}'\r\n`
           /** 导入文档模块中的语言包 */
           const src = normalizePath(path.resolve(process.cwd(), `src/locale/${lang}.js`))
-          if (fs.existsSync(src)) {
+          if (fs.existsSync()) {
             code += `import doc from '${src}'\r\n`
             mods.push('doc')
           }
@@ -36,36 +39,37 @@ export default function (modules, skins, pkg) {
           code += `import ui from '${UI_NAME}/lib/locale/${lang}'\r\n`
 
           /** 导入当前模块中的语言包 */
-          if (pkg.name.startsWith(MODULE_PREFIX)) {
-            const currModCode = pkg.name.replace(MODULE_PREFIX, '')
-            const src = normalizePath(path.resolve(process.cwd(), `src/locale/${lang}.js`))
-            if (fs.existsSync(src)) {
-              code += `import ${currModCode} from '${src}'\r\n`
-              mods.push(currModCode)
-            }
+          const src = normalizePath(path.resolve(process.cwd(), `src/locale/${lang}.js`))
+          if (fs.existsSync(src)) {
+            code += `import ${ctx.entryModule} from '${src}'\r\n`
+            mods.push(ctx.entryModule)
           }
 
           /** 导入依赖模块中的语言包 */
-          for (let m in modules) {
-            const src = normalizePath(path.resolve(modules[m], `lib/locale/${lang}.js`))
+          ctx.dependencyModules.forEach(m => {
+            let moduleName = `${MODULE_PREFIX}${m}`
+            const src = normalizePath(path.resolve(process.cwd(), `node_modules/${moduleName}/lib/locale/${lang}.js`))
             if (fs.existsSync(src)) {
-              code += `import ${m} from '${src}'\r\n`
-              mods.push(m)
+              let moduleImportName = moduleName.replaceAll('-', '_')
+              code += `import ${moduleImportName} from '${src}'\r\n`
+              mods.push(moduleImportName)
             }
-          }
+          })
 
           /** 导入皮肤中的语言包 */
-          for (let skin in skins) {
-            const src = normalizePath(path.resolve(modules[m], `lib/locale/${lang}.js`))
+          ctx.skins.forEach(skin => {
+            let skinName = `${SKIN_PREFIX}${skin}`
+            const src = normalizePath(path.resolve(process.cwd(), `node_modules/${skinName}/lib/locale/${lang}.js`))
             if (fs.existsSync(src)) {
-              code += `import ${m} from '${skin}/lib/locale'\r\n`
-              mods.push(m)
+              let skinImportName = skinName.replaceAll('-', '_')
+              code += `import ${skinImportName} from '${skinName}/lib/locale/${lang}'\r\n`
+              skinList += `${skin.replace(SKIN_PREFIX, '')}: ${skinImportName}`
             }
-          }
+          })
         }
 
-        code += `mkh.localeMessages.push({el:el.el, ui, mod: {${mods.join(',')}}})`
-        console.log(code)
+        code += `mkh.localeMessages.push({el:el.el, ui, mod: {${mods.join(',')}}, skin: {${skinList}}})`
+
         return code
       }
 

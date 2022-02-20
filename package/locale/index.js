@@ -6,7 +6,7 @@ export default (app, options) => {
   const messages = {}
 
   mkh.localeMessages.forEach(locale => {
-    const { el, ui, mod } = locale
+    const { el, ui, mod, skin } = locale
     if (mkh.locales.findIndex(m => m.value === ui.code) < 0) {
       //将语言集保存下来
       mkh.locales.push({
@@ -15,10 +15,8 @@ export default (app, options) => {
       })
     }
 
-    messages[ui.code] = { name: ui.code, el, mkh: ui.messages, mod }
+    messages[ui.code] = { name: ui.code, el, mkh: ui.messages, mod, skin }
   })
-
-  console.log(messages)
 
   //删除无用的属性
   delete mkh.localeMessages
@@ -28,7 +26,7 @@ export default (app, options) => {
     fallbackLocale: options.fallback || 'zh-cn',
     messages,
   })
-
+  console.log(i18n)
   //注册国际化
   app.use(i18n)
 }

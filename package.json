@@ -2,7 +2,7 @@
   "id": 0,
   "name": "mkh-ui",
   "label": "",
-  "version": "0.7.12-beta.5",
+  "version": "0.7.12-beta.17",
   "icon": "document",
   "description": "17MKH前端框架",
   "author": "OLDLI",
@@ -13,7 +13,7 @@
     "build": "vite build",
     "lib": "rimraf lib && vite build --mode=lib && npm run locale && npm run plugins",
     "locale": "rollup -c ./build/locale.config.js",
-    "plugins": "rollup ./plugins/plugin-mkh.js --file ./lib/plugins/index.js --format cjs",
+    "plugins": "rollup ./plugins/plugin-module.js --file ./lib/plugins/index.js --format cjs",
     "clean": "rimraf lib && rimraf public && rimraf dist",
     "cm": "rimraf package-lock.json && rimraf node_modules",
     "cv": "rimraf node_modules/.vite"

@@ -1,5 +1,5 @@
 <template>
-  <m-button class="m-button-add" :type="type" :icon="icon" :text="text === null ? $t('mkh.add.text') : ''">
+  <m-button class="m-button-add" :type="type" :icon="icon" :text="text === null ? $t('mkh.add') : ''">
     <slot />
   </m-button>
 </template>

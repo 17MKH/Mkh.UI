@@ -2,7 +2,7 @@
   <div
     v-loading="loading"
     :class="['m-split', mode, moving ? 'no-select' : '']"
-    :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
+    :element-loading-text="loadingText || $t('mkh.loading_text')"
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >

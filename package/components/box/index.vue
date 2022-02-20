@@ -3,7 +3,7 @@
     v-loading="loading"
     :class="class_"
     :style="{ height }"
-    :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
+    :element-loading-text="loadingText || $t('mkh.loading_text')"
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >

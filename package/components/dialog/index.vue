@@ -34,7 +34,7 @@
     <div
       v-loading="loading"
       class="m-dialog_content"
-      :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
+      :element-loading-text="loadingText || $t('mkh.loading_text')"
       :element-loading-background="loadingBackground"
       :element-loading-spinner="loadingSpinner"
     >

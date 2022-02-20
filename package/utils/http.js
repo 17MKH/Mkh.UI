@@ -58,7 +58,7 @@ function Http(options) {
         //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
         ElMessage({
           type: 'error',
-          title: i18n.global.t('mkh.http.errorTitle'),
+          title: i18n.global.t('mkh.http_error_title'),
           message: response.data.msg,
           showClose: true,
           duration: 1500,
@@ -107,7 +107,7 @@ function Http(options) {
 
         return
       }
-      return Promise.reject(i18n.global.t('mkh.http.errorTitle'))
+      return Promise.reject(i18n.global.t('mkh.http_error'))
     }
   )
 

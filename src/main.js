@@ -1,6 +1,7 @@
 import { configure } from '../package/index.js'
-import '$mkh-locale/en' //导入英文语言包
 import './index.js'
+import '$mkh-locale/zh-cn'
+import '$mkh-locale/en' //导入英文语言包
 
 configure({
   beforeMount({ config }) {

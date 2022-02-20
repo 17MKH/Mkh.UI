@@ -53,6 +53,7 @@ export default function () {
               type: 'success',
               duration: 1500,
               onClose() {
+                console.log('跳转')
                 store.dispatch('app/token/login', data)
                 router.push(redirect)
               },
@@ -72,7 +73,6 @@ export default function () {
 
   const handleEnterLogin = e => {
     if (e.code === 'Enter') {
-      console.log('登录')
       tryLogin()
     }
   }

@@ -31,8 +31,8 @@
 
     <template v-if="footer" #footer>
       <slot name="footer"> </slot>
-      <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.form.btnOkText')" :disabled="disabled" @click="submit"></m-button>
-      <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.form.btnResetText')" :disabled="disabled" @click="reset"></m-button>
+      <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.save')" :disabled="disabled" @click="submit"></m-button>
+      <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.reset')" :disabled="disabled" @click="reset"></m-button>
     </template>
   </m-dialog>
 </template>
@@ -43,7 +43,6 @@ import { fullscreenMixins } from '../../composables/fullscreen'
 import _ from 'lodash'
 import props from './props'
 export default {
-  name: 'FormDialog',
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {
@@ -73,7 +72,7 @@ export default {
 
     const handleSuccess = data => {
       loading_.value = false
-      message.success(cit.$t('mkh.form.successMsg'))
+      message.success(cit.$t('mkh.save_success_msg'))
 
       if (props.closeOnSuccess) {
         visible.value = false

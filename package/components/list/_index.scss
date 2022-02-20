@@ -16,6 +16,7 @@
     flex-shrink: 0;
     padding: 7px 10px;
     text-align: right;
+    border-bottom: 1px solid #ebeef5;
   }
 
   &_body {
@@ -43,29 +44,22 @@
   }
 
   &_footer {
+    padding: 3px;
     flex-shrink: 0;
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    height: 41px;
+    height: auto;
 
     &_left {
       flex-grow: 1;
     }
     &_right {
       flex-shrink: 0;
-      .el-pagination {
-        margin-top: 4px;
-      }
     }
   }
 
-  &_pagination {
-    padding-top: 4px;
-  }
-
   &_setcolumn_btn {
-    margin: 4px 7px;
     padding: 0 15px;
     height: 32px;
     min-height: 32px;
@@ -107,5 +101,21 @@
     height: 100%;
     width: 100%;
     z-index: $z-index-list-fullscreen;
+  }
+
+  &.fold-query-bar {
+    #{$prefix}-list_querybar {
+      display: none;
+    }
+  }
+
+  &.pagination-on-right {
+    #{$prefix}-list_footer {
+      flex-direction: row-reverse !important;
+
+      &_left {
+        text-align: right;
+      }
+    }
   }
 }

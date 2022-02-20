@@ -8,7 +8,6 @@
 <script>
 import { computed, inject, ref, watch } from 'vue'
 export default {
-  name: 'Checkbox',
   props: {
     modelValue: {
       type: Array,

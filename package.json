@@ -2,7 +2,7 @@
   "id": 0,
   "name": "mkh-ui",
   "label": "",
-  "version": "0.7.9",
+  "version": "0.7.12-beta.17",
   "icon": "document",
   "description": "17MKH前端框架",
   "author": "OLDLI",
@@ -11,27 +11,28 @@
     "dev": "vite --host",
     "serve": "vite preview",
     "build": "vite build",
-    "lib": "vite build --mode=lib && npm run locale && npm run plugins",
+    "lib": "rimraf lib && vite build --mode=lib && npm run locale && npm run plugins",
     "locale": "rollup -c ./build/locale.config.js",
-    "plugins": "rollup ./plugins/plugin-mkh.js --file ./lib/plugins/index.js --format cjs",
-    "cm": "rimraf node_modules",
+    "plugins": "rollup ./plugins/plugin-module.js --file ./lib/plugins/index.js --format cjs",
+    "clean": "rimraf lib && rimraf public && rimraf dist",
+    "cm": "rimraf package-lock.json && rimraf node_modules",
     "cv": "rimraf node_modules/.vite"
   },
   "dependencies": {
     "axios": "^0.21.4",
     "clipboard-copy": "^4.0.1",
     "echarts": "^5.2.1",
-    "element-plus": "^1.2.0-beta.3",
+    "element-plus": "^2.0.1",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0",
     "highlight.js": "^10.7.1",
     "lodash": "^4.17.21",
-    "mkh-ui-style": "^1.0.5",
+    "mkh-ui-style": "^1.0.7",
     "nprogress": "^0.2.0",
     "qs": "^6.10.1",
     "screenfull": "^5.1.0",
     "sortablejs": "^1.14.0",
-    "vue": "^3.2.20",
+    "vue": "^3.2.29",
     "vue-echarts": "^6.0.0",
     "vue-i18n": "^9.1.9",
     "vue-router": "^4.0.12",
@@ -40,8 +41,7 @@
   "devDependencies": {
     "@rollup/plugin-image": "^2.1.1",
     "@rollup/pluginutils": "^4.1.1",
-    "@vitejs/plugin-vue": "^1.9.3",
-    "@vue/compiler-sfc": "^3.2.20",
+    "@vitejs/plugin-vue": "^2.0.0",
     "ejs": "^3.1.6",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.1.0",
@@ -50,11 +50,12 @@
     "rimraf": "^3.0.2",
     "rollup-plugin-multi-input": "^1.2.0",
     "sass": "^1.43.3",
-    "vite": "^2.6.11"
+    "vite": "^2.7.13"
   },
   "files": [
     "entries",
-    "lib"
+    "lib",
+    "build"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

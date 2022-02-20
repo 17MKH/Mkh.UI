@@ -34,7 +34,7 @@
     <div
       v-loading="loading"
       class="m-dialog_content"
-      :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
+      :element-loading-text="loadingText || $t('mkh.loading_text')"
       :element-loading-background="loadingBackground"
       :element-loading-spinner="loadingSpinner"
     >
@@ -57,11 +57,10 @@
 <script>
 import { computed, nextTick, ref } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
-import { addResizeListener, removeResizeListener } from 'element-plus/lib/utils/resize-event'
+import { addResizeListener, removeResizeListener } from 'element-plus/es/utils/resize-event'
 import dom from '../../utils/dom'
 import props from './props'
 export default {
-  name: 'Dialog',
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {

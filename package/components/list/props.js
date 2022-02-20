@@ -57,6 +57,11 @@ export default {
     type: Object,
     default: null,
   },
+  /** 分页在左边展示 */
+  paginationOnRight: {
+    type: Boolean,
+    default: false,
+  },
   /** 多选 */
   multiple: Boolean,
   /** 显示查询按钮 */
@@ -91,9 +96,9 @@ export default {
     type: Function,
     default: null,
   },
-  /** 不显示刷新按钮 */
+  /** 不显示工具栏刷新按钮 */
   noRefresh: Boolean,
-  /** 不显示全屏按钮 */
+  /** 不显示工具栏全屏按钮 */
   noFullscreen: Boolean,
   /** 不显示查询栏 */
   noQuerybar: Boolean,
@@ -179,6 +184,10 @@ export default {
   },
   /** 高亮当前行 */
   highlightCurrentRow: Boolean,
+  /** 是否为斑马纹 table */
+  stripe: Boolean,
+  /** 是否带有纵向边框 */
+  border: Boolean,
   /** 查询前执行的函数，该函数调用时第一个参数是查询参数对象，可在该函数内对参数进行调整 */
   beforeQuery: Function,
 }

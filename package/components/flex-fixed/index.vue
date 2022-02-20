@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'FlexFixed',
   props: {
     width: {
       type: String,

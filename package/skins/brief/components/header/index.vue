@@ -21,11 +21,11 @@
             <el-dropdown-menu class="m-header_userinfo_dropdown">
               <el-dropdown-item command="userinfo">
                 <m-icon name="user"></m-icon>
-                账户信息
+                {{ $t('mkh.profile') }}
               </el-dropdown-item>
               <el-dropdown-item divided command="logout">
                 <m-icon name="sign-out"></m-icon>
-                退出登录
+                {{ $t('mkh.logout') }}
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>

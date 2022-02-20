@@ -1,12 +1,12 @@
 const { resolve } = require('path')
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import mkh from './plugins/plugin-mkh'
+import mui from './plugins/plugin-ui'
 
 export default defineConfig(({ mode, command }) => {
   let config = {
     plugins: [
-      mkh({
+      mui({
         mode,
         command,
         /** index.html文件转换 */
@@ -29,6 +29,23 @@ export default defineConfig(({ mode, command }) => {
     server: {
       port: 622,
     },
+    css: {
+      postcss: {
+        plugins: [
+          {
+            /** 解决打包时出现 warning: "@charset" must be the first rule in the file */
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: atRule => {
+                if (atRule.name === 'charset') {
+                  atRule.remove()
+                }
+              },
+            },
+          },
+        ],
+      },
+    },
   }
 
   //打包成库
@@ -43,7 +60,7 @@ export default defineConfig(({ mode, command }) => {
         fileName: 'index',
       },
       outDir: 'lib',
-      // minify: false,
+      minify: false,
       rollupOptions: {
         /** 排除无需打包进去的依赖库 */
         external: ['vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n'],

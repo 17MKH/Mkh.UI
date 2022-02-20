@@ -7,7 +7,7 @@
     :size="size_"
     :model="model"
     :rules="rules"
-    :element-loading-text="loadingText || $t('mkh.form.loadingText')"
+    :element-loading-text="loadingText || $t('mkh.loading_text_save')"
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
@@ -20,7 +20,6 @@ import props from './props'
 import dom from '../../utils/dom'
 
 export default {
-  name: 'Form',
   props,
   emits: ['success', 'error', 'validate-success', 'validate-error'],
   setup(props, { emit }) {

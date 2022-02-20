@@ -18,7 +18,6 @@
 </template>
 <script>
 export default {
-  name: 'BoxSmall',
   props: {
     /** 文本 */
     label: {

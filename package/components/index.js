@@ -1,10 +1,13 @@
 const components = import.meta.globEager('./**/index.vue')
-
 export default app => {
   //框架中的全局组件
-  Object.values(components).forEach(m => {
-    const component = m.default
-    const name = `M${component.name}`
+
+  Object.keys(components).forEach(key => {
+    const comName = key.split('/')[1]
+
+    const component = components[key].default
+
+    const name = `m-${comName}`
     app.component(name, component)
     mkh.components.push(
       name

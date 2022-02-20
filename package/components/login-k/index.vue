@@ -39,7 +39,6 @@
 import { computed } from '@vue/reactivity'
 import { useLogin } from '../../composables'
 export default {
-  name: 'LoginK',
   setup() {
     const { store } = mkh
 

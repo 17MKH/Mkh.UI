@@ -32,7 +32,7 @@
     <div
       v-loading="loading"
       class="m-drawer_content"
-      :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
+      :element-loading-text="loadingText || $t('mkh.loading_text')"
       :element-loading-background="loadingBackground || loadingOptions.background"
       :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
     >
@@ -57,7 +57,6 @@ import { computed } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import props from './props'
 export default {
-  name: 'Drawer',
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {

@@ -2,7 +2,7 @@
   <div
     v-loading="loading"
     :class="['m-split', mode, moving ? 'no-select' : '']"
-    :element-loading-text="loadingText || $t('mkh.dialog.loadingText')"
+    :element-loading-text="loadingText || $t('mkh.loading_text')"
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
@@ -29,7 +29,6 @@ import { computed, nextTick, onMounted, watch, ref, toRef } from 'vue'
 import props from './props'
 import dom from '../../utils/dom'
 export default {
-  name: 'Split',
   props,
   emits: ['update:modelValue'],
   setup(props, { emit }) {

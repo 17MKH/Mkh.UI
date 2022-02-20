@@ -1,18 +1,18 @@
 <template>
   <el-table ref="tableRef" class="m-list_setcolumn_table" :data="cols" row-key="prop" height="100%" :size="size" border stripe highlight-current-row>
-    <el-table-column :label="$t('mkh.list.setColLabel.label')" prop="label" align="center"> </el-table-column>
-    <el-table-column :label="$t('mkh.list.setColLabel.prop')" prop="prop" align="center"> </el-table-column>
-    <el-table-column :label="$t('mkh.list.setColLabel.show')" prop="show" align="center" width="80">
+    <el-table-column :label="$t('mkh.name')" prop="label" align="center"> </el-table-column>
+    <el-table-column :label="$t('mkh.property')" prop="prop" align="center"> </el-table-column>
+    <el-table-column :label="$t('mkh.show')" prop="show" align="center" width="80">
       <template #default="scope">
         <el-switch v-model="scope.row.show"> </el-switch>
       </template>
     </el-table-column>
-    <el-table-column :label="$t('mkh.list.setColLabel.sortable')" prop="sortable" align="center" width="80">
+    <el-table-column :label="$t('mkh.sortable')" prop="sortable" align="center" width="80">
       <template #default="scope">
         <el-switch v-model="scope.row.sortable"></el-switch>
       </template>
     </el-table-column>
-    <el-table-column :label="$t('mkh.list.setColLabel.fixed')" prop="fixed" align="center" width="220">
+    <el-table-column :label="$t('mkh.fixed_mode')" prop="fixed" align="center" width="220">
       <template #default="scope">
         <el-radio-group v-model="scope.row.fixed" size="mini">
           <el-radio-button label="">不固定</el-radio-button>
@@ -21,7 +21,7 @@
         </el-radio-group>
       </template>
     </el-table-column>
-    <el-table-column :label="$t('mkh.list.setColLabel.align')" prop="align" align="center" width="220">
+    <el-table-column :label="$t('mkh.align')" prop="align" align="center" width="220">
       <template #default="scope">
         <el-radio-group v-model="scope.row.align" size="mini" fill="#67C23A">
           <el-radio-button label="left">居左</el-radio-button>
@@ -30,7 +30,7 @@
         </el-radio-group>
       </template>
     </el-table-column>
-    <el-table-column :label="$t('mkh.list.setColLabel.headerAlign')" prop="headerAlign" align="center" width="220">
+    <el-table-column :label="$t('mkh.table_header_align')" prop="headerAlign" align="center" width="220">
       <template #default="scope">
         <el-radio-group v-model="scope.row.headerAlign" size="mini" fill="#E6A23C">
           <el-radio-button label="left">居左</el-radio-button>

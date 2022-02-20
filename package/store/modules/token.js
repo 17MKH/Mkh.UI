@@ -54,7 +54,7 @@ export default {
       state.refreshToken = refreshToken
     },
     /**
-     * 清楚令牌
+     * 清除令牌
      */
     clear(state) {
       state.accountId = ''

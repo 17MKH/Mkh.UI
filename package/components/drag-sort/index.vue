@@ -7,7 +7,6 @@
 import Sortable from 'sortablejs'
 import { onMounted, ref } from 'vue'
 export default {
-  name: 'DragSort',
   props: {
     modelValue: {
       type: Array,

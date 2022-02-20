@@ -1,11 +1,10 @@
 <template>
-  <m-button class="m-button-delete" :icon="icon" :text="text === null ? $t('mkh.delete.text') : text" @click.stop="handleClick"> </m-button>
+  <m-button class="m-button-delete" :icon="icon" :text="text || $t('mkh.delete')" @click.stop="handleClick"> </m-button>
 </template>
 <script>
 import { getCurrentInstance } from 'vue'
 import { useLoading, useMessage } from '../../composables'
 export default {
-  name: 'ButtonDelete',
   props: {
     /** 图标 */
     icon: {
@@ -43,16 +42,16 @@ export default {
     const handleClick = () => {
       const { $t } = cit
       message
-        .confirm(props.msg || $t('mkh.delete.msg'), $t('mkh.delete.title'), {
-          confirmButtonText: $t('mkh.delete.ok'),
-          cancelButtonText: $t('mkh.delete.cancel'),
+        .confirm(props.msg || $t('mkh.delete_confirm_msg'), $t('mkh.delete_confirm_title'), {
+          confirmButtonText: $t('mkh.ok'),
+          cancelButtonText: $t('mkh.cancel'),
         })
         .then(() => {
-          loading.open($t('mkh.delete.loading'))
+          loading.open($t('mkh.delete_loading'))
           props
             .action(props.data)
             .then(() => {
-              message.success($t('mkh.delete.success'))
+              message.success($t('mkh.delete_success'))
               emit('success')
             })
             .catch(() => {

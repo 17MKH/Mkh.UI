@@ -3,8 +3,3 @@
     <slot />
   </section>
 </template>
-<script>
-export default {
-  name: 'FlexRow',
-}
-</script>

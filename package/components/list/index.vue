@@ -3,7 +3,7 @@
     v-loading="loading"
     :class="class_"
     :style="{ width, height }"
-    :element-loading-text="loadingText || $t('mkh.list.loadingText')"
+    :element-loading-text="loadingText || $t('mkh.loading_text')"
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
@@ -27,10 +27,13 @@
     </div>
     <!--自定义按钮-->
     <div class="m-list_buttons">
-      <m-button v-if="showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.list.search')" @click="query"></m-button>
-      <m-button v-if="showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.list.reset')" @click="reset"></m-button>
-      <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.list.delete')" @click="remove"></m-button>
+      <m-button v-if="!noQuerybar && showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.search')" @click="query"></m-button>
+      <m-button v-if="!noQuerybar && showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.reset')" @click="reset"></m-button>
+      <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.delete')" @click="remove"></m-button>
       <slot name="buttons" :selection="selection" :total="total" @click="remove" />
+
+      <!--折叠查询栏-->
+      <m-button :icon="foldQueryBar ? 'fold-b' : 'fold-u'" @click="foldQueryBar = !foldQueryBar" />
     </div>
     <!--数据表格-->
     <div class="m-list_body">
@@ -54,8 +57,8 @@
             :lazy="lazy"
             :load="load"
             :tree-props="treeProps"
-            border
-            stripe
+            :border="border"
+            :stripe="stripe"
             :highlight-current-row="highlightCurrentRow"
             @select="(selection, row) => $emit('select', selection, row)"
             @select-all="selection => $emit('select-all', selection)"
@@ -87,7 +90,7 @@
             <el-table-column v-if="multiple" type="selection" align="center" width="55" />
 
             <!--序号-->
-            <el-table-column v-if="index" type="index" :index="indexMethod" :label="$t('mkh.list.index')" align="center" width="60"> </el-table-column>
+            <el-table-column v-if="index" type="index" :index="indexMethod" :label="$t('mkh.serial_number')" align="center" width="60"> </el-table-column>
 
             <!--渲染列-->
             <template v-for="col in cols_">
@@ -129,7 +132,7 @@
             <!--操作列-->
             <el-table-column v-if="$slots.operation" :width="operationWidth || operationWidth_" align="center">
               <template #header>
-                <slot name="operation-header">{{ $t('mkh.list.operationHeader') }}</slot>
+                <slot name="operation-header">{{ $t('mkh.operate') }}</slot>
               </template>
               <template #default="{ row }">
                 <div class="m-list_operation">
@@ -143,12 +146,12 @@
     </div>
     <!--底部-->
     <m-flex-row class="m-list_footer">
-      <m-flex-auto class="m-list_footer_left">
+      <m-flex-auto class="m-list_footer_left m-center-v">
         <slot name="footer" :selection="selection" :total="total" />
       </m-flex-auto>
       <m-flex-fixed>
         <m-flex-row>
-          <m-flex-fixed class="m-list_pagination">
+          <m-flex-fixed class="m-list_pagination m-center-v">
             <!--分页-->
             <el-pagination
               :page-size="page.size"
@@ -163,20 +166,20 @@
             >
             </el-pagination>
           </m-flex-fixed>
-          <m-flex-auto>
+          <m-flex-auto class="m-center-v">
             <!--配置列-->
-            <m-button v-if="!disableSetColumn" class="m-list_setcolumn_btn" :text="$t('mkh.list.setCol')" @click="showSetColDialog = true" />
+            <m-button v-if="!disableSetColumn" class="m-list_setcolumn_btn" :text="$t('mkh.set_column')" @click="showSetColDialog = true" />
           </m-flex-auto>
         </m-flex-row>
       </m-flex-fixed>
     </m-flex-row>
 
     <!--配置列信息-->
-    <m-dialog v-if="!disableSetColumn" v-model="showSetColDialog" custom-class="m-list_setcolumn_dialog" :title="$t('mkh.list.setColDialogTitle')" icon="table" width="1200px" no-padding draggable>
+    <m-dialog v-if="!disableSetColumn" v-model="showSetColDialog" custom-class="m-list_setcolumn_dialog" :title="$t('mkh.set_column')" icon="table" width="1200px" no-padding draggable>
       <set-column v-model="cols_" :size="size_" />
     </m-dialog>
 
-    <m-dialog v-model="showExportDialog" :title="$t('mkh.list.exportDialogTitle')" custom-class="m-list_export_dialog"></m-dialog>
+    <m-dialog v-model="showExportDialog" :title="$t('mkh.export')" custom-class="m-list_export_dialog"></m-dialog>
   </div>
 </template>
 <script>
@@ -189,7 +192,6 @@ import _ from 'lodash'
 import dom from '../../utils/dom'
 
 export default {
-  name: 'List',
   components: { SetColumn },
   props,
   emits: [
@@ -228,9 +230,12 @@ export default {
     const loadingOptions = store.state.app.config.component.loading
     const globalLoading = useLoading()
 
+    //折叠查询栏
+    const foldQueryBar = ref(false)
+
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const class_ = computed(() => {
-      return ['m-list', size_, isFullscreen.value ? 'is-fullscreen' : '']
+      return ['m-list', size_, isFullscreen.value ? 'is-fullscreen' : '', foldQueryBar.value ? 'fold-query-bar' : '', props.paginationOnRight ? 'pagination-on-right' : '']
     })
     const pagination_ = computed(() => Object.assign({}, paginationOptions, props.pagination || {}))
 
@@ -325,21 +330,21 @@ export default {
     const remove = () => {
       const { $t } = cit
       if (selection.value.length < 1) {
-        message.error($t('mkh.list.deleteNoData'))
+        message.error($t('mkh.select_delete_data'))
         return
       }
 
       message
-        .confirm($t('mkh.list.deleteMsg'), $t('mkh.delete.title'), {
-          confirmButtonText: $t('mkh.delete.ok'),
-          cancelButtonText: $t('mkh.delete.cancel'),
+        .confirm($t('mkh.delete_confirm_msg'), $t('mkh.delete_confirm_title'), {
+          confirmButtonText: $t('mkh.ok'),
+          cancelButtonText: $t('mkh.cancel'),
         })
         .then(() => {
-          globalLoading.open($t('mkh.delete.loading'))
+          globalLoading.open($t('mkh.delete_loading'))
           props
             .deleteMethod(selection.value.map(item => item.id))
             .then(() => {
-              message.success($t('mkh.delete.success'))
+              message.success($t('mkh.delete_success'))
               emit('success')
             })
             .catch(() => {
@@ -449,6 +454,7 @@ export default {
       selection,
       queryFormRef,
       tableRef,
+      foldQueryBar,
       loading,
       size_,
       class_,

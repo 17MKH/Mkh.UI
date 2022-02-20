@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'Tip',
   props: {
     content: {
       type: String,

@@ -1,46 +1,29 @@
 const path = require('path')
 const fs = require('fs')
 const fse = require('fs-extra')
-const output = path.resolve('public/assets')
-
-//模块前缀
-const modPrefix = 'mkh-mod-'
-//皮肤前缀
-const skinPrefix = 'mkh-skin-'
+import { MODULE_PREFIX, SKIN_PREFIX } from './utils/constants'
+const outputRoot = path.resolve('public/assets')
 
 /**
  * 复制mkh-ui中的资源目录
  * 如果是mkh-ui项目本身，则从package目录中复制，如果是模块，则从node_modules目录中复制
  */
-const copyUIAssets = (packageObj, mode) => {
-  let sourceDir = ''
-  if (mode == 'lib') return
-
-  //mkh-ui项目本身
-  if (packageObj.name === 'mkh-ui') {
-    sourceDir = path.resolve('package/assets')
-  } else {
-    sourceDir = path.resolve('node_modules/mkh-ui/lib/assets')
-  }
-  console.log(`复制框架(mkh-ui)中的静态资源`)
-  fse.copy(sourceDir, path.resolve(output, 'mkh'))
+const copyUIAssets = ctx => {
+  const sourceDir = path.resolve(ctx.isUI ? 'package/assets' : 'node_modules/mkh-ui/lib/assets')
+  fse.copy(sourceDir, path.resolve(outputRoot, 'mkh'))
 }
 
 /**
  * 复制皮肤中的资源
  */
-const copySkinAssets = mode => {
-  if (mode == 'lib') return
-
+const copySkinAssets = skins => {
   fse.readdir(path.resolve('node_modules'), (err, dirs) => {
     dirs.forEach(m => {
-      if (m.startsWith(skinPrefix)) {
-        console.log(m)
+      if (m.startsWith(SKIN_PREFIX) && skins.includes(m.replace(SKIN_PREFIX, ''))) {
         const assetsPath = path.resolve(`node_modules/${m}/lib/assets`)
         fse.pathExists(assetsPath, (err, exists) => {
           if (exists) {
-            console.log(`复制皮肤(${m})中的静态资源`)
-            fse.copy(assetsPath, path.resolve(output, 'skins', m.replace(skinPrefix, '')))
+            fse.copy(assetsPath, path.resolve(outputRoot, 'skins', m.replace(SKIN_PREFIX, '')))
           }
         })
       }
@@ -51,17 +34,14 @@ const copySkinAssets = mode => {
 /**
  * 复制依赖模块中的资源
  */
-const copyModAssets = mode => {
-  if (mode == 'lib') return
-
+const copyDependencyModuleAssets = ctx => {
   fse.readdir(path.resolve('node_modules'), (err, dirs) => {
     dirs.forEach(m => {
-      if (m.startsWith(modPrefix)) {
+      if (m.startsWith(MODULE_PREFIX) && ctx.dependencyModules.includes(m.replace(MODULE_PREFIX, ''))) {
         const assetsPath = path.resolve(`node_modules/${m}/lib/assets`)
         fse.pathExists(assetsPath, (err, exists) => {
           if (exists) {
-            console.log(`复制模块(${m})中的静态资源`)
-            fse.copy(assetsPath, path.resolve(output, m.replace(modPrefix, '')))
+            fse.copy(assetsPath, path.resolve(outputRoot, 'mods', m.replace(MODULE_PREFIX, '')))
           }
         })
       }
@@ -70,44 +50,38 @@ const copyModAssets = mode => {
 }
 
 /**
- * 复制当前模块中的资源
+ * 复制入口模块中的资源
  */
-const copyCurrentModAssets = (packageObj, mode) => {
-  if (mode == 'lib') return
-
-  if (packageObj.name !== 'mkh-ui') {
-    const assetsPath = path.resolve(`src/assets`)
+const copyEntryModuleAssets = ctx => {
+  if (!ctx.isUI) {
+    const assetsPath = path.resolve('src/assets')
     fse.pathExists(assetsPath, (err, exists) => {
       if (exists) {
-        console.log(`复制模块(${packageObj.name})中的静态资源`)
-        fse.copy(assetsPath, path.resolve(output, packageObj.name.replace(modPrefix, '')))
+        fse.copy(assetsPath, path.resolve(outputRoot, 'mods', ctx.entryModule))
       }
     })
   }
 }
 
-export default function ({ mode }) {
+export default function (ctx) {
   return {
     name: 'mkh-load-assets',
     buildStart() {
-      const packageObj = fse.readJSONSync(path.resolve('./package.json'))
-      //复制框架中的资源
-      copyUIAssets(packageObj, mode)
+      if (ctx.isLib) return
 
-      copySkinAssets()
+      copyUIAssets(ctx)
 
-      //复制当前模块中的资源
-      copyCurrentModAssets(packageObj, mode)
+      copySkinAssets(ctx.skins)
 
-      //复制依赖模块中的资源
-      copyModAssets(mode)
+      copyEntryModuleAssets(ctx)
+
+      copyDependencyModuleAssets(ctx)
     },
     writeBundle(bundle) {
-      if (mode == 'lib') {
+      if (ctx.isLib) {
         //如果是库模式，需要在打包结束后复制资源目录到输出目录
-        const packageObj = fse.readJSONSync(path.resolve('./package.json'))
         let output = path.resolve('lib/assets')
-        if (packageObj.name === 'mkh-ui') {
+        if (ctx.isUI) {
           fse.copy(path.resolve('package/assets'), output)
         } else {
           let assetsPath = path.resolve('src/assets')
@@ -118,7 +92,7 @@ export default function ({ mode }) {
           })
         }
 
-        //在生成的入口文件中添加导入样式的代码
+        //在生成的入口文件中添加导入样式文件的代码
         let styleFilePath = path.resolve(bundle.dir, 'style.css')
         fse.pathExists(styleFilePath, (err, exists) => {
           if (exists) {

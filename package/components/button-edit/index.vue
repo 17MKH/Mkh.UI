@@ -1,11 +1,10 @@
 <template>
-  <m-button class="m-button-edit" :icon="icon" :text="text === null ? $t('mkh.edit.text') : text">
+  <m-button class="m-button-edit" :icon="icon" :text="text || $t('mkh.edit')">
     <slot />
   </m-button>
 </template>
 <script>
 export default {
-  name: 'ButtonEdit',
   props: {
     /** 图标 */
     icon: {

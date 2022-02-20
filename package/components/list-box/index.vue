@@ -18,7 +18,6 @@
 <script>
 import { ref, watchEffect } from 'vue'
 export default {
-  name: 'ListBox',
   props: {
     modelValue: {
       type: [String, Number],

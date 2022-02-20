@@ -1,6 +1,16 @@
 #{$prefix}-toolbar_item_lang {
-  .el-dropdown-menu__item.is-active {
-    background-color: #ecf5ff;
-    color: #66b1ff;
+  .el-dropdown-menu__item {
+    padding: 0;
+
+    > div {
+      padding: 5px 20px;
+      width: 100%;
+      text-align: center;
+
+      &.is-active {
+        background-color: #ecf5ff;
+        color: #66b1ff;
+      }
+    }
   }
 }

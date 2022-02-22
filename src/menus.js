@@ -1,6 +1,5 @@
 const menus = [
   {
-    name: '首页',
     type: 1,
     icon: 'home',
     level: 1,
@@ -8,10 +7,10 @@ const menus = [
     routeName: 'home',
     locales: {
       en: 'Home',
+      'zh-cn': '首页',
     },
   },
   {
-    name: '国际化',
     type: 1,
     icon: 'home',
     level: 1,
@@ -19,20 +18,20 @@ const menus = [
     routeName: 'i18n',
     locales: {
       en: 'i18n',
+      'zh-cn': '国际化',
     },
   },
   {
-    name: '布局组件',
     type: 0,
     icon: 'layout',
     level: 1,
     show: true,
     locales: {
       en: 'Layout Component',
+      'zh-cn': '布局组件',
     },
     children: [
       {
-        name: '容器',
         type: 1,
         icon: 'container',
         level: 2,
@@ -40,10 +39,10 @@ const menus = [
         routeName: 'doc_layout_container',
         locales: {
           en: 'Container',
+          'zh-cn': '容器',
         },
       },
       {
-        name: '盒子',
         type: 1,
         icon: 'box',
         level: 2,
@@ -51,32 +50,32 @@ const menus = [
         routeName: 'doc_layout_box',
         locales: {
           en: 'Box',
+          'zh-cn': '盒子',
         },
       },
       {
-        name: '小盒子',
         type: 1,
         icon: 'box',
         level: 2,
         show: true,
         routeName: 'doc_layout_boxsmall',
         locales: {
-          en: 'BoxSmall',
+          en: 'Small Box',
+          'zh-cn': '小盒子',
         },
       },
       {
-        name: '弹性布局',
         type: 1,
         icon: 'flex',
         level: 2,
         show: true,
         routeName: 'doc_layout_flex',
         locales: {
-          en: 'Flex',
+          en: 'Flex layout',
+          'zh-cn': '弹性布局',
         },
       },
       {
-        name: '滚动条',
         type: 1,
         icon: 'fold-b',
         level: 2,
@@ -84,10 +83,10 @@ const menus = [
         routeName: 'doc_layout_scrollbar',
         locales: {
           en: 'Scrollbar',
+          'zh-cn': '滚动条',
         },
       },
       {
-        name: '头部',
         type: 1,
         icon: 'arrow-up',
         level: 2,
@@ -95,10 +94,10 @@ const menus = [
         routeName: 'doc_layout_head',
         locales: {
           en: 'Head',
+          'zh-cn': '头部',
         },
       },
       {
-        name: '面板分割',
         type: 1,
         icon: 'split',
         level: 2,
@@ -106,22 +105,22 @@ const menus = [
         routeName: 'doc_layout_split',
         locales: {
           en: 'Panel Split',
+          'zh-cn': '面板分割',
         },
       },
     ],
   },
   {
-    name: '基础组件',
     type: 0,
     icon: 'module',
     level: 1,
     show: true,
     locales: {
       en: 'Base Component',
+      'zh-cn': '基础组件',
     },
     children: [
       {
-        name: '图标',
         type: 1,
         icon: 'icon',
         level: 2,
@@ -129,10 +128,10 @@ const menus = [
         routeName: 'doc_base_icon',
         locales: {
           en: 'Icon',
+          'zh-cn': '图标',
         },
       },
       {
-        name: '按钮',
         type: 1,
         icon: 'button',
         level: 2,
@@ -140,22 +139,22 @@ const menus = [
         routeName: 'doc_base_button',
         locales: {
           en: 'Button',
+          'zh-cn': '按钮',
         },
       },
     ],
   },
   {
-    name: '高级组件',
     type: 0,
     icon: 'star',
     level: 1,
     show: true,
     locales: {
       en: 'Advanced Component',
+      'zh-cn': '高级组件',
     },
     children: [
       {
-        name: '对话框',
         type: 1,
         icon: 'chat-o',
         level: 2,
@@ -163,10 +162,10 @@ const menus = [
         routeName: 'doc_advanced_dialog',
         locales: {
           en: 'Dialog',
+          'zh-cn': '对话框',
         },
       },
       {
-        name: '抽屉',
         type: 1,
         icon: 'list',
         level: 2,
@@ -174,10 +173,10 @@ const menus = [
         routeName: 'doc_advanced_drawer',
         locales: {
           en: 'Drawer',
+          'zh-cn': '抽屉',
         },
       },
       {
-        name: '列表页',
         type: 1,
         icon: 'list',
         level: 2,
@@ -185,10 +184,10 @@ const menus = [
         routeName: 'doc_advanced_list',
         locales: {
           en: 'List',
+          'zh-cn': '列表页',
         },
       },
       {
-        name: '拖拽排序',
         type: 1,
         icon: 'list',
         level: 2,
@@ -196,10 +195,10 @@ const menus = [
         routeName: 'doc_advanced_drag_sort',
         locales: {
           en: 'DragSort',
+          'zh-cn': '拖拽排序',
         },
       },
       {
-        name: '列表盒子',
         type: 1,
         icon: 'list',
         level: 2,
@@ -207,66 +206,67 @@ const menus = [
         routeName: 'doc_advanced_listbox',
         locales: {
           en: 'ListBox',
+          'zh-cn': '列表盒子',
         },
       },
     ],
   },
   {
-    name: '表单组件',
     type: 0,
     icon: 'form',
     level: 1,
     show: true,
     locales: {
       en: 'Form Component',
+      'zh-cn': '表单组件',
     },
     children: [
       {
-        name: '表单',
+        name: '',
         type: 1,
         icon: 'edit',
         level: 2,
         show: true,
-        routeName: 'doc_advanced_form',
+        routeName: 'doc_form',
         locales: {
-          en: 'Form',
+          en: 'Base Form',
+          'zh-cn': '基本表单',
         },
       },
       {
-        name: '对话框表单',
         type: 1,
         icon: 'edit',
         level: 2,
         show: true,
-        routeName: 'doc_advanced_formdialog',
+        routeName: 'doc_formdialog',
         locales: {
-          en: 'FormDialog',
+          en: 'Dialog Form',
+          'zh-cn': '对话框表单',
         },
       },
       {
-        name: '抽屉表单',
         type: 1,
         icon: 'edit',
         level: 2,
         show: true,
-        routeName: 'doc_advanced_formdrawer',
+        routeName: 'doc_formdrawer',
         locales: {
-          en: 'FormDrawer',
+          en: 'Drawer Form',
+          'zh-cn': '抽屉表单',
         },
       },
       {
-        name: '盒子表单',
         type: 1,
         icon: 'edit',
         level: 2,
         show: true,
-        routeName: 'doc_advanced_formbox',
+        routeName: 'doc_formbox',
         locales: {
-          en: 'FormBox',
+          en: 'Box Form',
+          'zh-cn': '盒子表单',
         },
       },
       {
-        name: '下拉框',
         type: 1,
         icon: 'icon',
         level: 2,
@@ -274,28 +274,29 @@ const menus = [
         routeName: 'doc_form_select',
         locales: {
           en: 'Select',
+          'zh-cn': '下拉框',
         },
       },
       {
-        name: '可搜索下拉框',
         type: 1,
         icon: 'icon',
         level: 2,
         show: true,
         routeName: 'doc_form_select_search',
         locales: {
-          en: 'SelectSearch',
+          en: 'Select Search',
+          'zh-cn': '可搜索下拉框',
         },
       },
       {
-        name: '列表选择',
         type: 1,
         icon: 'icon',
         level: 2,
         show: true,
         routeName: 'doc_form_list_select',
         locales: {
-          en: 'ListSelect',
+          en: 'List Select',
+          'zh-cn': '列表选择',
         },
       },
     ],
@@ -304,6 +305,7 @@ const menus = [
 
 const setMenusId = (children, parent) => {
   children.forEach((sub, index) => {
+    sub.module = 'doc'
     if (parent) {
       sub.id = parent.id + '-' + index
     } else {

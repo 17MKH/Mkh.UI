@@ -39,5 +39,12 @@ export default {
     table_header_align: '表头对齐',
     drag_sort: '拖拽排序',
     please_select: '请选择...',
+    skin_switch: '皮肤切换',
+    font_size: '字号',
+    large: '大号',
+    small: '小号',
+    default: '默认',
+    theme: '主题',
+    skin_switch_success: '皮肤切换成功',
   },
 }

@@ -1,6 +1,4 @@
 {
-  //说明
-  "title": "对话框",
   "icon": "chat-o",
   "name": "doc_advanced_dialog",
   "path": "/doc/advanced/dialog"

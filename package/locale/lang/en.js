@@ -39,5 +39,12 @@ export default {
     table_header_align: 'Table header align',
     drag_sort: 'Drag sort',
     please_select: 'Please select',
+    skin_switch: 'Skin switch',
+    font_size: 'Font size',
+    large: 'Large',
+    small: 'Small',
+    default: 'Default',
+    theme: 'Theme',
+    skin_switch_success: 'Skin switch success',
   },
 }

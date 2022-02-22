@@ -8,15 +8,16 @@
   </el-breadcrumb>
 </template>
 <script>
-import { computed } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 import { useRoute } from 'vue-router'
 export default {
   setup() {
     const route = useRoute()
+    const cit = getCurrentInstance().proxy
 
     const list = computed(() => {
       const { breadcrumbs, title, icon } = route.meta
-      console.log(route)
+
       if (!breadcrumbs && !title) return []
 
       const last = { label: title, icon: icon }

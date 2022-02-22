@@ -17,9 +17,6 @@ const resolveRouteMenu = (profile, menus, home, parent) => {
     if (parent) {
       //添加父级
       m.breadcrumb = m.breadcrumb.concat(parent.breadcrumb)
-    } else if (m.to !== home) {
-      //添加首页
-      m.breadcrumb = [{ icon: 'home', to: 'home', locales: { en: 'Home', 'zh-cn': '首页' } }]
     }
 
     //保存节点路由

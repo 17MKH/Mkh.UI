@@ -20,6 +20,7 @@ export default {
     align: '对齐',
     yes: '是',
     no: '否',
+    back: '返回',
     profile: '我的账户',
     logout: '退出登录',
     http_error: '接口异常，请联系管理员',

@@ -20,6 +20,7 @@ export default {
     align: 'Align',
     yes: 'Yes',
     no: 'No',
+    back: 'Back',
     profile: 'Profile',
     logout: 'Logout',
     http_error: 'The api is error, please contact the administrator',

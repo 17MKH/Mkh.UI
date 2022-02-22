@@ -4,7 +4,7 @@ const menus = [
     icon: 'home',
     level: 1,
     show: true,
-    routeName: 'home',
+    routeName: 'doc_home',
     locales: {
       en: 'Home',
       'zh-cn': '首页',

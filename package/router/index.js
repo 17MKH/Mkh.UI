@@ -17,7 +17,6 @@ const page2route = (page, parentRoute, pages) => {
   /**********************************************
    * 页面属性与路由属性对应关系以及说明
    **********************************************
-   * title                页面默认标题，也是菜单默认名称
    * icon                 页面默认图标，也是菜单默认图标
    * path                 路由地址
    * name                 路由名称
@@ -32,7 +31,7 @@ const page2route = (page, parentRoute, pages) => {
    * props                            路由启用props特性
    * noMenu
    */
-  const { title, icon, path, name, component, inFrame, hideMenu, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
+  const { icon, path, name, component, inFrame, hideMenu, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
 
   const route = {
     path,
@@ -40,7 +39,6 @@ const page2route = (page, parentRoute, pages) => {
     component,
     props,
     meta: {
-      title,
       icon,
       buttons,
       permissions,

@@ -2,7 +2,7 @@
   <div class="m-toolbar_item" @click="show = true">
     <m-icon name="skin"></m-icon>
   </div>
-  <m-drawer v-model="show" :loading="loading" custom-class="m-skin-toggle" title="皮肤切换" icon="toggle" width="600px" no-padding no-scrollbar>
+  <m-drawer v-model="show" :loading="loading" custom-class="m-skin-toggle" :title="$t('mkh.skin_switch')" icon="toggle" width="600px" no-padding no-scrollbar>
     <m-flex-col>
       <m-flex-auto class="m-skin-toggle_wrapper">
         <m-scrollbar>
@@ -16,15 +16,15 @@
         </m-scrollbar>
       </m-flex-auto>
       <m-flex-fixed height="260px" style="border-left: 1px solid #ebeef5">
-        <el-divider content-position="center">字号</el-divider>
+        <el-divider content-position="center">{{ $t('mkh.font_size') }}</el-divider>
         <div class="m-skin-toggle_sizes">
           <el-radio-group v-model="model.size">
-            <el-radio label="large" size="large" border>大号</el-radio>
-            <el-radio label="" border>默认</el-radio>
-            <el-radio label="small" size="small" border>小号</el-radio>
+            <el-radio label="large" size="large" border>{{ $t('mkh.large') }}</el-radio>
+            <el-radio label="" border>{{ $t('mkh.default') }}</el-radio>
+            <el-radio label="small" size="small" border>{{ $t('mkh.small') }}</el-radio>
           </el-radio-group>
         </div>
-        <el-divider content-position="center">主题</el-divider>
+        <el-divider content-position="center">{{ $t('mkh.theme') }}</el-divider>
         <div class="m-skin-toggle_themes">
           <div v-for="theme in current.themes" :key="theme.name" :class="['m-skin-toggle_theme', theme.name === model.theme ? 'active' : '']" @click="toggleTheme(theme)">
             <div :style="{ backgroundColor: theme.color }"></div>
@@ -34,17 +34,18 @@
       </m-flex-fixed>
     </m-flex-col>
     <template #footer>
-      <m-button type="success" text="确认" @click="save"></m-button>
-      <m-button type="info" text="取消" @click="show = false"></m-button>
+      <m-button type="success" :text="$t('mkh.ok')" @click="save"></m-button>
+      <m-button type="info" :text="$t('mkh.cancel')" @click="show = false"></m-button>
     </template>
   </m-drawer>
 </template>
 <script>
-import { reactive, ref } from 'vue'
+import { getCurrentInstance, reactive, ref } from 'vue'
 import useMessage from '../../composables/message'
 export default {
   setup() {
     const { store } = mkh
+    const cit = getCurrentInstance().proxy
 
     const show = ref(false)
     const loading = ref(false)
@@ -89,13 +90,13 @@ export default {
         loading.value = true
         saveSkin(model)
           .then(() => {
-            message.success('皮肤修改成功')
+            message.success(cit.$t('mkh.skin_switch_success'))
           })
           .finally(() => {
             loading.value = false
           })
       } else {
-        message.success('皮肤修改成功')
+        message.success(cit.$t('mkh.skin_switch_success'))
       }
     }
 

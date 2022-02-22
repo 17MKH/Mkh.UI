@@ -8,7 +8,7 @@ const createConfig = (input, fileName) => ({
   input,
   output: [
     {
-      file: path.resolve(rootDir, `lib/locale/${fileName}`),
+      file: path.resolve(rootDir, `lib/locales/${fileName}`),
       format: 'es',
     },
   ],
@@ -17,9 +17,9 @@ const pkg = JSON.parse(fs.readFileSync(path.resolve(rootDir, 'package.json')))
 
 let localePath = ''
 if (pkg.name === 'mkh-ui') {
-  localePath = path.resolve(rootDir, 'package/locale/lang')
+  localePath = path.resolve(rootDir, 'package/locales/lang')
 } else {
-  localePath = path.resolve(rootDir, 'src/locale')
+  localePath = path.resolve(rootDir, 'src/locales')
 }
 export default fs.readdirSync(localePath).map(m => {
   return createConfig(path.resolve(localePath, m), m)

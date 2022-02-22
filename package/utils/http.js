@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import { ElMessage } from 'element-plus'
-import { i18n } from '../locale'
+import { i18n } from '../locales'
 
 function Http(options) {
   let _axios = axios.create(options)

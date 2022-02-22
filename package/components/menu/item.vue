@@ -5,7 +5,7 @@
         <i class="el-icon">
           <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         </i>
-        <span>{{ resolveName(menu) }}</span>
+        <span>{{ menu.locales[$i18n.locale] }}</span>
       </template>
       <menu-item :menus="menu.children" />
     </el-sub-menu>
@@ -14,7 +14,7 @@
         <i class="el-icon">
           <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         </i>
-        <span>{{ resolveName(menu) }}</span>
+        <span>{{ menu.locales[$i18n.locale] }}</span>
       </el-menu-item>
     </template>
   </template>
@@ -43,15 +43,5 @@ const handleClick = menu => {
 
     mkh.router.push({ name, query, params })
   }
-}
-
-const resolveName = menu => {
-  if (menu.locales) {
-    let lang = menu.locales[ctx.$i18n.locale]
-    if (lang) {
-      return lang
-    }
-  }
-  return menu.name
 }
 </script>

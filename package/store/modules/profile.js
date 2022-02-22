@@ -1,23 +1,33 @@
 //解析自定义菜单
-const resolveMenu = async (profile, menu) => {
-  if (!menu) return
+const resolveMenu = async (profile, menus) => {
+  if (!menus) return
 
-  if (typeof menu === 'function') {
-    profile.menus = await menu(profile)
-  } else if (typeof menu == 'object') {
-    profile.menus = menu
+  if (typeof menus === 'function') {
+    profile.menus = await menus(profile)
+  } else if (typeof menus == 'object') {
+    profile.menus = menus
   }
 }
 
 //解析节点路由并保存
-const resolveRouteMenu = (menus, routeMenus, buttons) => {
+const resolveRouteMenu = (profile, menus, home, parent) => {
   menus.forEach(m => {
+    //面包屑
+    m.breadcrumb = []
+    if (parent) {
+      //添加父级
+      m.breadcrumb = m.breadcrumb.concat(parent.breadcrumb)
+    } else if (m.to !== home) {
+      //添加首页
+      m.breadcrumb = [{ icon: 'home', to: 'home', locales: { en: 'Home', 'zh-cn': '首页' } }]
+    }
+
     //保存节点路由
     if (m.type === 1) {
-      routeMenus.push(m)
+      profile.routeMenus.push(m)
       if (m.buttons) {
         m.buttons.forEach(b => {
-          buttons.push(`${m.id}_${b}`)
+          profile.buttons.push(`${m.id}_${b}`)
         })
       }
       if (m.routeQuery) {
@@ -26,8 +36,11 @@ const resolveRouteMenu = (menus, routeMenus, buttons) => {
       if (m.routeParams) {
         m.routeParams = JSON.parse(m.routeParams)
       }
+
+      m.breadcrumb.push({ to: m.routeName, routeQuery: m.routeQuery, routeParams: m.routeParams, locales: m.locales })
     } else if (m.children) {
-      resolveRouteMenu(m.children, routeMenus, buttons)
+      m.breadcrumb.push({ locales: m.locales })
+      resolveRouteMenu(profile, m.children, home, m)
     }
   })
 }
@@ -68,7 +81,13 @@ const actions = {
       const profile = await rootState.app.config.actions.getProfile()
 
       //设置菜单
-      await resolveMenu(profile, rootState.app.config.site.menu)
+      await resolveMenu(profile, rootState.app.config.site.menus)
+
+      profile.routeMenus = []
+      profile.buttons = []
+
+      //解析路由菜单
+      resolveRouteMenu(profile, profile.menus, rootState.app.config.site.home)
 
       if (!profile.skin || !profile.skin.code || mkh.skins.every(m => m.code !== profile.skin.code)) {
         if (rootState.app.config.skin) {
@@ -104,10 +123,6 @@ const mutations = {
    */
   init(state, profile) {
     Object.assign(state, profile)
-    state.routeMenus = []
-    state.buttons = []
-
-    resolveRouteMenu(profile.menus, state.routeMenus, state.buttons)
   },
   /**
    * @description 清除账户信息

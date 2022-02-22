@@ -5,7 +5,7 @@ import { UI_NAME, MODULE_PREFIX, IMPORT_LOCALE_PREFIX, SKIN_PREFIX } from './uti
 
 export default function (ctx) {
   return {
-    name: 'mkh-load-locale',
+    name: 'mkh-load-locales',
     resolveId(id) {
       if (id.startsWith(IMPORT_LOCALE_PREFIX)) {
         return id
@@ -27,19 +27,19 @@ export default function (ctx) {
         code += `import el from 'element-plus/es/locale/lang/${lang}'\r\n`
 
         if (ctx.isUI) {
-          code += `import ui from '../package/locale/lang/${lang}'\r\n`
+          code += `import ui from '../package/locales/lang/${lang}'\r\n`
           /** 导入文档模块中的语言包 */
-          const src = normalizePath(path.resolve(process.cwd(), `src/locale/${lang}.js`))
+          const src = normalizePath(path.resolve(process.cwd(), `src/locales/${lang}.js`))
           if (fs.existsSync()) {
             code += `import doc from '${src}'\r\n`
             mods.push('doc')
           }
         } else {
           /** 导入Mkh中的语言包 */
-          code += `import ui from '${UI_NAME}/lib/locale/${lang}'\r\n`
+          code += `import ui from '${UI_NAME}/lib/locales/${lang}'\r\n`
 
           /** 导入当前模块中的语言包 */
-          const src = normalizePath(path.resolve(process.cwd(), `src/locale/${lang}.js`))
+          const src = normalizePath(path.resolve(process.cwd(), `src/locales/${lang}.js`))
           if (fs.existsSync(src)) {
             code += `import ${ctx.entryModule} from '${src}'\r\n`
             mods.push(ctx.entryModule)
@@ -48,7 +48,7 @@ export default function (ctx) {
           /** 导入依赖模块中的语言包 */
           ctx.dependencyModules.forEach(m => {
             let moduleName = `${MODULE_PREFIX}${m}`
-            const src = normalizePath(path.resolve(process.cwd(), `node_modules/${moduleName}/lib/locale/${lang}.js`))
+            const src = normalizePath(path.resolve(process.cwd(), `node_modules/${moduleName}/lib/locales/${lang}.js`))
             if (fs.existsSync(src)) {
               let moduleImportName = moduleName.replaceAll('-', '_')
               code += `import ${moduleImportName} from '${src}'\r\n`
@@ -59,7 +59,7 @@ export default function (ctx) {
           /** 导入皮肤中的语言包 */
           ctx.skins.forEach(skin => {
             let skinName = `${SKIN_PREFIX}${skin}`
-            const src = normalizePath(path.resolve(process.cwd(), `node_modules/${skinName}/lib/locale/${lang}.js`))
+            const src = normalizePath(path.resolve(process.cwd(), `node_modules/${skinName}/lib/locales/${lang}.js`))
             if (fs.existsSync(src)) {
               let skinImportName = skinName.replaceAll('-', '_')
               code += `import ${skinImportName} from '${skinName}/lib/locale/${lang}'\r\n`

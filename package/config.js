@@ -10,6 +10,8 @@ export default {
     title: '',
     /**自定义首页地址 */
     home: '',
+    /** 自定义菜单，支持数组、函数、对象 */
+    menus: null,
   },
   /**认证和授权 */
   auth: {

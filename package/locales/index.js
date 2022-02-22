@@ -26,7 +26,6 @@ export default (app, options) => {
     fallbackLocale: options.fallback || 'zh-cn',
     messages,
   })
-  console.log(i18n)
   //注册国际化
   app.use(i18n)
 }

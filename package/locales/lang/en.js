@@ -47,5 +47,12 @@ export default {
     default: 'Default',
     theme: 'Theme',
     skin_switch_success: 'Skin switch success',
+    id: 'ID',
+    username: 'Username',
+    name: 'Name',
+    role: 'Role',
+    phone: 'Phone',
+    email: 'Email',
+    status: 'Status',
   },
 }

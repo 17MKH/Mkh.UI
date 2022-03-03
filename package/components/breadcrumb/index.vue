@@ -16,7 +16,6 @@ export default {
     const route = useRoute()
 
     const routeMenu = computed(() => {
-      console.log(store.state.app.profile.routeMenus.find(m => m.routeName === route.name))
       return store.state.app.profile.routeMenus.find(m => m.routeName === route.name)
     })
 

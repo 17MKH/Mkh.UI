@@ -1,8 +1,9 @@
-import { reactive, toRef } from 'vue'
+import { computed, reactive, toRef } from 'vue'
 import _ from 'lodash'
+import { i18n } from '../locales'
 
 //mode: add、添加 edit、编辑 view、预览
-export default function ({ props, title, api, model, emit, afterEdit }) {
+export default function ({ props, api, model, emit, afterEdit }) {
   const { add, edit, update } = api
   const id = toRef(props, 'id')
   const mode = toRef(props, 'mode')
@@ -19,17 +20,21 @@ export default function ({ props, title, api, model, emit, afterEdit }) {
     loading: false,
   })
 
+  const isAdd = computed(() => props.mode === 'add')
+  const isEdit = computed(() => props.mode === 'edit')
+  const isView = computed(() => props.mode === 'view')
+
   const handleOpen = () => {
     switch (mode.value) {
       case 'add':
-        bind.title = '添加' + title
+        bind.title = i18n.global.t('mkh.add')
         bind.icon = 'plus'
         bind.action = add
         bind.disabled = false
         bind.footer = true
         break
       case 'edit':
-        bind.title = '编辑' + title
+        bind.title = i18n.global.t('mkh.edit')
         bind.icon = 'edit'
         bind.action = update
         bind.disabled = false
@@ -66,6 +71,9 @@ export default function ({ props, title, api, model, emit, afterEdit }) {
   }
 
   return {
+    isAdd,
+    isEdit,
+    isView,
     bind,
     on: { open: handleOpen, reset: handleReset, success: handleSuccess, error: handleError },
   }

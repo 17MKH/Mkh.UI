@@ -16,12 +16,14 @@
 </template>
 <script>
 import { getCurrentInstance } from 'vue'
+import db from '../../utils/db'
 export default {
   setup() {
     const cit = getCurrentInstance().proxy
 
     const handleCommand = command => {
       cit.$i18n.locale = command
+      db.set('lang', command)
     }
 
     return {

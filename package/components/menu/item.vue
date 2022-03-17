@@ -5,7 +5,7 @@
         <i class="el-icon">
           <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         </i>
-        <span>{{ menu.locales[$i18n.locale] }}</span>
+        <span>{{ renderLabel(menu) }}</span>
       </template>
       <menu-item :menus="menu.children" />
     </el-sub-menu>
@@ -14,7 +14,7 @@
         <i class="el-icon">
           <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         </i>
-        <span>{{ menu.locales[$i18n.locale] }}</span>
+        <span>{{ renderLabel(menu) }}</span>
       </el-menu-item>
     </template>
   </template>
@@ -30,7 +30,7 @@ const props = defineProps({
   },
 })
 
-const ctx = getCurrentInstance().proxy
+const cit = getCurrentInstance().proxy
 
 const handleClick = menu => {
   //路由菜单
@@ -42,6 +42,18 @@ const handleClick = menu => {
     query['_mid_'] = menu.id
 
     mkh.router.push({ name, query, params })
+  }
+}
+
+const renderLabel = menu => {
+  if (menu.locales) {
+    return menu.locales[cit.$i18n.locale] || 'Menu no name'
+  } else {
+    if (menu.type === 1) {
+      return cit.$t('mkh.routes.' + menu.routeName)
+    } else {
+      return 'Menu no name'
+    }
   }
 }
 </script>

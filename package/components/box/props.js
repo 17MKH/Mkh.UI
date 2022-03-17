@@ -5,7 +5,7 @@ export default {
   /** 显示头部 */
   header: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   /** 标题 */
   title: {

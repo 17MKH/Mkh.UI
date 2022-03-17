@@ -2,7 +2,7 @@
   <div class="m-error-403">
     <header class="header">
       <h1>403</h1>
-      <h3>您无权访问本页面</h3>
+      <h3>{{ $t('mkh.no_permission_access_page') }}</h3>
     </header>
     <div class="main">
       <svg t="1629536928903" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1697" width="200" height="200">
@@ -24,7 +24,7 @@
       </svg>
     </div>
     <div class="buttons">
-      <m-button type="primary" text="返回首页" to="/"></m-button>
+      <m-button type="primary" :text="$t('mkh.back_home')" to="/"></m-button>
     </div>
   </div>
 </template>

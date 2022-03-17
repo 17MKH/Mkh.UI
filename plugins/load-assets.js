@@ -66,6 +66,7 @@ const copyEntryModuleAssets = ctx => {
 export default function (ctx) {
   return {
     name: 'mkh-load-assets',
+    enforce: 'post',
     buildStart() {
       if (ctx.isLib) return
 

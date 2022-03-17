@@ -1,5 +1,5 @@
 <template>
-  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-button type="success" text="显示抽屉" @click="handleClick" />
   <m-drawer v-model="visible" title="短歌行·曹操 〔两汉〕" icon="list">
     <p>对酒当歌，人生几何！</p>
     <p>譬如朝露，去日苦多。</p>

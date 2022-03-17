@@ -1,12 +1,13 @@
 import { ElLoading } from 'element-plus'
 import { nextTick } from 'vue'
+import { i18n } from '../locales'
 
 export default function () {
   const defaultOptions = mkh.store.state.app.config.component.loading
   let loading
 
   const open = (text, options) => {
-    loading = ElLoading.service(Object.assign({}, defaultOptions, { text: text || '正在加载数据，请稍后...' }, options))
+    loading = ElLoading.service(Object.assign({}, defaultOptions, { text: text || i18n.global.t('mkh.loading_text') }, options))
   }
 
   const close = () => {

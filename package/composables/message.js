@@ -1,4 +1,5 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { i18n } from '../locales'
 
 // 显示时长
 const duration = 2500
@@ -29,11 +30,11 @@ export default function () {
   const confirm = (msg, title, options) => {
     return ElMessageBox.confirm(
       msg,
-      title || '提示',
+      title || i18n.global.t('mkh.warning'),
       Object.assign(
         {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+          confirmButtonText: i18n.global.t('mkh.ok'),
+          cancelButtonText: i18n.global.t('mkh.cancel'),
           type: 'warning',
         },
         options

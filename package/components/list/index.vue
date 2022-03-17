@@ -98,7 +98,7 @@
                 v-if="col.show"
                 :key="col.prop"
                 :prop="col.prop"
-                :label="col.label"
+                :label="$t(col.label)"
                 :width="col.width"
                 :min-width="col.minWidth"
                 :fixed="col.fixed"
@@ -112,7 +112,7 @@
                 <!--自定义头-->
                 <template #header>
                   <slot :name="`col-${col.prop}-header`">
-                    {{ col.label }}
+                    {{ $t(col.label) }}
                   </slot>
                 </template>
 

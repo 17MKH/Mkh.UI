@@ -1,6 +1,5 @@
 export default {
-  name: 'test',
-  route: {
+  routes: {
     doc_home: 'Home',
     i18n: 'i18n',
     doc_advanced_dialog: 'Dialog',
@@ -25,4 +24,5 @@ export default {
     doc_layout_scrollbar: 'Scrollbar',
     doc_profile: 'Profile',
   },
+  name: 'test',
 }

@@ -1,8 +1,7 @@
 import { SKIN_PREFIX } from './utils/constants'
 export default function ({ skins }) {
   return {
-    name: 'mkh-load-skin',
-    enforce: 'pre',
+    name: 'mkh-load-main',
     load(id) {
       let reg = new RegExp(`${SKIN_PREFIX}[^.]+.js`)
       if (reg.test(id)) {

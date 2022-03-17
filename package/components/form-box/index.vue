@@ -1,5 +1,14 @@
 <template>
-  <m-box class="m-form-box" :size="size" :loading="loading" :loading-text="loadingText" :loading-background="loadingBackground" :loading-spinner="loadingSpinner" @closed="handleClosed">
+  <m-box
+    class="m-form-box"
+    :header="header"
+    :size="size"
+    :loading="loading"
+    :loading-text="loadingText"
+    :loading-background="loadingBackground"
+    :loading-spinner="loadingSpinner"
+    @closed="handleClosed"
+  >
     <m-form
       ref="formRef"
       :style="{ marginRight: formMarginRight }"
@@ -25,14 +34,14 @@
   </m-box>
 </template>
 <script>
-import { getCurrentInstance, ref } from 'vue'
+import { ref } from 'vue'
 import { useMessage } from '../../composables'
 import props from './props'
 export default {
   props,
   emits: ['success', 'error'],
   setup(props, { emit }) {
-    const cit = getCurrentInstance().proxy
+    const { $t } = mkh
     const message = useMessage()
     const formRef = ref(null)
     const loading = ref(false)
@@ -47,7 +56,7 @@ export default {
 
     const handleSuccess = data => {
       loading.value = false
-      message.success(cit.$t('mkh.save_success_msg'))
+      message.success($t('mkh.save_success_msg'))
       emit('success', data)
     }
 

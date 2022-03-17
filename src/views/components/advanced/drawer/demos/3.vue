@@ -1,5 +1,5 @@
 <template>
-  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-button type="success" text="显示抽屉" @click="handleClick" />
   <m-drawer v-model="visible" title="蜀道难·李白 〔唐代〕" icon="list">
     <template #toolbar>
       <m-button icon="plus" @click="handlePlus" />

@@ -6,7 +6,7 @@
       </m-box>
     </el-col>
     <el-col :span="8">
-      <m-box title="堆叠区域图" icon="chart-line-fill-3">
+      <m-box header title="堆叠区域图" icon="chart-line-fill-3">
         <v-chart :option="option1" />
       </m-box>
     </el-col>

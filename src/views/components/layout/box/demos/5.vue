@@ -1,5 +1,5 @@
 <template>
-  <m-box icon="wifi" :loading="loading">
+  <m-box header icon="wifi" :loading="loading">
     <template #title> 加载动画，点击右边<m-icon class="m-margin-l-10 m-font-25" name="hand-right" />的刷新图标 </template>
     <template #toolbar>
       <m-button icon="refresh" @click="handleRefresh" />

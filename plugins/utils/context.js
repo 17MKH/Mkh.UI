@@ -6,6 +6,7 @@ import { UI_NAME } from './constants'
 //打包上下文
 export default function (mode) {
   const pkg = fse.readJSONSync(path.resolve('./package.json'))
+  const main = fse.readJSONSync(path.resolve('./package.json'))
 
   return {
     pkg,

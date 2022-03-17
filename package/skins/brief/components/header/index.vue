@@ -6,7 +6,7 @@
           <img class="m-header_logo" :src="site.logo" />
         </li>
         <li>
-          <span class="m-header_title">{{ site.title }}</span>
+          <span class="m-header_title">{{ typeof site.title === 'object' ? site.title[$i18n.locale] : site.title }}</span>
         </li>
       </ul>
     </m-flex-auto>
@@ -41,11 +41,12 @@
   </m-flex-row>
 </template>
 <script>
-import { computed } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 import { useMessage } from '../../../../composables'
 
 export default {
   setup() {
+    const cit = getCurrentInstance().proxy
     const { store } = mkh
     const message = useMessage()
     const site = store.state.app.config.site
@@ -55,12 +56,13 @@ export default {
       .sort((x, y) => x.sort - y.sort)
 
     const handleCommand = cmd => {
+      const { $t } = cit
       switch (cmd) {
         case 'logout':
           message
-            .confirm('您确定要退出系统吗?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
+            .confirm($t('mkh.logout_confirm'), $t('mkh.warning'), {
+              confirmButtonText: $t('mkh.ok'),
+              cancelButtonText: $t('mkh.cancel'),
             })
             .then(() => {
               store.dispatch('app/token/logout')

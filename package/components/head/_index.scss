@@ -8,6 +8,7 @@
   line-height: 50px;
   background-color: #f8f8f8;
   border-bottom: 1px solid $border-color-3;
+  color: #303133;
 
   &_icon {
     flex-shrink: 0;
@@ -16,6 +17,9 @@
     text-align: center;
 
     #{$prefix}-icon {
+      display: flex;
+      margin-left: 6px;
+      height: 100%;
       font-size: 20px;
     }
   }

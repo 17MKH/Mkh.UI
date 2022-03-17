@@ -7,7 +7,7 @@
   </el-config-provider>
 </template>
 <script>
-import { computed, ref, watchEffect } from 'vue'
+import { computed, getCurrentInstance, ref, watchEffect } from 'vue'
 
 export default {
   setup() {

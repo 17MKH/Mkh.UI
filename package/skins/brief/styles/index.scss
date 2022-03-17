@@ -83,7 +83,6 @@ $skin-brief-breadcrumb-height: 50px;
   }
 
   #{$prefix}-header_userinfo_dropdown {
-    padding: 0;
     width: 140px;
 
     .el-dropdown-menu__item {
@@ -93,11 +92,11 @@ $skin-brief-breadcrumb-height: 50px;
 
       &:focus,
       &:not(.is-disabled):hover {
-        color: #4361ee;
+        color: #409eff;
         background-color: rgba(0, 0, 0, 0.04);
 
         #{$prefix}-icon {
-          color: #4361ee;
+          color: #409eff;
         }
       }
 
@@ -107,7 +106,6 @@ $skin-brief-breadcrumb-height: 50px;
 
       #{$prefix}-icon {
         position: relative;
-        top: 2px;
         margin-right: 5px;
         color: #3b3f5c;
         font-size: 20px;
@@ -194,7 +192,6 @@ $skin-brief-breadcrumb-height: 50px;
     &_item {
       &_icon {
         position: relative;
-        margin-top: -3px;
         font-size: 20px;
         color: #506690;
       }

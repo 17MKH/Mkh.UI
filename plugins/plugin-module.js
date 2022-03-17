@@ -14,5 +14,5 @@ export default function (options) {
     return [loadEntryModule(ctx), loadPage(ctx), loadAssets(ctx)]
   }
 
-  return [htmlTransform(options.htmlTransform || {}), loadEntryModule(ctx), loadDependencyModule(ctx), loadPage(ctx), loadSkin(ctx), loadLocales(ctx), loadAssets(ctx)]
+  return [htmlTransform(options.htmlTransform || {}), loadDependencyModule(ctx), loadEntryModule(ctx), loadPage(ctx), loadSkin(ctx), loadLocales(ctx), loadAssets(ctx)]
 }

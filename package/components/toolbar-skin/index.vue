@@ -44,8 +44,7 @@ import { getCurrentInstance, reactive, ref } from 'vue'
 import useMessage from '../../composables/message'
 export default {
   setup() {
-    const { store } = mkh
-    const cit = getCurrentInstance().proxy
+    const { store, $t } = mkh
 
     const show = ref(false)
     const loading = ref(false)
@@ -90,13 +89,13 @@ export default {
         loading.value = true
         saveSkin(model)
           .then(() => {
-            message.success(cit.$t('mkh.skin_switch_success'))
+            message.success($t('mkh.skin_switch_success'))
           })
           .finally(() => {
             loading.value = false
           })
       } else {
-        message.success(cit.$t('mkh.skin_switch_success'))
+        message.success($t('mkh.skin_switch_success'))
       }
     }
 

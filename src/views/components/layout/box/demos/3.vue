@@ -1,5 +1,5 @@
 <template>
-  <m-box title="带工具栏的盒子" icon="box" show-collapse show-fullscreen>
+  <m-box header title="带工具栏的盒子" icon="box" show-collapse show-fullscreen>
     <template #toolbar>
       <m-button icon="plus" @click="handlePlus" />
     </template>

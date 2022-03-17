@@ -42,6 +42,7 @@
   }
 
   &_tip {
+    margin: 15px 0;
     text-align: center;
     font-size: 15px;
     font-weight: 400;
@@ -55,9 +56,6 @@
 
     .el-input__prefix {
       .m-icon {
-        position: relative;
-        top: 2px;
-        font-size: 17px;
         color: #888;
       }
     }
@@ -76,5 +74,14 @@
       background: #333;
       color: #fff;
     }
+  }
+
+  &_toolbar_lang {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
   }
 }

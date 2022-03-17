@@ -1,6 +1,7 @@
 import { computed, getCurrentInstance, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import dom from '../utils/dom'
+import { i18n } from '../locales'
 
 export default function () {
   const { $notify } = getCurrentInstance().proxy
@@ -19,21 +20,21 @@ export default function () {
     username: [
       {
         required: true,
-        message: '请输入用户名',
+        message: i18n.global.t('mkh.login.k.input_username'),
         trigger: 'blur',
       },
     ],
     password: [
       {
         required: true,
-        message: '请输入密码',
+        message: i18n.global.t('mkh.login.k.input_password'),
         trigger: 'blur',
       },
     ],
     verifyCode: [
       {
         required: true,
-        message: '请输入验证码',
+        message: i18n.global.t('mkh.login.k.input_code'),
         trigger: 'blur',
       },
     ],
@@ -48,12 +49,11 @@ export default function () {
           .value(model)
           .then(data => {
             $notify({
-              title: '登录提示',
-              message: '登录成功，正在跳转~',
+              title: i18n.global.t('mkh.login.notify_title'),
+              message: i18n.global.t('mkh.login.notify_success'),
               type: 'success',
               duration: 1500,
               onClose() {
-                console.log('跳转')
                 store.dispatch('app/token/login', data)
                 router.push(redirect)
               },
@@ -62,7 +62,7 @@ export default function () {
           .catch(msg => {
             loading.value = false
             $notify.error({
-              title: '登录提示',
+              title: i18n.global.t('mkh.login.notify_title'),
               duration: 1500,
               message: msg,
             })

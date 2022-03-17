@@ -1,7 +1,9 @@
 <template>
-  <svg class="m-icon" :class="iconClass" aria-hidden="true" :style="{ fontSize: size }">
-    <use :xlink:href="`#m-${name}`" />
-  </svg>
+  <i :class="['el-icon', 'm-icon', input ? 'el-input__icon' : '']">
+    <svg :class="iconClass" aria-hidden="true" :style="{ fontSize: size }">
+      <use :xlink:href="`#m-${name}`" />
+    </svg>
+  </i>
 </template>
 
 <script>
@@ -19,10 +21,14 @@ export default {
       type: String,
       default: '',
     },
-    /**尺寸 */
+    /** 尺寸 */
     size: {
       type: String,
       default: '',
+    },
+    /** 是否是输入框中的图表 */
+    input: {
+      type: Boolean,
     },
   },
 }

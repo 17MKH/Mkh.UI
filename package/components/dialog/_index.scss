@@ -8,6 +8,7 @@
   > .el-dialog__header {
     position: relative;
     padding: 0;
+    margin-right: 0;
     flex-shrink: 0;
   }
 
@@ -98,18 +99,6 @@
             }
           }
         }
-      }
-    }
-  }
-
-  &.draggable {
-    position: fixed;
-    margin-top: 0 !important;
-
-    > .el-dialog__header {
-      #{$prefix}-head_title {
-        cursor: move;
-        user-select: none;
       }
     }
   }

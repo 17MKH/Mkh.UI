@@ -2,7 +2,7 @@
   <div class="m-verifycode-input">
     <div>
       <el-form-item :label="label" :prop="prop">
-        <el-input :model-value="modelValue" autocomplete="off" placeholder="验证码" clearable @input="handleInput">
+        <el-input :model-value="modelValue" autocomplete="off" :placeholder="$t('mkh.login.code')" clearable @input="handleInput">
           <template #prefix>
             <m-icon name="captcha"></m-icon>
           </template>
@@ -10,7 +10,7 @@
       </el-form-item>
     </div>
     <div class="m-verifycode-input_img">
-      <el-tooltip effect="dark" content="点击刷新" placement="top">
+      <el-tooltip effect="dark" :content="$t('mkh.click_refresh')" placement="top">
         <img :src="verifyCodeUrl" @click="refreshVerifyCode" />
       </el-tooltip>
     </div>

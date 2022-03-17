@@ -82,6 +82,7 @@
   }
 
   &_title {
+    margin-bottom: 20px;
     text-align: center;
     font-size: 30px;
     color: #fff;
@@ -122,5 +123,14 @@
         color: #fff;
       }
     }
+  }
+
+  &_toolbar_lang {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
   }
 }

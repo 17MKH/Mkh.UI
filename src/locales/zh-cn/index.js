@@ -1,6 +1,5 @@
 export default {
-  name: '测试',
-  route: {
+  routes: {
     i18n: '国际化',
     doc_advanced_dialog: '对话框',
     doc_advanced_drag_sort: '拖拽排序',
@@ -25,4 +24,5 @@ export default {
     doc_layout_scrollbar: '滚动条',
     doc_profile: '个人中心',
   },
+  name: '测试',
 }

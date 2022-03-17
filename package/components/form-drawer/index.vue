@@ -40,7 +40,7 @@
   </m-drawer>
 </template>
 <script>
-import { getCurrentInstance, ref } from 'vue'
+import { ref } from 'vue'
 import { useVisible, useMessage } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
@@ -48,7 +48,7 @@ export default {
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {
-    const cit = getCurrentInstance().proxy
+    const { $t } = mkh
     const message = useMessage()
     const drawerRef = ref(null)
     const formRef = ref(null)
@@ -65,7 +65,7 @@ export default {
 
     const handleSuccess = data => {
       loading.value = false
-      message.success(cit.$t('mkh.save_success_msg'))
+      message.success($t('mkh.save_success_msg'))
       emit('success', data)
     }
 

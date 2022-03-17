@@ -20,7 +20,6 @@ export default [
     name: 'login',
     component: Login,
     meta: {
-      title: '登录',
       cache: false,
       inFrame: false,
       enablePermissionVerify: false,

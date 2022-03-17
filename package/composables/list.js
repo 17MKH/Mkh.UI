@@ -54,9 +54,11 @@ export default function () {
 }
 
 //基类实体的列信息
-export const entityBaseCols = [
-  { prop: 'creator', label: '创建人', width: 100 },
-  { prop: 'createdTime', label: '创建时间', width: 150 },
-  { prop: 'modifier', label: '修改人', width: 80, show: false },
-  { prop: 'modifiedTime', label: '修改时间', width: 150, show: false },
-]
+export const entityBaseCols = function () {
+  return [
+    { prop: 'creator', label: 'mkh.creator', width: 100 },
+    { prop: 'createdTime', label: 'mkh.created_time', width: 150 },
+    { prop: 'modifier', label: 'mkh.modifier', width: 80, show: false },
+    { prop: 'modifiedTime', label: 'mkh.modified_time', width: 150, show: false },
+  ]
+}

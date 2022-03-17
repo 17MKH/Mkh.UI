@@ -2,7 +2,7 @@
   <div class="m-error-404">
     <div class="top">
       <h1>404</h1>
-      <h3>页面找不到了</h3>
+      <h3>{{ $t('mkh.page_not_found') }}</h3>
     </div>
     <div class="container">
       <div class="ghost-copy">
@@ -21,7 +21,7 @@
       <div class="shadow"></div>
     </div>
     <div class="buttons">
-      <m-button type="primary" text="返回首页" to="/"></m-button>
+      <m-button type="primary" :text="$t('mkh.back_home')" to="/"></m-button>
     </div>
   </div>
 </template>

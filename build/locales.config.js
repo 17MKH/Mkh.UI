@@ -22,5 +22,5 @@ if (pkg.name === 'mkh-ui') {
   localePath = path.resolve(rootDir, 'src/locales')
 }
 export default fs.readdirSync(localePath).map(m => {
-  return createConfig(path.resolve(localePath, m), m)
+  return createConfig(path.resolve(localePath, m, 'index.js'), m)
 })

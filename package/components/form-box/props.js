@@ -2,6 +2,11 @@ import { withProps as loading } from '../../composables/loading'
 
 export default {
   ...loading,
+  /** 显示头部 */
+  header: {
+    type: Boolean,
+    default: true,
+  },
   /** 表单提交方法 */
   action: {
     type: Function,

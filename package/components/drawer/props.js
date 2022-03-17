@@ -2,7 +2,6 @@ import { withProps as loading } from '../../composables/loading'
 
 export default {
   ...loading,
-  modelValue: Boolean,
   /** 显示头部 */
   header: {
     type: Boolean,

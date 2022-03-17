@@ -120,6 +120,7 @@ export default function (ctx) {
 
   return {
     name: 'mkh-load-entry-module',
+    enforce: 'pre',
     resolveId(id) {
       //匹配$mkh-mod并从package.json文件中获取模块编码，然后附加到id后面
       if (id.startsWith(IMPORT_MODULE_PREFIX)) {
@@ -129,7 +130,7 @@ export default function (ctx) {
 
       return null
     },
-    async load(id) {
+    load(id) {
       if (id.startsWith(IMPORT_MODULE_PREFIX)) {
         return loadModule()
       }

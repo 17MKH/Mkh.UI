@@ -12,7 +12,7 @@ const menus = [
   },
   {
     type: 1,
-    icon: 'home',
+    icon: 'language',
     level: 1,
     show: true,
     routeName: 'i18n',
@@ -156,7 +156,7 @@ const menus = [
     children: [
       {
         type: 1,
-        icon: 'chat-o',
+        icon: 'chat',
         level: 2,
         show: true,
         routeName: 'doc_advanced_dialog',
@@ -167,7 +167,7 @@ const menus = [
       },
       {
         type: 1,
-        icon: 'list',
+        icon: 'drawer',
         level: 2,
         show: true,
         routeName: 'doc_advanced_drawer',
@@ -192,21 +192,21 @@ const menus = [
         icon: 'list',
         level: 2,
         show: true,
-        routeName: 'doc_advanced_drag_sort',
-        locales: {
-          en: 'DragSort',
-          'zh-cn': '拖拽排序',
-        },
-      },
-      {
-        type: 1,
-        icon: 'list',
-        level: 2,
-        show: true,
         routeName: 'doc_advanced_listbox',
         locales: {
           en: 'ListBox',
           'zh-cn': '列表盒子',
+        },
+      },
+      {
+        type: 1,
+        icon: 'sort',
+        level: 2,
+        show: true,
+        routeName: 'doc_advanced_drag_sort',
+        locales: {
+          en: 'DragSort',
+          'zh-cn': '拖拽排序',
         },
       },
     ],

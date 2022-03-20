@@ -58,7 +58,7 @@ export default {
   },
   /** 自定义class */
   customClass: {
-    type: String,
+    type: [String, Array],
     default: null,
   },
 }

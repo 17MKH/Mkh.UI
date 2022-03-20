@@ -59,7 +59,7 @@ export default {
       if (props.customClass) {
         list.push(props.customClass)
       }
-      return list
+      return list.join(' ')
     })
 
     const submit = () => {

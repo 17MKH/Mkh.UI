@@ -59,7 +59,9 @@ export default {
       if (noScrollbar) classList.push('no-scrollbar')
       if (height) classList.push('has-height')
       if (isFullscreen.value) classList.push('is-fullscreen')
-      if (customClass) classList.push(props.customClass)
+      if (customClass) {
+        classList.push(props.customClass)
+      }
       return classList.join(' ')
     })
 

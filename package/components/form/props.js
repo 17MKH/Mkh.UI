@@ -32,7 +32,7 @@ export default {
   /** 尺寸 */
   size: {
     type: String,
-    default: '',
+    default: 'default',
   },
   /** 提交前的操作 */
   beforeSubmit: Function,

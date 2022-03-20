@@ -105,6 +105,9 @@ export default {
           contentHeight.value = contentMaxHeight
         }
 
+        //更新滚动条
+        scrollbarRef.value.update()
+
         resizing.value = false
       })
     }

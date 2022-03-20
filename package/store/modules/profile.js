@@ -106,6 +106,9 @@ const actions = {
           }
         }
       }
+      if (!profile.skin.size) {
+        profile.skin.size = 'default'
+      }
 
       commit('init', profile)
     } catch (error) {

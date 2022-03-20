@@ -50,7 +50,7 @@ export default {
   /** 尺寸 */
   size: {
     type: String,
-    default: '',
+    default: 'default',
   },
   /** 分页配置 */
   pagination: {

@@ -14,7 +14,7 @@
       <el-col :span="11">
         <el-date-picker v-model="model.date1" type="date" placeholder="选择日期" style="width: 100%"></el-date-picker>
       </el-col>
-      <el-col class="line" :span="2">-</el-col>
+      <el-col class="line m-text-center" :span="2">-</el-col>
       <el-col :span="11">
         <el-time-picker v-model="model.date2" placeholder="选择时间" style="width: 100%"></el-time-picker>
       </el-col>

@@ -81,4 +81,9 @@ export default {
   },
   /** 提交前的操作 */
   beforeSubmit: Function,
+  /** 自定义class */
+  customClass: {
+    type: String,
+    default: '',
+  },
 }

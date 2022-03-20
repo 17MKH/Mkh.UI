@@ -78,4 +78,9 @@ export default {
   noPadding: Boolean,
   /** 不显示滚动条 */
   noScrollbar: Boolean,
+  /** 自定义class */
+  customClass: {
+    type: String,
+    default: '',
+  },
 }

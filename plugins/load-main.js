@@ -1,12 +1,39 @@
-import { SKIN_PREFIX } from './utils/constants'
-export default function ({ skins }) {
+import { IMPORT_LOCALE_PREFIX, MODULE_PREFIX, SKIN_PREFIX } from './utils/constants'
+export default function (ctx) {
   return {
     name: 'mkh-load-main',
-    load(id) {
-      let reg = new RegExp(`${SKIN_PREFIX}[^.]+.js`)
-      if (reg.test(id)) {
-        var skinCode = reg.exec(id)[0].replace(SKIN_PREFIX, '').split('.')[0]
-        if (!skins.includes(skinCode)) skins.push(skinCode)
+    transform(code, id) {
+      if (id.endsWith('main.js')) {
+        const { locales, dependencyModules, skins } = ctx
+
+        var lines = code.split('\r\n')
+        for (let i = 0; i < lines.length; i++) {
+          if (!lines[i].startsWith('import') && !lines[i].startsWith('/*')) {
+            //导入语言包
+            if (locales) {
+              locales.forEach((m, t) => {
+                lines.splice(i + t, 0, `import '${IMPORT_LOCALE_PREFIX}/${m}'`)
+              })
+            }
+
+            //导入依赖模块
+            if (dependencyModules) {
+              dependencyModules.forEach((m, t) => {
+                lines.splice(i + t, 0, `import '${MODULE_PREFIX}${m}'`)
+              })
+            }
+
+            //导入依赖皮肤
+            if (skins) {
+              skins.forEach((m, t) => {
+                lines.splice(i + t, 0, `import '${SKIN_PREFIX}${m}'`)
+              })
+            }
+            break
+          }
+        }
+
+        return lines.join('\r\n')
       }
 
       return null

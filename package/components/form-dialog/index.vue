@@ -2,7 +2,7 @@
   <m-dialog
     ref="dialogRef"
     v-model="visible"
-    custom-class="m-form-dialog"
+    :custom-class="customClass_"
     :size="size"
     :loading="loading || loading_"
     :loading-text="loadingText"
@@ -37,7 +37,7 @@
   </m-dialog>
 </template>
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useVisible, useMessage } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import _ from 'lodash'
@@ -51,6 +51,14 @@ export default {
     const dialogRef = ref(null)
     const formRef = ref(null)
     const loading_ = ref(false)
+
+    const customClass_ = computed(() => {
+      let list = ['m-form-dialog']
+      if (props.customClass) {
+        list.push(props.customClass)
+      }
+      return list
+    })
 
     const model_ = _.cloneDeep(props.model)
 
@@ -107,6 +115,7 @@ export default {
       dialogRef,
       formRef,
       loading_,
+      customClass_,
       submit,
       reset,
       resize,

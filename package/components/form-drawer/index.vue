@@ -2,7 +2,7 @@
   <m-drawer
     ref="drawerRef"
     v-model="visible"
-    custom-class="m-form-drawer"
+    :custom-class="customClass_"
     :size="size"
     :loading="loading"
     :loading-text="loadingText"
@@ -40,7 +40,7 @@
   </m-drawer>
 </template>
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useVisible, useMessage } from '../../composables'
 import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
@@ -53,6 +53,14 @@ export default {
     const drawerRef = ref(null)
     const formRef = ref(null)
     const loading = ref(false)
+
+    const customClass_ = computed(() => {
+      let list = ['m-form-drawer']
+      if (props.customClass) {
+        list.push(props.customClass)
+      }
+      return list
+    })
 
     const submit = () => {
       formRef.value.submit()
@@ -93,6 +101,7 @@ export default {
       drawerRef,
       formRef,
       loading,
+      customClass_,
       submit,
       reset,
       handleSuccess,

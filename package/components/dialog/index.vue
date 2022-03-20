@@ -60,7 +60,6 @@ export default {
       if (height) classList.push('has-height')
       if (isFullscreen.value) classList.push('is-fullscreen')
       if (customClass) classList.push(props.customClass)
-
       return classList.join(' ')
     })
 

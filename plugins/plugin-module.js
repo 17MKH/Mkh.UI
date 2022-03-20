@@ -5,14 +5,14 @@ import loadDependencyModule from './load-dependency-module'
 import loadPage from './load-page'
 import loadLocales from './load-locales'
 import loadAssets from './load-assets'
-import loadSkin from './load-skin'
+import loadMain from './load-main'
 
 export default function (options) {
-  const ctx = useCtx(options.mode)
+  const ctx = useCtx(options)
 
   if (ctx.isLib) {
     return [loadEntryModule(ctx), loadPage(ctx), loadAssets(ctx)]
   }
 
-  return [htmlTransform(options.htmlTransform || {}), loadDependencyModule(ctx), loadEntryModule(ctx), loadPage(ctx), loadSkin(ctx), loadLocales(ctx), loadAssets(ctx)]
+  return [loadMain(ctx), loadDependencyModule(ctx), loadEntryModule(ctx), loadPage(ctx), loadLocales(ctx), loadAssets(ctx), htmlTransform(options.htmlTransform || {})]
 }

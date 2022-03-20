@@ -124,7 +124,6 @@ export default function (ctx) {
     resolveId(id) {
       //匹配$mkh-mod并从package.json文件中获取模块编码，然后附加到id后面
       if (id.startsWith(IMPORT_MODULE_PREFIX)) {
-        ctx.entryModule = id.replace(IMPORT_MODULE_PREFIX, '')
         return id
       }
 

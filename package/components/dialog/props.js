@@ -56,4 +56,9 @@ export default {
     type: String,
     default: '50px',
   },
+  /** 自定义class */
+  customClass: {
+    type: String,
+    default: null,
+  },
 }

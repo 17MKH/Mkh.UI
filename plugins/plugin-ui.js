@@ -4,13 +4,14 @@ import loadEntryModule from './load-entry-module'
 import loadPage from './load-page'
 import loadLocales from './load-locales'
 import loadAssets from './load-assets'
+import loadMain from './load-main'
 
 export default function (options) {
-  const ctx = useCtx(options.mode)
+  const ctx = useCtx(options)
 
   if (ctx.isLib) {
     return [loadAssets(ctx)]
   }
 
-  return [htmlTransform(options.htmlTransform || {}), loadEntryModule(ctx), loadPage(ctx), loadLocales(ctx), loadAssets(ctx)]
+  return [loadMain(ctx), loadEntryModule(ctx), loadPage(ctx), loadLocales(ctx), loadAssets(ctx), htmlTransform(options.htmlTransform || {})]
 }

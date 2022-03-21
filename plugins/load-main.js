@@ -12,21 +12,21 @@ export default function (ctx) {
             //导入语言包
             if (locales) {
               locales.forEach((m, t) => {
-                lines.splice(i + t, 0, `import '${IMPORT_LOCALE_PREFIX}/${m}'`)
+                lines.splice(i + t + 1, 0, `import '${IMPORT_LOCALE_PREFIX}/${m}'`)
               })
             }
 
             //导入依赖模块
             if (dependencyModules) {
               dependencyModules.forEach((m, t) => {
-                lines.splice(i + t, 0, `import '${MODULE_PREFIX}${m}'`)
+                lines.splice(i + t + 1, 0, `import '${MODULE_PREFIX}${m}'`)
               })
             }
 
             //导入依赖皮肤
             if (skins) {
               skins.forEach((m, t) => {
-                lines.splice(i + t, 0, `import '${SKIN_PREFIX}${m}'`)
+                lines.splice(i + t + 1, 0, `import '${SKIN_PREFIX}${m}'`)
               })
             }
             break

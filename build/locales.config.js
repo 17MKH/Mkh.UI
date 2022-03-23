@@ -8,7 +8,7 @@ const createConfig = (input, fileName) => ({
   input,
   output: [
     {
-      file: path.resolve(rootDir, `lib/locales/${fileName}`),
+      file: path.resolve(rootDir, `lib/locales/${fileName}/index.js`),
       format: 'es',
     },
   ],

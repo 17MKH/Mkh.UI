@@ -2,18 +2,14 @@
   <template v-for="menu in menus">
     <el-sub-menu v-if="menu.type === 0" :key="menu.id" popper-class="m-menu_popper" :index="menu.id + ''">
       <template #title>
-        <i class="el-icon">
-          <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
-        </i>
+        <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         <span>{{ renderLabel(menu) }}</span>
       </template>
       <menu-item :menus="menu.children" />
     </el-sub-menu>
     <template v-else>
       <el-menu-item :key="menu.id" :index="menu.id + ''" @click="handleClick(menu)">
-        <i class="el-icon">
-          <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
-        </i>
+        <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         <span>{{ renderLabel(menu) }}</span>
       </el-menu-item>
     </template>

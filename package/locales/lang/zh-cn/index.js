@@ -60,7 +60,6 @@ export default {
     theme: '主题',
     skin_switch_success: '皮肤切换成功',
     id: '编号',
-    username: '用户名',
     role: '角色',
     phone: '手机号',
     email: '邮箱',

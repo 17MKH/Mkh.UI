@@ -25,7 +25,6 @@ export default {
     const { store } = mkh
 
     const resetMethods = inject('resetMethods')
-    if (resetMethods) resetMethods.value.push(reset)
 
     const value_ = computed({
       get() {
@@ -84,6 +83,8 @@ export default {
     }
 
     watch(value_, handleChange)
+
+    if (resetMethods) resetMethods.value.push(reset)
 
     return {
       value_,

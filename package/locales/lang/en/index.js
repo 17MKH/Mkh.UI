@@ -60,7 +60,6 @@ export default {
     theme: 'Theme',
     skin_switch_success: 'Skin switch success',
     id: 'ID',
-    username: 'Username',
     role: 'Role',
     phone: 'Phone',
     email: 'Email',

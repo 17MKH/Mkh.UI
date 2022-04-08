@@ -1,5 +1,5 @@
 <template>
-  <m-box page class="m-list-box" no-padding>
+  <m-box page class="m-list-box" :header="header" no-padding>
     <template #toolbar>
       <slot name="toolbar" />
     </template>
@@ -22,6 +22,11 @@ export default {
     modelValue: {
       type: [String, Number],
       default: null,
+    },
+    /** 显示头部 */
+    header: {
+      type: Boolean,
+      default: true,
     },
     action: {
       type: Function,

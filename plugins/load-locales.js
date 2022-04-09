@@ -53,7 +53,7 @@ export default function (ctx) {
               let moduleName = `${MODULE_PREFIX}${m}`
               const src = normalizePath(path.resolve(process.cwd(), `node_modules/${moduleName}/lib/locales/${lang}/index.js`))
               if (fs.existsSync(src)) {
-                let moduleImportName = moduleName.replaceAll('-', '_')
+                let moduleImportName = moduleName.replace(MODULE_PREFIX, '').replaceAll('-', '_')
                 code += `import ${moduleImportName} from '${src}'\r\n`
                 mods.push(moduleImportName)
               }

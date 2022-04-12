@@ -99,7 +99,10 @@ const start = async () => {
   //初始化配置
   await mkh.store.commit('app/config/init', config)
 
-  app.mount('#app')
+  //等待路由注册完成后再挂载
+  mkh.router.isReady().then(() => {
+    app.mount('#app')
+  })
 }
 
 /** 页面加载完成后启动系统 */

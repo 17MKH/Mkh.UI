@@ -9,12 +9,7 @@ export default app => {
 
     const name = `m-${comName}`
     app.component(name, component)
-    mkh.components.push(
-      name
-        .replace(/([A-Z])/g, '-$1')
-        .toLowerCase()
-        .substring(1)
-    )
+    mkh.components.push(comName)
   })
 
   //系统内置工具栏

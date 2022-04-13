@@ -67,7 +67,7 @@ export default function (ctx) {
               const src = normalizePath(path.resolve(process.cwd(), `node_modules/${skinName}/lib/locales/${lang}/index.js`))
               if (fs.existsSync(src)) {
                 let skinImportName = skinName.replaceAll('-', '_')
-                code += `import ${skinImportName} from '${skinName}/lib/locale/${lang}'\r\n`
+                code += `import ${skinImportName} from '${skinName}/lib/locales/${lang}'\r\n`
                 skinList += `${skin.replace(SKIN_PREFIX, '')}: ${skinImportName}`
               }
             })

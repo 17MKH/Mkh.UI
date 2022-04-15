@@ -20,21 +20,21 @@ export default function () {
     username: [
       {
         required: true,
-        message: i18n.global.t('mkh.login.k.input_username'),
+        message: i18n.global.t('mkh.login.input_username'),
         trigger: 'blur',
       },
     ],
     password: [
       {
         required: true,
-        message: i18n.global.t('mkh.login.k.input_password'),
+        message: i18n.global.t('mkh.login.input_password'),
         trigger: 'blur',
       },
     ],
     verifyCode: [
       {
         required: true,
-        message: i18n.global.t('mkh.login.k.input_code'),
+        message: i18n.global.t('mkh.login.input_code'),
         trigger: 'blur',
       },
     ],

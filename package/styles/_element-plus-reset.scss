@@ -1,0 +1,4 @@
+/*Element Plus 2.1.10版本中el-input__wrapper标签宽度突然消息，导致表单页面错乱，这里先临时解决一下*/
+.el-input__wrapper {
+  width: 100%;
+}

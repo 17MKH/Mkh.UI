@@ -12,22 +12,9 @@
     }
   }
 
-  &_button {
-    flex-shrink: 0;
-    padding-left: 3px;
-
-    #{$prefix}-button {
-      padding-left: 10px;
-      padding-right: 10px;
-
-      #{$prefix}-icon {
-        padding: 0;
-      }
-    }
-  }
-
   &_panel {
     text-align: left;
+    overflow: hidden;
     &_filter {
       margin-right: 15px;
       width: 180px !important;
@@ -42,8 +29,8 @@
       position: relative;
       margin: 5px;
       display: inline-block;
-      width: 120px;
-      height: 120px;
+      width: 50px;
+      height: 50px;
       text-align: center;
       background-color: #e1e1e1;
       border-radius: 5px;
@@ -59,14 +46,9 @@
       }
 
       #{$prefix}-icon {
-        margin: 20px 0 10px 0;
-        font-size: 60px;
+        margin: 12px;
+        font-size: 28px;
       }
-    }
-
-    &_code {
-      width: 100%;
-      font-size: 13px;
     }
   }
 }

@@ -5,10 +5,10 @@
         <template #prepend>
           <m-icon :name="icon" />
         </template>
+        <template #append>
+          <m-button type="primary" icon="search" @click="showPannel = true" />
+        </template>
       </el-input>
-    </div>
-    <div class="m-icon-picker_button">
-      <m-button type="primary" icon="search" @click="showPannel = true" />
     </div>
     <panel v-model="showPannel" @success="handleSelect" />
   </section>

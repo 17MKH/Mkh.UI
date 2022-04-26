@@ -101,6 +101,11 @@ const start = async () => {
 
   //等待路由注册完成后再挂载
   mkh.router.isReady().then(() => {
+    //提前解析图标并保存到mkh中
+    const icons = []
+    document.querySelectorAll('body>svg>symbol').forEach(m => icons.push(m.id.replace('m-', '')))
+    mkh.icons = icons
+
     app.mount('#app')
   })
 }

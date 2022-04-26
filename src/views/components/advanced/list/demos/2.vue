@@ -21,6 +21,9 @@
       <template #buttons>
         <m-button type="success" icon="plus" text="自定义按钮" @click="handleCustomButton" />
       </template>
+      <template #operation="{ row }">
+        <el-button type="text" size="small" @click="handleEdit(row)">编辑</el-button>
+      </template>
     </m-list>
   </div>
 </template>
@@ -54,12 +57,17 @@ export default {
       })
     }
 
+    const handleEdit = row => {
+      alert(`编辑列：${row.id}`)
+    }
+
     return {
       model,
       cols,
       query,
       deleteMethod,
       handleCustomButton,
+      handleEdit,
     }
   },
 }

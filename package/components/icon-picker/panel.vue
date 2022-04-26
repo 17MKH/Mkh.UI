@@ -1,5 +1,5 @@
 <template>
-  <m-dialog v-model="visible" title="选择图标" icon="list" width="800px">
+  <m-dialog v-model="visible" title="选择图标" icon="list" width="800px" height="500px">
     <template #toolbar>
       <el-input v-model="filter" class="m-icon-picker_panel_filter" placeholder="请输入图标名称" clearable></el-input>
     </template>
@@ -7,7 +7,6 @@
       <el-tooltip v-for="icon in filterList" :key="icon" effect="dark" :open-delay="800" :content="icon" placement="top">
         <div class="m-icon-picker_panel_item" @click="handleSelect(icon)">
           <m-icon :name="icon" />
-          <div class="m-icon-picker_panel_code">{{ icon }}</div>
         </div>
       </el-tooltip>
     </section>
@@ -25,8 +24,6 @@ export default {
     const { visible, open, close } = useVisible(props, emit)
 
     const filter = ref('')
-    const icons = []
-    document.querySelectorAll('body>svg>symbol').forEach(m => icons.push(m.id.replace('m-', '')))
 
     const handleSelect = icon => {
       emit('success', icon)
@@ -35,10 +32,10 @@ export default {
 
     const filterList = computed(() => {
       if (!filter.value) {
-        return icons
+        return mkh.icons
       }
 
-      return icons.filter(m => m.indexOf(filter.value) > -1)
+      return mkh.icons.filter(m => m.indexOf(filter.value) > -1)
     })
 
     return {

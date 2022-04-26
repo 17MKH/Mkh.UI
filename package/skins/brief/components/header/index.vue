@@ -19,7 +19,7 @@
           </a>
           <template #dropdown>
             <el-dropdown-menu class="m-header_userinfo_dropdown">
-              <el-dropdown-item command="userinfo">
+              <el-dropdown-item command="profile">
                 <m-icon name="user"></m-icon>
                 {{ $t('mkh.profile') }}
               </el-dropdown-item>
@@ -47,7 +47,7 @@ import { useMessage } from '../../../../composables'
 export default {
   setup() {
     const cit = getCurrentInstance().proxy
-    const { store } = mkh
+    const { store, router } = mkh
     const message = useMessage()
     const site = store.state.app.config.site
     const profile = computed(() => store.state.app.profile)
@@ -58,6 +58,11 @@ export default {
     const handleCommand = cmd => {
       const { $t } = cit
       switch (cmd) {
+        case 'profile':
+          if (site.profile) {
+            router.push(site.profile)
+          }
+          break
         case 'logout':
           message
             .confirm($t('mkh.logout_confirm'), $t('mkh.warning'), {

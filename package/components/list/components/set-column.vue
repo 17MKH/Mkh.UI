@@ -1,5 +1,5 @@
 <template>
-  <el-table ref="tableRef" class="m-list_setcolumn_table" :data="cols" row-key="prop" height="100%" :size="size" border stripe highlight-current-row>
+  <el-table ref="tableRef" class="m-list_setcolumn_table" :data="cols" row-key="prop" :size="size" border stripe highlight-current-row>
     <el-table-column :label="$t('mkh.name')" prop="label" align="center"> </el-table-column>
     <el-table-column :label="$t('mkh.property')" prop="prop" align="center"> </el-table-column>
     <el-table-column :label="$t('mkh.show')" prop="show" align="center" width="80">

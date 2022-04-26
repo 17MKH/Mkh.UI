@@ -115,6 +115,10 @@ export default {
     }
 
     const handleOpen = () => {
+      emit('open')
+    }
+
+    const handleOpened = () => {
       nextTick(() => {
         headAndFooterHeight = headerRef.value.$el.offsetHeight
         if (footerRef.value != null) {
@@ -124,20 +128,15 @@ export default {
         resize()
         dom.on(window, 'resize', resize)
       })
-
-      emit('open')
-    }
-
-    const handleOpened = () => {
       emit('opened')
     }
 
     const handleClose = () => {
-      dom.off(window, 'resize', resize)
       emit('close')
     }
 
     const handleClosed = () => {
+      dom.off(window, 'resize', resize)
       emit('closed')
     }
 

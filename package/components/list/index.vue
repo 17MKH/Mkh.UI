@@ -130,7 +130,7 @@
             </template>
 
             <!--操作列-->
-            <el-table-column v-if="$slots.operation" :width="operationWidth || operationWidth_" align="center">
+            <el-table-column v-if="$slots.operation" :width="operationWidth || operationWidth_" fixed="right">
               <template #header>
                 <slot name="operation-header">{{ $t('mkh.operate') }}</slot>
               </template>

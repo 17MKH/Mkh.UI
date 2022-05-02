@@ -24,7 +24,7 @@ export default {
   setup(props, { emit }) {
     const { store } = mkh
 
-    const resetMethods = inject('resetMethods', () => {})
+    const resetMethods = inject('resetMethods', null)
 
     const value_ = computed({
       get() {

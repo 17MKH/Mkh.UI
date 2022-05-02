@@ -20,7 +20,7 @@
         <div class="m-skin-toggle_sizes">
           <el-radio-group v-model="model.size">
             <el-radio label="large" size="large" border>{{ $t('mkh.large') }}</el-radio>
-            <el-radio label="" border>{{ $t('mkh.default') }}</el-radio>
+            <el-radio label="default" border>{{ $t('mkh.default') }}</el-radio>
             <el-radio label="small" size="small" border>{{ $t('mkh.small') }}</el-radio>
           </el-radio-group>
         </div>
@@ -58,7 +58,7 @@ export default {
       name: skin.name,
       code: skin.code,
       theme: skin.theme,
-      size: skin.size,
+      size: skin.size || 'default',
     })
 
     const toggleSkin = skin => {

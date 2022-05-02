@@ -30,8 +30,12 @@
     :loading-text="loadingText"
     :loading-background="loadingBackground"
     :loading-spinner="loadingSpinner"
+    @open="handleOpen"
     @opened="handleOpened"
+    @close="handleClose"
     @closed="handleClosed"
+    @open-auto-focus="handleOpenAutoFocus"
+    @close-auto-focus="handleCloseAutoFocus"
   >
     <m-form
       ref="formRef"
@@ -76,7 +80,7 @@ import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
 export default {
   props,
-  emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
+  emits: ['update:modelValue', 'open', 'opened', 'close', 'closed', 'success', 'error', 'reset'],
   setup(props, { emit }) {
     const { $t } = mkh
     const message = useMessage()
@@ -117,17 +121,25 @@ export default {
       emit('error', data)
     }
 
-    const handleClosed = () => {
-      if (props.resetOnClosed) {
-        formRef.value.reset()
-      }
-      emit('closed')
+    const handleOpen = () => {
+      emit('open')
     }
 
     const handleOpened = () => {
       if (props.autoFocusRef) props.autoFocusRef.focus()
 
       emit('opened')
+    }
+
+    const handleClose = () => {
+      emit('close')
+    }
+
+    const handleClosed = () => {
+      if (props.resetOnClosed) {
+        formRef.value.reset()
+      }
+      emit('closed')
     }
 
     return {
@@ -141,7 +153,9 @@ export default {
       reset,
       handleSuccess,
       handleError,
+      handleOpen,
       handleOpened,
+      handleClose,
       handleClosed,
       validateField: (props, callback) => formRef.value.validateField(props, callback),
       scrollToField: prop => formRef.value.scrollToField(prop),

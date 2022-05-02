@@ -45,6 +45,8 @@ const mDialogProps = {
   showFullscreen: { type: Boolean, default: true },
   /** 不包含内边距 */
   noPadding: { type: Boolean, default: false },
+  /** 不显示滚动条 */
+  noScrollbar: { type: Boolean, default: false },
 }
 
 export default {

@@ -28,13 +28,18 @@
     :loading-text="loadingText"
     :loading-background="loadingBackground"
     :loading-spinner="loadingSpinner"
+    @open="handleOpen"
     @opened="handleOpened"
+    @close="handleClose"
     @closed="handleClosed"
+    @open-auto-focus="handleOpenAutoFocus"
+    @close-auto-focus="handleCloseAutoFocus"
   >
     <m-form
       ref="formRef"
       no-loading
       :size="size"
+      :action="action"
       :model="model"
       :rules="rules"
       :inline="inline"
@@ -47,11 +52,11 @@
       :status-icon="statusIcon"
       :validate-on-rule-change="validateOnRuleChange"
       :disabled="disabled"
-      :action="action"
       :custom-validate="customValidate"
       :before-submit="beforeSubmit"
       :disabled-enter="disabledEnter"
-      @validate-success="loading_ = true"
+      @validate-success="handleValidateSuccess"
+      @validate-error="handleValidateError"
       @success="handleSuccess"
       @error="handleError"
     >
@@ -74,7 +79,7 @@ import props from './props'
 export default {
   inheritAttrs: false,
   props,
-  emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
+  emits: ['update:modelValue', 'open', 'opened', 'close', 'closed', 'open-auto-focus', 'close-auto-focus', 'success', 'error', 'reset', 'validate-success', 'validate-error'],
   setup(props, { emit }) {
     const { $t } = mkh
     const message = useMessage()
@@ -124,10 +129,18 @@ export default {
       emit('error')
     }
 
+    const handleOpen = () => {
+      emit('open')
+    }
+
     const handleOpened = () => {
       if (props.autoFocusRef) props.autoFocusRef.focus()
 
       emit('opened')
+    }
+
+    const handleClose = () => {
+      emit('close')
     }
 
     const handleClosed = () => {
@@ -135,6 +148,23 @@ export default {
         Object.assign(props.model, model_)
       }
       emit('closed')
+    }
+
+    const handleOpenAutoFocus = () => {
+      emit('open-auto-focus')
+    }
+
+    const handleCloseAutoFocus = () => {
+      emit('open-auto-focus')
+    }
+
+    const handleValidateSuccess = () => {
+      loading_.value = true
+      emit('validate-success')
+    }
+
+    const handleValidateError = () => {
+      emit('validate-error')
     }
 
     return {
@@ -151,8 +181,14 @@ export default {
       resize,
       handleSuccess,
       handleError,
+      handleOpen,
       handleOpened,
+      handleClose,
       handleClosed,
+      handleOpenAutoFocus,
+      handleCloseAutoFocus,
+      handleValidateSuccess,
+      handleValidateError,
       validateField: (props, callback) => formRef.value.validateField(props, callback),
       scrollToField: prop => formRef.value.scrollToField(prop),
       clearValidate: props => formRef.value.clearValidate(props),

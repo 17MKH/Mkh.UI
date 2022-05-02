@@ -78,6 +78,9 @@ export default {
               loading.value = false
               emit('error')
             })
+        } else {
+          loading.value = false
+          console.log('action is null')
         }
       })
     }

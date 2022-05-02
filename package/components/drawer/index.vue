@@ -45,7 +45,8 @@
       <!--内容-->
       <section class="m-drawer_body">
         <div class="m-drawer_wrapper">
-          <m-scrollbar>
+          <slot v-if="noScrollbar"></slot>
+          <m-scrollbar v-else>
             <slot />
           </m-scrollbar>
         </div>
@@ -62,6 +63,7 @@ import { computed } from 'vue'
 import { useVisible, useFullscreen } from '../../composables'
 import props from './props'
 export default {
+  inheritAttrs: false,
   props,
   emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
   setup(props, { emit }) {
@@ -77,11 +79,11 @@ export default {
 
     //使用当前时间戳创建唯一ID
     const class_ = computed(() => {
-      const { customClass, noPadding, draggable } = props
+      const { customClass, noPadding, noScrollbar } = props
       let classList = ['m-drawer', `m-drawer-${new Date().getTime()}`]
       if (size_.value) classList.push(size_.value)
       if (noPadding) classList.push('no-padding')
-      if (draggable) classList.push('draggable')
+      if (noScrollbar) classList.push('no-scrollbar')
       if (isFullscreen.value) classList.push('is-fullscreen')
       if (customClass) classList.push(props.customClass)
 

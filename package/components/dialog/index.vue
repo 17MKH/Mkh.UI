@@ -25,8 +25,8 @@
   >
     <!--头部-->
     <template v-if="header" #title>
-      <m-head ref="headerRef" class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
-        <slot name="title">{{ title }}</slot>
+      <m-head ref="headerRef" class="m-dialog_header" :title="title" :icon="icon" :icon-color="iconColor" :size="size">
+        <slot name="title"></slot>
         <template #toolbar>
           <!--工具栏插槽-->
           <slot name="toolbar" />
@@ -48,7 +48,8 @@
       <!--内容-->
       <div class="m-dialog_body" :style="{ height: contentHeight + 'px' }">
         <div ref="wrapperRef" class="m-dialog_wrapper">
-          <m-scrollbar ref="scrollbarRef">
+          <slot v-if="noScrollbar"></slot>
+          <m-scrollbar v-else ref="scrollbarRef">
             <slot />
           </m-scrollbar>
         </div>
@@ -107,35 +108,33 @@ export default {
       if (resizing.value) return
       resizing.value = true
 
-      nextTick(() => {
-        const { height } = props
-        // 如果主动设置了高度
-        if (height) {
-          let h = 0
-          if (typeof height === 'number' && height > 0) {
-            h = height
-          } else if (height.endsWith('px')) {
-            h = parseFloat(height.replace('px', ''))
-          } else if (height.endsWith('%')) {
-            h = (document.body.clientHeight * parseFloat(height.replace('%', ''))) / 100
-          }
-
-          contentHeight.value = h - headAndFooterHeight
-        } else {
-          contentHeight.value = props.noScrollbar ? wrapperRef.value.offsetHeight : scrollbarRef.value.$el.querySelector('.el-scrollbar__view').offsetHeight
+      const { height } = props
+      // 如果主动设置了高度
+      if (height) {
+        let h = 0
+        if (typeof height === 'number' && height > 0) {
+          h = height
+        } else if (height.endsWith('px')) {
+          h = parseFloat(height.replace('px', ''))
+        } else if (height.endsWith('%')) {
+          h = (document.body.clientHeight * parseFloat(height.replace('%', ''))) / 100
         }
 
-        //内容区域最大高度，不能超出body
-        let contentMaxHeight = document.body.clientHeight - headAndFooterHeight - 100
-        if (contentHeight.value > contentMaxHeight) {
-          contentHeight.value = contentMaxHeight
-        }
+        contentHeight.value = h - headAndFooterHeight
+      } else {
+        contentHeight.value = props.noScrollbar ? wrapperRef.value.offsetHeight : scrollbarRef.value.$el.querySelector('.el-scrollbar__view').offsetHeight
+      }
 
-        //更新滚动条
-        scrollbarRef.value.update()
+      //内容区域最大高度，不能超出body
+      let contentMaxHeight = document.body.clientHeight - headAndFooterHeight - 100
+      if (contentHeight.value > contentMaxHeight) {
+        contentHeight.value = contentMaxHeight
+      }
 
-        resizing.value = false
-      })
+      //更新滚动条
+      scrollbarRef.value.update()
+
+      resizing.value = false
     }
 
     const handleOpen = () => {
@@ -156,7 +155,6 @@ export default {
     }
 
     const handleClose = () => {
-      emit('update:modelValue', false)
       emit('close')
     }
 

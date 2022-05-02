@@ -8,7 +8,6 @@ export default {
   ...mDrawerProps,
   ...elFormProps,
   ...mFormProps,
-
   /** 显示底部 */
   footer: { type: Boolean, default: true },
   /** 显示保存按钮 */

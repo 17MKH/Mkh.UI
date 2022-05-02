@@ -1,59 +1,23 @@
 import { withProps as loading } from '../../composables/loading'
+import headProps from '../head/props'
 
 export default {
   ...loading,
+  ...headProps,
   /** 显示头部 */
-  header: {
-    type: Boolean,
-    default: false,
-  },
-  /** 标题 */
-  title: {
-    type: String,
-    default: null,
-  },
-  /** 图标 */
-  icon: {
-    type: String,
-    default: null,
-  },
-  /** 图标颜色 */
-  iconColor: {
-    type: String,
-    default: null,
-  },
+  header: { type: Boolean, default: false },
   /** 高度 */
-  height: {
-    type: String,
-    default: null,
-  },
-  /** 尺寸 */
-  size: {
-    type: String,
-    default: '',
-  },
+  height: { type: String, default: null },
   /** 是否显示水平滚动条 */
-  horizontalScrollbar: {
-    type: Boolean,
-    default: false,
-  },
+  horizontalScrollbar: { type: Boolean, default: false },
   /** 是否页模式 */
-  page: {
-    type: Boolean,
-    default: false,
-  },
+  page: { type: Boolean, default: false },
   /** 不显示滚动条 */
-  noScrollbar: {
-    type: Boolean,
-    default: false,
-  },
+  noScrollbar: { type: Boolean, default: false },
   /** 没有内边距 */
-  noPadding: {
-    type: Boolean,
-    default: false,
-  },
+  noPadding: { type: Boolean, default: false },
   /** 显示折叠按钮 */
-  showCollapse: Boolean,
+  showCollapse: { type: Boolean, default: false },
   /** 显示全屏按钮 */
-  showFullscreen: Boolean,
+  showFullscreen: { type: Boolean, default: false },
 }

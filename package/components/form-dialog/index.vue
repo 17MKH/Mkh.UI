@@ -2,8 +2,28 @@
   <m-dialog
     ref="dialogRef"
     v-model="visible"
+    :header="header"
+    :title="title"
+    :icon="icon"
+    :icon-color="iconColor"
+    :no-padding="noPadding"
     :custom-class="customClass_"
     :size="size"
+    :width="width"
+    :height="height"
+    :top="top"
+    :show-close="showClose"
+    :show-fullscreen="showFullscreen"
+    :modal="modal"
+    :append-to-body="appendToBody"
+    :draggable="draggable"
+    :lock-scroll="lockScroll"
+    :open-delay="openDelay"
+    :close-delay="closeDelay"
+    :close-on-click-modal="closeOnClickModal"
+    :close-on-press-escape="closeOnPressEscape"
+    :before-close="beforeClose"
+    :destroy-on-close="destroyOnClose"
     :loading="loading || loading_"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
@@ -14,14 +34,23 @@
     <m-form
       ref="formRef"
       no-loading
-      :action="action"
+      :size="size"
       :model="model"
       :rules="rules"
-      :size="size"
-      :custom-validate="customValidate"
-      :disabled="disabled"
+      :inline="inline"
       :label-width="labelWidth"
+      :label-position="labelPosition"
+      :label-suffix="labelSuffix"
+      :hide-required-asterisk="hideRequiredAsterisk"
+      :show-message="showMessage"
+      :inline-message="inlineMessage"
+      :status-icon="statusIcon"
+      :validate-on-rule-change="validateOnRuleChange"
+      :disabled="disabled"
+      :action="action"
+      :custom-validate="customValidate"
       :before-submit="beforeSubmit"
+      :disabled-enter="disabledEnter"
       @validate-success="loading_ = true"
       @success="handleSuccess"
       @error="handleError"
@@ -43,6 +72,7 @@ import { fullscreenMixins } from '../../composables/fullscreen'
 import _ from 'lodash'
 import props from './props'
 export default {
+  inheritAttrs: false,
   props,
   emits: ['update:modelValue', 'success', 'error', 'closed', 'opened', 'reset'],
   setup(props, { emit }) {

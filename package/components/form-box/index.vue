@@ -2,7 +2,17 @@
   <m-box
     class="m-form-box"
     :header="header"
+    :title="title"
+    :icon="icon"
+    :icon-color="iconColor"
+    :height="height"
     :size="size"
+    :page="page"
+    :horizontal-scrollbar="horizontalScrollbar"
+    :no-scrollbar="noScrollbar"
+    :no-padding="noPadding"
+    :show-collapse="showCollapse"
+    :show-fullscreen="showFullscreen"
     :loading="loading"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
@@ -11,7 +21,6 @@
   >
     <m-form
       ref="formRef"
-      :style="{ marginRight: formMarginRight }"
       :action="action"
       :model="model"
       :rules="rules"

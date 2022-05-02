@@ -3,7 +3,29 @@
     ref="drawerRef"
     v-model="visible"
     :custom-class="customClass_"
+    :header="header"
+    :title="title"
+    :icon="icon"
+    :icon-color="iconColor"
+    :no-padding="noPadding"
     :size="size"
+    :width="width"
+    :height="height"
+    :direction="direction"
+    :show-close="showClose"
+    :show-fullscreen="showFullscreen"
+    :modal="modal"
+    :append-to-body="appendToBody"
+    :draggable="draggable"
+    :lock-scroll="lockScroll"
+    :open-delay="openDelay"
+    :close-delay="closeDelay"
+    :close-on-click-modal="closeOnClickModal"
+    :close-on-press-escape="closeOnPressEscape"
+    :before-close="beforeClose"
+    :destroy-on-close="destroyOnClose"
+    :modal-class="modalClass"
+    :z-index="zIndex"
     :loading="loading"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
@@ -14,15 +36,23 @@
     <m-form
       ref="formRef"
       no-loading
-      :style="{ marginRight: formMarginRight }"
-      :action="action"
+      :size="size"
       :model="model"
       :rules="rules"
-      :size="size"
-      :custom-validate="customValidate"
-      :disabled="disabled"
+      :inline="inline"
       :label-width="labelWidth"
+      :label-position="labelPosition"
+      :label-suffix="labelSuffix"
+      :hide-required-asterisk="hideRequiredAsterisk"
+      :show-message="showMessage"
+      :inline-message="inlineMessage"
+      :status-icon="statusIcon"
+      :validate-on-rule-change="validateOnRuleChange"
+      :disabled="disabled"
+      :action="action"
+      :custom-validate="customValidate"
       :before-submit="beforeSubmit"
+      :disabled-enter="disabledEnter"
       @validate-success="loading = true"
       @success="handleSuccess"
       @error="handleError"
@@ -31,7 +61,7 @@
     </m-form>
 
     <template #footer>
-      <slot name="footer">
+      <slot v-if="footer" name="footer">
         <slot name="footer-buttons"></slot>
         <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.save')" :disabled="disabled" @click="submit"></m-button>
         <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.reset')" :disabled="disabled" @click="reset"></m-button>
@@ -74,6 +104,11 @@ export default {
     const handleSuccess = data => {
       loading.value = false
       message.success($t('mkh.save_success_msg'))
+
+      if (props.closeOnSuccess) {
+        visible.value = false
+      }
+
       emit('success', data)
     }
 

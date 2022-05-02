@@ -1,5 +1,28 @@
 <template>
-  <el-dialog ref="dialogRef" :custom-class="class_" :top="top" :show-close="false" :draggable="draggable" @open="handleOpen" @opened="handleOpened" @close="handleClose" @closed="handleClosed">
+  <el-dialog
+    ref="dialogRef"
+    v-model="visible"
+    :width="width"
+    :custom-class="class_"
+    :top="top"
+    :show-close="false"
+    :modal="modal"
+    :append-to-body="appendToBody"
+    :draggable="draggable"
+    :lock-scroll="lockScroll"
+    :open-delay="openDelay"
+    :close-delay="closeDelay"
+    :close-on-click-modal="closeOnClickModal"
+    :close-on-press-escape="closeOnPressEscape"
+    :before-close="beforeClose"
+    :destroy-on-close="destroyOnClose"
+    @open="handleOpen"
+    @opened="handleOpened"
+    @close="handleClose"
+    @closed="handleClosed"
+    @open-auto-focus="handleOpenAutoFocus"
+    @close-auto-focus="handleCloseAutoFocus"
+  >
     <!--头部-->
     <template v-if="header" #title>
       <m-head ref="headerRef" class="m-dialog_header" :icon="icon" :icon-color="iconColor" :size="size">
@@ -25,8 +48,7 @@
       <!--内容-->
       <div class="m-dialog_body" :style="{ height: contentHeight + 'px' }">
         <div ref="wrapperRef" class="m-dialog_wrapper">
-          <slot v-if="noScrollbar"></slot>
-          <m-scrollbar v-else ref="scrollbarRef">
+          <m-scrollbar ref="scrollbarRef">
             <slot />
           </m-scrollbar>
         </div>
@@ -44,8 +66,9 @@ import { useVisible, useFullscreen } from '../../composables'
 import dom from '../../utils/dom'
 import props from './props'
 export default {
+  inheritAttrs: false,
   props,
-  emits: ['open', 'opened', 'close', 'closed'],
+  emits: ['update:modelValue', 'open', 'opened', 'close', 'closed', 'open-auto-focus', 'close-auto-focus'],
   setup(props, { emit }) {
     //全屏操作
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
@@ -101,6 +124,7 @@ export default {
         } else {
           contentHeight.value = props.noScrollbar ? wrapperRef.value.offsetHeight : scrollbarRef.value.$el.querySelector('.el-scrollbar__view').offsetHeight
         }
+
         //内容区域最大高度，不能超出body
         let contentMaxHeight = document.body.clientHeight - headAndFooterHeight - 100
         if (contentHeight.value > contentMaxHeight) {
@@ -115,10 +139,6 @@ export default {
     }
 
     const handleOpen = () => {
-      emit('open')
-    }
-
-    const handleOpened = () => {
       nextTick(() => {
         headAndFooterHeight = headerRef.value.$el.offsetHeight
         if (footerRef.value != null) {
@@ -128,16 +148,29 @@ export default {
         resize()
         dom.on(window, 'resize', resize)
       })
+      emit('open')
+    }
+
+    const handleOpened = () => {
       emit('opened')
     }
 
     const handleClose = () => {
+      emit('update:modelValue', false)
       emit('close')
     }
 
     const handleClosed = () => {
       dom.off(window, 'resize', resize)
       emit('closed')
+    }
+
+    const handleOpenAutoFocus = () => {
+      emit('open-auto-focus')
+    }
+
+    const handleCloseAutoFocus = () => {
+      emit('open-auto-focus')
     }
 
     return {
@@ -158,6 +191,8 @@ export default {
       handleClose,
       handleClosed,
       resize,
+      handleOpenAutoFocus,
+      handleCloseAutoFocus,
     }
   },
 }

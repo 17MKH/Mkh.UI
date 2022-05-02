@@ -1,15 +1,21 @@
 <template>
   <el-drawer
     v-model="visible"
-    :direction="direction_"
     :custom-class="class_"
+    :size="direction === 'rtl' || direction === 'ltr' ? width : height"
+    :direction="direction"
     :show-close="false"
     :modal="modal"
-    :size="direction === 'left' || direction === 'right' ? width : height"
+    :append-to-body="appendToBody"
+    :lock-scroll="lockScroll"
+    :open-delay="openDelay"
+    :close-delay="closeDelay"
     :close-on-click-modal="closeOnClickModal"
+    :close-on-press-escape="closeOnPressEscape"
     :before-close="beforeClose"
     :destroy-on-close="destroyOnClose"
-    :append-to-body="appendToBody"
+    :modal-class="modalClass"
+    :z-index="zIndex"
     @open="handleOpen"
     @opened="handleOpened"
     @close="handleClose"
@@ -39,8 +45,7 @@
       <!--内容-->
       <section class="m-drawer_body">
         <div class="m-drawer_wrapper">
-          <slot v-if="noScrollbar" />
-          <m-scrollbar v-else>
+          <m-scrollbar>
             <slot />
           </m-scrollbar>
         </div>
@@ -63,18 +68,6 @@ export default {
     const { store } = mkh
 
     const size_ = computed(() => props.size || store.state.app.profile.skin.size)
-    const direction_ = computed(() => {
-      switch (props.direction) {
-        case 'left':
-          return 'ltr'
-        case 'top':
-          return 'ttb'
-        case 'bottom':
-          return 'btt'
-        default:
-          return 'rtl'
-      }
-    })
 
     //加载动画配置
     const loadingOptions = store.state.app.config.component.loading
@@ -114,7 +107,6 @@ export default {
     return {
       ...useVisible(props, emit),
       size_,
-      direction_,
       class_,
       loadingOptions,
       isFullscreen,

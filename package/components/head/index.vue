@@ -13,25 +13,9 @@
 </template>
 <script>
 import { computed } from 'vue'
+import props from './props'
 export default {
-  props: {
-    title: {
-      type: String,
-      default: null,
-    },
-    icon: {
-      type: String,
-      default: null,
-    },
-    iconColor: {
-      type: String,
-      default: null,
-    },
-    size: {
-      type: String,
-      default: null,
-    },
-  },
+  props,
   setup(props) {
     const { store } = mkh
 

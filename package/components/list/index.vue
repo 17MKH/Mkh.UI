@@ -145,7 +145,7 @@
       </div>
     </div>
     <!--底部-->
-    <m-flex-row class="m-list_footer">
+    <m-flex-row v-if="!noFooter" class="m-list_footer">
       <m-flex-auto class="m-list_footer_left m-center-v">
         <slot name="footer" :selection="selection" :total="total" />
       </m-flex-auto>
@@ -154,6 +154,7 @@
           <m-flex-fixed class="m-list_pagination m-center-v">
             <!--分页-->
             <el-pagination
+              v-if="!noPagination"
               :page-size="page.size"
               :current-page="page.index"
               :small="pagination_.small"
@@ -265,7 +266,7 @@ export default {
     //总数量
     const total = ref(0)
     //分页信息
-    const page = reactive({ index: 1, size: 15, sort: [] })
+    const page = reactive({ index: 1, size: props.defaultPageSize, sort: [] })
     //查询表单引用
     const queryFormRef = ref(null)
     //表格引用

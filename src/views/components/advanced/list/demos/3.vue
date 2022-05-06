@@ -1,6 +1,6 @@
 <template>
   <div style="height: 400px">
-    <m-list title="诗词列表" :cols="cols" :query-model="model" :query-method="query">
+    <m-list title="诗词列表" :cols="cols" :query-model="model" :query-method="query" no-footer>
       <template #querybar>
         <el-form-item label="名称：" prop="name">
           <el-input v-model="model.name" clearable></el-input>

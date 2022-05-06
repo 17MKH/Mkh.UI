@@ -309,7 +309,8 @@ export default {
       props
         .queryMethod(params)
         .then(data => {
-          rows.value = data.rows
+          let data_=  _.at(data, props.actionDataStr);
+          rows.value =data_[0]!=null?data_[0]:[]
           total.value = data.total
 
           nextTick(() => {

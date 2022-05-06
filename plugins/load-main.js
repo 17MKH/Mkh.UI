@@ -1,3 +1,4 @@
+import os from 'os'
 import { IMPORT_LOCALE_PREFIX, MODULE_PREFIX, SKIN_PREFIX } from './utils/constants'
 export default function (ctx) {
   return {
@@ -5,8 +6,7 @@ export default function (ctx) {
     transform(code, id) {
       if (id.endsWith('main.js')) {
         const { locales, dependencyModules, skins } = ctx
-
-        var lines = code.split('\r\n')
+        var lines = code.split(os.EOL)
         for (let i = 0; i < lines.length; i++) {
           if (!lines[i].startsWith('import') && !lines[i].startsWith('/*')) {
             //导入语言包
@@ -33,7 +33,7 @@ export default function (ctx) {
           }
         }
 
-        return lines.join('\r\n')
+        return lines.join(os.EOL)
       }
 
       return null

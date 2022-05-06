@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const os = require('os')
 import fg from 'fast-glob'
 import { normalizePath } from 'vite'
 import { IMPORT_MODULE_PREFIX, IMPORT_PAGE_PREFIX } from './utils/constants'
@@ -62,13 +63,13 @@ export default function (ctx) {
     /** 加载接口服务api */
     const api = await loadApi()
     api.forEach(a => {
-      src += `import api_${a.name} from '${a.path}'\r\n`
+      src += `import api_${a.name} from '${a.path}'${os.EOL}`
     })
 
     /** 加载状态 */
     const storeDir = normalizePath(path.resolve('./src/store/index.js'))
     if (fs.existsSync(storeDir)) {
-      src += `import store from '${storeDir}'\r\n`
+      src += `import store from '${storeDir}'${os.EOL}`
       modSrc += ',store'
     }
 
@@ -80,7 +81,7 @@ export default function (ctx) {
     pages.forEach((p, i) => {
       const name = `page_${i}`
       //这里将page.json替换成@page-模块编码，方便后续处理
-      src += `import ${name} from '${p.replace('page.json', IMPORT_PAGE_PREFIX)}'\r\n`
+      src += `import ${name} from '${p.replace('page.json', IMPORT_PAGE_PREFIX)}'${os.EOL}`
     })
 
     /** 加载模块全局组件 */
@@ -89,29 +90,29 @@ export default function (ctx) {
     await loadComponents(componentsDir, components)
     components.forEach((c, i) => {
       const name = `component_${i}`
-      src += `import ${name} from '${c.path}'\r\n`
+      src += `import ${name} from '${c.path}'${os.EOL}`
     })
 
-    src += 'const pages = []\r\n'
+    src += `const pages = []${os.EOL}`
     pages.forEach((p, i) => {
       const name = `page_${i}`
-      src += `pages.push(${name})\r\n`
+      src += `pages.push(${name})${os.EOL}`
     })
 
-    src += 'const components = []\r\n'
+    src += `const components = []${os.EOL}`
     components.forEach((c, i) => {
       const name = `component_${i}`
-      src += `components.push({name:\'${c.name}\',component:${name}})\r\n`
+      src += `components.push({name:\'${c.name}\',component:${name}})${os.EOL}`
     })
 
-    src += 'const api = {}\r\n'
+    src += `const api = {}${os.EOL}`
     api.forEach(a => {
-      src += `api['${a.name}'] = api_${a.name}\r\n`
+      src += `api['${a.name}'] = api_${a.name}${os.EOL}`
     })
 
-    src += `const mod = {${modSrc}, pages, components, api }\r\n`
+    src += `const mod = {${modSrc}, pages, components, api }${os.EOL}`
     //注册模块
-    src += 'mkh.useModule(mod);\r\n'
+    src += `mkh.useModule(mod);${os.EOL}`
     //导出模块
     src += 'export default mod'
 

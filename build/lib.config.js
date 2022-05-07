@@ -1,7 +1,11 @@
 /** 打包库模式 */
 const { resolve } = require('path')
+import { defineConfig } from 'vite'
+import useBaseConfig from './base.config'
 
-export default config => {
+export default defineConfig(({ mode, command }) => {
+  let config = useBaseConfig({ target: 'lib', mode, command })
+
   //需要取消复制静态资源目录
   config.publicDir = false
   config.build = {
@@ -16,4 +20,6 @@ export default config => {
       external: ['vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n'],
     },
   }
-}
+
+  return config
+})

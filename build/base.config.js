@@ -1,14 +1,11 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import mui from './plugins/plugin-ui'
-import libConfig from './build/lib.config'
-import devConfig from './build/dev.config'
-import prodConfig from './build/prod.config'
+import mui from '../plugins/plugin-ui'
 
-export default defineConfig(({ mode, command }) => {
-  let config = {
+export default ({ target, mode, command }) => {
+  return {
     plugins: [
       mui({
+        target,
         mode,
         command,
         /** 依赖模块 */
@@ -55,18 +52,4 @@ export default defineConfig(({ mode, command }) => {
       },
     },
   }
-  console.log(mode)
-  switch (mode) {
-    case 'lib':
-      libConfig(config)
-      break
-    case 'development':
-      devConfig(config)
-      break
-    case 'production':
-      prodConfig(config)
-      break
-  }
-
-  return config
-})
+}

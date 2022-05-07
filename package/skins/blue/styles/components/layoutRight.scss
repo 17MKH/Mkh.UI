@@ -1,0 +1,97 @@
+#{$prefix}-layout-right {
+  flex: 1;
+  height: 100%;
+  background: url('../../../../assets/mkh/img/bg.png') top center no-repeat;
+  background-size: 100% 100%;
+
+  &_wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  &_header {
+    position: relative;
+    width: 100%;
+    height: 269px;
+    background: var(--el-color-primary) url('../../../../assets/mkh/img/top_header.png') 100% no-repeat;
+    background-size: 100% 100%;
+
+    &_title {
+      color: #fff;
+      font-size: 24px;
+    }
+
+
+    &_wrap {
+      position: relative;
+      display: flex;
+      height: 100px;
+      margin: 0 30px;
+      flex-direction: row;
+      align-items: center;
+
+
+    }
+
+  }
+
+  #{$prefix}-header_toolbar {
+    float: right;
+    height: 100%;
+
+    #{$prefix}-toolbar_item {
+      display: inline-block;
+      margin: 0 7px;
+      height: 100%;
+
+      #{$prefix}-icon {
+        margin-top: ($skin-brief-header-height - $skin-brief-toolbar-icon-font-size) * 0.5;
+        font-size: $skin-brief-toolbar-icon-font-size;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  #{$prefix}-header_userinfo {
+    float: right;
+    padding: ($skin-brief-header-height - 35) * 0.5 15px;
+    height: 100%;
+    box-sizing: border-box;
+
+    &_avatar {
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  &_body {
+    position: relative;
+    flex: 1;
+    margin-top: -169px;
+    padding: 10px;
+    overflow: hidden;
+
+    &_wrap {
+      position: relative;
+      display: flex;
+      height: 100%;
+      background-color: #fff;
+      padding: 10px;
+      overflow: hidden;
+
+    }
+
+  }
+}

@@ -1,6 +1,6 @@
 <template>
-  <i :class="['el-icon', 'm-icon', input ? 'el-input__icon' : '']">
-    <svg :class="iconClass" aria-hidden="true" :style="{ fontSize: size }">
+  <i :class="['el-icon', 'm-icon', input ? 'el-input__icon' : '']" :style="{ fontSize: size }">
+    <svg :class="iconClass" aria-hidden="true">
       <use :xlink:href="`#m-${name}`" />
     </svg>
   </i>

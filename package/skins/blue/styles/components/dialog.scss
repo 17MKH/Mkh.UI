@@ -1,0 +1,12 @@
+  #{$prefix}-dialog {
+    &_header {
+      background-color: var(--el-color-primary);
+      padding: 5px 0;
+
+      * {
+        color: #fff !important;
+      }
+    }
+
+
+  }

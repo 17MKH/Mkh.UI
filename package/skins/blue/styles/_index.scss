@@ -1,0 +1,27 @@
+@import '../../../styles/var';
+$skin-brief-header-height: 55px;
+$skin-brief-logo-width: 35px;
+$skin-brief-toolbar-icon-font-size: 20px;
+
+$skin-brief-breadcrumb-height: 50px;
+
+#{$prefix}-skin-blue {
+  #{$prefix}-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 100%;
+  }
+
+  /************************全局**************************/
+  @import './components//dialog.scss';
+
+  /************************左侧**************************/
+  @import './components/layoutLeft.scss';
+  /************************右侧**************************/
+  @import './components/layoutRight.scss';
+  @import './components/breadcrumb.scss';
+
+
+
+}

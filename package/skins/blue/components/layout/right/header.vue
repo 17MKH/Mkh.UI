@@ -1,0 +1,84 @@
+<template>
+  <div class="m-layout-right_header">
+    <div class="m-layout-right_header_wrap">
+      <m-flex-row style="align-items: center">
+        <m-flex-auto>
+          <div class="m-layout-right_header_title">
+            {{ site_ }}
+          </div>
+        </m-flex-auto>
+        <m-flex-fixed>
+          <!--账户信息-->
+          <div class="m-header_userinfo">
+            <el-dropdown trigger="click" @command="handleCommand">
+              <a class="m-header_userinfo_avatar" href="javascript:void(0);">
+                <img :src="profile.avatar || './assets/mkh/avatar.png'" />
+              </a>
+              <template #dropdown>
+                <el-dropdown-menu class="m-header_userinfo_dropdown">
+                  <el-dropdown-item command="profile">
+                    <m-icon name="user"></m-icon>
+                    {{ $t('mkh.profile') }}
+                  </el-dropdown-item>
+                  <el-dropdown-item divided command="logout">
+                    <m-icon name="sign-out"></m-icon>
+                    {{ $t('mkh.logout') }}
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </div>
+          <!--工具栏-->
+          <div class="m-header_toolbar">
+            <template v-for="item in toolbars" :key="item.code">
+              <component :is="`m-toolbar-${item.code}`"></component>
+            </template>
+          </div>
+        </m-flex-fixed>
+      </m-flex-row>
+
+      <m-breadcrumb />
+    </div>
+  </div>
+</template>
+<script setup>
+import { computed,getCurrentInstance  } from 'vue'
+import { useStore } from 'vuex'
+const store = useStore()
+import { useMessage } from '../../../../../composables'
+const site_ = computed(() => {
+  let site = store.state.app.config.site
+  return typeof site.title === 'object' ? site.title[$i18n.locale] : site.title
+})
+
+const cit = getCurrentInstance().proxy
+const { router } = mkh
+const message = useMessage()
+const site = store.state.app.config.site
+const profile = computed(() => store.state.app.profile)
+const toolbars = Object.values(mkh.toolbars)
+  .filter(m => m.show)
+  .sort((x, y) => x.sort - y.sort)
+
+const handleCommand = cmd => {
+  const { $t } = cit
+  switch (cmd) {
+    case 'profile':
+      if (site.profile) {
+        router.push(site.profile)
+      }
+      break
+    case 'logout':
+      message
+        .confirm($t('mkh.logout_confirm'), $t('mkh.warning'), {
+          confirmButtonText: $t('mkh.ok'),
+          cancelButtonText: $t('mkh.cancel'),
+        })
+        .then(() => {
+          store.dispatch('app/token/logout')
+        })
+        .catch(() => {})
+      break
+  }
+}
+</script>

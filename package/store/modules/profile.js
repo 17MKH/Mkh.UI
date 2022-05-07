@@ -62,6 +62,11 @@ const state = {
   routeMenus: null,
   /** 按钮编码列表，说明：此处的按钮编码由菜单编号_按钮唯一编码组成 */
   buttons: [],
+  /**滑动动画 */
+  transition: {
+    animateCode: 'fade',
+    directCode: 'left',
+  },
   /** 皮肤 */
   skin: {
     name: '简约',

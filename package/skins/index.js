@@ -1,6 +1,6 @@
 /** 导入内置皮肤 */
 import './brief'
-
+import './blue'
 export default app => {
   //注册皮肤
   mkh.skins.forEach(skin => {

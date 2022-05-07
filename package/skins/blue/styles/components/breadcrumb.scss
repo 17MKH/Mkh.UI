@@ -1,0 +1,22 @@
+ #{$prefix}-breadcrumb {
+   position: absolute;
+   box-sizing: border-box;
+   bottom: 0;
+
+
+   .el-breadcrumb__item:not(:last-child) {
+     span {
+       color: var(--el-color-info-light-9);
+     }
+
+     i {
+       color: var(--el-color-info-light-9);
+     }
+   }
+
+   .el-breadcrumb__item:last-child {
+     span {
+       color: #fff;
+     }
+   }
+ }

@@ -1,0 +1,127 @@
+  $skin-blue-logo-height: 110px;
+
+  #{$prefix}-layout-left {
+    width: 260px;
+    height: 100%;
+
+    &_wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #{$prefix}-layout-nav {
+      position: relative;
+      width: 260px;
+      height: calc(100% - $skin-blue-logo-height);
+      background: #fff url("../../../../assets/mkh/img/menu.png") left top no-repeat;
+      background-size: 100% 100%;
+      box-sizing: border-box;
+
+      .btn {
+        position: absolute;
+        top: 50%;
+        right: -13px;
+        width: 14px;
+        height: 36px;
+        background: var(--el-color-primary);
+        background-size: 9px 10px;
+        cursor: pointer;
+        z-index: 10;
+
+        i {
+          color: #fff;
+          margin-top: 10px;
+        }
+      }
+
+      .btn::before {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        bottom: -14px;
+        left: 0;
+        border-top: 14px solid var(--el-color-primary);
+        border-right: 14px solid transparent;
+      }
+
+      .btn::after {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: -14px;
+        left: 0;
+        border-bottom: 14px solid var(--el-color-primary);
+        border-right: 14px solid transparent;
+      }
+
+      .el-menu {
+        background-color: transparent;
+        border-right: 0;
+
+        .el-menu-item.is-active {
+          background-color: var(--el-menu-hover-bg-color);
+
+          &::after {
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 3px;
+            background-color: var(--el-color-primary);
+            left: 0;
+            top: 0;
+          }
+        }
+      }
+    }
+
+
+    #{$prefix}-layout-logo {
+      position: relative;
+      height: $skin-blue-logo-height;
+      width: 100%;
+      display: flex;
+
+      &::after {
+        position: absolute;
+
+        content: "";
+        height: 1px;
+        width: 100%;
+        background: linear-gradient(to right, var(--el-border-color), var(--el-border-color-extra-light) 5px, transparent 5px, transparent);
+        background-size: 10px 100%;
+        bottom: 20px;
+        z-index: 1;
+      }
+
+
+
+      &_wrap {
+
+
+        color: var(--el-color-primary);
+        display: flex;
+
+        align-items: center;
+        padding-left: 20px;
+        flex: 1;
+
+
+        .title {
+          font-size: 18px;
+          display: inline-block;
+          margin-left: 20px;
+
+        }
+
+        .icon {
+          font-size: 27px;
+          display: inline-block;
+        }
+      }
+
+    }
+
+  }

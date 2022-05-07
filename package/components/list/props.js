@@ -103,4 +103,6 @@ export default {
   noFooter: { type: Boolean, default: false },
   /** 不显示分页 */
   noPagination: { type: Boolean, default: false },
+  /**指定请求返回数据的指定字段中的数据  data.rows*/
+  actionDataStr: { type: String, default: 'rows' },
 }

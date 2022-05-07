@@ -90,7 +90,7 @@
             <el-table-column v-if="multiple" type="selection" align="center" width="55" />
 
             <!--序号-->
-            <el-table-column v-if="index" type="index" :index="indexMethod" :label="$t('mkh.serial_number')" align="center" width="60"> </el-table-column>
+            <el-table-column v-if="index" type="index" :index="indexMethod_" :label="$t('mkh.serial_number')" align="center" width="60"> </el-table-column>
 
             <!--渲染列-->
             <template v-for="col in cols_">
@@ -130,7 +130,7 @@
             </template>
 
             <!--操作列-->
-            <el-table-column v-if="$slots.operation" :width="operationWidth || operationWidth_" fixed="right">
+            <el-table-column v-if="$slots.operation" :width="operationWidth_" fixed="right">
               <template #header>
                 <slot name="operation-header">{{ $t('mkh.operate') }}</slot>
               </template>
@@ -157,7 +157,7 @@
               v-if="!noPagination"
               :page-size="page.size"
               :current-page="page.index"
-              :small="pagination_.small"
+              :small="pageSmall"
               :background="pagination_.background"
               :page-sizes="pagination_.pageSizes"
               :layout="pagination_.layout"
@@ -195,14 +195,14 @@
   </div>
 </template>
 <script>
-import { computed, getCurrentInstance, nextTick, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
+import { computed, getCurrentInstance, nextTick, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useFullscreen, useLoading, useMessage } from '../../composables'
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
 import SetColumn from './components/set-column.vue'
 import _ from 'lodash'
 import dom from '../../utils/dom'
-
+import { useAppConfig } from '../../composables'
 export default {
   components: { SetColumn },
   props,
@@ -275,14 +275,18 @@ export default {
     const loading = ref(false)
     //多选模式下已选择项列表
     const selection = ref([])
-
+    const { appFontSize, sizeMap } = useAppConfig()
+    //根据字体大小判断是否启用小的分页
+    const pageSmall = computed(() => appFontSize.value == sizeMap.SMALL)
     //计算操作列最大宽度
     const computeOperationWidth = () => {
       if (!tableRef.value) return
 
       let maxWidth = 0
+
       tableRef.value.$el.querySelectorAll('.m-list_operation').forEach(node => {
         const { width } = node.getBoundingClientRect()
+
         if (width > maxWidth) {
           maxWidth = width
         }
@@ -292,9 +296,19 @@ export default {
       if (maxWidth === 0) {
         maxWidth = 50
       }
-      operationWidth_.value = maxWidth + +30
+
+      operationWidth_.value = parseInt(props.operationWidth || maxWidth + +operationWidthAdd())
+    }
+    const operationWidthAdd = () => {
+      return appFontSize.value == sizeMap.SMALL ? 24 : 40
     }
 
+    /**序号 */
+    const indexMethod_ = computed(() => (props.indexMethod ? props.indexMethod : calcIndex))
+    /**序号计算 */
+    const calcIndex = index => {
+      return index + page.size * (page.index - 1) + 1
+    }
     //查询操作
     const query = () => {
       loading.value = true
@@ -309,7 +323,7 @@ export default {
       props
         .queryMethod(params)
         .then(data => {
-          rows.value = data.rows
+          rows.value = data[props.actionDataStr] || []
           total.value = data.total
 
           nextTick(() => {
@@ -453,9 +467,22 @@ export default {
     onBeforeUnmount(() => {
       dom.off(queryFormRef.value.$el, 'keydown', handleEnterQuery)
     })
+    watch(
+      appFontSize,
+      val => {
+        setTimeout(() => {
+          computeOperationWidth()
+        }, 1000)
+      },
+      {
+        immediate: true,
+      }
+    )
 
     return {
       isFullscreen,
+      pageSmall,
+      indexMethod_,
       openFullscreen,
       closeFullscreen,
       toggleFullscreen,
@@ -485,6 +512,7 @@ export default {
       handlePaginationSizeChange,
       handlePaginationCurrentChange,
       clearSelection,
+
       toggleRowSelection(row, selected) {
         tableRef.value.toggleRowSelection(row, selected)
       },

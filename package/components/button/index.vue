@@ -3,7 +3,7 @@
     v-m-has="code"
     class="m-button"
     :type="type"
-    :size="size_"
+  
     :plain="plain"
     :round="round"
     :circle="circle"
@@ -25,11 +25,6 @@
 import { computed } from 'vue'
 export default {
   props: {
-    /** 尺寸 */
-    size: {
-      type: String,
-      default: 'default',
-    },
     /** 类型 primary/success/warning/danger/info/text */
     type: {
       type: String,
@@ -76,7 +71,7 @@ export default {
   emits: ['click'],
   setup(props, { emit }) {
     const { router, store } = mkh
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
+ 
 
     const handleClick = event => {
       if (props.to) {
@@ -87,7 +82,7 @@ export default {
     }
 
     return {
-      size_,
+  
       handleClick,
     }
   },

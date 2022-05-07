@@ -1,12 +1,11 @@
-const { resolve } = require('path')
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import mui from './plugins/plugin-ui'
+import mui from '../plugins/plugin-ui'
 
-export default defineConfig(({ mode, command }) => {
-  let config = {
+export default ({ target, mode, command }) => {
+  return {
     plugins: [
       mui({
+        target,
         mode,
         command,
         /** 依赖模块 */
@@ -53,24 +52,4 @@ export default defineConfig(({ mode, command }) => {
       },
     },
   }
-
-  //打包成库
-  if (mode == 'lib') {
-    //库模式需要取消复制静态资源目录
-    config.publicDir = false
-
-    config.build = {
-      lib: {
-        entry: resolve(__dirname, 'package/index.js'),
-        formats: ['es'],
-        fileName: 'index',
-      },
-      outDir: 'lib',
-      rollupOptions: {
-        /** 排除无需打包进去的依赖库 */
-        external: ['vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n'],
-      },
-    }
-  }
-  return config
-})
+}

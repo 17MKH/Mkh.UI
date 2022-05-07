@@ -1,7 +1,9 @@
-const { resolve } = require('path')
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mui from './plugins/plugin-ui'
+import libConfig from './build/lib.config'
+import devConfig from './build/dev.config'
+import prodConfig from './build/prod.config'
 
 export default defineConfig(({ mode, command }) => {
   let config = {
@@ -53,24 +55,18 @@ export default defineConfig(({ mode, command }) => {
       },
     },
   }
-
-  //打包成库
-  if (mode == 'lib') {
-    //库模式需要取消复制静态资源目录
-    config.publicDir = false
-
-    config.build = {
-      lib: {
-        entry: resolve(__dirname, 'package/index.js'),
-        formats: ['es'],
-        fileName: 'index',
-      },
-      outDir: 'lib',
-      rollupOptions: {
-        /** 排除无需打包进去的依赖库 */
-        external: ['vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n'],
-      },
-    }
+  console.log(mode)
+  switch (mode) {
+    case 'lib':
+      libConfig(config)
+      break
+    case 'development':
+      devConfig(config)
+      break
+    case 'production':
+      prodConfig(config)
+      break
   }
+
   return config
 })

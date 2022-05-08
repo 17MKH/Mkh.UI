@@ -8,6 +8,7 @@ export default {
   login: 'Login',
   logining: 'Logining...',
   notify_title: 'Login warning',
+  user_login: 'User Login',
   notify_success: 'Login successful, jumping~',
   k: {
     tip: 'Please enter your user name and password',

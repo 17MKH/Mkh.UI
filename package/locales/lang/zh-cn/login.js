@@ -9,6 +9,7 @@ export default {
   logining: '登录中...',
   notify_title: '登录提醒',
   notify_success: '登录成功，正在跳转~',
+  user_login: '用户登录',
   k: {
     tip: '请输入您的用户名和密码',
   },

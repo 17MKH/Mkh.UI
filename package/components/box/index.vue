@@ -38,7 +38,7 @@
 </template>
 <script>
 import { computed, ref } from 'vue'
-import { useCollapse, useFullscreen } from '../../composables'
+import { useCollapse, useFullscreen, useSize } from '../../composables'
 import props from './props'
 export default {
   props,
@@ -47,7 +47,7 @@ export default {
     const { store } = mkh
     const scrollbarRef = ref()
     const loadingOptions = store.state.app.config.component.loading
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
+    const { size: size_ } = useSize(props)
 
     const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 

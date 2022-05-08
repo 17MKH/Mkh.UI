@@ -1,5 +1,5 @@
 <template>
-  <el-table ref="tableRef" class="m-list_setcolumn_table" :data="cols" row-key="prop"   height="100%" border stripe highlight-current-row>
+  <el-table ref="tableRef" class="m-list_setcolumn_table" :data="cols" row-key="prop" height="100%" border stripe highlight-current-row>
     <el-table-column :label="$t('mkh.name')" prop="label" align="center"> </el-table-column>
     <el-table-column :label="$t('mkh.property')" prop="prop" align="center"> </el-table-column>
     <el-table-column :label="$t('mkh.show')" prop="show" align="center" width="80">
@@ -12,27 +12,27 @@
         <el-switch v-model="scope.row.sortable"></el-switch>
       </template>
     </el-table-column>
-    <el-table-column :label="$t('mkh.fixed_mode')" prop="fixed" align="center" :width="columnWidth_">
+    <el-table-column :label="$t('mkh.fixed_mode')" prop="fixed" align="center" :width="width_ + 10">
       <template #default="scope">
-        <el-radio-group v-model="scope.row.fixed" >
+        <el-radio-group v-model="scope.row.fixed">
           <el-radio-button label="">不固定</el-radio-button>
           <el-radio-button label="left">左侧</el-radio-button>
           <el-radio-button label="right">右侧</el-radio-button>
         </el-radio-group>
       </template>
     </el-table-column>
-    <el-table-column :label="$t('mkh.align')" prop="align" align="center" :width="columnWidth_">
+    <el-table-column :label="$t('mkh.align')" prop="align" align="center" :width="width_">
       <template #default="scope">
-        <el-radio-group v-model="scope.row.align"  fill="#67C23A">
+        <el-radio-group v-model="scope.row.align" fill="#67C23A">
           <el-radio-button label="left">居左</el-radio-button>
           <el-radio-button label="center">居中</el-radio-button>
           <el-radio-button label="right">居右</el-radio-button>
         </el-radio-group>
       </template>
     </el-table-column>
-    <el-table-column :label="$t('mkh.table_header_align')" prop="headerAlign" align="center" :width="columnWidth_">
+    <el-table-column :label="$t('mkh.table_header_align')" prop="headerAlign" align="center" :width="width_">
       <template #default="scope">
-        <el-radio-group v-model="scope.row.headerAlign"  fill="#E6A23C">
+        <el-radio-group v-model="scope.row.headerAlign" fill="#E6A23C">
           <el-radio-button label="left">居左</el-radio-button>
           <el-radio-button label="center">居中</el-radio-button>
           <el-radio-button label="right">居右</el-radio-button>
@@ -44,7 +44,7 @@
 <script>
 import { computed, onMounted, ref } from 'vue'
 import Sortable from 'sortablejs'
-import { useAppConfig } from '../../../composables'
+import { SIZE_DEFINITIONS } from '../../../utils/constants'
 
 export default {
   props: {
@@ -63,22 +63,15 @@ export default {
     var cols = computed(() => {
       return props.modelValue
     })
-    const { appFontSize, sizeMap } = useAppConfig()
 
-    const columnWidth_ = computed(() => {
-      let width_
-      switch (appFontSize.value) {
-        case sizeMap.SMALL:
-          width_ = 200
-          break
-        case sizeMap.DEFAULT:
-          width_ = 220
-          break
-        case sizeMap.LARGE:
-          width_ = 240
-          break
-      }
-      return width_
+    const SIZE_WIDTH = {
+      [SIZE_DEFINITIONS.SMALL]: 200,
+      [SIZE_DEFINITIONS.DEFAULT]: 220,
+      [SIZE_DEFINITIONS.LARGE]: 240,
+    }
+
+    const width_ = computed(() => {
+      return SIZE_WIDTH[props.size]
     })
 
     onMounted(() => {
@@ -97,7 +90,7 @@ export default {
     return {
       tableRef,
       cols,
-      columnWidth_
+      width_,
     }
   },
 }

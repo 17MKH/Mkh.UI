@@ -196,13 +196,14 @@
 </template>
 <script>
 import { computed, getCurrentInstance, nextTick, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue'
-import { useFullscreen, useLoading, useMessage } from '../../composables'
+import { useFullscreen, useLoading, useMessage, useSize } from '../../composables'
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
 import SetColumn from './components/set-column.vue'
 import _ from 'lodash'
 import dom from '../../utils/dom'
-import { useAppConfig } from '../../composables'
+import { SIZE_DEFINITIONS } from '../../utils/constants'
+
 export default {
   components: { SetColumn },
   props,
@@ -245,7 +246,7 @@ export default {
     //折叠查询栏
     const foldQueryBar = ref(false)
 
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
+    const { size: size_ } = useSize(props)
     const class_ = computed(() => {
       return ['m-list', size_, isFullscreen.value ? 'is-fullscreen' : '', foldQueryBar.value ? 'fold-query-bar' : '', props.paginationOnRight ? 'pagination-on-right' : '']
     })
@@ -275,9 +276,8 @@ export default {
     const loading = ref(false)
     //多选模式下已选择项列表
     const selection = ref([])
-    const { appFontSize, sizeMap } = useAppConfig()
     //根据字体大小判断是否启用小的分页
-    const pageSmall = computed(() => appFontSize.value == sizeMap.SMALL)
+    const pageSmall = computed(() => size_.value == SIZE_DEFINITIONS.SMALL)
     //计算操作列最大宽度
     const computeOperationWidth = () => {
       if (!tableRef.value) return
@@ -297,10 +297,7 @@ export default {
         maxWidth = 50
       }
 
-      operationWidth_.value = parseInt(props.operationWidth || maxWidth + +operationWidthAdd())
-    }
-    const operationWidthAdd = () => {
-      return appFontSize.value == sizeMap.SMALL ? 24 : 40
+      operationWidth_.value = parseInt(props.operationWidth || maxWidth)
     }
 
     /**序号 */
@@ -309,6 +306,7 @@ export default {
     const calcIndex = index => {
       return index + page.size * (page.index - 1) + 1
     }
+
     //查询操作
     const query = () => {
       loading.value = true
@@ -468,8 +466,8 @@ export default {
       dom.off(queryFormRef.value.$el, 'keydown', handleEnterQuery)
     })
     watch(
-      appFontSize,
-      val => {
+      size_,
+      () => {
         setTimeout(() => {
           computeOperationWidth()
         }, 1000)
@@ -512,7 +510,6 @@ export default {
       handlePaginationSizeChange,
       handlePaginationCurrentChange,
       clearSelection,
-
       toggleRowSelection(row, selected) {
         tableRef.value.toggleRowSelection(row, selected)
       },

@@ -3,7 +3,7 @@
     v-m-has="code"
     class="m-button"
     :type="type"
-  
+    :size="size"
     :plain="plain"
     :round="round"
     :circle="circle"
@@ -22,56 +22,12 @@
   </el-button>
 </template>
 <script>
-import { computed } from 'vue'
+import props from './props'
 export default {
-  props: {
-    /** 类型 primary/success/warning/danger/info/text */
-    type: {
-      type: String,
-      default: 'text',
-    },
-    /** 是否朴素按钮 */
-    plain: Boolean,
-    /** 是否圆角按钮 */
-    round: Boolean,
-    /** 是否圆形按钮 */
-    circle: Boolean,
-    /** 是否加载中状态 */
-    loading: Boolean,
-    /** 是否禁用状态 */
-    disabled: Boolean,
-    /** 是否默认聚焦 */
-    autofocus: Boolean,
-    /** 原生 type 属性 button/submit/reset */
-    nativeType: {
-      type: String,
-      default: 'button',
-    },
-    /** 图标 */
-    icon: {
-      type: String,
-      default: null,
-    },
-    /** 文本 */
-    text: {
-      type: String,
-      default: '',
-    },
-    /** 按钮编码，用于按钮权限控制 */
-    code: {
-      type: String,
-      default: '',
-    },
-    /** 跳转路由，如果设置了该属性，无法再监听click事件 */
-    to: {
-      type: [String, Object],
-      default: null,
-    },
-  },
+  props,
   emits: ['click'],
   setup(props, { emit }) {
-    const { router, store } = mkh
- 
+    const { router } = mkh
 
     const handleClick = event => {
       if (props.to) {
@@ -82,7 +38,6 @@ export default {
     }
 
     return {
-  
       handleClick,
     }
   },

@@ -130,7 +130,7 @@ export default {
       if (contentHeight.value > contentMaxHeight) {
         contentHeight.value = contentMaxHeight
       }
-       //更新滚动条
+      //更新滚动条
       if (!props.noScrollbar) {
         scrollbarRef.value.update()
       }

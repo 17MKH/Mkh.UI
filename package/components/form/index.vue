@@ -3,7 +3,7 @@
     ref="formRef"
     v-loading="!noLoading && loading"
     class="m-form"
-    :size="size_"
+    :size="size"
     :model="model"
     :rules="rules"
     :inline="inline"
@@ -24,7 +24,7 @@
   </el-form>
 </template>
 <script>
-import { computed, provide, nextTick, onMounted, onBeforeUnmount, ref } from 'vue'
+import { provide, nextTick, onMounted, onBeforeUnmount, ref } from 'vue'
 import props from './props'
 import dom from '../../utils/dom'
 
@@ -35,7 +35,6 @@ export default {
   setup(props, { emit }) {
     const { store } = mkh
 
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
     const loadingOptions = store.state.app.config.component.loading
 
     const formRef = ref(null)
@@ -108,7 +107,6 @@ export default {
     })
 
     return {
-      size_,
       loading,
       loadingOptions,
       formRef,

@@ -21,7 +21,8 @@ $skin-brief-breadcrumb-height: 50px;
   /************************右侧**************************/
   @import './components/layoutRight.scss';
   @import './components/breadcrumb.scss';
-
+  /************************组件样式**************************/
+  @import './components/list.scss';
 
 
 }

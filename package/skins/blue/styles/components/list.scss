@@ -1,0 +1,19 @@
+  #{$prefix}-list {
+    .el-table th.el-table__cell {
+      background-color: #ecf5ff
+    }
+
+    .el-table td,
+    .td-list .el-table th.is-leaf {
+      border-bottom: 1px solid #ebeef5 !important;
+    }
+
+    .el-table thead {
+      color: #303133cc;
+    }
+
+    #{$prefix}-head {
+      background-color: #ecf5ff
+    }
+
+  }

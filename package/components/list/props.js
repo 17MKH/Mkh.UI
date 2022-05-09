@@ -6,6 +6,8 @@ export default {
   cols: { type: Array, required: true },
   /** 查询参数模型 */
   queryModel: { type: Object, default: null },
+  /** 查询参数校验规则 */
+  queryRules: { type: Object, default: null },
   /** 查询方法 */
   queryMethod: { type: Function, required: true },
   /** 显示头部 */

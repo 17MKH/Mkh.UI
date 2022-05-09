@@ -21,7 +21,7 @@
     </m-head>
     <!--查询栏-->
     <div v-if="!noQuerybar" class="m-list_querybar">
-      <m-form ref="queryFormRef" :inline="true" :model="queryModel" :size="size_" disabled-enter>
+      <m-form ref="queryFormRef" :inline="true" :model="queryModel" :rules="queryRules" :size="size_" disabled-enter>
         <slot name="querybar" :selection="selection" :total="total" />
       </m-form>
     </div>
@@ -309,32 +309,34 @@ export default {
 
     //查询操作
     const query = () => {
-      loading.value = true
+      queryFormRef.value.validate(() => {
+        loading.value = true
 
-      const params = { ...props.queryModel, page }
+        const params = { ...props.queryModel, page }
 
-      //查询前执行的函数
-      if (props.beforeQuery) {
-        props.beforeQuery(params)
-      }
+        //查询前执行的函数
+        if (props.beforeQuery) {
+          props.beforeQuery(params)
+        }
 
-      props
-        .queryMethod(params)
-        .then(data => {
-          rows.value = data[props.actionDataStr] || []
-          total.value = data.total
+        props
+          .queryMethod(params)
+          .then(data => {
+            rows.value = data[props.actionDataStr] || []
+            total.value = data.total
 
-          nextTick(() => {
-            computeOperationWidth()
+            nextTick(() => {
+              computeOperationWidth()
 
-            clearSelection()
+              clearSelection()
+            })
+
+            emit('query', data)
           })
-
-          emit('query', data)
-        })
-        .finally(() => {
-          loading.value = false
-        })
+          .finally(() => {
+            loading.value = false
+          })
+      })
     }
 
     //刷新
@@ -465,6 +467,7 @@ export default {
     onBeforeUnmount(() => {
       dom.off(queryFormRef.value.$el, 'keydown', handleEnterQuery)
     })
+
     watch(
       size_,
       () => {

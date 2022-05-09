@@ -47,6 +47,13 @@ export default ({ target, mode, command }) => {
                 }
               },
             },
+            /**转换css中图片的相对路径 */
+            Declaration(decl) {
+              let reg = /url\((.+?)\)/gi
+              if (decl.value.match(reg)) {
+                decl.value = decl.value.replaceAll('../', '')
+              }
+            },
           },
         ],
       },

@@ -29,7 +29,7 @@
           </el-form-item>
           <m-verifycode-input v-if="enableVerifyCode" v-model="model.verifyCode" v-model:id="model.verifyCodeId" :label="$t('mkh.login.code')" />
           <el-form-item>
-            <el-button class="m-login-k_btn" :loading="loading" @click="tryLogin">{{ $t(loading ? 'mkh.login.logining' : 'mkh.login.login') }}</el-button>
+            <el-button class="m-login-k_btn" type="primary" :loading="loading" @click="tryLogin">{{ $t(loading ? 'mkh.login.logining' : 'mkh.login.login') }}</el-button>
           </el-form-item>
         </el-form>
       </div>

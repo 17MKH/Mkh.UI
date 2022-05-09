@@ -42,7 +42,7 @@ export default {
     const loading = ref(false)
 
     /** 自定义表单的重置方法数组 */
-    const resetMethods = ref([])
+    const resetMethods = []
     provide('resetMethods', resetMethods)
 
     /** 表单验证 */
@@ -87,7 +87,7 @@ export default {
     /** 重置 */
     const reset = () => {
       formRef.value.resetFields()
-      resetMethods.value.forEach(m => m())
+      resetMethods.forEach(m => m())
     }
 
     const handleEnterSubmit = e => {

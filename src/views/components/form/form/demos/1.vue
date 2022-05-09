@@ -28,7 +28,7 @@
   </div>
 </template>
 <script setup>
-import { reactive, ref } from 'vue'
+import { inject, reactive, ref } from 'vue'
 import { useMessage } from '../../../../../../package/composables'
 const message = useMessage()
 const formRef = ref(null)

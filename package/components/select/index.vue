@@ -24,7 +24,7 @@ export default {
   setup(props, { emit }) {
     const { store } = mkh
 
-    const resetMethods = inject('resetMethods', null)
+    const resetMethods = inject('resetMethods', [])
 
     const value_ = computed({
       get() {
@@ -84,7 +84,7 @@ export default {
 
     watch(value_, handleChange)
 
-    if (resetMethods) resetMethods.value.push(reset)
+    resetMethods.push(reset)
 
     return {
       value_,

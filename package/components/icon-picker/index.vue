@@ -30,7 +30,7 @@ export default {
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const resetMethods = inject('resetMethods', null)
+    const resetMethods = inject('resetMethods', [])
     const icon = computed({
       get() {
         return props.modelValue
@@ -50,7 +50,7 @@ export default {
       icon.value = ''
     }
 
-    if (resetMethods) resetMethods.value.push(reset)
+    resetMethods.push(reset)
 
     return {
       icon,

@@ -449,7 +449,9 @@ export default {
     }
 
     if (props.queryOnCreated) {
-      query()
+      nextTick(() => {
+        query()
+      })
     }
 
     const handleEnterQuery = e => {

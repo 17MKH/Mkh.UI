@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 50px">
-    <m-button type="danger" :text="disabled ? '启用表单' : '禁用表单'" @click="disabled = !disabled" />
+    <m-button type="danger" @click="disabled = !disabled">disabled ? '启用表单' : '禁用表单'</m-button>
     <m-form ref="formRef" :action="action" :model="model" :rules="rules" :disabled="disabled" @success="handleSuccess">
       <el-form-item label="活动名称" prop="name">
         <el-input v-model="model.name"></el-input>
@@ -21,8 +21,8 @@
         </el-col>
       </el-form-item>
       <el-form-item>
-        <m-button type="primary" text="创建" @click="() => formRef.submit()" />
-        <m-button type="info" text="重置" @click="() => formRef.reset()" />
+        <m-button type="primary" @click="() => formRef.submit()">创建</m-button>
+        <m-button type="info" @click="() => formRef.reset()">重置</m-button>
       </el-form-item>
     </m-form>
   </div>

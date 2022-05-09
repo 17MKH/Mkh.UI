@@ -7,11 +7,11 @@
         </el-form-item>
       </template>
       <template #buttons>
-        <m-button type="success" icon="plus" text="添加" @click="add" />
+        <m-button type="success" icon="plus" @click="add">添加</m-button>
       </template>
       <template #operation="{ row }">
-        <m-button type="text" text="编辑" icon="edit" @click="edit(row)" />
-        <m-button type="text" text="预览" icon="preview" @click="view(row)" />
+        <m-button text icon="edit" @click="edit(row)">编辑</m-button>
+        <m-button text icon="preview" @click="view(row)">预览</m-button>
       </template>
     </m-list>
     <save :id="selection.id" v-model="saveVisible" :mode="mode" @success="refresh" />

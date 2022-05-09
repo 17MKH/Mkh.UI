@@ -34,13 +34,13 @@
       </m-flex-fixed>
     </m-flex-col>
     <template #footer>
-      <m-button type="success" :text="$t('mkh.ok')" @click="save"></m-button>
-      <m-button type="info" :text="$t('mkh.cancel')" @click="show = false"></m-button>
+      <m-button type="success" @click="save">{{ $t('mkh.ok') }}</m-button>
+      <m-button type="info" @click="show = false">{{ $t('mkh.cancel') }}</m-button>
     </template>
   </m-drawer>
 </template>
 <script>
-import { getCurrentInstance, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import useMessage from '../../composables/message'
 export default {
   setup() {

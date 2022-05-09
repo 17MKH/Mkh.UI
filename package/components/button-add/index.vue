@@ -1,6 +1,8 @@
 <template>
-  <m-button class="m-button-add" :type="type" :icon="icon" :text="text === null ? $t('mkh.add') : ''">
-    <slot />
+  <m-button class="m-button-add" :type="type" :icon="icon">
+    <slot>
+      {{ label || $t('mkh.add') }}
+    </slot>
   </m-button>
 </template>
 <script>
@@ -15,11 +17,6 @@ export default {
     icon: {
       type: String,
       default: 'plus',
-    },
-    /** 文本 */
-    text: {
-      type: String,
-      default: null,
     },
   },
 }

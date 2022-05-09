@@ -1,6 +1,8 @@
 export default {
-  /** 类型 primary/success/warning/danger/info/text */
-  type: { type: String, default: 'text' },
+  /** 类型 primary/success/warning/danger/info */
+  type: { type: String, default: '' },
+  /** 是否文本按钮 */
+  text: { type: Boolean, default: false },
   /** 尺寸 */
   size: { type: String, default: null },
   /** 是否朴素按钮 */
@@ -19,8 +21,6 @@ export default {
   nativeType: { type: String, default: 'button' },
   /** 图标 */
   icon: { type: String, default: null },
-  /** 文本 */
-  text: { type: String, default: '' },
   /** 按钮编码，用于按钮权限控制 */
   code: { type: String, default: '' },
   /** 跳转路由，如果设置了该属性，无法再监听click事件 */

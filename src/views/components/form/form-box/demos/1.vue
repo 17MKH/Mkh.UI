@@ -19,7 +19,7 @@
       </el-col>
     </el-form-item>
     <template #footer>
-      <m-button type="primary" :text="disabled ? '启用表单' : '禁用表单'" @click="disabled = !disabled"></m-button>
+      <m-button type="primary" @click="disabled = !disabled">{{ disabled ? '启用表单' : '禁用表单' }}</m-button>
     </template>
   </m-form-box>
 </template>

@@ -1,20 +1,25 @@
 <template>
-  <m-button class="m-button-edit" :icon="icon" :text="text || $t('mkh.edit')">
-    <slot />
+  <m-button class="m-button-edit" :type="type" :text="text" :icon="icon">
+    <slot>
+      {{ laabel || $t('mkh.edit') }}
+    </slot>
   </m-button>
 </template>
 <script>
 export default {
   props: {
+    type: {
+      type: String,
+      default: 'primary',
+    },
+    text: {
+      type: Boolean,
+      default: true,
+    },
     /** 图标 */
     icon: {
       type: String,
       default: 'edit',
-    },
-    /** 文本 */
-    text: {
-      type: String,
-      default: null,
     },
   },
 }

@@ -19,7 +19,7 @@
         </el-form-item>
       </template>
       <template #footer>
-        <m-button type="success" style="">搜索</m-button>
+        <m-button type="success">搜索</m-button>
       </template>
     </m-list>
   </div>

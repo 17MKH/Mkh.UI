@@ -19,10 +19,10 @@
         </el-form-item>
       </template>
       <template #buttons>
-        <m-button type="success" icon="plus" text="自定义按钮" @click="handleCustomButton" />
+        <m-button type="success" icon="plus" @click="handleCustomButton">自定义按钮</m-button>
       </template>
       <template #operation="{ row }">
-        <el-button type="text" size="small" @click="handleEdit(row)">编辑</el-button>
+        <m-button-edit @click="handleEdit(row)">编辑</m-button-edit>
       </template>
     </m-list>
   </div>

@@ -1,20 +1,27 @@
 <template>
-  <m-button class="m-button-delete" :icon="icon" :text="text || $t('mkh.delete')" @click.stop="handleClick"> </m-button>
+  <m-button class="m-button-delete" :type="type" :text="text" :icon="icon" @click.stop="handleClick">
+    <slot>
+      {{ label || $t('mkh.delete') }}
+    </slot>
+  </m-button>
 </template>
 <script>
 import { getCurrentInstance } from 'vue'
 import { useLoading, useMessage } from '../../composables'
 export default {
   props: {
+    type: {
+      type: String,
+      default: 'danger',
+    },
+    text: {
+      type: Boolean,
+      default: true,
+    },
     /** 图标 */
     icon: {
       type: String,
       default: 'delete',
-    },
-    /** 文本 */
-    text: {
-      type: String,
-      default: null,
     },
     /** 请求参数 */
     data: {

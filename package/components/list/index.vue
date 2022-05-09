@@ -27,13 +27,13 @@
     </div>
     <!--自定义按钮-->
     <div class="m-list_buttons">
-      <m-button v-if="!noQuerybar && showSearchBtn" type="primary" icon="search" :text="searchBtnText || $t('mkh.search')" @click="query"></m-button>
-      <m-button v-if="!noQuerybar && showResetBtn" type="info" icon="refresh" :text="resetBtnText || $t('mkh.reset')" @click="reset"></m-button>
-      <m-button v-if="showDeleteBtn" type="danger" icon="delete" :text="deleteBtnText || $t('mkh.delete')" @click="remove"></m-button>
+      <m-button v-if="!noQuerybar && showSearchBtn" type="primary" icon="search" @click="query">{{ searchBtnText || $t('mkh.search') }}</m-button>
+      <m-button v-if="!noQuerybar && showResetBtn" type="info" icon="refresh" @click="reset">{{ resetBtnText || $t('mkh.reset') }}</m-button>
+      <m-button v-if="showDeleteBtn" type="danger" icon="delete" @click="remove">{{ deleteBtnText || $t('mkh.delete') }}</m-button>
       <slot name="buttons" :selection="selection" :total="total" @click="remove" />
 
       <!--折叠查询栏-->
-      <m-button :icon="foldQueryBar ? 'fold-b' : 'fold-u'" @click="foldQueryBar = !foldQueryBar" />
+      <m-button text type="primary" :icon="foldQueryBar ? 'fold-b' : 'fold-u'" @click="foldQueryBar = !foldQueryBar" />
     </div>
     <!--数据表格-->
     <div class="m-list_body">
@@ -130,7 +130,7 @@
             </template>
 
             <!--操作列-->
-            <el-table-column v-if="$slots.operation" :width="operationWidth_" fixed="right">
+            <el-table-column v-if="$slots.operation" :width="operationWidth_" fixed="right" align="center">
               <template #header>
                 <slot name="operation-header">{{ $t('mkh.operate') }}</slot>
               </template>
@@ -169,7 +169,7 @@
           </m-flex-fixed>
           <m-flex-auto class="m-center-v">
             <!--配置列-->
-            <m-button v-if="!disableSetColumn" class="m-list_setcolumn_btn" :text="$t('mkh.set_column')" @click="showSetColDialog = true" />
+            <m-button v-if="!disableSetColumn" type="primary" class="m-list_setcolumn_btn" @click="showSetColDialog = true">{{ $t('mkh.set_column') }}</m-button>
           </m-flex-auto>
         </m-flex-row>
       </m-flex-fixed>
@@ -296,8 +296,7 @@ export default {
       if (maxWidth === 0) {
         maxWidth = 50
       }
-
-      operationWidth_.value = parseInt(props.operationWidth || maxWidth)
+      operationWidth_.value = parseInt(props.operationWidth || maxWidth + 32)
     }
 
     /**序号 */

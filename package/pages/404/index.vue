@@ -21,7 +21,7 @@
       <div class="shadow"></div>
     </div>
     <div class="buttons">
-      <m-button type="primary" :text="$t('mkh.back_home')" to="/"></m-button>
+      <m-button type="primary" to="/">{{ $t('mkh.back_home') }}</m-button>
     </div>
   </div>
 </template>

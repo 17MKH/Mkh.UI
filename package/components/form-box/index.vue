@@ -37,8 +37,8 @@
 
     <template #footer>
       <slot name="footer"> </slot>
-      <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :text="btnOkText || $t('mkh.save')" :disabled="disabled" @click="submit"></m-button>
-      <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :text="$t('mkh.reset')" :disabled="disabled" @click="reset"></m-button>
+      <m-button v-if="btnOk" type="success" :icon="btnOkIcon" :disabled="disabled" @click="submit">{{ btnOkText || $t('mkh.save') }}</m-button>
+      <m-button v-if="btnReset" type="info" :icon="btnResetIcon" :disabled="disabled" @click="reset">{{ $t('mkh.reset') }}</m-button>
     </template>
   </m-box>
 </template>

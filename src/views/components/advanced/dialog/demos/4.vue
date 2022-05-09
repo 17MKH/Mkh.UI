@@ -1,5 +1,5 @@
 <template>
-  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-button type="success" @click="handleClick">显示对话框</m-button>
   <el-checkbox v-model="dragOutPage" border class="m-margin-l-10">可拖出可视窗口</el-checkbox>
   <span class="m-margin-l-10">脱出可视窗口后对话框剩余最小宽度</span>
   <el-input-number v-model="dragMinWidth" controls-position="right" :min="100"></el-input-number>

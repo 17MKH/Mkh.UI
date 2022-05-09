@@ -1,5 +1,5 @@
 <template>
-  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-button type="success" @click="handleClick">显示对话框</m-button>
   <m-dialog v-model="visible" title="短歌行·曹操 〔两汉〕" icon="list">
     <p>对酒当歌，人生几何！</p>
     <p>譬如朝露，去日苦多。</p>
@@ -18,8 +18,8 @@
     <p>山不厌高，海不厌深。</p>
     <p>周公吐哺，天下归心。</p>
     <template #footer>
-      <m-button type="success" text="确定" size="small"></m-button>
-      <m-button type="info" text="关闭" size="small" @click="visible = false"></m-button>
+      <m-button type="success" size="small">确定</m-button>
+      <m-button type="info" size="small" @click="visible = false">关闭</m-button>
     </template>
   </m-dialog>
 </template>

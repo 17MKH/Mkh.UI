@@ -1,5 +1,5 @@
 <template>
-  <m-button type="success" text="显示对话框" @click="handleClick" />
+  <m-button type="success" @click="handleClick">显示对话框</m-button>
   <m-dialog v-model="visible" title="春江花月夜·张若虚 〔唐代〕" icon="list" height="400px">
     <div class="m-font-30 m-text-center">
       <p>春江潮水连海平，海上明月共潮生。</p>

@@ -20,8 +20,8 @@
         </div>
       </el-collapse-transition>
       <div v-show="meta" class="control" @click="handleShowMeta">
-        <m-button icon="code" :text="showMeta ? '隐藏代码' : '显示代码'" />
-        <m-button icon="copy" text="复制代码" @click.stop="handleCopy"></m-button>
+        <m-button icon="code">{{ showMeta ? '隐藏代码' : '显示代码' }}</m-button>
+        <m-button icon="copy" @click.stop="handleCopy">复制代码</m-button>
       </div>
     </div>
   </div>
@@ -122,8 +122,7 @@ export default {
     border-top: 1px solid #ebebeb;
   }
   .control {
-    height: 44px;
-    line-height: 44px;
+    padding: 10px;
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;

@@ -3,6 +3,7 @@
     v-m-has="code"
     class="m-button"
     :type="type"
+    :text="text"
     :size="size"
     :plain="plain"
     :round="round"
@@ -13,12 +14,12 @@
     :native-type="nativeType"
     @click="handleClick"
   >
-    <m-icon v-if="!loading && icon" :name="icon" />
-    <slot>
-      <span v-if="!circle && text" class="m-button_text">
-        {{ text }}
-      </span>
-    </slot>
+    <template v-if="!loading && icon" #icon>
+      <svg :class="iconClass" aria-hidden="true">
+        <use :xlink:href="`#m-${icon}`" />
+      </svg>
+    </template>
+    <slot> </slot>
   </el-button>
 </template>
 <script>

@@ -4,7 +4,7 @@
       <m-flex-fixed width="300px">
         <m-list-box v-model="value" title="诗词列表" :action="query">
           <template #action="{ item }">
-            <m-button text="编辑" icon="edit" @click.stop="edit(item)" />
+            <m-button icon="edit" @click.stop="edit(item)">编辑</m-button>
           </template>
         </m-list-box>
       </m-flex-fixed>

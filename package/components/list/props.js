@@ -96,7 +96,7 @@ export default {
   /** 是否为斑马纹 table */
   stripe: { type: Boolean, default: false },
   /** 是否带有纵向边框 */
-  border: { type: Boolean, default: false },
+  border: { type: Boolean, default: true },
   /** 查询前执行的函数，该函数调用时第一个参数是查询参数对象，可在该函数内对参数进行调整 */
   beforeQuery: { type: Boolean, default: false },
   /** 默认分页大小 */

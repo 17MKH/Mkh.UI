@@ -63,7 +63,7 @@
       > #{$prefix}-dialog_content {
         > #{$prefix}-dialog_body {
           > #{$prefix}-dialog_wrapper {
-            padding: 10px 15px;
+            padding: 10px;
             height: auto;
           }
         }
@@ -88,12 +88,12 @@
       > #{$prefix}-dialog_content {
         > #{$prefix}-dialog_body {
           > #{$prefix}-dialog_wrapper {
-            padding: 0 !important;
+            padding: 0;
 
             > #{$prefix}-scrollbar {
               > .el-scrollbar__wrap {
                 > .el-scrollbar__view {
-                  padding: 0 !important;
+                  padding: 0;
                 }
               }
             }

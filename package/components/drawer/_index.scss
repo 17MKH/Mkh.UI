@@ -54,13 +54,31 @@
     }
   }
 
+  &.no-scrollbar {
+    > .el-drawer__body {
+      > #{$prefix}-drawer_content {
+        > #{$prefix}-drawer_body {
+          > #{$prefix}-drawer_wrapper {
+            padding: 10px;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+
   &.no-padding {
     > .el-drawer__body {
-      > #{$prefix}-drawer_body {
-        > #{$prefix}-scrollbar {
-          > .el-scrollbar__wrap {
-            > .el-scrollbar__view {
-              padding: 0;
+      > #{$prefix}-drawer_content {
+        > #{$prefix}-drawer_body {
+          > #{$prefix}-drawer_wrapper {
+            padding: 0;
+            > #{$prefix}-scrollbar {
+              > .el-scrollbar__wrap {
+                > .el-scrollbar__view {
+                  padding: 0;
+                }
+              }
             }
           }
         }

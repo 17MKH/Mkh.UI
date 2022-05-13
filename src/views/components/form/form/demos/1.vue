@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 50px">
-    <m-button type="danger" @click="disabled = !disabled">disabled ? '启用表单' : '禁用表单'</m-button>
+    <m-button type="danger" @click="disabled = !disabled">{{ disabled ? '启用表单' : '禁用表单' }}</m-button>
     <m-form ref="formRef" :action="action" :model="model" :rules="rules" :disabled="disabled" @success="handleSuccess">
       <el-form-item label="活动名称" prop="name">
         <el-input v-model="model.name"></el-input>
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script setup>
-import { inject, reactive, ref } from 'vue'
+import { inject, reactive, ref, watch } from 'vue'
 import { useMessage } from '../../../../../../package/composables'
 const message = useMessage()
 const formRef = ref(null)

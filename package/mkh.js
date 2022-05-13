@@ -36,4 +36,9 @@ if (!window.mkh)
         this.skins.push(skin)
       }
     },
+    /** 注册全局组件 */
+    useComponent: function (component) {
+      if (!this.components_) this.components_ = []
+      this.components_.push(component)
+    },
   }

@@ -73,6 +73,10 @@ export default {
     back_home: '返回首页',
     page_not_found: '页面找不到了',
     logout_confirm: '您确定要退出系统吗?',
+    to: '至',
+    startDate: '开始日期',
+    endDate: '结束日期',
+    date_cannot_access_month: '日期不能跨月',
     login,
   },
 }

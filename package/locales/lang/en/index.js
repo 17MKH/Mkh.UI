@@ -73,6 +73,10 @@ export default {
     back_home: 'Back Home',
     page_not_found: 'Page not found',
     logout_confirm: 'Are you sure you want to log out?',
+    to: 'To',
+    startDate: 'Start Date',
+    endDate: 'End Date',
+    date_cannot_access_month: 'The date cannot access month',
     login,
   },
 }

@@ -38,4 +38,13 @@ export default app => {
       })
     }
   })
+
+  if (mkh.components_) {
+    mkh.components_.forEach(m => {
+      app.component(`m-${m.name}`, m.component)
+      mkh.components.push(`m-${m.name}`)
+    })
+
+    delete mkh.components_
+  }
 }

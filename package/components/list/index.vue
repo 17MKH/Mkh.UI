@@ -33,7 +33,9 @@
       <slot name="buttons" :selection="selection" :total="total" @click="remove" />
 
       <!--折叠查询栏-->
-      <m-button text type="primary" :icon="foldQueryBar ? 'fold-b' : 'fold-u'" @click="foldQueryBar = !foldQueryBar" />
+      <el-link :underline="false" type="primary" class="m-margin-l-15 m-margin-r-5" @click="foldQueryBar = !foldQueryBar">
+        <m-icon :name="foldQueryBar ? 'fold-b' : 'fold-u'" />
+      </el-link>
     </div>
     <!--数据表格-->
     <div class="m-list_body">

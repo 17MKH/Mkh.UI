@@ -10,7 +10,7 @@
   />
 </template>
 <script>
-import { ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
 import props from './props'
 import dayjs from 'dayjs'
 import useMessage from '../../composables/message'

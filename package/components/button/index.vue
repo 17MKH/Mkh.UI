@@ -1,5 +1,6 @@
 <template>
   <el-button
+    v-if="$slots.default"
     v-m-has="code"
     class="m-button"
     :type="type"
@@ -20,6 +21,28 @@
       </svg>
     </template>
     <slot> </slot>
+  </el-button>
+  <el-button
+    v-else
+    v-m-has="code"
+    class="m-button"
+    :type="type"
+    :text="text"
+    :size="size"
+    :plain="plain"
+    :round="round"
+    :circle="circle"
+    :loading="loading"
+    :disabled="disabled"
+    :autofocus="autofocus"
+    :native-type="nativeType"
+    @click="handleClick"
+  >
+    <template v-if="!loading && icon" #icon>
+      <svg :class="iconClass" aria-hidden="true">
+        <use :xlink:href="`#m-${icon}`" />
+      </svg>
+    </template>
   </el-button>
 </template>
 <script>

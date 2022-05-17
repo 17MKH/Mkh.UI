@@ -13,7 +13,7 @@
 import { getCurrentInstance, ref } from 'vue'
 import props from './props'
 import dayjs from 'dayjs'
-import useMessage from '../../composables/message'
+import { ElMessage } from 'element-plus'
 
 export default {
   props,
@@ -21,7 +21,6 @@ export default {
   setup(props, { emit }) {
     const cit = getCurrentInstance().proxy
     const value = ref([])
-    const message = useMessage()
 
     const reset = () => {
       var mow = new Date()
@@ -38,7 +37,10 @@ export default {
         reset()
         val = value.value
         const { $t } = cit
-        message.confirm($t('mkh.date_cannot_access_month'), $t('mkh.warning'), { showCancelButton: false })
+        ElMessage({
+          message: $t('mkh.date_cannot_access_month'),
+          type: 'warning',
+        })
       }
 
       emit('update:start', val[0])

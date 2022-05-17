@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value_" v-loading="loading" class="m-select" :size="size_" element-loading-background="rgba(255,255,255,.6)">
+  <el-select v-model="value_" v-loading="loading" class="m-select" element-loading-background="rgba(255,255,255,.6)">
     <slot :options="options">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
     </slot>
@@ -37,8 +37,6 @@ export default {
 
     //是否首次刷新
     let firstRefresh = true
-
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
 
     const loading = ref(false)
     const options = ref([])
@@ -88,7 +86,6 @@ export default {
 
     return {
       value_,
-      size_,
       loading,
       options,
       refresh,

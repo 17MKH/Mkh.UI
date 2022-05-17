@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value_" :loading="loading" :size="size_" filterable remote :remote-method="remoteMethod" @change="handleChange">
+  <el-select v-model="value_" :loading="loading" filterable remote :remote-method="remoteMethod" @change="handleChange">
     <slot :options="options">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
     </slot>
@@ -38,8 +38,6 @@ export default {
       },
     })
 
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
-
     let timer = null
     const loading = ref(false)
     const options = ref([])
@@ -76,7 +74,6 @@ export default {
 
     return {
       value_,
-      size_,
       loading,
       options,
       remoteMethod,

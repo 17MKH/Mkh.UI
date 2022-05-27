@@ -26,7 +26,9 @@ function pagination(index, size, array) {
   return offset + size >= array.length ? array.slice(offset, array.length) : array.slice(offset, offset + size)
 }
 
-export const query = ({ name, author, dynasty, type, page }) => {
+export const query = model => {
+  console.log(model)
+  const { name, author, dynasty, type, page } = model
   return new Promise(resolve => {
     let rows = [...data]
     if (name) {
@@ -45,6 +47,8 @@ export const query = ({ name, author, dynasty, type, page }) => {
     const total = rows.length
     rows = pagination(page.index, page.size, rows)
 
-    resolve({ rows, total })
+    setTimeout(() => {
+      resolve({ rows, total })
+    }, 2000)
   })
 }

@@ -99,10 +99,6 @@
   }
 
   &.is-fullscreen {
-    position: fixed;
-    left: 0 !important;
-    top: 0 !important;
-    margin-top: 0 !important;
     height: 100% !important;
     width: 100% !important;
     z-index: $z-index-drawer-fullscreen;

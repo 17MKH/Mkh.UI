@@ -22,12 +22,14 @@
     @closed="handleClosed"
   >
     <!--头部-->
-    <template v-if="header" #title>
+    <template v-if="header" #header>
       <m-head class="m-drawer_header" :icon="icon" :icon-color="iconColor" :size="size_">
         <slot name="title">{{ title }}</slot>
         <template #toolbar>
           <!--工具栏插槽-->
           <slot name="toolbar" />
+          <!--全屏按钮-->
+          <m-button v-if="showFullscreen" :icon="isFullscreen ? 'full-screen-exit' : 'full-screen'" @click="toggleFullscreen" />
           <!--关闭按钮-->
           <m-button v-if="showClose" icon="close" @click="close" />
         </template>

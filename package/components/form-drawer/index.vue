@@ -16,7 +16,6 @@
     :show-fullscreen="showFullscreen"
     :modal="modal"
     :append-to-body="appendToBody"
-    :draggable="draggable"
     :lock-scroll="lockScroll"
     :open-delay="openDelay"
     :close-delay="closeDelay"
@@ -26,7 +25,7 @@
     :destroy-on-close="destroyOnClose"
     :modal-class="modalClass"
     :z-index="zIndex"
-    :loading="loading"
+    :loading="loading || loading_"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
     :loading-spinner="loadingSpinner"
@@ -34,8 +33,6 @@
     @opened="handleOpened"
     @close="handleClose"
     @closed="handleClosed"
-    @open-auto-focus="handleOpenAutoFocus"
-    @close-auto-focus="handleCloseAutoFocus"
   >
     <m-form
       ref="formRef"
@@ -57,7 +54,8 @@
       :custom-validate="customValidate"
       :before-submit="beforeSubmit"
       :disabled-enter="disabledEnter"
-      @validate-success="loading = true"
+      @validate-success="handleValidateSuccess"
+      @validate-error="handleValidateError"
       @success="handleSuccess"
       @error="handleError"
     >
@@ -80,13 +78,13 @@ import { fullscreenMixins } from '../../composables/fullscreen'
 import props from './props'
 export default {
   props,
-  emits: ['update:modelValue', 'open', 'opened', 'close', 'closed', 'success', 'error', 'reset'],
+  emits: ['update:modelValue', 'open', 'opened', 'close', 'closed', 'success', 'error', 'reset', 'validate-success', 'validate-error', 'open-auto-focus'],
   setup(props, { emit }) {
     const { $t } = mkh
     const message = useMessage()
     const drawerRef = ref(null)
     const formRef = ref(null)
-    const loading = ref(false)
+    const loading_ = ref(false)
 
     const customClass_ = computed(() => {
       let list = ['m-form-drawer']
@@ -106,8 +104,8 @@ export default {
     }
 
     const handleSuccess = data => {
-      loading.value = false
       message.success($t('mkh.save_success_msg'))
+      loading_.value = false
 
       if (props.closeOnSuccess) {
         visible.value = false
@@ -117,8 +115,8 @@ export default {
     }
 
     const handleError = () => {
-      loading.value = false
-      emit('error', data)
+      loading_.value = false
+      emit('error')
     }
 
     const handleOpen = () => {
@@ -142,12 +140,21 @@ export default {
       emit('closed')
     }
 
+    const handleValidateSuccess = () => {
+      loading_.value = true
+      emit('validate-success')
+    }
+
+    const handleValidateError = () => {
+      emit('validate-error')
+    }
+
     return {
       ...useVisible(props, emit),
       ...fullscreenMixins(drawerRef),
       drawerRef,
       formRef,
-      loading,
+      loading_,
       customClass_,
       submit,
       reset,
@@ -157,6 +164,8 @@ export default {
       handleOpened,
       handleClose,
       handleClosed,
+      handleValidateSuccess,
+      handleValidateError,
       validateField: (props, callback) => formRef.value.validateField(props, callback),
       scrollToField: prop => formRef.value.scrollToField(prop),
       clearValidate: props => formRef.value.clearValidate(props),

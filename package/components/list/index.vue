@@ -29,6 +29,7 @@
     <div class="m-list_buttons">
       <m-button v-if="!noQuerybar && showSearchBtn" type="primary" icon="search" @click="query">{{ searchBtnText || $t('mkh.search') }}</m-button>
       <m-button v-if="!noQuerybar && showResetBtn" type="info" icon="refresh" @click="reset">{{ resetBtnText || $t('mkh.reset') }}</m-button>
+      <m-button v-if="showExport" v-m-has="exportBtnCode" type="warning" icon="export" @click="openExport">{{ $t('mkh.export') }}</m-button>
       <m-button v-if="showDeleteBtn" type="danger" icon="delete" @click="remove">{{ deleteBtnText || $t('mkh.delete') }}</m-button>
       <slot name="buttons" :selection="selection" :total="total" @click="remove" />
 
@@ -193,7 +194,10 @@
       <set-column v-model="cols_" :size="size_" />
     </m-dialog>
 
-    <m-dialog v-model="showExportDialog" :title="$t('mkh.export')" custom-class="m-list_export_dialog"></m-dialog>
+    <!--导出-->
+    <div v-m-has="exportBtnCode">
+      <m-export v-if="showExport" v-model="showExportDialog" :export-method="exportMethod || queryMethod" :cols="cols_" :title="title" />
+    </div>
   </div>
 </template>
 <script>
@@ -202,12 +206,13 @@ import { useFullscreen, useLoading, useMessage, useSize } from '../../composable
 import { columnOptions, paginationOptions } from './default'
 import props from './props'
 import SetColumn from './components/set-column.vue'
+import MExport from './components/export.vue'
 import _ from 'lodash'
 import dom from '../../utils/dom'
 import { SIZE_DEFINITIONS } from '../../utils/constants'
 
 export default {
-  components: { SetColumn },
+  components: { SetColumn, MExport },
   props,
   emits: [
     'select',
@@ -351,6 +356,10 @@ export default {
       queryFormRef.value.reset()
       refresh()
       emit('reset')
+    }
+
+    const openExport = () => {
+      showExportDialog.value = true
     }
 
     //删除
@@ -507,6 +516,7 @@ export default {
       query,
       refresh,
       reset,
+      openExport,
       remove,
       formatter,
       showSetColDialog,

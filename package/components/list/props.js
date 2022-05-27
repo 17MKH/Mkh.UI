@@ -105,6 +105,12 @@ export default {
   noFooter: { type: Boolean, default: false },
   /** 不显示分页 */
   noPagination: { type: Boolean, default: false },
-  /**指定请求返回数据的指定字段中的数据  data.rows*/
+  /** 指定请求返回数据的指定字段中的数据  data.rows */
   actionDataStr: { type: String, default: 'rows' },
+  /** 显示导出按钮 */
+  showExport: { type: Boolean, default: false },
+  /** 导出接口方法，未设置时使用查询方法 */
+  exportMethod: { type: Function, required: false },
+  /** 导出按钮权限编码 */
+  exportBtnCode: { type: Object, default: null },
 }

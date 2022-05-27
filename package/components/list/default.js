@@ -1,4 +1,6 @@
-//列选项配置
+/**
+ * 列选项配置
+ */
 export const columnOptions = {
   /** 控制列是否显示 */
   show: true,
@@ -28,10 +30,22 @@ export const columnOptions = {
   labelClassName: '',
 }
 
-//默认分页配置
+/**
+ * 默认分页配置
+ */
 export const paginationOptions = {
   small: false,
   background: true,
   pageSizes: [10, 15, 30, 50, 100],
   layout: 'total, sizes, prev, pager, next, jumper',
+}
+
+/**
+ * 默认导出配置
+ */
+export const exportOptions = {
+  /** 导出数据的方法 */
+  action: null,
+  /** 按钮编码，用于控制按钮权限 */
+  btnCode: '',
 }

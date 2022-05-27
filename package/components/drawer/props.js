@@ -46,6 +46,8 @@ const mDrawerProps = {
   noPadding: { type: Boolean, default: false },
   /** 不显示滚动条 */
   noScrollbar: { type: Boolean, default: false },
+  /** 显示全屏按钮 */
+  showFullscreen: { type: Boolean, default: true },
 }
 
 export default {

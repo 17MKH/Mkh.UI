@@ -7,6 +7,7 @@
     :icon="icon"
     :icon-color="iconColor"
     :no-padding="noPadding"
+    :no-scrollbar="noScrollbar"
     :custom-class="customClass_"
     :size="size"
     :width="width"
@@ -100,6 +101,7 @@ export default {
     const { visible, open, close } = useVisible(props, emit)
 
     const submit = () => {
+      loading_.value = true
       formRef.value.submit()
     }
 
@@ -155,7 +157,7 @@ export default {
     }
 
     const handleCloseAutoFocus = () => {
-      emit('open-auto-focus')
+      emit('close-auto-focus')
     }
 
     const handleValidateSuccess = () => {

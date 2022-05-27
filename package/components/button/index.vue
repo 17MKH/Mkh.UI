@@ -16,7 +16,7 @@
     @click="handleClick"
   >
     <template v-if="!loading && icon" #icon>
-      <svg :class="iconClass" aria-hidden="true">
+      <svg aria-hidden="true">
         <use :xlink:href="`#m-${icon}`" />
       </svg>
     </template>
@@ -39,7 +39,7 @@
     @click="handleClick"
   >
     <template v-if="!loading && icon" #icon>
-      <svg :class="iconClass" aria-hidden="true">
+      <svg aria-hidden="true">
         <use :xlink:href="`#m-${icon}`" />
       </svg>
     </template>

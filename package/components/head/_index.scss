@@ -51,6 +51,7 @@
 
       &:hover {
         color: $text-color-1;
+        background-color: transparent !important;
         transform: scale(1.2);
       }
 

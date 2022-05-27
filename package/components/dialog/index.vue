@@ -24,7 +24,7 @@
     @close-auto-focus="handleCloseAutoFocus"
   >
     <!--头部-->
-    <template v-if="header" #title>
+    <template v-if="header" #header>
       <m-head ref="headerRef" class="m-dialog_header" :title="title" :icon="icon" :icon-color="iconColor" :size="size">
         <slot name="title"></slot>
         <template #toolbar>

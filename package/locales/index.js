@@ -40,6 +40,9 @@ export default (app, options) => {
     locale: lang || options.default || 'zh-cn',
     fallbackLocale: options.fallback || 'zh-cn',
     messages,
+    silentTranslationWarn: true,
+    silentFallbackWarn: true,
+    missingWarn: false,
   })
 
   //注册国际化

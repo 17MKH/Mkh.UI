@@ -112,5 +112,5 @@ export default {
   /** 导出接口方法，未设置时使用查询方法 */
   exportMethod: { type: Function, required: false },
   /** 导出按钮权限编码 */
-  exportBtnCode: { type: Object, default: null },
+  exportBtnCode: { type: String, default: null },
 }

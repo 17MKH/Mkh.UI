@@ -20,7 +20,7 @@
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
-    <slot />
+    <slot></slot>
   </el-form>
 </template>
 <script>
@@ -49,7 +49,7 @@ export default {
     const validate = callback => {
       formRef.value.validate(async valid => {
         // 自定义验证
-        if (valid && (!props.customValidate || props.customValidate() === true)) {
+        if (valid && (!props.customValidate || props.customValidate())) {
           emit('validate-success')
           callback()
         } else {

@@ -8,8 +8,10 @@
     label-width="130px"
     custom-class="m-list_export"
     loading-text="正在导出数据，请稍后..."
-    :action="exportMethod"
-    :before-submit="beforeSubmit"
+    :action="handleExport"
+    :custom-validate="handleCustomValidate"
+    success-message="导出成功"
+    @open="handleOpen"
   >
     <el-form-item label="文件名称：" prop="fileName">
       <el-input v-model="model.fileName" clearable>
@@ -59,7 +61,7 @@
     </el-row>
     <el-divider> 设置字段 </el-divider>
     <el-form-item label-width="0">
-      <el-table ref="table" :data="columns" border stripe size="small" max-height="400" @selection-change="handleSelectionChange">
+      <el-table ref="table" :data="columns" border stripe size="small" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column prop="prop" label="字段"></el-table-column>
         <el-table-column prop="label" label="名称">
@@ -67,25 +69,12 @@
             <el-input v-model="row.label" />
           </template>
         </el-table-column>
-        <el-table-column prop="width" width="100">
-          <template #header>
-            <span>宽度</span>
-            <el-tooltip effect="dark" content="0 表示自适应" placement="top">
-              <span class="caret-wrapper m-text-warning">
-                <m-icon name="info"></m-icon>
-              </span>
-            </el-tooltip>
-          </template>
-          <template #default="{ row }">
-            <el-input v-model.number="row.width" type="number" />
-          </template>
-        </el-table-column>
         <el-table-column prop="align" label="对齐方式">
           <template #default="{ row }">
-            <el-select v-model="row.align" placeholder="请选择">
-              <el-option label="居左" value="left"> </el-option>
-              <el-option label="居中" value="center"> </el-option>
-              <el-option label="居右" value="right"> </el-option>
+            <el-select v-model="row.align" placeholder="请选择...">
+              <el-option label="居左" :value="0"> </el-option>
+              <el-option label="居中" :value="1"> </el-option>
+              <el-option label="居右" :value="2"> </el-option>
             </el-select>
           </template>
         </el-table-column>
@@ -110,7 +99,7 @@
   </m-form-drawer>
 </template>
 <script>
-import { computed, reactive } from 'vue'
+import { computed, ref, reactive, watchEffect } from 'vue'
 import dayjs from 'dayjs'
 import useNotification from '../../../composables/notification'
 export default {
@@ -123,6 +112,12 @@ export default {
       type: String,
       default: '',
     },
+    queryModel: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
     exportMethod: {
       type: Function,
       default: null,
@@ -134,9 +129,9 @@ export default {
     const model = reactive({
       showTitle: true,
       title: props.title,
-      showCopyright: true,
+      showCopyright: false,
       copyright: '',
-      fileName: `${props.title}_${dayjs().format('YYYYMMDDHHmmss')}`,
+      fileName: '',
       format: 0,
       mode: 0,
       showColumnName: true,
@@ -165,25 +160,39 @@ export default {
       }
     })
 
-    const columns = props.cols.map(m => {
-      return {
-        prop: m.prop,
-        label: m.label,
-        width: m.width || 0,
-        align: m.align,
-        format: '',
-      }
+    const columns = ref([])
+
+    watchEffect(() => {
+      columns.value = props.cols.map(m => {
+        return {
+          prop: m.prop,
+          label: mkh.$t(m.label),
+          align: m.align === 'left' ? 0 : m.laign === 'right' ? 2 : 1,
+          format: '',
+        }
+      })
     })
+
+    const handleOpen = () => {
+      model.fileName = `${props.title}_${dayjs().format('YYYYMMDDHHmmss')}`
+    }
 
     const handleSelectionChange = selection => {
       model.columns = selection
     }
 
-    const beforeSubmit = () => {
+    const handleCustomValidate = () => {
       if (model.columns.length < 1) {
         notification.warning('请选择要导出的字段')
         return false
       }
+
+      return true
+    }
+
+    const handleExport = () => {
+      const params = { ...props.queryModel, isExport: true, exportModel: model }
+      return props.exportMethod(params)
     }
 
     return {
@@ -191,8 +200,10 @@ export default {
       rules,
       fileExt,
       columns,
+      handleOpen,
       handleSelectionChange,
-      beforeSubmit,
+      handleCustomValidate,
+      handleExport,
     }
   },
 }

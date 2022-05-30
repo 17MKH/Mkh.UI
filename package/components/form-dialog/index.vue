@@ -117,7 +117,7 @@ export default {
 
     const handleSuccess = data => {
       loading_.value = false
-      message.success($t('mkh.save_success_msg'))
+      message.success(props.successMessage || $t('mkh.save_success_msg'))
 
       if (props.closeOnSuccess) {
         visible.value = false

@@ -196,7 +196,7 @@
 
     <!--导出-->
     <div v-m-has="exportBtnCode">
-      <m-export v-if="showExport" v-model="showExportDialog" :export-method="exportMethod || queryMethod" :cols="cols_" :title="title" />
+      <m-export v-if="showExport" v-model="showExportDialog" :export-method="exportMethod || queryMethod" :query-model="queryModel" :cols="cols_" :title="title" />
     </div>
   </div>
 </template>

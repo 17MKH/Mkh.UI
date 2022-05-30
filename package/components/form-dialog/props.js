@@ -26,4 +26,6 @@ export default {
   closeOnSuccess: { type: Boolean, default: true },
   /** 需要自动获取焦点的组件引用 */
   autoFocusRef: { type: Object, default: null },
+  /** 自定义成功提示消息 */
+  successMessage: { type: String, default: null },
 }

@@ -16,6 +16,7 @@ export default {
     operate: 'Operate',
     export: 'Export',
     name: 'Name',
+    copy: 'Copy',
     property: 'Property',
     show: 'Show',
     is_show: 'Is Show',

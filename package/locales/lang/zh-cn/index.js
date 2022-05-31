@@ -16,6 +16,7 @@ export default {
     operate: '操作',
     export: '导出',
     name: '名称',
+    copy: '复制',
     property: '属性',
     show: '显示',
     is_show: '是否显示',

@@ -7,13 +7,13 @@
     :rules="rules"
     label-width="130px"
     custom-class="m-list_export"
-    loading-text="正在导出数据，请稍后..."
+    :loading-text="$t('mkh.exportingData')"
     :action="handleExport"
     :custom-validate="handleCustomValidate"
-    success-message="导出成功"
+    :success-message="$t('exportSuccess')"
     @open="handleOpen"
   >
-    <el-form-item label="文件名称：" prop="fileName">
+    <el-form-item :label="$t('mkh.exportFileName')" prop="fileName">
       <el-input v-model="model.fileName" clearable>
         <template #append>
           <el-select v-model="model.format" style="width: 85px">
@@ -22,24 +22,24 @@
         </template>
       </el-input>
     </el-form-item>
-    <el-form-item label="标题：" prop="title">
+    <el-form-item :label="$t('mkh.title')" prop="title">
       <el-input v-model="model.title" clearable :disabled="!model.showTitle">
         <template #prepend>
           <el-switch v-model="model.showTitle"> </el-switch>
         </template>
       </el-input>
     </el-form-item>
-    <el-form-item label="版权：" prop="copyright">
+    <el-form-item :label="$t('mkh.copyright')" prop="copyright">
       <el-input v-model="model.copyright" clearable :disabled="!model.showCopyright">
         <template #prepend>
           <el-switch v-model="model.showCopyright"> </el-switch>
         </template>
       </el-input>
     </el-form-item>
-    <el-form-item label="导出模式：" prop="mode">
+    <el-form-item :label="$t('mkh.exportMode')" prop="mode">
       <el-radio-group v-model="model.mode">
-        <el-radio :label="0">当前条件所有数据</el-radio>
-        <el-radio :label="1">当前页数据</el-radio>
+        <el-radio :label="0">{{ $t('mkh.exportMode0') }}</el-radio>
+        <el-radio :label="1">{{ $t('mkh.exportMode1') }}</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-row>
@@ -59,7 +59,7 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <el-divider> 设置字段 </el-divider>
+    <el-divider> {{ $t('mkh.setField') }} </el-divider>
     <el-form-item label-width="0">
       <el-table ref="table" :data="columns" border stripe size="small" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"> </el-table-column>
@@ -69,19 +69,19 @@
             <el-input v-model="row.label" />
           </template>
         </el-table-column>
-        <el-table-column prop="align" label="对齐方式">
+        <el-table-column prop="align" :label="$t('mkh.alignMode')">
           <template #default="{ row }">
-            <el-select v-model="row.align" placeholder="请选择...">
-              <el-option label="居左" :value="0"> </el-option>
-              <el-option label="居中" :value="1"> </el-option>
-              <el-option label="居右" :value="2"> </el-option>
+            <el-select v-model="row.align" :placeholder="$t('mkh.please_select')">
+              <el-option :label="$t('mkh.alignLeft')" :value="0"> </el-option>
+              <el-option :label="$t('mkh.alignCenter')" :value="1"> </el-option>
+              <el-option :label="$t('mkh.alignRight')" :value="2"> </el-option>
             </el-select>
           </template>
         </el-table-column>
         <el-table-column prop="format">
           <template #header>
-            <span>格式化</span>
-            <el-tooltip effect="dark" content="目前仅支持日期类型" placement="top">
+            <span>{{ $t('mkh.formatting') }}</span>
+            <el-tooltip effect="dark" :content="$t('mkh.only_supported_date')" placement="top">
               <span class="caret-wrapper m-text-warning">
                 <m-icon name="info"></m-icon>
               </span>
@@ -142,10 +142,10 @@ export default {
 
     const rules = computed(() => {
       let r = {
-        fileName: [{ required: true, message: '请输入文件名称', trigger: 'change' }],
+        fileName: [{ required: true, message: mkh.$t('mkh.please_input_file_name'), trigger: 'change' }],
       }
       if (model.showTitle) {
-        r['title'] = [{ required: true, message: '请输入标题', trigger: 'change' }]
+        r['title'] = [{ required: true, message: mkh.$t('mkh.please_input_title'), trigger: 'change' }]
       }
 
       return r
@@ -183,7 +183,7 @@ export default {
 
     const handleCustomValidate = () => {
       if (model.columns.length < 1) {
-        notification.warning('请选择要导出的字段')
+        notification.warning(mkh.$t('mkh.select_export_filed'))
         return false
       }
 

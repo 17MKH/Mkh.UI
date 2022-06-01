@@ -35,6 +35,8 @@ export default {
     value: 'Value',
     type: 'Type',
     title: 'Title',
+    success: '成功',
+    fail: '失败',
     http_error: 'The api is error, please contact the administrator',
     http_error_title: 'Api error',
     delete_confirm_msg: 'Are you sure you want to delete this data?',

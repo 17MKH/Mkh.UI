@@ -35,6 +35,8 @@ export default {
     value: '值',
     type: '类型',
     title: '标题',
+    success: '成功',
+    fail: '失败',
     http_error: '接口异常，请联系管理员',
     http_error_title: '接口错误',
     delete_confirm_msg: '您确认要删除当前数据吗？',

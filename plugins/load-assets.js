@@ -68,7 +68,7 @@ export default function (ctx) {
     name: 'mkh-load-assets',
     enforce: 'post',
     buildStart() {
-      if (ctx.isLib) return
+      if (ctx.isLib || ctx.isSkin) return
 
       copyUIAssets(ctx)
 

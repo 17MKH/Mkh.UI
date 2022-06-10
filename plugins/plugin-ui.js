@@ -7,6 +7,7 @@ import loadAssets from './load-assets'
 import loadMain from './load-main'
 
 export default function (options) {
+  options.isUI = true
   const ctx = useCtx(options)
 
   if (ctx.isLib) {

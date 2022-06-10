@@ -1,7 +1,7 @@
 /** 打包模块 */
 const path = require('path')
 const fse = require('fs-extra')
-import { UI_NAME, MODULE_PREFIX, SKIN_PREFIX } from './constants'
+import { MODULE_PREFIX } from './constants'
 
 //打包上下文
 export default function (options) {
@@ -11,11 +11,11 @@ export default function (options) {
     pkg,
     options,
     /** 当前执行应用是否是UI */
-    isUI: pkg.name === UI_NAME,
+    isUI: options.isUI,
     /** 当前执行应用是否是业务模块 */
-    isMod: pkg.name.startsWith(MODULE_PREFIX),
+    isMod: options.isMod,
     /** 当前执行应用是否是皮肤 */
-    isSkin: pkg.name.startsWith(SKIN_PREFIX),
+    isSkin: options.isSkin,
     /** 打包模式是否是库模式 */
     isLib: options.target === 'lib',
     /** 入口模块 */

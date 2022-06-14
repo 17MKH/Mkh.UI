@@ -67,7 +67,7 @@ export default {
 
       model.name = name
       model.code = code
-      model.size = ''
+      model.size = 'default'
 
       if (themes && themes.length > 0) {
         model.theme = themes[0].name

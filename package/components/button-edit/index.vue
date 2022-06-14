@@ -1,7 +1,7 @@
 <template>
   <m-button class="m-button-edit" :type="type" :text="text" :icon="icon">
     <slot>
-      {{ laabel || $t('mkh.edit') }}
+      {{ $t('mkh.edit') }}
     </slot>
   </m-button>
 </template>

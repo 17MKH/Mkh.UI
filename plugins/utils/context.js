@@ -17,7 +17,7 @@ export default function (options) {
     /** 当前执行应用是否是皮肤 */
     isSkin: options.isSkin,
     /** 打包模式是否是库模式 */
-    isLib: options.target === 'lib',
+    isLib: options.target !== 'app',
     /** 入口模块 */
     entryModule: null,
     /** 依赖模块列表 */

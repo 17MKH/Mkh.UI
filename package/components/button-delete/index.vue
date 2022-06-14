@@ -1,7 +1,7 @@
 <template>
   <m-button class="m-button-delete" :type="type" :text="text" :icon="icon" @click.stop="handleClick">
     <slot>
-      {{ label || $t('mkh.delete') }}
+      {{ $t('mkh.delete') }}
     </slot>
   </m-button>
 </template>

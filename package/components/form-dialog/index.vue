@@ -101,7 +101,6 @@ export default {
     const { visible, open, close } = useVisible(props, emit)
 
     const submit = () => {
-      loading_.value = true
       formRef.value.submit()
     }
 

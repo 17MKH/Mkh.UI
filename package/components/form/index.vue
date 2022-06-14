@@ -48,6 +48,7 @@ export default {
     /** 表单验证 */
     const validate = callback => {
       formRef.value.validate(async valid => {
+        debugger
         // 自定义验证
         if (valid && (!props.customValidate || props.customValidate())) {
           emit('validate-success')

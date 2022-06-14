@@ -1,7 +1,9 @@
+import { withProps as loading } from '../../composables/loading'
 import boxProps from '../box/props'
 import { elFormProps, mFormProps } from '../form/props'
 
 export default {
+  ...loading,
   ...boxProps,
   ...elFormProps,
   ...mFormProps,

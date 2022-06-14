@@ -1,7 +1,7 @@
 <template>
   <m-button class="m-button-add" :type="type" :icon="icon">
     <slot>
-      {{ label || $t('mkh.add') }}
+      {{ $t('mkh.add') }}
     </slot>
   </m-button>
 </template>

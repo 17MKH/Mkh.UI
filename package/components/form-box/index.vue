@@ -13,11 +13,10 @@
     :no-padding="noPadding"
     :show-collapse="showCollapse"
     :show-fullscreen="showFullscreen"
-    :loading="loading"
+    :loading="loading || loading_"
     :loading-text="loadingText"
     :loading-background="loadingBackground"
     :loading-spinner="loadingSpinner"
-    @closed="handleClosed"
   >
     <m-form
       ref="formRef"
@@ -28,7 +27,8 @@
       :disabled="disabled"
       :before-submit="beforeSubmit"
       no-loading
-      @validate-success="loading = true"
+      @validate-success="handleValidateSuccess"
+      @validate-error="handleValidateError"
       @success="handleSuccess"
       @error="handleError"
     >
@@ -48,12 +48,12 @@ import { useMessage } from '../../composables'
 import props from './props'
 export default {
   props,
-  emits: ['success', 'error'],
+  emits: ['success', 'error', 'validate-success', 'validate-error'],
   setup(props, { emit }) {
     const { $t } = mkh
     const message = useMessage()
     const formRef = ref(null)
-    const loading = ref(false)
+    const loading_ = ref(false)
 
     const submit = () => {
       formRef.value.submit()
@@ -74,20 +74,24 @@ export default {
       emit('error', data)
     }
 
-    const handleClosed = () => {
-      if (props.resetOnClosed) {
-        formRef.value.reset()
-      }
+    const handleValidateSuccess = () => {
+      loading_.value = true
+      emit('validate-success')
+    }
+
+    const handleValidateError = () => {
+      emit('validate-error')
     }
 
     return {
       formRef,
-      loading,
+      loading_,
       submit,
       reset,
       handleSuccess,
       handleError,
-      handleClosed,
+      handleValidateSuccess,
+      handleValidateError,
       validateField: (props, callback) => formRef.value.validateField(props, callback),
       scrollToField: prop => formRef.value.scrollToField(prop),
       clearValidate: props => formRef.value.clearValidate(props),

@@ -18,7 +18,7 @@ export default {
 
     const routeMenu = computed(() => {
       let r = store.state.app.profile.routeMenus.find(m => m.routeName === route.name)
-      if (!r && route.name === 'home') {
+      if (!r || route.name === 'home') {
         return {
           breadcrumb: [{ to: 'home', locales: { 'zh-cn': '首页', en: 'Home' } }],
         }

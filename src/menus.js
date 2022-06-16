@@ -1,15 +1,15 @@
 const menus = [
-  {
-    type: 1,
-    icon: 'home',
-    level: 1,
-    show: true,
-    routeName: 'doc_home',
-    locales: {
-      en: 'Home',
-      'zh-cn': '首页',
-    },
-  },
+  // {
+  //   type: 1,
+  //   icon: 'home',
+  //   level: 1,
+  //   show: true,
+  //   routeName: 'doc_home',
+  //   locales: {
+  //     en: 'Home',
+  //     'zh-cn': '首页',
+  //   },
+  // },
   {
     type: 1,
     icon: 'language',

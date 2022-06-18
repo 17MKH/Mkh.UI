@@ -3,6 +3,8 @@ export default {
   type: { type: String, default: '' },
   /** 是否文本按钮 */
   text: { type: Boolean, default: false },
+  /** 是否为链接按钮 */
+  link: { type: Boolean, default: false },
   /** 尺寸 */
   size: { type: String, default: null },
   /** 是否朴素按钮 */

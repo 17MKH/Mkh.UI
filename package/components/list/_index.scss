@@ -86,6 +86,10 @@
   &_operation {
     display: inline-block;
     white-space: nowrap;
+
+    #{$prefix}-button {
+      padding: 0;
+    }
   }
 
   &.is-fullscreen {

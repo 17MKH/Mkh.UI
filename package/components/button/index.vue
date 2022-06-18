@@ -5,6 +5,7 @@
     class="m-button"
     :type="type"
     :text="text"
+    :link="link"
     :size="size"
     :plain="plain"
     :round="round"

@@ -1,5 +1,5 @@
 <template>
-  <m-button class="m-button-delete" :type="type" :text="text" :icon="icon" @click.stop="handleClick">
+  <m-button class="m-button-delete" :link="link" :type="type" :text="text" :icon="icon" @click.stop="handleClick">
     <slot>
       {{ $t('mkh.delete') }}
     </slot>
@@ -18,6 +18,8 @@ export default {
       type: Boolean,
       default: true,
     },
+    /** 是否为链接按钮 */
+    link: { type: Boolean, default: true },
     /** 图标 */
     icon: {
       type: String,

@@ -1,5 +1,5 @@
 <template>
-  <m-button class="m-button-edit" :type="type" :text="text" :icon="icon">
+  <m-button class="m-button-edit" :link="link" :type="type" :text="text" :icon="icon">
     <slot>
       {{ $t('mkh.edit') }}
     </slot>
@@ -13,6 +13,11 @@ export default {
       default: 'primary',
     },
     text: {
+      type: Boolean,
+      default: true,
+    },
+    /** 是否为链接按钮 */
+    link: {
       type: Boolean,
       default: true,
     },

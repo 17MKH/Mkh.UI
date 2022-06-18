@@ -3,8 +3,8 @@
     v-model="value"
     type="daterange"
     :range-separator="$t('mkh.to')"
-    :start-placeholder="$t('mkh.startDate')"
-    :end-placeholder="$t('mkh.endDate')"
+    :start-placeholder="$t('mkh.start_date')"
+    :end-placeholder="$t('mkh.end_date')"
     value-format="YYYY-MM-DD"
     @change="onChange"
   />

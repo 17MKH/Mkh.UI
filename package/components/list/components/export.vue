@@ -7,13 +7,13 @@
     :rules="rules"
     label-width="130px"
     custom-class="m-list_export"
-    :loading-text="$t('mkh.exportingData')"
+    :loading-text="$t('mkh.exporting_data')"
     :action="handleExport"
     :custom-validate="handleCustomValidate"
-    :success-message="$t('exportSuccess')"
+    :success-message="$t('export_success')"
     @open="handleOpen"
   >
-    <el-form-item :label="$t('mkh.exportFileName')" prop="fileName">
+    <el-form-item :label="$t('mkh.export_file_name')" prop="fileName">
       <el-input v-model="model.fileName" clearable>
         <template #append>
           <el-select v-model="model.format" style="width: 85px">
@@ -36,10 +36,10 @@
         </template>
       </el-input>
     </el-form-item>
-    <el-form-item :label="$t('mkh.exportMode')" prop="mode">
+    <el-form-item :label="$t('mkh.export_mode')" prop="mode">
       <el-radio-group v-model="model.mode">
-        <el-radio :label="0">{{ $t('mkh.exportMode0') }}</el-radio>
-        <el-radio :label="1">{{ $t('mkh.exportMode1') }}</el-radio>
+        <el-radio :label="0">{{ $t('mkh.export_mode_0') }}</el-radio>
+        <el-radio :label="1">{{ $t('mkh.export_mode_1') }}</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-row>
@@ -59,7 +59,7 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <el-divider> {{ $t('mkh.setField') }} </el-divider>
+    <el-divider> {{ $t('mkh.set_field') }} </el-divider>
     <el-form-item label-width="0">
       <el-table ref="table" :data="columns" border stripe size="small" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"> </el-table-column>
@@ -69,12 +69,12 @@
             <el-input v-model="row.label" />
           </template>
         </el-table-column>
-        <el-table-column prop="align" :label="$t('mkh.alignMode')">
+        <el-table-column prop="align" :label="$t('mkh.align_mode')">
           <template #default="{ row }">
             <el-select v-model="row.align" :placeholder="$t('mkh.please_select')">
-              <el-option :label="$t('mkh.alignLeft')" :value="0"> </el-option>
-              <el-option :label="$t('mkh.alignCenter')" :value="1"> </el-option>
-              <el-option :label="$t('mkh.alignRight')" :value="2"> </el-option>
+              <el-option :label="$t('mkh.align_left')" :value="0"> </el-option>
+              <el-option :label="$t('mkh.align_center')" :value="1"> </el-option>
+              <el-option :label="$t('mkh.align_right')" :value="2"> </el-option>
             </el-select>
           </template>
         </el-table-column>
@@ -191,7 +191,7 @@ export default {
     }
 
     const handleExport = () => {
-      const params = { ...props.queryModel, isExport: true, exportModel: model }
+      const params = { ...props.queryModel, isExport: true, export_model: model }
       return props.exportMethod(params)
     }
 

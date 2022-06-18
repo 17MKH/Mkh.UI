@@ -28,6 +28,8 @@ export const columnOptions = {
   className: '',
   /** 当前列标题的自定义类名 */
   labelClassName: '',
+  /** 是否在折叠区域展示 */
+  expand: false,
 }
 
 /**

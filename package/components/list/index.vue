@@ -81,10 +81,34 @@
             @expand-change="(row, expandedRows) => $emit('expand-change', row, expandedRows)"
           >
             <!--展开行-->
-            <el-table-column v-if="$slots.expand" type="expand">
+            <el-table-column v-if="isShowExpand" type="expand">
               <template #default="{ row }">
                 <div class="m-list_expand">
-                  <slot name="expand" :row="row"> </slot>
+                  <slot name="expand" :row="row">
+                    <header class="m-list_expand_title">更多信息</header>
+                    <section class="m-list_expand_body">
+                      <table class="m-list_expand_table">
+                        <tr v-for="col in expandCols" :key="col.prop">
+                          <td class="m-list_expand_label">
+                            <slot :name="`col-${col.prop}-header`">
+                              {{ $t(col.label) }}
+                            </slot>
+                            <span>：</span>
+                          </td>
+                          <td class="m-list_expand_content">
+                            <slot :name="'col-' + col.prop" :row="row" :rows="rows">
+                              <!--图标-->
+                              <template v-if="col.formatter && col.formatter === 'icon'">
+                                <m-icon v-if="row[col.prop]" :name="row[col.prop]"></m-icon>
+                                <span v-else>-</span>
+                              </template>
+                              <template v-else>{{ formatter(row, col) }}</template>
+                            </slot>
+                          </td>
+                        </tr>
+                      </table>
+                    </section>
+                  </slot>
                 </div>
               </template>
             </el-table-column>
@@ -96,7 +120,7 @@
             <el-table-column v-if="index" type="index" :index="indexMethod_" :label="$t('mkh.serial_number')" align="center" width="60"> </el-table-column>
 
             <!--渲染列-->
-            <template v-for="col in cols_">
+            <template v-for="col in tableCols">
               <el-table-column
                 v-if="col.show"
                 :key="col.prop"
@@ -261,6 +285,16 @@ export default {
 
     //处理列配置信息
     const cols_ = ref(props.cols.map(m => _.merge({}, columnOptions, m)))
+
+    //在表格中显示的列
+    const tableCols = computed(() => cols_.value.filter(m => !m.expand))
+
+    //在折叠区域显示的列
+    const expandCols = computed(() => cols_.value.filter(m => m.expand))
+
+    //是否显示折叠区域
+    const isShowExpand = computed(() => expandCols.value.length > 0)
+
     //操作列宽度
     const operationWidth_ = ref(0)
 
@@ -511,6 +545,9 @@ export default {
       size_,
       class_,
       cols_,
+      tableCols,
+      expandCols,
+      isShowExpand,
       operationWidth_,
       pagination_,
       query,

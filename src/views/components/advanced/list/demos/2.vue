@@ -41,8 +41,8 @@ export default {
         label: '名称',
       },
       { prop: 'author', label: '作者' },
-      { prop: 'dynasty', label: '朝代' },
-      { prop: 'type', label: '类型' },
+      { prop: 'dynasty', label: '朝代朝代', expand: true },
+      { prop: 'type', label: '类型', expand: true },
     ])
 
     const deleteMethod = ids => {

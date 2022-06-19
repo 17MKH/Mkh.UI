@@ -11,6 +11,11 @@
         <el-switch v-model="scope.row.show" size="small"> </el-switch>
       </template>
     </el-table-column>
+    <el-table-column :label="$t('mkh.displayed_expand')" prop="show" align="center" width="100">
+      <template #default="scope">
+        <el-switch v-model="scope.row.expand" size="small"> </el-switch>
+      </template>
+    </el-table-column>
     <el-table-column :label="$t('mkh.sortable')" prop="sortable" align="center" width="100">
       <template #default="scope">
         <el-switch v-model="scope.row.sortable" size="small"></el-switch>
@@ -19,7 +24,7 @@
     <el-table-column :label="$t('mkh.fixed_mode')" prop="fixed" align="center" :width="width_ + 50">
       <template #default="scope">
         <el-radio-group v-model="scope.row.fixed" size="small">
-          <el-radio-button label="">{{ $t('mkh.no_fixed') }}</el-radio-button>
+          <el-radio-button :label="false">{{ $t('mkh.no_fixed') }}</el-radio-button>
           <el-radio-button label="left">{{ $t('mkh.left_side') }}</el-radio-button>
           <el-radio-button label="right">{{ $t('mkh.right_side') }}</el-radio-button>
         </el-radio-group>

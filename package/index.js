@@ -15,6 +15,9 @@ import './styles/app.scss'
 import Skins from './skins'
 import config from './config'
 
+import VCharts from 'vue-echarts'
+import * as echarts from 'echarts'
+
 /** 最终的配置项信息 */
 let finalOptions = {
   /** 多语言配置 */
@@ -70,6 +73,14 @@ const start = async () => {
 
   //注册全局组件
   app.use(Components)
+
+  /* 注册vue-echarts组件 */
+  /* 说明文档 https://github.com/ecomfe/vue-echarts/blob/main/README.zh-Hans.md */
+  app.component('VChart', VCharts)
+
+  //绑定到全局变量
+  app.config.globalProperties.$echarts = echarts
+  mkh.$echarts = echarts
 
   //注册指令
   app.use(Directives)

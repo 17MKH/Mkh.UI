@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value_" v-loading="loading" class="m-select" element-loading-background="rgba(255,255,255,.6)">
+  <el-select v-model="value_" v-loading="loading" class="m-select" element-loading-background="rgba(255,255,255,.6)" :placeholder="placeholder || $t('mkh.please_select')">
     <slot :options="options">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
     </slot>
@@ -19,11 +19,18 @@ export default {
     },
     /** 是否选中第一个 */
     checkedFirst: Boolean,
+    /** 是否创建时进行刷新 */
+    refreshOnCreated: {
+      type: Boolean,
+      default: true,
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['update:modelValue', 'update:label', 'change'],
   setup(props, { emit }) {
-    const { store } = mkh
-
     const resetMethods = inject('resetMethods', [])
 
     const value_ = computed({
@@ -73,7 +80,7 @@ export default {
       emit('change', val, option, options)
     }
 
-    refresh()
+    if (props.refreshOnCreated) refresh()
 
     const reset = () => {
       value_.value = ''

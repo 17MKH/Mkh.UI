@@ -100,6 +100,8 @@ export default {
     select_export_filed: '请选择要导出的字段',
     please_input_file_name: '请输入文件名称',
     please_input_title: '请输入标题',
+    more_info: '更多信息',
+    displayed_expand: '显示在展开区域',
     login,
   },
 }

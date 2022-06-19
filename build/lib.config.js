@@ -2,6 +2,7 @@
 const { resolve } = require('path')
 import { defineConfig } from 'vite'
 import useBaseConfig from './base.config'
+import { external } from '../plugins/plugin-module'
 
 export default defineConfig(({ mode, command }) => {
   let config = useBaseConfig({ target: 'lib', mode, command })
@@ -17,7 +18,7 @@ export default defineConfig(({ mode, command }) => {
     },
     rollupOptions: {
       /** 排除无需打包进去的依赖库 */
-      external: ['vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n'],
+      external,
     },
   }
 

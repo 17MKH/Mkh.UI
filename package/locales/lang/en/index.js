@@ -100,6 +100,8 @@ export default {
     select_export_filed: 'Select the fields to export',
     please_input_file_name: 'Please input filename',
     please_input_title: 'Please input title',
+    more_info: 'More Info',
+    displayed_expand: 'Displayed in the expanded area',
     login,
   },
 }

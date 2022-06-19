@@ -1,4 +1,5 @@
 import useCtx from './utils/context'
+import { external } from './utils/constants'
 import htmlTransform from './html-transform'
 import loadEntryModule from './load-entry-module'
 import loadPage from './load-page'
@@ -16,3 +17,5 @@ export default function (options) {
 
   return [loadMain(ctx), loadEntryModule(ctx), loadPage(ctx), loadLocales(ctx), loadAssets(ctx), htmlTransform(options.htmlTransform || {})]
 }
+
+export { external }

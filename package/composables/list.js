@@ -56,9 +56,9 @@ export default function () {
 //基类实体的列信息
 export const entityBaseCols = function () {
   return [
-    { prop: 'creator', label: 'mkh.creator', width: 150 },
-    { prop: 'createdTime', label: 'mkh.created_time', width: 200 },
-    { prop: 'modifier', label: 'mkh.modifier', width: 150, show: false },
-    { prop: 'modifiedTime', label: 'mkh.modified_time', width: 200, show: false },
+    { prop: 'creator', label: 'mkh.creator', width: 150, expand: true },
+    { prop: 'createdTime', label: 'mkh.created_time', width: 200, expand: true },
+    { prop: 'modifier', label: 'mkh.modifier', width: 150, expand: true },
+    { prop: 'modifiedTime', label: 'mkh.modified_time', width: 200, expand: true },
   ]
 }

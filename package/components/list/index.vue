@@ -85,7 +85,7 @@
               <template #default="{ row }">
                 <div class="m-list_expand">
                   <slot name="expand" :row="row">
-                    <header class="m-list_expand_title">更多信息</header>
+                    <header class="m-list_expand_title">{{ $t('mkh.more_info') }}</header>
                     <section class="m-list_expand_body">
                       <table class="m-list_expand_table">
                         <tr v-for="col in expandCols" :key="col.prop">
@@ -337,7 +337,7 @@ export default {
       if (maxWidth === 0) {
         maxWidth = 50
       }
-      operationWidth_.value = parseInt(props.operationWidth || maxWidth + 32)
+      operationWidth_.value = parseInt(props.operationWidth || maxWidth + 40)
     }
 
     /**序号 */

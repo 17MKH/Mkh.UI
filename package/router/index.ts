@@ -1,3 +1,5 @@
+import type { Page } from '@/types/mkh'
+import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import routes from './routes'
@@ -6,14 +8,14 @@ import routes from './routes'
 NProgress.configure({ minimum: 0.2 })
 
 //验证值是否为true
-const isTrue = val => {
+const isTrue = (val) => {
   return typeof val === 'undefined' || val === null ? true : val
 }
 
 /**
  * @description 页面转路由
  */
-const page2route = (page, parentRoute, pages) => {
+const page2route = (page: Page, parentRoute: RouteRecordRaw, pages: Array<Page>) => {
   /**********************************************
    * 页面属性与路由属性对应关系以及说明
    **********************************************
@@ -31,7 +33,7 @@ const page2route = (page, parentRoute, pages) => {
    * props                            路由启用props特性
    * noMenu
    */
-  const { icon, path, name, component, inFrame, hideMenu, enablePermissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
+  const { icon, path, name, component, inFrame, hideMenu, permissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
 
   const route = {
     path,
@@ -46,15 +48,15 @@ const page2route = (page, parentRoute, pages) => {
       cache: isTrue(cache),
       inFrame: isTrue(inFrame),
       hideMenu: !isTrue(hideMenu),
-      enablePermissionVerify: isTrue(enablePermissionVerify),
+      enablePermissionVerify: isTrue(permissionVerify),
     },
     children: [],
   }
   if (!parentRoute) {
     routes.push(route)
     pages
-      .filter(p => p.parent === name)
-      .forEach(p => {
+      .filter((p) => p.parent === name)
+      .forEach((p) => {
         page2route(p, route, pages)
       })
   } else {
@@ -65,14 +67,14 @@ const page2route = (page, parentRoute, pages) => {
   delete page.component
 }
 
-export default app => {
+export default (app) => {
   //页面转换路由
   mkh.modules
-    .filter(m => m.pages)
-    .forEach(m => {
+    .filter((m) => m.pages)
+    .forEach((m) => {
       m.pages
-        .filter(p => !p.parent)
-        .forEach(p => {
+        .filter((p) => !p.parent)
+        .forEach((p) => {
           page2route(p, null, m.pages)
         })
     })
@@ -82,6 +84,8 @@ export default app => {
     history: createWebHashHistory(),
     routes,
   })
+
+  router.push()
 
   router.beforeEach(async (to, from) => {
     const { store } = mkh

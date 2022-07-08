@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import mui from '../plugins/plugin-ui'
 
@@ -41,7 +42,7 @@ export default ({ target, mode, command }) => {
             /** 解决打包时出现 warning: "@charset" must be the first rule in the file */
             postcssPlugin: 'internal:charset-removal',
             AtRule: {
-              charset: atRule => {
+              charset: (atRule) => {
                 if (atRule.name === 'charset') {
                   atRule.remove()
                 }
@@ -56,6 +57,12 @@ export default ({ target, mode, command }) => {
             },
           },
         ],
+      },
+    },
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'package'),
+        '/#/types': resolve(__dirname, 'package/types'),
       },
     },
   }

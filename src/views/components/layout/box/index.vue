@@ -3,7 +3,7 @@
     <m-doc-component-doc title="盒子组件(m-box)" :props="props" :events="events" :methods="methods" :slots="slots">
       <m-doc-demo-block title="简单盒子" :meta="code1">
         <template #desc>
-          盒子组件与Element Plus中的<el-link type="primary" target="_blank" href="https://element-plus.gitee.io/#/zh-CN/component/card">卡片组件(el-card)</el-link>类似，但是可选功能上要比它多一些
+          盒子组件与Element Plus中的<el-link type="primary" target="_blank" href="https://element-plus.gitee.io@types/zh-CN/component/card">卡片组件(el-card)</el-link>类似，但是可选功能上要比它多一些
         </template>
         <demo-1></demo-1>
       </m-doc-demo-block>

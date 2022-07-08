@@ -1,7 +1,7 @@
+import type { Config } from '@/types/config'
 import formatters from './utils/formatters'
 
-/** 默认配置信息 */
-export default {
+const defaultConfig: Config = {
   /**站点信息 */
   site: {
     /**系统Logo */
@@ -11,7 +11,7 @@ export default {
     /**自定义首页地址 */
     home: '',
     /**自定义账户页面 */
-    profile: null,
+    profile: '',
     /** 自定义菜单，支持数组、函数、对象 */
     menus: null,
   },
@@ -55,4 +55,9 @@ export default {
     /**切换皮肤 */
     toggleSkin: null,
   },
+  /** 默认皮肤配置 */
+  skin: null,
 }
+
+/** 默认配置信息 */
+export default defaultConfig

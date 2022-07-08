@@ -1,9 +1,9 @@
-import './mkh'
+import mkh from './mkh'
 import { createApp } from 'vue'
 import Locales from './locales'
 import Layout from './layout.vue'
 import MkhRouter from './router'
-import MkhStore from './store'
+import MkhStore, { useTokenStore, useConfigStore } from './store'
 import _ from 'lodash'
 /** 导入ElementPlus */
 import ElementPlus from 'element-plus'
@@ -43,7 +43,7 @@ let finalOptions = {
 /**
  * @description 初始化配置
  */
-const configure = options => {
+const configure = (options) => {
   finalOptions = _.merge({}, finalOptions, options)
 }
 
@@ -57,7 +57,7 @@ const start = async () => {
   app.config.globalProperties.$mkh = mkh
 
   //模块按照id排序
-  mkh.modules = mkh.modules.sort((a, b) => a.id - b.id)
+  mkh.modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
   app.use(Locales, finalOptions.locale)
@@ -80,7 +80,7 @@ const start = async () => {
 
   //绑定到全局变量
   app.config.globalProperties.$echarts = echarts
-  mkh.$echarts = echarts
+  mkh.echarts = echarts
 
   //注册指令
   app.use(Directives)
@@ -92,7 +92,7 @@ const start = async () => {
   app.use(Http, finalOptions.http)
 
   //执行模块的回调函数
-  mkh.modules.forEach(m => {
+  mkh.modules.forEach((m) => {
     //执行回调函数
     if (m.callback) {
       m.callback({ app, config })
@@ -100,7 +100,8 @@ const start = async () => {
   })
 
   //从本地存储中加载令牌
-  await mkh.store.dispatch('app/token/login')
+  const tokenStore = useTokenStore()
+  tokenStore.load()
 
   //执行挂载前的钩子函数
   if (finalOptions.beforeMount && typeof finalOptions.beforeMount === 'function') {
@@ -108,13 +109,14 @@ const start = async () => {
   }
 
   //初始化配置
-  await mkh.store.commit('app/config/init', config)
+  const configStore = useConfigStore()
+  configStore.$state = config
 
   //等待路由注册完成后再挂载
   mkh.router.isReady().then(() => {
     //提前解析图标并保存到mkh中
     const icons = []
-    document.querySelectorAll('body>svg>symbol').forEach(m => icons.push(m.id.replace('m-', '')))
+    document.querySelectorAll('body>svg>symbol').forEach((m) => icons.push(m.id.replace('m-', '')))
     mkh.icons = icons
 
     app.mount('#app')
@@ -132,6 +134,7 @@ if (!mkh.started) {
   }
 }
 
-export { configure }
+export { configure, mkh }
 export * from './composables'
 export * from './utils'
+export * from './store'

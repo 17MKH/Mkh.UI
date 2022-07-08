@@ -3,7 +3,7 @@
     <m-doc-component-doc title="抽屉组件(m-drawer)" :props="props" :events="events" :methods="methods" :slots="slots">
       <m-doc-demo-block title="简单抽屉" :meta="code1">
         <template #desc>
-          <p>抽屉组件是在Element Plus中的<el-link type="primary" target="_blank" href="https://element-plus.gitee.io/#/zh-CN/component/drawer">Drawer 抽屉(el-drawer)</el-link>基础上封装。</p>
+          <p>抽屉组件是在Element Plus中的<el-link type="primary" target="_blank" href="https://element-plus.gitee.io@types/zh-CN/component/drawer">Drawer 抽屉(el-drawer)</el-link>基础上封装。</p>
           <p>包含其所有功能的同时，扩展了一些额外功能，如：全屏按钮、自定义顶部工具栏，左侧图标，内容区域滚动条等等</p>
         </template>
         <demo-1></demo-1>

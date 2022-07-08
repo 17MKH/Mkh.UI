@@ -2,7 +2,7 @@
   <m-doc-component-doc title="对话框组件(m-dialog)" :props="props" :events="events" :methods="methods" :slots="slots">
     <m-doc-demo-block title="简单对话框" :meta="code1">
       <template #desc>
-        <p>对话框组件是在Element Plus中的<el-link type="primary" target="_blank" href="https://element-plus.gitee.io/#/zh-CN/component/dialog">Dialog组件(el-card)</el-link>基础上封装。</p>
+        <p>对话框组件是在Element Plus中的<el-link type="primary" target="_blank" href="https://element-plus.gitee.io@types/zh-CN/component/dialog">Dialog组件(el-card)</el-link>基础上封装。</p>
         <p>包含其所有功能的同时，扩展了一些额外功能，如：全屏按钮、自定义顶部工具栏，左侧图标，内容区域滚动条，拖拽等等</p>
       </template>
       <demo-1></demo-1>

@@ -7,19 +7,19 @@ export default {
   /**
    * @description 设置
    */
-  set(key, value) {
+  set(key: string, value: any) {
     localStorage.setItem(`${prefix}${key}`, JSON.stringify(value))
   },
   /**
    * @description 获取
    */
-  get(key) {
+  get(key: string) {
     return JSON.parse(localStorage.getItem(`${prefix}${key}`))
   },
   /**
    * @description 删除令牌
    */
-  remove(key) {
+  remove(key: string) {
     localStorage.removeItem(`${prefix}${key}`)
   },
   /**

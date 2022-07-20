@@ -191,7 +191,7 @@ export default {
     }
 
     const handleExport = () => {
-      const params = { ...props.queryModel, isExport: true, export_model: model }
+      const params = { ...props.queryModel, isExport: true, exportModel: model }
       return props.exportMethod(params)
     }
 

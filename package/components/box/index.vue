@@ -33,6 +33,7 @@
           <slot name="footer"></slot>
         </footer>
       </section>
+      v
     </el-collapse-transition>
   </section>
 </template>

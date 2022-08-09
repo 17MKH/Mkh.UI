@@ -1,12 +1,6 @@
-import type { ConfigState } from '@/types/store'
+import type { Config } from '@/types'
 import { defineStore } from 'pinia'
 
 export const useConfigStore = defineStore('app.config', {
-  state: (): ConfigState => ({
-    site: {},
-    auth: {},
-    component: {},
-    systemActions: {},
-    skin: {},
-  }),
+  state: (): Partial<Config> => ({}),
 })

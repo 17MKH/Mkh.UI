@@ -1,4 +1,4 @@
-import type { BootstrapOptions } from '@/types/mkh'
+import type { BootstrapOptions } from '@/types'
 
 const options: BootstrapOptions = {
   beforeMount({ config }) {

@@ -34,7 +34,7 @@ interface Breadcrumb {
 interface Button {}
 
 /** 菜单信息 */
-export type MkhMenu = Partial<{
+export type Menu = Partial<{
   /** 菜单编号 */
   id: string | number
   /** 菜单类型 */
@@ -50,15 +50,15 @@ export type MkhMenu = Partial<{
   /** 多语言 */
   locales: Locales
   /** 路由名称 */
-  routeName?: string
+  routeName: string
   /** 路由Query参数 */
-  routeQuery?: string | object
+  routeQuery: string | object
   /** 路由Params参数 */
-  routeParams?: string | object
+  routeParams: string | object
   /** 按钮 */
   buttons: Array<Button>
   /** 面包屑 */
   breadcrumb: Breadcrumb[]
   /** 子级菜单 */
-  children: MkhMenu[]
+  children: Menu[]
 }>

@@ -13,8 +13,13 @@ export default {
   /**
    * @description 获取
    */
-  get(key: string) {
-    return JSON.parse(localStorage.getItem(`${prefix}${key}`))
+  get<T>(key: string) {
+    const str = localStorage.getItem(`${prefix}${key}`)
+    if (str) {
+      return JSON.parse(str) as T
+    }
+
+    return undefined
   },
   /**
    * @description 删除令牌

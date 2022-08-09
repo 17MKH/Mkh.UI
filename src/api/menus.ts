@@ -1,5 +1,5 @@
-import type {MkhMenu} from '@/types/menu';
-const menus:MkhMenu[] = [
+import type { Menu } from '@/types'
+const menus: Menu[] = [
   // {
   //   type: 1,
   //   icon: 'home',
@@ -303,7 +303,7 @@ const menus:MkhMenu[] = [
   },
 ]
 
-const setMenusId = (children:MkhMenu[], parent?:MkhMenu) => {
+const setMenusId = (children: Menu[], parent?: Menu) => {
   children.forEach((sub, index) => {
     sub.module = 'doc'
     if (parent) {

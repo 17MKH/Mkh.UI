@@ -1,5 +1,5 @@
 declare module 'virtual:mkh-mod-doc' {
-  import type { Module } from '@/types/mkh'
-  const mod: Module
+  import type { MoudleDefinition } from '@/types'
+  const mod: MoudleDefinition
   export default mod
 }

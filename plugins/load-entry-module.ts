@@ -61,19 +61,6 @@ export default function (ctx: PluginContext) {
     const { pkg } = ctx
     let modSrc = `id:${pkg.id}, code:'${ctx.entryModule}', version:'${pkg.version}', label:'${pkg.label}', icon:'${pkg.icon}', description:'${pkg.description}'`
 
-    /** 加载接口服务api */
-    const api = await loadApi()
-    api.forEach((a) => {
-      src += `import api_${a.name} from '${a.path}'${os.EOL}`
-    })
-
-    /** 加载状态 */
-    const storeDir = normalizePath(path.resolve('./src/store/index.js'))
-    if (fs.existsSync(storeDir)) {
-      src += `import store from '${storeDir}'${os.EOL}`
-      modSrc += ',store'
-    }
-
     /** 加载模块路由页面 */
     const pages: string[] = []
     const pagesDir = normalizePath(path.resolve('./src/views'))
@@ -106,14 +93,8 @@ export default function (ctx: PluginContext) {
       src += `components.push({name:\'${c.name}\',component:${name}})${os.EOL}`
     })
 
-    src += `const api = {}${os.EOL}`
-    api.forEach((a) => {
-      src += `api['${a.name}'] = api_${a.name}${os.EOL}`
-    })
+    src += `const mod = {${modSrc}, pages, components }${os.EOL}`
 
-    src += `const mod = {${modSrc}, pages, components, api }${os.EOL}`
-    //注册模块
-    src += `mkh.useModule(mod);${os.EOL}`
     //导出模块
     src += 'export default mod'
 

@@ -1,43 +1,38 @@
-import type { TokenState, TokenActions } from '@/types/store'
+import type { JwtCredential } from '@/types'
 import { defineStore } from 'pinia'
 import db from '../../utils/db'
-import mkh from '@/mkh'
 
 const key = `token`
 
-const state = (): TokenState => {
-  return {
-    /** 账户编号 */
-    accountId: '',
-    /** 请求令牌 */
-    accessToken: '',
-    /** 刷新令牌 */
-    refreshToken: '',
-  }
-}
-
-const actions: TokenActions = {
-  load: function (): void {
-    this.set(db.get(key))
-  },
-  set(token?: TokenState) {
-    if (token) {
-      this.accountId = token.accountId
-      this.accessToken = token.accessToken
-      this.refreshToken = token.refreshToken
-      db.set(key, token)
-    }
-  },
-  clear() {
-    // 清除令牌信息
-    this.accountId = ''
-    this.accessToken = ''
-    this.refreshToken = ''
-  },
-}
-
 /** 使用令牌存储 */
 export const useTokenStore = defineStore('app.token', {
-  state,
-  actions,
+  state(): JwtCredential {
+    return {
+      accountId: '',
+      accessToken: '',
+      refreshToken: '',
+      expiresIn: 0,
+      loginTime: '',
+    }
+  },
+  actions: {
+    /** 加载令牌 */
+    load() {
+      this.set(db.get<JwtCredential>(key))
+    },
+    set(credential?: JwtCredential) {
+      if (credential) {
+        Object.assign(this, credential)
+        db.set(key, credential)
+      }
+    },
+    clear() {
+      // 清除令牌信息
+      this.accountId = ''
+      this.accessToken = ''
+      this.refreshToken = ''
+      this.expiresIn = 0
+      this.loginTime = ''
+    },
+  },
 })

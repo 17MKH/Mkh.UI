@@ -1,10 +1,10 @@
-import type { Bootstrap, BootstrapOptions, IMoudle, ModuleCallback } from './types/main'
+import type { BootstrapOptions, ModuleDefinition } from '@/types'
 import mkh from './mkh'
 import { createApp } from 'vue'
 import Locales from './locales'
 import Layout from './layout.vue'
 import MkhRouter, { router } from './router'
-import MkhStore, { useTokenStore, useConfigStore } from './store'
+import MkhStore, { useTokenStore, useConfigStore, useProfileStore } from './store'
 import _ from 'lodash'
 /** 导入ElementPlus */
 import ElementPlus from 'element-plus'
@@ -40,15 +40,15 @@ const defaultOptions: BootstrapOptions = {
 }
 
 /** 模块列表 */
-const modules: IMoudle[] = []
+const modules: ModuleDefinition[] = []
 /** 模块中的回调函数列表 */
-const moduleCallbacks: ModuleCallback[] = []
+const callbacks: Callback[] = []
 
 /**
  * 注册模块
  * @param module 模块
  */
-export const useModule = (module: IMoudle) => {
+export const useModule = (module: ModuleDefinition) => {
   if (modules.findIndex((m) => m.code === module.code) === -1) {
     modules.push(module)
   }
@@ -57,9 +57,13 @@ export const useModule = (module: IMoudle) => {
 /**
  * 注册模块回调函数
  * @param callback 模块回调函数
+ *
+ * @remarks
+ *
+ * 该函数在Vue根实例挂载前调用， * 您可以在该函数内添加自定义的功能，如注册第三方组件，也可以更改系统默认属性和行为，如自定义登录方法
  */
-export const useModuleCallback = (callback: ModuleCallback) => {
-  moduleCallbacks.push(callback)
+export const useCallback = (callback: Callback) => {
+  callbacks.push(callback)
 }
 
 /**
@@ -133,6 +137,13 @@ export const bootstrap: Bootstrap = (options: BootstrapOptions) => {
 
     app.mount('#app')
   })
+}
+
+class Bootstrap {
+  options: BootstrapOptions
+  constructor(options: BootstrapOptions) {
+    this.options = options
+  }
 }
 
 export { mkh, createHttp }

@@ -1,6 +1,6 @@
-import type { LoginDto, LoginVo, UpdateSkinDto, VerifyCodeVo } from './types'
+import type { LoginDto, JwtCredential, VerifyCode, UpdateSkinDto, Profile, Skin } from '@/types'
 import db from '@/utils/db'
-import menus from '../../menus'
+import menus from '../menus'
 
 /**
  * @description 获取验证码
@@ -16,10 +16,10 @@ export default {
   /**
    * 登录
    */
-  login: ({ username, password }: LoginDto): Promise<LoginVo> => {
+  login: ({ username, password }: LoginDto): Promise<JwtCredential> => {
     return new Promise((resolve, reject) => {
       if (username === '17mkh' && password === '123456') {
-        const resultModel: LoginVo = {
+        const resultModel: JwtCredential = {
           accountId: '',
           accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
           refreshToken: '',
@@ -35,7 +35,7 @@ export default {
   /**
    * 获取验证码
    */
-  getVerifyCode: (): Promise<VerifyCodeVo> => {
+  getVerifyCode: (): Promise<VerifyCode> => {
     return new Promise((resolve) => {
       const base64 = verifyCodeImages[t ? 0 : 1]
       t = !t
@@ -48,26 +48,19 @@ export default {
   /**
    * 获取账户信息
    */
-  getProfile: () => {
-    let skin = db.get('skin')
+  getProfile: (): Promise<Profile> => {
+    let skin = db.get<Skin>('skin')
 
     return new Promise((resolve) => {
       resolve({
-        /**编号 */
-        id: '10001',
-        /**用户名 */
+        accountId: '10001',
         username: 'oldli',
-        /**昵称 */
         nickname: 'OLDLI',
-        /**头像 */
         avatar: './assets/mkh/avatar.png',
-        /** 菜单列表 */
         menus,
-        /** 权限列表 */
         permissions: [],
-        /** 按钮列表 */
         buttons: ['admin_account_add', 'admin_account_edit'],
-        /** 皮肤设置 */
+        routeMenus: [],
         skin,
       })
     })

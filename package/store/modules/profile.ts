@@ -1,13 +1,18 @@
-import type { ProfileState, ProfileActions } from '@/types/store'
-import type { CustomMenus } from '@/types/config'
-import type { Breadcrumb, Locales, MkhMenu } from '@/types/menu'
+import type { Breadcrumb, Locales, Menu, Profile } from '@/types'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import mkh from '@/mkh'
-import { RouteRecordRaw } from 'vue-router'
 
 //解析自定义菜单
-const resolveMenu = async (profile: ProfileState, menus: CustomMenus | undefined) => {
+const resolveMenu = async (
+  profile: Profile,
+  menus:
+    | {
+        (profile: Profile): Array<Menu>
+      }
+    | Array<Menu>
+    | undefined
+) => {
   if (!menus) return
 
   if (typeof menus === 'function') {
@@ -18,7 +23,7 @@ const resolveMenu = async (profile: ProfileState, menus: CustomMenus | undefined
 }
 
 //解析节点路由并保存
-const resolveRouteMenu = (profile: ProfileState, menus: Array<MkhMenu>, parent?: MkhMenu) => {
+const resolveRouteMenu = (profile: Profile, menus: Array<Menu>, parent?: Menu) => {
   menus.forEach((m) => {
     //面包屑
     m.breadcrumb = []
@@ -50,27 +55,8 @@ const resolveRouteMenu = (profile: ProfileState, menus: Array<MkhMenu>, parent?:
   })
 }
 
-const state = (): ProfileState => {
+const state = (): Partial<Profile> => {
   return {
-    /** 账户编号 */
-    accountId: '',
-    /** 用户名 */
-    username: '',
-    /** 昵称 */
-    nickname: '',
-    /** 头像 */
-    avatar: '',
-    /** 菜单列表 */
-    menus: [],
-    /** 权限列表 */
-    permissions: [],
-    /** 账户详细信息，用于开发者自定义扩展 */
-    details: null,
-    /** 路由菜单列表 */
-    routeMenus: [],
-    /** 按钮编码列表，说明：此处的按钮编码由菜单编号_按钮唯一编码组成 */
-    buttons: [],
-    /** 皮肤 */
     skin: {
       name: '简约',
       code: 'brief',
@@ -80,7 +66,10 @@ const state = (): ProfileState => {
   }
 }
 
-const actions: ProfileActions = {
+const actions = {
+  /**
+   * 初始化账户信息，调用接口
+   */
   async init() {
     try {
       const configStore = useConfigStore()
@@ -119,6 +108,7 @@ const actions: ProfileActions = {
             }
           }
         }
+
         if (!profile.skin.size) {
           profile.skin.size = 'default'
         }
@@ -129,7 +119,11 @@ const actions: ProfileActions = {
       console.log(error)
     }
   },
-  clear() {
+  /**
+   *
+   * @param this 清除账户信息
+   */
+  clear(this: Profile) {
     this.accountId = ''
     this.username = ''
     this.nickname = ''

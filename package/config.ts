@@ -1,8 +1,9 @@
-import type { Config } from '@/types/main'
+import type { Config } from '@/types'
 import formatters from './utils/formatters'
 
 const defaultConfig: Config = {
   site: {
+    title: '',
     logo: './assets/mkh/logo.png',
   },
   auth: {

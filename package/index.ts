@@ -1,25 +1,26 @@
+import type { Bootstrap, BootstrapOptions, IMoudle, ModuleCallback } from './types/main'
 import mkh from './mkh'
 import { createApp } from 'vue'
 import Locales from './locales'
 import Layout from './layout.vue'
-import MkhRouter from './router'
+import MkhRouter, { router } from './router'
 import MkhStore, { useTokenStore, useConfigStore } from './store'
 import _ from 'lodash'
 /** 导入ElementPlus */
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import './styles/app.scss'
 import Components from './components'
 import Directives from './directives'
-import Http from './utils/http'
-import './styles/app.scss'
+import createHttp from './utils/http'
 import Skins from './skins'
 import config from './config'
 
 import VCharts from 'vue-echarts'
 import * as echarts from 'echarts'
 
-/** 最终的配置项信息 */
-let finalOptions = {
+/** 默认启动配置 */
+const defaultOptions: BootstrapOptions = {
   /** 多语言配置 */
   locale: {
     /** 默认语言 */
@@ -36,21 +37,38 @@ let finalOptions = {
     /** 模块配置，会覆盖全局配置 */
     modules: {},
   },
-  /** 挂载前的钩子函数 */
-  beforeMount: null,
+}
+
+/** 模块列表 */
+const modules: IMoudle[] = []
+/** 模块中的回调函数列表 */
+const moduleCallbacks: ModuleCallback[] = []
+
+/**
+ * 注册模块
+ * @param module 模块
+ */
+export const useModule = (module: IMoudle) => {
+  if (modules.findIndex((m) => m.code === module.code) === -1) {
+    modules.push(module)
+  }
 }
 
 /**
- * @description 初始化配置
+ * 注册模块回调函数
+ * @param callback 模块回调函数
  */
-const configure = (options) => {
-  finalOptions = _.merge({}, finalOptions, options)
+export const useModuleCallback = (callback: ModuleCallback) => {
+  moduleCallbacks.push(callback)
 }
 
 /**
- * @description 启动
+ * 启动应用
+ * @param options 启动配置项
  */
-const start = async () => {
+export const bootstrap: Bootstrap = (options: BootstrapOptions) => {
+  const options_ = _.merge({}, defaultOptions, options)
+
   const app = createApp(Layout)
 
   //将mkh实例挂载到vue实例
@@ -60,7 +78,7 @@ const start = async () => {
   mkh.modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
-  app.use(Locales, finalOptions.locale)
+  app.use(Locales, options_.locale)
 
   //注册状态
   app.use(MkhStore)
@@ -88,15 +106,9 @@ const start = async () => {
   //注册皮肤
   app.use(Skins)
 
-  //注册Http服务
-  app.use(Http, finalOptions.http)
-
   //执行模块的回调函数
-  mkh.modules.forEach((m) => {
-    //执行回调函数
-    if (m.callback) {
-      m.callback({ app, config })
-    }
+  moduleCallbacks.forEach((c) => {
+    c({ app, config, mkh, options: options_ })
   })
 
   //从本地存储中加载令牌
@@ -104,8 +116,8 @@ const start = async () => {
   tokenStore.load()
 
   //执行挂载前的钩子函数
-  if (finalOptions.beforeMount && typeof finalOptions.beforeMount === 'function') {
-    finalOptions.beforeMount({ app, config })
+  if (options_.beforeMount) {
+    options_.beforeMount({ app, config })
   }
 
   //初始化配置
@@ -113,7 +125,7 @@ const start = async () => {
   configStore.$state = config
 
   //等待路由注册完成后再挂载
-  mkh.router.isReady().then(() => {
+  router.isReady().then(() => {
     //提前解析图标并保存到mkh中
     const icons = []
     document.querySelectorAll('body>svg>symbol').forEach((m) => icons.push(m.id.replace('m-', '')))
@@ -123,18 +135,7 @@ const start = async () => {
   })
 }
 
-/** 页面加载完成后启动系统 */
-if (!mkh.started) {
-  mkh.started = true
-  window.onload = () => {
-    //加个延迟，防止预加载页面一闪而过
-    setTimeout(() => {
-      start()
-    }, 1000)
-  }
-}
-
-export { configure, mkh }
+export { mkh, createHttp }
 export * from './composables'
 export * from './utils'
 export * from './store'

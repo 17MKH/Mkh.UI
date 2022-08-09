@@ -7,8 +7,9 @@ import { i18n } from '../locales'
 import { useTokenStore } from '../store/modules/token'
 import { useConfigStore } from '../store/modules/config'
 import dayjs from 'dayjs'
+import { BootstrapOptions, HttpOptions, Module } from '@/types/mkh'
 
-class Http implements HttpClient {
+export class Http implements HttpClient {
   axios: AxiosInstance
 
   constructor(options) {
@@ -197,29 +198,23 @@ const crud = (http, root) => {
   }
 }
 
-export default (app: App<Element>, config) => {
-  const mkh = window.mkh
+/**
+ * 为模块创建HTTP实例
+ */
+export default (options: BootstrapOptions, mod: Module): HttpClient => {
+  if (options.http) {
+    const http = options.http
+    let httpOptions: HttpOptions = Object.assign({}, http.global)
 
-  mkh.modules.forEach((m) => {
-    const { code, api } = m
-    let $api = {}
-    //先判断模块的http配置是否存在，如果不存在则使用全局配置
-    let httpOptions = Object.assign({}, config.global)
-    let httpModuleOptions = config.modules[code]
-    if (httpModuleOptions) {
-      Object.assign(httpOptions, httpModuleOptions)
-    } else {
-      httpOptions.baseURL = `${httpOptions.baseURL}${httpOptions.baseURL.endsWith('/') ? '' : '/'}${code}/`
+    if (http.modules && http.modules[mod.code]) {
+      httpOptions = http.modules[mod.code]
     }
-
+    if (httpOptions.baseURL) {
+      httpOptions.baseURL = `${httpOptions.baseURL}${httpOptions.baseURL.endsWith('/') ? '' : '/'}${mod.code}/`
+    }
     //创建模块的Http实例
-    const http = new Http(httpOptions)
+    return new Http(httpOptions)
+  }
 
-    for (let p in api) {
-      $api[p] = { ...crud(http, p), ...api[p](http) }
-    }
-
-    //绑定到mkh全局对象的$api属性上，方便访问
-    mkh.api[code] = $api
-  })
+  return new Http({})
 }

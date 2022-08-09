@@ -34,7 +34,7 @@ interface Breadcrumb {
 interface Button {}
 
 /** 菜单信息 */
-export interface MkhMenu {
+export type MkhMenu = Partial<{
   /** 菜单编号 */
   id: string | number
   /** 菜单类型 */
@@ -43,6 +43,8 @@ export interface MkhMenu {
   icon: string
   /** 菜单层级 */
   level: number
+  /** 所属模块 */
+  module: string
   /** 是否显示 */
   show: boolean
   /** 多语言 */
@@ -56,7 +58,7 @@ export interface MkhMenu {
   /** 按钮 */
   buttons: Array<Button>
   /** 面包屑 */
-  breadcrumb: Array<Breadcrumb>
+  breadcrumb: Breadcrumb[]
   /** 子级菜单 */
-  children: Array<MkhMenu>
-}
+  children: MkhMenu[]
+}>

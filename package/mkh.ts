@@ -1,4 +1,4 @@
-import { Mkh, MkhModule } from '@/types/mkh'
+import type { Mkh, Module } from '@/types/mkh'
 import pkg from '../package.json'
 
 /**
@@ -12,11 +12,9 @@ const mkh: Mkh = {
   toolbars: {},
   locales: [],
   components: [],
-  router: null,
-  store: null,
   localeMessages: [],
   api: [],
-  useModule: function (module: MkhModule) {
+  useModule: function (module: Module) {
     if (this.modules.findIndex((m) => m.code === module.code) === -1) {
       this.modules.push(module)
     }
@@ -25,9 +23,6 @@ const mkh: Mkh = {
     if (this.skins.findIndex((m) => m.code === skin.code) === -1) {
       this.skins.push(skin)
     }
-  },
-  useComponent: function (component) {
-    this.components_.push(component)
   },
   echarts: undefined,
   icons: [],

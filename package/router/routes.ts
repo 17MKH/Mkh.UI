@@ -1,10 +1,11 @@
+import type { RouteRecordRaw } from 'vue-router'
 import defaultPage from '../pages/default/index.vue'
 import Login from '../pages/login/index.vue'
 import Error403 from '../pages/403/index.vue'
 import Error404 from '../pages/404/index.vue'
 import Error500 from '../pages/500/index.vue'
 
-export default [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
@@ -63,3 +64,5 @@ export default [
   },
   { path: '/:pathMatch(.*)*', redirect: '/error/404' },
 ]
+
+export default routes

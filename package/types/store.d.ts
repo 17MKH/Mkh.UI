@@ -1,18 +1,18 @@
-import type { MkhConfig } from './config'
-import type { MkhProfile } from './profile'
+import type { Config } from './config'
+import type { Profile } from './profile'
 
 /** 配置状态 */
-export interface ConfigState extends MkhConfig {}
+export interface ConfigState extends Config {}
 
 /** 账户信息状态 */
-export interface ProfileState extends MkhProfile {}
+export interface ProfileState extends Profile {}
 
 /** 账户信息方法 */
 export interface ProfileActions {
   /** 初始化 */
   init(): void
   /** 清除 */
-  clear(): void
+  clear(this: ProfileState): void
 }
 
 /** 令牌信息状态 */
@@ -28,9 +28,9 @@ export interface TokenState {
 /** 令牌状态方法 */
 export interface TokenActions {
   /** 从本地加载令牌 */
-  load(): void
+  load(this: TokenState): void
   /** 设置令牌 */
-  set(token?: TokenState): void
+  set(this: TokenState, token?: TokenState): void
   /** 清理令牌 */
-  clear(): void
+  clear(this: TokenState): void
 }

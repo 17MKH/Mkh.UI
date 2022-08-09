@@ -1,21 +1,24 @@
+import type { App } from 'vue'
 import type { Page } from '@/types/mkh'
-import type { RouteRecordRaw } from 'vue-router'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import type { Router, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import routes from './routes'
+import mkh from '@/mkh'
+import { useConfigStore, useTokenStore, useProfileStore } from '../store'
 
 // 进度条初始值
 NProgress.configure({ minimum: 0.2 })
 
 //验证值是否为true
-const isTrue = (val) => {
+const isTrue = (val: boolean | undefined | null) => {
   return typeof val === 'undefined' || val === null ? true : val
 }
 
 /**
  * @description 页面转路由
  */
-const page2route = (page: Page, parentRoute: RouteRecordRaw, pages: Array<Page>) => {
+const page2route = (page: Page, pages: Array<Page>, parentRoute?: RouteRecordRaw) => {
   /**********************************************
    * 页面属性与路由属性对应关系以及说明
    **********************************************
@@ -35,7 +38,7 @@ const page2route = (page: Page, parentRoute: RouteRecordRaw, pages: Array<Page>)
    */
   const { icon, path, name, component, inFrame, hideMenu, permissionVerify, permissions, buttons, breadcrumbs, cache, props } = page
 
-  const route = {
+  const route: RouteRecordRaw = {
     path,
     name,
     component,
@@ -57,9 +60,11 @@ const page2route = (page: Page, parentRoute: RouteRecordRaw, pages: Array<Page>)
     pages
       .filter((p) => p.parent === name)
       .forEach((p) => {
-        page2route(p, route, pages)
+        page2route(p, pages, route)
       })
   } else {
+    if (!parentRoute.children) parentRoute.children = []
+
     parentRoute.children.push(route)
   }
 
@@ -67,7 +72,10 @@ const page2route = (page: Page, parentRoute: RouteRecordRaw, pages: Array<Page>)
   delete page.component
 }
 
-export default (app) => {
+//路由实例
+let router: Router
+
+export default (app: App) => {
   //页面转换路由
   mkh.modules
     .filter((m) => m.pages)
@@ -75,42 +83,42 @@ export default (app) => {
       m.pages
         .filter((p) => !p.parent)
         .forEach((p) => {
-          page2route(p, null, m.pages)
+          page2route(p, m.pages)
         })
     })
 
   //创建路由实例
-  const router = createRouter({
-    history: createWebHashHistory(),
+  router = createRouter({
+    history: createWebHistory(),
     routes,
   })
 
-  router.push()
+  const configStore = useConfigStore()
+  const tokenStore = useTokenStore()
+  const profileStore = useProfileStore()
 
   router.beforeEach(async (to, from) => {
-    const { store } = mkh
-
     // 开始进度条
     NProgress.start()
 
     //首页跳转
     if (to.name === 'home') {
-      const { home } = store.state.app.config.site
-      if (home) {
-        return home
+      if (configStore.site && configStore.site.home) {
+        return configStore.site.home
       }
     }
 
     //验证是否登录
     const { enablePermissionVerify } = to.meta
     if (enablePermissionVerify) {
-      const { accessToken } = store.state.app.token
+      const { accessToken } = tokenStore
       if (!accessToken) {
         return '/login'
       }
+
       //加载个人信息
-      if (!store.state.app.profile.accountId) {
-        await store.dispatch('app/profile/init', null, { root: true })
+      if (!profileStore.accountId) {
+        await profileStore.init()
       }
     }
 
@@ -119,6 +127,6 @@ export default (app) => {
   })
 
   app.use(router)
-
-  mkh.router = router
 }
+
+export { router }

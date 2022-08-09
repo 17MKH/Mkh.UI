@@ -1,7 +1,8 @@
 /** 17MKH配置相关类型 */
 import { RouteLocationRaw } from 'vue-router'
 import { MkhMenu } from './menu'
-import { MkhProfile } from './profile'
+import { ApiAction } from './mkh'
+import { Profile } from './profile'
 
 /** 站点标题 */
 type SiteTitle =
@@ -14,9 +15,7 @@ type SiteTitle =
     }
 
 /** 自定义获取菜单函数 */
-interface CustomMenusFunction {
-  (profile: MkhProfile): Array<MkhMenu>
-}
+declare type CustomMenusFunction = (profile: Profile) => Array<MkhMenu>
 
 /** 自定义菜单 */
 declare type CustomMenus = CustomMenusFunction | Array<MkhMenu>
@@ -28,7 +27,7 @@ interface SiteConfig {
   /** 系统Logo */
   logo: string
   /** 自定义首页地址 */
-  home: RouteLocationRaw
+  home: string | RouteLocationRaw
   /** 自定义账户中心页面*/
   profile: RouteLocationRaw
   /** 自定义菜单， */
@@ -67,38 +66,43 @@ interface ComponentConfig {
 }
 
 /**系统操作，供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能 */
-interface ActionsConfig {
+interface SystemActionsConfig {
   /**登录方法 */
-  login(any): any
+  login: ApiAction
   /**刷新令牌 */
-  refreshToken(any?): any
+  refreshToken: ApiAction
   /**获取验证码方法 */
-  getVerifyCode(any?): any
+  getVerifyCode: ApiAction
   /**获取账户信息 */
-  getProfile(any?): MkhProfile
+  getProfile?: ApiAction
   /**切换皮肤 */
-  toggleSkin(any?): any
+  toggleSkin: ApiAction
+}
+
+/** 默认皮肤配置 */
+interface SkinConfig {
+  /** 皮肤名称 */
+  name: string
+  /** 皮肤编码 */
+  code: string
+  /** 主题 */
+  theme: string
+  /** 尺寸 */
+  size: string
 }
 
 /** 配置信息 */
-export interface MkhConfig {
+interface IConfig {
   /** 站点配置 */
-  site: SiteConfig
+  site: Partial<SiteConfig>
   /** 认证和授权配置 */
-  auth: AuthConfig
+  auth: Partial<AuthConfig>
   /** 组件配置 */
-  component: ComponentConfig
-  /** 系统操作 */
-  actions: ActionsConfig
+  component: Partial<ComponentConfig>
+  /** 系统操作，供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能 */
+  systemActions: SystemActionsConfig
   /** 默认皮肤配置 */
-  skin: {
-    /** 皮肤名称 */
-    name: string
-    /** 皮肤编码 */
-    code: string
-    /** 主题 */
-    theme: string
-    /** 尺寸 */
-    size: string
-  }
+  skin?: SkinConfig
 }
+
+export interface Config extends IConfig {}

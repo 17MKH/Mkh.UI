@@ -1,0 +1,18 @@
+import type { BootstrapOptions } from '@/types/mkh'
+
+const options: BootstrapOptions = {
+  beforeMount({ config }) {
+    config.site.title = '17MKH'
+
+    // config.site.title = {
+    //   'zh-cn': '17MKH',
+    //   en: '17MKH English',
+    // }
+
+    config.site.home = '/doc/home'
+    /** 配置登录组件 */
+    config.component.login = 'k'
+  },
+}
+
+export default options

@@ -1,7 +1,7 @@
 import type { MkhMenu } from './menu'
 
 /** 账户信息 */
-export interface MkhProfile {
+export interface Profile {
   /** 账户编号 */
   accountId: string
   /** 用户名 */

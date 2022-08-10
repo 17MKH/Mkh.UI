@@ -1,10 +1,10 @@
-import type { BootstrapOptions, ModuleDefinition } from '@/types'
+import type { AppService, BootstrapOptions, ModuleDefinition } from '@/types'
 import mkh from './mkh'
 import { createApp } from 'vue'
 import Locales from './locales'
 import Layout from './layout.vue'
-import MkhRouter, { router } from './router'
-import MkhStore, { useTokenStore, useConfigStore, useProfileStore } from './store'
+import useRouter, { router } from './router'
+import useStore, { useTokenStore, useConfigStore } from './store'
 import _ from 'lodash'
 /** 导入ElementPlus */
 import ElementPlus from 'element-plus'
@@ -12,12 +12,9 @@ import 'element-plus/dist/index.css'
 import './styles/app.scss'
 import Components from './components'
 import Directives from './directives'
-import createHttp from './utils/http'
 import Skins from './skins'
-import config from './config'
-
+import config from './defaults'
 import VCharts from 'vue-echarts'
-import * as echarts from 'echarts'
 
 /** 默认启动配置 */
 const defaultOptions: BootstrapOptions = {
@@ -39,10 +36,14 @@ const defaultOptions: BootstrapOptions = {
   },
 }
 
-/** 模块列表 */
+/**
+ * 模块列表
+ */
 const modules: ModuleDefinition[] = []
-/** 模块中的回调函数列表 */
-const callbacks: Callback[] = []
+/**
+ * 应用服务集合
+ */
+const services: AppService[] = []
 
 /**
  * 注册模块
@@ -55,23 +56,23 @@ export const useModule = (module: ModuleDefinition) => {
 }
 
 /**
- * 注册模块回调函数
- * @param callback 模块回调函数
+ * 注册应用服务
+ * @param service 应用服务
  *
  * @remarks
  *
- * 该函数在Vue根实例挂载前调用， * 您可以在该函数内添加自定义的功能，如注册第三方组件，也可以更改系统默认属性和行为，如自定义登录方法
+ * 应用服务会在Vue根实例挂载前调用，您可以在该服务内添加自定义的功能，如注册第三方组件，也可以更改系统默认属性和行为，如自定义登录方法
  */
-export const useCallback = (callback: Callback) => {
-  callbacks.push(callback)
+export const useAppService = (service: AppService) => {
+  services.push(service)
 }
 
 /**
  * 启动应用
- * @param options 启动配置项
+ * @param options 配置项
  */
-export const bootstrap: Bootstrap = (options: BootstrapOptions) => {
-  const options_ = _.merge({}, defaultOptions, options)
+export const bootstrap = (options: BootstrapOptions) => {
+  options = _.merge(defaultOptions, options)
 
   const app = createApp(Layout)
 
@@ -79,30 +80,26 @@ export const bootstrap: Bootstrap = (options: BootstrapOptions) => {
   app.config.globalProperties.$mkh = mkh
 
   //模块按照id排序
-  mkh.modules.sort((a, b) => a.id - b.id)
+  modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
-  app.use(Locales, options_.locale)
+  app.use(Locales, options.locale)
 
   //注册状态
-  app.use(MkhStore)
+  app.use(useStore)
 
   //注册路由
-  app.use(MkhRouter)
+  app.use(useRouter)
 
   //注册ElementPlus
   app.use(ElementPlus)
 
   //注册全局组件
-  app.use(Components)
+  app.use(Components, modules)
 
   /* 注册vue-echarts组件 */
   /* 说明文档 https://github.com/ecomfe/vue-echarts/blob/main/README.zh-Hans.md */
   app.component('VChart', VCharts)
-
-  //绑定到全局变量
-  app.config.globalProperties.$echarts = echarts
-  mkh.echarts = echarts
 
   //注册指令
   app.use(Directives)
@@ -111,18 +108,13 @@ export const bootstrap: Bootstrap = (options: BootstrapOptions) => {
   app.use(Skins)
 
   //执行模块的回调函数
-  moduleCallbacks.forEach((c) => {
-    c({ app, config, mkh, options: options_ })
+  services.forEach((c) => {
+    c({ app, config, mkh, options: options })
   })
 
   //从本地存储中加载令牌
   const tokenStore = useTokenStore()
   tokenStore.load()
-
-  //执行挂载前的钩子函数
-  if (options_.beforeMount) {
-    options_.beforeMount({ app, config })
-  }
 
   //初始化配置
   const configStore = useConfigStore()
@@ -131,7 +123,7 @@ export const bootstrap: Bootstrap = (options: BootstrapOptions) => {
   //等待路由注册完成后再挂载
   router.isReady().then(() => {
     //提前解析图标并保存到mkh中
-    const icons = []
+    const icons: string[] = []
     document.querySelectorAll('body>svg>symbol').forEach((m) => icons.push(m.id.replace('m-', '')))
     mkh.icons = icons
 
@@ -139,14 +131,7 @@ export const bootstrap: Bootstrap = (options: BootstrapOptions) => {
   })
 }
 
-class Bootstrap {
-  options: BootstrapOptions
-  constructor(options: BootstrapOptions) {
-    this.options = options
-  }
-}
-
-export { mkh, createHttp }
 export * from './composables'
 export * from './utils'
 export * from './store'
+export { mkh }

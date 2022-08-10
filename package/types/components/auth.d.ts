@@ -37,7 +37,7 @@ export interface JwtCredential {
   /**
    * 登录时间
    */
-  loginTime: string
+  loginTime: number
 }
 
 /**
@@ -83,7 +83,7 @@ export interface Profile {
   /**
    * 皮肤
    */
-  skin?: Skin
+  skin: Skin
 }
 
 /**

@@ -1,6 +1,11 @@
 import { Component } from 'vue'
 
 /**
+ * 尺寸
+ */
+export declare type Size = 'large' | 'default' | 'small'
+
+/**
  * 皮肤定义
  */
 export interface SkinDefinition {
@@ -38,18 +43,18 @@ export interface Skin {
   /**
    * 名称
    */
-  name?: string
+  name: string
   /**
    * 编码
    */
-  code?: string
+  code: string
   /**
    * 主题
    */
-  theme?: string
+  theme: string
   /**
    * 尺寸
    * @remarks 与Element Plus提供的尺寸保持一致，large / default /small
    */
-  size?: '' | 'large' | 'default' | 'small'
+  size: Size
 }

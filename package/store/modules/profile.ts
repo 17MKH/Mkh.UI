@@ -2,6 +2,7 @@ import type { Breadcrumb, Locales, Menu, Profile } from '@/types'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import mkh from '@/mkh'
+import { defaultProfile } from '@/defaults'
 
 //解析自定义菜单
 const resolveMenu = async (
@@ -55,15 +56,8 @@ const resolveRouteMenu = (profile: Profile, menus: Array<Menu>, parent?: Menu) =
   })
 }
 
-const state = (): Partial<Profile> => {
-  return {
-    skin: {
-      name: '简约',
-      code: 'brief',
-      theme: 'dark',
-      size: '',
-    },
-  }
+const state = (): Profile => {
+  return defaultProfile
 }
 
 const actions = {

@@ -1,8 +1,3 @@
-import { App, Component } from 'vue'
-import { StoreDefinition } from 'pinia'
-import { Router } from 'vue-router'
-import { Config } from './config'
-import { Button, Breadcrumb } from './menu'
 import { MoudleDefinition } from './module'
 import { SkinDefinition } from './skin'
 import { ToolbarDefinition } from './tollbar'
@@ -27,4 +22,13 @@ export interface Mkh {
   readonly localeMessages: LocaleMessage[]
   /** 图标集合 */
   icons: string[]
+}
+
+declare global {
+  interface Window {
+    /**
+     * 17MKH 全局实例
+     */
+    mkh: Mkh
+  }
 }

@@ -3,7 +3,7 @@ import { PageDefinition } from './page'
 /**
  * 模块定义
  */
-export interface MoudleDefinition {
+export interface ModuleDefinition {
   /**
    * 编号
    */

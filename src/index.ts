@@ -1,13 +1,13 @@
 import mod from 'virtual:mkh-mod-doc'
-import { useModule, useCallback } from '../package/index.js'
+import { useModule, useAppService } from '../package/index.js'
 import api from './api'
 import store from './store'
 
 //注册模块
 useModule(mod)
 
-//注册回调函数
-useCallback(({ config }) => {
+//注册服务
+useAppService(({ config }) => {
   const { login, getVerifyCode, getProfile, toggleSkin } = api.authorize
 
   if (config.systemActions) {
@@ -23,6 +23,6 @@ useCallback(({ config }) => {
 })
 
 /**
- * 为什么 api 和 store要单独导出，因为这两个会在其它模块中使用，所以不能使用插件来动态导入，否则无法获得代码提示功能
+ * 为什么模块中的 api 和 store要单独导出，因为这两个会在其它模块中使用，所以不能使用插件来动态导入，否则无法获得代码提示功能
  */
 export { api, store }

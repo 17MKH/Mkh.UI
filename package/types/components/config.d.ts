@@ -155,7 +155,7 @@ export interface Config {
    *
    * 供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能
    */
-  systemActions: SystemActionsConfig
+  systemActions?: SystemActionsConfig
   /**
    * 皮肤配置
    */

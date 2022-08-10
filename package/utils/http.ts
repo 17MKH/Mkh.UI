@@ -201,7 +201,7 @@ const crud = (http, root) => {
 /**
  * 为模块创建HTTP实例
  */
-export default (options: BootstrapOptions, mod: Module): HttpClient => {
+export const createHttp = (options: BootstrapOptions, mod: Module): HttpClient => {
   if (options.http) {
     const http = options.http
     let httpOptions: HttpOptions = Object.assign({}, http.global)

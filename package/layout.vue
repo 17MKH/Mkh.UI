@@ -6,25 +6,22 @@
     <router-view v-else />
   </el-config-provider>
 </template>
-<script>
-import { computed, ref, watchEffect } from 'vue'
-import useSize from './composables/size'
-export default {
-  setup() {
-    const { size } = useSize()
+<script setup lang="ts">
+  import { computed, ref, watchEffect } from 'vue'
+  import useSize from '@/composables/size'
+  import { useProfileStore } from '@/store'
 
-    const skinComponent = ref('')
-    const skin = computed(() => mkh.store.state.app.profile.skin)
+  const props = defineProps<{ name: string }>()
 
-    watchEffect(() => {
-      skinComponent.value = `m-skin-${skin.value.code.toLowerCase()}`
-      document.body.className = `${skinComponent.value} theme-${skin.value.theme}`
-    })
+  const { size } = useSize()
 
-    return {
-      size,
-      skinComponent,
-    }
-  },
-}
+  const skinComponent = ref('')
+
+  const profileStore = useProfileStore()
+  const skin = computed(() => profileStore.skin)
+
+  watchEffect(() => {
+    skinComponent.value = `m-skin-${skin.value.code.toLowerCase()}`
+    document.body.className = `${skinComponent.value} theme-${skin.value.theme}`
+  })
 </script>

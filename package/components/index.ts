@@ -6,6 +6,7 @@ import FormComponents from './form'
 import LayoutComponents from './layout'
 import LoginComponents from './login'
 import ToolbarComponents from './toolbar'
+import { ModuleDefinition } from '@/types'
 
 const components = [...AdvancedComponents, ...BaseComponents, ...FormComponents, ...LayoutComponents, ...LoginComponents, ...ToolbarComponents]
 
@@ -14,20 +15,14 @@ const registerComponent = (app: App, name: string, component: Component) => {
   mkh.components.push(name)
 }
 
-export default (app: App) => {
+export default (app: App, modules: ModuleDefinition[]) => {
   //框架中的全局组件
-
   components.forEach((m) => {
     registerComponent(app, m.name, m.component)
   })
 
-  //系统内置工具栏
-  mkh.toolbars.lang = { code: 'lang', label: '多语言', show: true, sort: 0 }
-  mkh.toolbars.skin = { code: 'skin', label: '皮肤', show: true, sort: 0 }
-  mkh.toolbars.fullscreen = { code: 'fullscreen', label: '全屏', show: true, sort: 0 }
-
   //模块中的全局组件
-  mkh.modules.forEach((m) => {
+  modules.forEach((m) => {
     if (m.components) {
       m.components.forEach((c) => {
         let name = c.name

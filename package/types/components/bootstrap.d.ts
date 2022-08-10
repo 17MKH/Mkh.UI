@@ -53,8 +53,8 @@ export interface BootstrapOptions {
 }
 
 /**
- * 回调函数
+ * 应用服务
  */
-export interface Callback {
+export interface AppService {
   (options: { app: App<Element>; config: Config; mkh: Mkh; options: BootstrapOptions }): void
 }

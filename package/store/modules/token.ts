@@ -1,19 +1,14 @@
 import type { JwtCredential } from '@/types'
 import { defineStore } from 'pinia'
-import db from '../../utils/db'
+import db from '@/utils/db'
+import { defaultCredential } from '@/defaults'
 
 const key = `token`
 
 /** 使用令牌存储 */
 export const useTokenStore = defineStore('app.token', {
   state(): JwtCredential {
-    return {
-      accountId: '',
-      accessToken: '',
-      refreshToken: '',
-      expiresIn: 0,
-      loginTime: '',
-    }
+    return defaultCredential
   },
   actions: {
     /** 加载令牌 */
@@ -28,11 +23,7 @@ export const useTokenStore = defineStore('app.token', {
     },
     clear() {
       // 清除令牌信息
-      this.accountId = ''
-      this.accessToken = ''
-      this.refreshToken = ''
-      this.expiresIn = 0
-      this.loginTime = ''
+      Object.assign(this, defaultCredential)
     },
   },
 })

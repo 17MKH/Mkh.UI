@@ -1,5 +1,5 @@
 import mod from 'virtual:mkh-mod-doc'
-import { useModule, useAppService } from '../package/index.js'
+import { useModule, useAppService } from '@/index'
 import api from './api'
 import store from './store'
 
@@ -23,6 +23,6 @@ useAppService(({ config }) => {
 })
 
 /**
- * 为什么模块中的 api 和 store要单独导出，因为这两个会在其它模块中使用，所以不能使用插件来动态导入，否则无法获得代码提示功能
+ * 为什么模块中的 api 和 store要单独导出，因为这两个会在其它模块中使用，所以不能使用插件来动态导入，否则无法获得类型推导功能
  */
 export { api, store }

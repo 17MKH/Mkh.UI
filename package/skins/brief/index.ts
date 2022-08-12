@@ -1,11 +1,10 @@
+import { SkinDefinition } from '@/types'
 import component from './index.vue'
-import store from './store'
 
-const options = {
+const skin: SkinDefinition = {
   name: '简约',
   code: 'brief',
   preview: './assets/mkh/preview.png',
-  store,
   component,
   themes: [
     {
@@ -19,5 +18,4 @@ const options = {
   ],
 }
 
-//使用皮肤
-mkh.useSkin(options)
+export default skin

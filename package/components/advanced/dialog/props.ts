@@ -1,5 +1,5 @@
-import { withProps as loading } from '../../../composables/loading'
-import headProps from '../head/props'
+import { withProps as loading } from '@/composables/loading'
+import headProps from '@/components/layout/head/props'
 
 //el-dialog定义的属性
 const elDialogProps = {

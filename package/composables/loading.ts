@@ -1,13 +1,27 @@
 import { ElLoading } from 'element-plus'
 import { nextTick } from 'vue'
-import { i18n } from '../locales'
+import { useConfigStore } from '@/store'
+import useI18n from './i18n'
 
 export default function () {
-  const defaultOptions = mkh.store.state.app.config.component.loading
-  let loading
+  const confitSotre = useConfigStore()
+  const { t } = useI18n()
+  let loading: any
 
-  const open = (text, options) => {
-    loading = ElLoading.service(Object.assign({}, defaultOptions, { text: text || i18n.global.t('mkh.loading_text') }, options))
+  const open = (
+    text: string,
+    options?: {
+      /**
+       * 加载动画配景色
+       */
+      background: string
+      /**
+       * 加载动画图标
+       */
+      spinner: string
+    }
+  ) => {
+    loading = ElLoading.service(Object.assign({}, confitSotre.component.loading, { text: text || t('mkh.loading_text') }, options))
   }
 
   const close = () => {

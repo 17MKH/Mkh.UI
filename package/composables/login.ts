@@ -1,68 +1,69 @@
-import { computed, getCurrentInstance, onMounted, onUnmounted, reactive, ref } from 'vue'
+import type { LoginDto } from '@/types'
+import type { FormInstance } from 'element-plus'
+import { onMounted, onUnmounted, reactive, Ref, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import dom from '../utils/dom'
-import { i18n } from '../locales'
+import dom from '@/utils/dom'
+import useI18n from './i18n'
+import { useConfigStore } from '@/store'
+import useNotification from './notification'
 
 export default function () {
-  const { $notify } = getCurrentInstance().proxy
-  const { router, store } = mkh
+  const { t } = useI18n()
+  const configStore = useConfigStore()
   const route = useRoute()
   const loading = ref(false)
-  const formRef = ref(null)
+  const formRef: Ref<FormInstance | undefined> = ref()
+
+  const notify = useNotification()
 
   let { redirect } = route.query
   if (!redirect) {
     redirect = '/'
   }
 
-  const model = reactive({ username: '', password: '', verifyCode: '', verifyCodeId: '' })
+  const model: LoginDto = reactive({ username: '', password: '', verifyCode: '', verifyCodeId: '' })
   const rules = {
     username: [
       {
         required: true,
-        message: i18n.global.t('mkh.login.input_username'),
+        message: t('mkh.login.input_username'),
         trigger: 'blur',
       },
     ],
     password: [
       {
         required: true,
-        message: i18n.global.t('mkh.login.input_password'),
+        message: t('mkh.login.input_password'),
         trigger: 'blur',
       },
     ],
     verifyCode: [
       {
         required: true,
-        message: i18n.global.t('mkh.login.input_code'),
+        message: t('mkh.login.input_code'),
         trigger: 'blur',
       },
     ],
   }
 
-  const login = computed(() => store.state.app.config.actions.login)
   const tryLogin = () => {
-    formRef.value.validate(valid => {
+    if (!formRef.value) return
+
+    formRef.value.validate((valid) => {
       if (valid) {
         loading.value = true
-        login
-          .value(model)
-          .then(data => {
-            $notify({
-              title: i18n.global.t('mkh.login.notify_title'),
-              message: i18n.global.t('mkh.login.notify_success'),
-              type: 'success',
-              duration: 1500,
-              onClose() {
-                store.dispatch('app/token/login', data)
-                router.push(redirect)
-              },
+        configStore.systemActions
+          .login(model)
+          .then((data) => {
+            notify.success(t('mkh.login.notify_success'), t('mkh.login.notify_title'), () => {
+              store.dispatch('app/token/login', data)
+              router.push(redirect)
             })
           })
-          .catch(msg => {
+          .catch((msg) => {
             loading.value = false
             $notify.error({
-              title: i18n.global.t('mkh.login.notify_title'),
+              title: t('mkh.login.notify_title'),
               duration: 1500,
               message: msg,
             })
@@ -71,7 +72,7 @@ export default function () {
     })
   }
 
-  const handleEnterLogin = e => {
+  const handleEnterLogin = (e) => {
     if (e.code === 'Enter') {
       tryLogin()
     }

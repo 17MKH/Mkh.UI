@@ -61,12 +61,12 @@
     </div>
   </el-dialog>
 </template>
-<script>
-  import { computed, nextTick, ref } from 'vue'
-  import { useVisible, useFullscreen } from '../../composables'
-  import dom from '../../utils/dom'
+<script lang="ts">
+  import { defineComponent, computed, nextTick, ref } from 'vue'
+  import { useVisible, useFullscreen } from '@/composables'
+  import dom from '@/utils/dom'
   import props from './props'
-  export default {
+  export default defineComponent({
     inheritAttrs: false,
     props,
     emits: ['update:modelValue', 'open', 'opened', 'close', 'closed', 'open-auto-focus', 'close-auto-focus'],
@@ -194,7 +194,7 @@
         handleCloseAutoFocus,
       }
     },
-  }
+  })
 </script>
 <style lang="scss">
   @import './index';

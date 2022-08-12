@@ -11,12 +11,10 @@
   import useSize from '@/composables/size'
   import { useProfileStore } from '@/store'
 
-  const props = defineProps<{ name: string }>()
-
   const { size } = useSize()
 
   const skinComponent = ref('')
-
+  const emit = defineEmits(['change', 'delete'])
   const profileStore = useProfileStore()
   const skin = computed(() => profileStore.skin)
 

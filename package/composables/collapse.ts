@@ -1,6 +1,7 @@
+import type { Ref } from 'vue'
 import { ref } from 'vue'
 
-export default function (emit) {
+export default function (emit: { (e: 'collapse-change', isCollapse: Ref<boolean>): void }) {
   const isCollapse = ref(false)
 
   const openCollapse = () => {

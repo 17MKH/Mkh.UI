@@ -1,4 +1,4 @@
-import type { AppService, BootstrapOptions, ModuleDefinition } from '@/types'
+import type { AppService, BootstrapOptions, ModuleDefinition, SkinDefinition } from '@/types'
 import mkh from './mkh'
 import { createApp } from 'vue'
 import Locales from './locales'
@@ -12,29 +12,10 @@ import 'element-plus/dist/index.css'
 import './styles/app.scss'
 import Components from './components'
 import Directives from './directives'
-import Skins from './skins'
-import config from './defaults'
+import useSkins from './skins'
+import { defaultConfig } from './defaults'
 import VCharts from 'vue-echarts'
-
-/** 默认启动配置 */
-const defaultOptions: BootstrapOptions = {
-  /** 多语言配置 */
-  locale: {
-    /** 默认语言 */
-    default: 'zh-cn',
-    /** 备用语言 */
-    fallback: 'zh-cn',
-  },
-  /** 接口配置 */
-  http: {
-    /** 全局接口地址 */
-    global: {
-      baseURL: '',
-    },
-    /** 模块配置，会覆盖全局配置 */
-    modules: {},
-  },
-}
+import { defaultBootstrapOptions } from './defaults'
 
 /**
  * 模块列表
@@ -44,6 +25,11 @@ const modules: ModuleDefinition[] = []
  * 应用服务集合
  */
 const services: AppService[] = []
+
+/**
+ * 皮肤集合
+ */
+const skins: SkinDefinition[] = []
 
 /**
  * 注册模块
@@ -68,11 +54,22 @@ export const useAppService = (service: AppService) => {
 }
 
 /**
+ * 注册皮肤
+ * @param skin 皮肤定义
+ */
+export const useSkin = (skin: SkinDefinition) => {
+  if (skins.findIndex((m) => m.code === skin.code) === -1) {
+    skins.push(skin)
+  }
+}
+
+/**
  * 启动应用
  * @param options 配置项
  */
-export const bootstrap = (options: BootstrapOptions) => {
-  options = _.merge(defaultOptions, options)
+export const bootstrap = (options_: BootstrapOptions) => {
+  const config = _.merge({}, defaultConfig)
+  const bootstrapOptions = _.merge({}, defaultBootstrapOptions, options_)
 
   const app = createApp(Layout)
 
@@ -83,7 +80,7 @@ export const bootstrap = (options: BootstrapOptions) => {
   modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
-  app.use(Locales, options.locale)
+  app.use(Locales, bootstrapOptions, modules)
 
   //注册状态
   app.use(useStore)
@@ -105,11 +102,11 @@ export const bootstrap = (options: BootstrapOptions) => {
   app.use(Directives)
 
   //注册皮肤
-  app.use(Skins)
+  app.use(useSkins, skins)
 
   //执行模块的回调函数
   services.forEach((c) => {
-    c({ app, config, mkh, options: options })
+    c({ app, config, options: bootstrapOptions })
   })
 
   //从本地存储中加载令牌

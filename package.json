@@ -35,7 +35,7 @@
     "tslib": "^2.4.0",
     "vue": "^3.2.37",
     "vue-echarts": "^6.2.3",
-    "vue-i18n": "^9.1.10",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.2"
   },
   "devDependencies": {

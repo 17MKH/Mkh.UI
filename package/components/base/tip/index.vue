@@ -3,9 +3,8 @@
     <m-icon name="question" class="m-text-warning m-font-16 m-margin-lr-3"></m-icon>
   </el-tooltip>
 </template>
-<script>
-export default {
-  props: {
+<script lang="ts" setup>
+  defineProps({
     content: {
       type: String,
       default: '',
@@ -18,6 +17,5 @@ export default {
       type: String,
       default: 'dark',
     },
-  },
-}
+  })
 </script>

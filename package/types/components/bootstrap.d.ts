@@ -1,9 +1,11 @@
-import { locale } from './locale'
+import { Messages } from 'vue-i18n'
+import { locale, MkhLocaleMessagesGroup } from './locale'
+import { Config } from './config'
 
 /**
  * 接口配置项
  */
-interface HttpOptions {
+export interface BootstrapHttpOptions {
   /**
    * 接口地址
    */
@@ -17,7 +19,7 @@ export interface BootstrapOptions {
   /**
    * 多语言配置
    */
-  locale?: {
+  locale: {
     /**
      * 默认语言，默认中文
      */
@@ -26,6 +28,10 @@ export interface BootstrapOptions {
      * 备用语言
      */
     fallback?: locale
+    /**
+     * 多语言列表
+     */
+    messages: MkhLocaleMessagesGroup
   }
   /**
    * 接口配置
@@ -38,7 +44,7 @@ export interface BootstrapOptions {
      *
      * 当未给模块指定接口配置时，使用全局接口配置
      */
-    global: HttpOptions
+    global: BootstrapHttpOptions
     /**
      * 模块配置
      *
@@ -47,7 +53,7 @@ export interface BootstrapOptions {
      * 模块的接口配置优先级高于全局配置
      */
     modules?: {
-      [key: string]: HttpOptions
+      [key: string]: BootstrapHttpOptions
     }
   }
 }
@@ -56,5 +62,5 @@ export interface BootstrapOptions {
  * 应用服务
  */
 export interface AppService {
-  (options: { app: App<Element>; config: Config; mkh: Mkh; options: BootstrapOptions }): void
+  (options: { app: App<Element>; config: Config; options: BootstrapOptions }): void
 }

@@ -10,7 +10,7 @@ useAppService(({ config }) => {
   //   en: '17MKH English',
   // }
 
-  config.site.home = '/doc/home'
+  config.site.homePage = '/doc/home'
   /** 配置登录组件 */
   config.component.login = 'k'
 })

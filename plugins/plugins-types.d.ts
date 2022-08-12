@@ -14,12 +14,6 @@ export interface PluginContextOptions {
   isSkin?: boolean
   /** 打包模式是否是库模式 */
   target: 'app' | 'lib'
-  /** 依赖模块列表 */
-  dependencyModules: string[]
-  /** 皮肤列表 */
-  skins: string[]
-  /** 语言包 */
-  locales: string[]
   /** index.html转换配置 */
   htmlTransform?: HtmlTransform
 }

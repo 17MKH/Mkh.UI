@@ -6,11 +6,10 @@
   </i>
 </template>
 
-<script>
-import('./iconfont')
+<script lang="ts" setup>
+  import './iconfont'
 
-export default {
-  props: {
+  defineProps({
     /** 名称 */
     name: {
       type: String,
@@ -30,6 +29,5 @@ export default {
     input: {
       type: Boolean,
     },
-  },
-}
+  })
 </script>

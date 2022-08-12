@@ -1,6 +1,7 @@
+import type { Component, Ref } from 'vue'
 import { ref } from 'vue'
 
-export default function (emit) {
+export default function (emit: { (e: 'fullscreen-change', isFullscreen: Ref<boolean>): void }) {
   const isFullscreen = ref(false)
 
   const openFullscreen = () => {
@@ -26,7 +27,22 @@ export default function (emit) {
   }
 }
 
-export const fullscreenMixins = componentRef => {
+export interface FullscreenMixins {
+  /***
+   * 开启全屏
+   */
+  openFullscreen: () => {}
+  /**
+   * 关闭全屏
+   */
+  closeFullscreen: () => {}
+  /**
+   * 切换全屏
+   */
+  toggleFullscreen: () => {}
+}
+
+export const fullscreenMixins = (componentRef: Ref<Component & FullscreenMixins>) => {
   return {
     openFullscreen() {
       componentRef.value.openFullscreen()

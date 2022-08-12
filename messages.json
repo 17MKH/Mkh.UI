@@ -1,0 +1,20 @@
+{
+  "zh-cn": {
+    "name": "zh-cn",
+    "ui": {},
+    "mod": {
+      "doc": {},
+      "admin": {}
+    },
+    "skin": {}
+  },
+  "en": {
+    "name": "en",
+    "ui": {},
+    "mod": {
+      "doc": {},
+      "admin": {}
+    },
+    "skin": {}
+  }
+}

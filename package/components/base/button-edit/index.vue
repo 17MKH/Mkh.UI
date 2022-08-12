@@ -1,13 +1,15 @@
+import { useI18n } from 'vue-i18n';
 <template>
   <m-button class="m-button-edit" :link="link" :type="type" :text="text" :icon="icon">
     <slot>
-      {{ $t('mkh.edit') }}
+      {{ t('mkh.edit') }}
     </slot>
   </m-button>
 </template>
-<script>
-export default {
-  props: {
+<script lang="ts" setup>
+  import useI18n from '@/composables/i18n'
+
+  defineProps({
     type: {
       type: String,
       default: 'primary',
@@ -26,6 +28,7 @@ export default {
       type: String,
       default: 'edit',
     },
-  },
-}
+  })
+
+  const { t } = useI18n()
 </script>

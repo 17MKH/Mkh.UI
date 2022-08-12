@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-export default function (props, emit) {
+export default function (props: { modelValue: boolean }, emit: { (e: 'update:modelValue', value: boolean): void }) {
   const visible = computed({
     get() {
       return props.modelValue
@@ -24,3 +24,11 @@ export default function (props, emit) {
     close,
   }
 }
+
+const test = (props: { name: string }) => {
+  console.log(props.name)
+}
+
+const props = { name: '111', type: 222, store: {} }
+
+test(props)

@@ -46,26 +46,21 @@
     </template>
   </el-button>
 </template>
-<script>
-  import props from './props'
-  export default {
-    props,
-    emits: ['click'],
-    setup(props, { emit }) {
-      const { router } = mkh
+<script setup lang="ts">
+  import { useRouter } from 'vue-router'
+  import propsDefinition from './props'
 
-      const handleClick = (event) => {
-        if (props.to) {
-          router.push(props.to)
-        } else {
-          emit('click', event)
-        }
-      }
+  const props = defineProps(propsDefinition)
+  const emit = defineEmits<{ (e: 'click', event: MouseEvent): void }>()
 
-      return {
-        handleClick,
-      }
-    },
+  const router = useRouter()
+
+  const handleClick = (event: MouseEvent) => {
+    if (props.to) {
+      router.push(props.to)
+    } else {
+      emit('click', event)
+    }
   }
 </script>
 <style lang="scss">

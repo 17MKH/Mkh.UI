@@ -1,10 +1,10 @@
-import { ref } from 'vue'
+import { Ref, ref } from 'vue'
 
-export default function () {
+export default function <TRow>() {
   //列表组件引用
   const listRef = ref()
   //当前操作选择的列
-  const selection = ref({})
+  const selection: Ref<TRow | undefined> = ref()
   //当前操作模式
   const mode = ref('')
   //显示编辑或添加
@@ -17,14 +17,14 @@ export default function () {
   }
 
   //编辑
-  const edit = row => {
+  const edit = (row: TRow) => {
     selection.value = row
     mode.value = 'edit'
     saveVisible.value = true
   }
 
   //预览
-  const view = row => {
+  const view = (row: TRow) => {
     selection.value = row
     mode.value = 'view'
     saveVisible.value = true

@@ -1,9 +1,9 @@
-import type { Size } from '@/types'
+import type { size } from '@/types'
 import { computed } from 'vue'
 import { SIZE_DEFINITIONS } from '../utils/constants'
 import { useConfigStore } from '@/store'
 
-export default function (props?: Readonly<{ size: Size }>) {
+export default function (props?: Readonly<{ size: size }>) {
   return {
     size: computed(() => {
       let size = SIZE_DEFINITIONS.DEFAULT

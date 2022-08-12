@@ -1,4 +1,4 @@
-import type { Config, JwtCredential, Profile, Skin } from '@/types'
+import type { BootstrapOptions, Config, JwtCredential, Profile, Skin } from '@/types'
 import formatters from './utils/formatters'
 import { SIZE_DEFINITIONS } from '@/utils/constants'
 
@@ -64,4 +64,24 @@ export const defaultCredential: JwtCredential = {
   refreshToken: '',
   expiresIn: 0,
   loginTime: 0,
+}
+
+/** 默认启动配置 */
+export const defaultBootstrapOptions: BootstrapOptions = {
+  /** 多语言配置 */
+  locale: {
+    /** 默认语言 */
+    default: 'zh-cn',
+    /** 备用语言 */
+    fallback: 'zh-cn',
+  },
+  /** 接口配置 */
+  http: {
+    /** 全局接口地址 */
+    global: {
+      baseURL: '',
+    },
+    /** 模块配置，会覆盖全局配置 */
+    modules: {},
+  },
 }

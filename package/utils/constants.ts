@@ -1,18 +1,18 @@
-import type { Size } from '@/types'
+import type { locale, size } from '@/types'
 
 export interface SIZE_DEFINITIONS {
   /**
    * 大号
    */
-  LARGE: Size
+  LARGE: size
   /**
    * 默认尺寸
    */
-  DEFAULT: Size
+  DEFAULT: size
   /**
    * 小号
    */
-  SMALL: Size
+  SMALL: size
 }
 
 /**
@@ -22,4 +22,17 @@ export const SIZE_DEFINITIONS: SIZE_DEFINITIONS = {
   LARGE: 'large',
   DEFAULT: 'default',
   SMALL: 'small',
+}
+
+export interface LOCALE_DEFINITIONS {
+  ZhCN: locale
+  En: locale
+}
+
+/**
+ * 语言定义
+ */
+export const LOCALE_DEFINITIONS = {
+  ZhCN: 'zh-cn',
+  En: 'en',
 }

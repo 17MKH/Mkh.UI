@@ -3,7 +3,7 @@ import { Component } from 'vue'
 /**
  * 尺寸
  */
-export declare type Size = 'large' | 'default' | 'small'
+export declare type size = 'large' | 'default' | 'small'
 
 /**
  * 皮肤定义
@@ -21,6 +21,10 @@ export interface SkinDefinition {
    * 皮肤预览图的路径，一个url地址或者是base64
    */
   preview: string
+  /**
+   * 皮肤组件
+   */
+  component: Component
   /**
    * 皮肤支持的主题
    */
@@ -56,5 +60,5 @@ export interface Skin {
    * 尺寸
    * @remarks 与Element Plus提供的尺寸保持一致，large / default /small
    */
-  size: Size
+  size: size
 }

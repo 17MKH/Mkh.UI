@@ -1,3 +1,5 @@
+import { LocaleMessages } from 'vue-i18n'
+
 /**
  * 语言选项
  */
@@ -6,12 +8,36 @@ export declare type locale = 'zh-cn' | 'en'
 /**
  * 多语言信息
  */
-export interface LocaleMessage {
+export interface MkhLocaleMessages extends LocaleMessages {
+  /**
+   * 语言名称
+   */
+  name: locale
+  /**
+   * Element Plus 语言信息
+   */
   el: {}
-  ui: {}
+  /**
+   * 17MKH UI框架的语言信息
+   */
+  mkh: {}
+  /**
+   * 路由语言信息
+   */
+  routes: {}
+  /**
+   * 模块语言信息
+   */
   mod: {
-    [route: string]: string | {}
-    routes: {}
+    [key: string]: string | {}
   }
-  skiny: {}
+  /**
+   * 皮肤语言信息
+   */
+  skin: {}
+  [key: string]: {}
+}
+
+export interface MkhLocaleMessagesGroup {
+  [key: string]: MkhLocaleMessages
 }

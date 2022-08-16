@@ -10,8 +10,11 @@
   import { computed, ref, watchEffect } from 'vue'
   import useSize from '@/composables/size'
   import { useProfileStore } from '@/store'
+  import useI18n from '@/composables/i18n'
 
   const { size } = useSize()
+
+  const x = useI18n()
 
   const skinComponent = ref('')
   const emit = defineEmits(['change', 'delete'])

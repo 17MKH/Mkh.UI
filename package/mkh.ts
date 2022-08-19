@@ -8,7 +8,6 @@ import pkg from '../package.json'
 const mkh: Mkh = {
   version: pkg.version,
   modules: [],
-  skins: [],
   toolbars: {},
   locales: [],
   components: [],

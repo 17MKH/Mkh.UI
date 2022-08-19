@@ -6,7 +6,7 @@
           <img class="m-header_logo" :src="site.logo" />
         </li>
         <li>
-          <span class="m-header_title">{{ typeof site.title === 'object' ? site.title[$i18n.locale] : site.title }}</span>
+          <span class="m-header_title">{{ title }}</span>
         </li>
       </ul>
     </m-flex-auto>
@@ -15,17 +15,17 @@
       <div class="m-header_userinfo">
         <el-dropdown trigger="click" @command="handleCommand">
           <a class="m-header_userinfo_avatar" href="javascript:void(0);">
-            <img :src="profile.avatar || './assets/mkh/avatar.png'" />
+            <img :src="profileStore.avatar || './assets/mkh/avatar.png'" />
           </a>
           <template #dropdown>
             <el-dropdown-menu class="m-header_userinfo_dropdown">
               <el-dropdown-item command="profile">
                 <m-icon name="user"></m-icon>
-                {{ $t('mkh.profile') }}
+                {{ t('mkh.profile') }}
               </el-dropdown-item>
               <el-dropdown-item divided command="logout">
                 <m-icon name="sign-out"></m-icon>
-                {{ $t('mkh.logout') }}
+                {{ t('mkh.logout') }}
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -40,49 +40,52 @@
     </m-flex-fixed>
   </m-flex-row>
 </template>
-<script>
-import { computed, getCurrentInstance } from 'vue'
-import { useMessage } from '../../../../composables'
+<script setup lang="ts">
+  import { useMessage } from '@/composables'
+  import { useConfigStore, useProfileStore, useTokenStore } from '@/store'
+  import { useI18n } from '@/composables/i18n'
+  import mkh from '@/mkh'
+  import { useRouter } from 'vue-router'
+  import { computed } from 'vue'
 
-export default {
-  setup() {
-    const cit = getCurrentInstance().proxy
-    const { store, router } = mkh
-    const message = useMessage()
-    const site = store.state.app.config.site
-    const profile = computed(() => store.state.app.profile)
-    const toolbars = Object.values(mkh.toolbars)
-      .filter(m => m.show)
-      .sort((x, y) => x.sort - y.sort)
+  const configStore = useConfigStore()
+  const profileStore = useProfileStore()
+  const tokenStore = useTokenStore()
 
-    const handleCommand = cmd => {
-      const { $t } = cit
-      switch (cmd) {
-        case 'profile':
-          if (site.profile) {
-            router.push(site.profile)
-          }
-          break
-        case 'logout':
-          message
-            .confirm($t('mkh.logout_confirm'), $t('mkh.warning'), {
-              confirmButtonText: $t('mkh.ok'),
-              cancelButtonText: $t('mkh.cancel'),
-            })
-            .then(() => {
-              store.dispatch('app/token/logout')
-            })
-            .catch(() => {})
-          break
-      }
+  const { t, locale } = useI18n()
+
+  const router = useRouter()
+
+  const message = useMessage()
+  const site = configStore.site
+  const toolbars = Object.values(mkh.toolbars)
+    .filter((m) => m.show)
+    .sort((x, y) => x.sort - y.sort)
+
+  const title = computed(() => {
+    return typeof site.title === 'object' ? site.title[locale.value] : site.title
+  })
+
+  const handleCommand = (cmd: string) => {
+    switch (cmd) {
+      case 'profile':
+        if (site.profilePage) {
+          router.push(site.profilePage)
+        }
+        break
+      case 'logout':
+        message
+          .confirm(t('mkh.logout_confirm'), t('mkh.warning'), {
+            confirmButtonText: t('mkh.ok'),
+            cancelButtonText: t('mkh.cancel'),
+          })
+          .then(() => {
+            tokenStore.clear()
+
+            router.push({ name: 'login', query: { redirect: router.currentRoute.value.fullPath } })
+          })
+          .catch(() => {})
+        break
     }
-
-    return {
-      site,
-      profile,
-      toolbars,
-      handleCommand,
-    }
-  },
-}
+  }
 </script>

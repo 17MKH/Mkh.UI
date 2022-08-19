@@ -61,69 +61,68 @@
   </el-drawer>
 </template>
 <script>
-  import { computed } from 'vue'
-  import { useVisible, useFullscreen } from '../../composables'
-  import props from './props'
   export default {
     inheritAttrs: false,
-    props,
-    emits: ['update:modelValue', 'open', 'opened', 'close', 'closed'],
-    setup(props, { emit }) {
-      const { store } = mkh
-
-      const size_ = computed(() => props.size || store.state.app.profile.skin.size)
-
-      //加载动画配置
-      const loadingOptions = store.state.app.config.component.loading
-
-      //全屏操作
-      const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
-
-      //使用当前时间戳创建唯一ID
-      const class_ = computed(() => {
-        const { customClass, noPadding, noScrollbar } = props
-        let classList = ['m-drawer', `m-drawer-${new Date().getTime()}`]
-        if (size_.value) classList.push(size_.value)
-        if (noPadding) classList.push('no-padding')
-        if (noScrollbar) classList.push('no-scrollbar')
-        if (isFullscreen.value) classList.push('is-fullscreen')
-        if (customClass) classList.push(props.customClass)
-
-        return classList.join(' ')
-      })
-
-      const handleOpen = () => {
-        emit('open')
-      }
-
-      const handleOpened = () => {
-        emit('opened')
-      }
-
-      const handleClose = () => {
-        emit('close')
-      }
-
-      const handleClosed = () => {
-        emit('closed')
-      }
-
-      return {
-        ...useVisible(props, emit),
-        size_,
-        class_,
-        loadingOptions,
-        isFullscreen,
-        openFullscreen,
-        closeFullscreen,
-        toggleFullscreen,
-        handleOpen,
-        handleOpened,
-        handleClose,
-        handleClosed,
-      }
-    },
   }
+</script>
+<script setup lang="ts">
+  import { computed } from 'vue'
+  import { useVisible, useFullscreen } from '@/composables'
+  import { useConfigStore, useProfileStore } from '@/store'
+  import propsDefinition from './props'
+
+  const props = defineProps(propsDefinition)
+  const emit = defineEmits(['update:modelValue', 'open', 'opened', 'close', 'closed', 'fullscreen-change'])
+
+  const confitStore = useConfigStore()
+  const profileStore = useProfileStore()
+
+  const size_ = computed(() => props.size || profileStore.skin.size)
+
+  //加载动画配置
+  const loadingOptions = confitStore.component.loading
+
+  const { visible, open, close } = useVisible(props, emit)
+
+  //全屏操作
+  const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
+
+  //使用当前时间戳创建唯一ID
+  const class_ = computed(() => {
+    const { customClass, noPadding, noScrollbar } = props
+    let classList = ['m-drawer', `m-drawer-${new Date().getTime()}`]
+    if (size_.value) classList.push(size_.value)
+    if (noPadding) classList.push('no-padding')
+    if (noScrollbar) classList.push('no-scrollbar')
+    if (isFullscreen.value) classList.push('is-fullscreen')
+    if (customClass) classList.push(props.customClass)
+
+    return classList.join(' ')
+  })
+
+  const handleOpen = () => {
+    emit('open')
+  }
+
+  const handleOpened = () => {
+    emit('opened')
+  }
+
+  const handleClose = () => {
+    emit('close')
+  }
+
+  const handleClosed = () => {
+    emit('closed')
+  }
+
+  defineExpose({
+    open,
+    close,
+    openFullscreen,
+    closeFullscreen,
+    toggleFullscreen,
+  })
 </script>
 <style lang="scss">
   @import './index';

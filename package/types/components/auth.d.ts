@@ -12,6 +12,14 @@ export interface LoginDto {
    * 密码
    */
   password: string
+  /**
+   * 验证码
+   */
+  verifyCode?: string
+  /**
+   * 验证码编号
+   */
+  verifyCodeId?: string
 }
 
 /**

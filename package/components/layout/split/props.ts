@@ -7,7 +7,7 @@ export default {
     default: '300px',
   },
   mode: {
-    validator(value) {
+    validator(value: 'horizontal' | 'vertical') {
       return value === 'horizontal' || value === 'vertical'
     },
     default: 'horizontal',

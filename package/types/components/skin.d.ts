@@ -3,7 +3,7 @@ import { Component } from 'vue'
 /**
  * 尺寸
  */
-export declare type size = 'large' | 'default' | 'small'
+export declare type size = '' | 'large' | 'default' | 'small'
 
 /**
  * 皮肤定义

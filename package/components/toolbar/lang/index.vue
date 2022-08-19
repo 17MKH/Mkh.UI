@@ -5,32 +5,25 @@
     </div>
     <template #dropdown>
       <el-dropdown-menu class="m-toolbar_item_lang">
-        <template v-for="locale in locales" :key="`locale-${locale.value}`">
-          <el-dropdown-item :command="locale.value">
-            <div :class="locale.value === $i18n.locale ? 'is-active' : ''">{{ locale.label }}</div>
+        <template v-for="locale in availableLocales" :key="`locale-${locale}`">
+          <el-dropdown-item :command="locale">
+            <div :class="locale === $i18n.locale ? 'is-active' : ''">{{ locale }}</div>
           </el-dropdown-item>
         </template>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
 </template>
-<script>
-  import { getCurrentInstance } from 'vue'
-  import db from '../../utils/db'
-  export default {
-    setup() {
-      const cit = getCurrentInstance().proxy
+<script setup lang="ts">
+  import db from '@/utils/db'
+  import { useI18n } from '@/composables/i18n'
+  import type { locales } from '@/locales'
 
-      const handleCommand = (command) => {
-        cit.$i18n.locale = command
-        db.set('lang', command)
-      }
+  const { locale, availableLocales } = useI18n()
 
-      return {
-        handleCommand,
-        locales: mkh.locales,
-      }
-    },
+  const handleCommand = (command: locales) => {
+    locale.value = command
+    db.set('lang', command)
   }
 </script>
 <style lang="scss">

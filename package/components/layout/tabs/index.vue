@@ -1,6 +1,6 @@
 <template>
   <el-tabs class="m-tabs">
-    <slot />
+    <slot></slot>
   </el-tabs>
 </template>
 <style lang="scss">

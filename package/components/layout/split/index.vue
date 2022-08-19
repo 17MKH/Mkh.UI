@@ -8,7 +8,7 @@
   >
     <div ref="wrapperRef" class="m-split_wrapper">
       <div :style="style" class="m-split_fixed">
-        <slot name="fixed" />
+        <slot name="fixed"></slot>
       </div>
       <div class="m-split_trigger" @mousedown="handleDown">
         <slot name="trigger">
@@ -18,138 +18,134 @@
         </slot>
       </div>
       <div class="m-split_auto">
-        <slot name="auto" />
+        <slot name="auto"></slot>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import { computed, nextTick, onMounted, watch, ref, toRef } from 'vue'
-  import props from './props'
-  import dom from '../../utils/dom'
-  export default {
-    props,
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
-      const { store } = mkh
+  import propsDefinition from './props'
+  import dom from '@/utils/dom'
+  import { useConfigStore } from '@/store'
 
-      const loadingOptions = store.state.app.config.component.loading
+  const props = defineProps(propsDefinition)
+  const emit = defineEmits(['update:modelValue'])
 
-      const modelValue = toRef(props, 'modelValue')
+  const configStore = useConfigStore()
 
-      //标识拖动中
-      const moving = ref(false)
-      const wrapperRef = ref()
+  const loadingOptions = configStore.component.loading
 
-      //是否水平排列
-      const isHorizontal = computed(() => {
-        return props.mode === 'horizontal'
-      })
+  const modelValue = toRef(props, 'modelValue')
 
-      //单位是否是px
-      const valueIsPx = computed(() => {
-        return typeof props.modelValue === 'string'
-      })
+  //标识拖动中
+  const moving = ref(false)
+  const wrapperRef = ref()
 
-      //固定面板的尺寸
-      const fixedSize = ref(0)
+  //是否水平排列
+  const isHorizontal = computed(() => {
+    return props.mode === 'horizontal'
+  })
 
-      //包装器的尺寸
-      const wrapperSize = computed(() => {
-        return isHorizontal.value ? wrapperRef.value.offsetWidth : wrapperRef.value.offsetHeight
-      })
+  //单位是否是px
+  const valueIsPx = computed(() => {
+    return typeof props.modelValue === 'string'
+  })
 
-      //固定面板的最小尺寸
-      const minSize = computed(() => {
-        const { min } = props
-        if (typeof min === 'string') {
-          return parseFloat(min.replace('px', ''))
-        } else {
-          return min * wrapperSize.value
-        }
-      })
+  //固定面板的尺寸
+  const fixedSize = ref(0)
 
-      //固定面板最小尺寸
-      const maxSize = computed(() => {
-        const { max } = props
-        if (typeof max === 'string') {
-          return parseFloat(max.replace('px', ''))
-        } else {
-          return max * wrapperSize.value
-        }
-      })
+  //包装器的尺寸
+  const wrapperSize = computed(() => {
+    return isHorizontal.value ? wrapperRef.value.offsetWidth : wrapperRef.value.offsetHeight
+  })
 
-      //固定面板的样式
-      const style = computed(() => {
-        return isHorizontal.value ? { width: fixedSize.value + 'px' } : { height: fixedSize.value + 'px' }
-      })
+  //固定面板的最小尺寸
+  const minSize = computed(() => {
+    const { min } = props
+    if (typeof min === 'string') {
+      return parseFloat(min.replace('px', ''))
+    } else {
+      return min * wrapperSize.value
+    }
+  })
 
-      //计算固定面板的尺寸
-      const computeFixedSize = () => {
-        fixedSize.value = valueIsPx.value ? parseFloat(modelValue.value.replace('px', '')) : wrapperSize.value * modelValue.value
-      }
+  //固定面板最小尺寸
+  const maxSize = computed(() => {
+    const { max } = props
+    if (typeof max === 'string') {
+      return parseFloat(max.replace('px', ''))
+    } else {
+      return max * wrapperSize.value
+    }
+  })
 
-      //记录鼠标点击时的状态
-      let mouseState = null
-      //记录鼠标点击时的固定面板尺寸
-      let initFixedSize = null
-      let value_ = ''
+  //固定面板的样式
+  const style = computed(() => {
+    return isHorizontal.value ? { width: fixedSize.value + 'px' } : { height: fixedSize.value + 'px' }
+  })
 
-      const handleMove = (e) => {
-        let t = isHorizontal.value ? 'pageX' : 'pageY'
-        let size = initFixedSize + e[t] - mouseState[t]
-        if (size < minSize.value) {
-          size = minSize.value
-        } else if (size > maxSize.value) {
-          size = maxSize.value
-        }
-
-        fixedSize.value = size
-
-        value_ = valueIsPx.value ? size + 'px' : size / wrapperSize.value
-        emit('update:modelValue', value_)
-      }
-
-      const handleUp = () => {
-        moving.value = false
-        dom.off(document, 'mousemove', handleMove)
-        dom.off(document, 'mouseup', handleUp)
-      }
-
-      const handleDown = (e) => {
-        moving.value = true
-        mouseState = e
-        initFixedSize = fixedSize.value
-        dom.on(document, 'mousemove', handleMove)
-        dom.on(document, 'mouseup', handleUp)
-      }
-
-      onMounted(() => {
-        nextTick(() => {
-          computeFixedSize()
-        })
-
-        window.addEventListener('resize', () => {
-          computeFixedSize()
-        })
-      })
-
-      watch(modelValue, (val) => {
-        if (val !== value_) {
-          computeFixedSize()
-        }
-      })
-
-      return {
-        loadingOptions,
-        moving,
-        wrapperRef,
-        style,
-        handleDown,
-      }
-    },
+  //计算固定面板的尺寸
+  const computeFixedSize = () => {
+    fixedSize.value = valueIsPx.value ? parseFloat((modelValue.value as string).replace('px', '')) : wrapperSize.value * (modelValue.value as number)
   }
+
+  //记录鼠标点击时的状态
+  let mouseState: MouseEvent
+  //记录鼠标点击时的固定面板尺寸
+  let initFixedSize: number = 0
+  let value_: string | number = ''
+
+  const handleMove = (e: MouseEvent) => {
+    let size = initFixedSize
+
+    if (isHorizontal.value) {
+      size += e.pageX - mouseState.pageX
+    } else {
+      size += e.pageY - mouseState.pageY
+    }
+    if (size < minSize.value) {
+      size = minSize.value
+    } else if (size > maxSize.value) {
+      size = maxSize.value
+    }
+
+    fixedSize.value = size
+
+    value_ = valueIsPx.value ? size + 'px' : size / wrapperSize.value
+    emit('update:modelValue', value_)
+  }
+
+  const handleUp = () => {
+    moving.value = false
+    dom.off(document, 'mousemove', handleMove)
+    dom.off(document, 'mouseup', handleUp)
+  }
+
+  const handleDown = (e: MouseEvent) => {
+    moving.value = true
+    mouseState = e
+    initFixedSize = fixedSize.value
+    dom.on(document, 'mousemove', handleMove)
+    dom.on(document, 'mouseup', handleUp)
+  }
+
+  onMounted(() => {
+    nextTick(() => {
+      computeFixedSize()
+    })
+
+    window.addEventListener('resize', () => {
+      computeFixedSize()
+    })
+  })
+
+  watch(modelValue, (val) => {
+    if (val !== value_) {
+      computeFixedSize()
+    }
+  })
 </script>
 <style lang="scss">
   @import './index';

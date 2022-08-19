@@ -5,10 +5,12 @@
     </slot>
   </el-radio-group>
 </template>
-<script>
-import { computed, inject, ref, watch } from 'vue'
-export default {
-  props: {
+<script setup lang="ts">
+  import { computed, inject, ref, watch } from 'vue'
+  import useSize from '@/composables/size'
+  import { size } from '@/types'
+
+  const props = defineProps({
     modelValue: {
       type: [String, Number],
       required: true,
@@ -22,72 +24,65 @@ export default {
       type: Boolean,
       default: true,
     },
-  },
-  emits: ['update:modelValue', 'change'],
-  setup(props, { emit }) {
-    const { store } = mkh
+    size: {
+      type: String,
+      default: '',
+    },
+  })
+  const emit = defineEmits(['update:modelValue', 'change'])
 
-    const resetMethods = inject('resetMethods', [])
-    const value_ = computed({
-      get() {
-        return props.modelValue
-      },
-      set(val) {
-        emit('update:modelValue', val)
-      },
-    })
+  const resetMethods: Array<() => void> = inject('resetMethods', [])
+  const value_ = computed({
+    get() {
+      return props.modelValue
+    },
+    set(val) {
+      emit('update:modelValue', val)
+    },
+  })
 
-    //是否首次刷新
-    let firstRefresh = true
+  //是否首次刷新
+  let firstRefresh = true
 
-    const size_ = computed(() => props.size || store.state.app.profile.skin.size)
+  const size_ = useSize(props as { size: size })
 
-    const options = ref([])
+  const options = ref<any[]>([])
 
-    const refresh = () => {
-      props.action().then(data => {
-        options.value = data
+  const refresh = () => {
+    props.action().then((data: any) => {
+      options.value = data
 
-        if (firstRefresh) {
-          if (value_.value) {
-            //首次刷新并且存在初始值
-            handleChange(value_.value)
-          } else if (props.checkedFirst && data.length > 0) {
-            //首次刷新并且默认选中第一个选项
-            const checkedValue = data[0].value
-            value_.value = checkedValue
-            handleChange(checkedValue)
-          }
-
-          firstRefresh = false
+      if (firstRefresh) {
+        if (value_.value) {
+          //首次刷新并且存在初始值
+          handleChange(value_.value)
+        } else if (props.checkedFirst && data.length > 0) {
+          //首次刷新并且默认选中第一个选项
+          const checkedValue = data[0].value
+          value_.value = checkedValue
+          handleChange(checkedValue)
         }
-      })
-    }
 
-    const handleChange = val => {
-      const option = options.value.find(m => m.value === val)
-      emit('change', val, option, options)
-    }
+        firstRefresh = false
+      }
+    })
+  }
 
-    refresh()
+  const handleChange = (val: any) => {
+    const option = options.value.find((m) => m.value === val)
+    emit('change', val, option, options)
+  }
 
-    const reset = () => {
-      value_.value = ''
-      handleChange('')
-    }
+  refresh()
 
-    watch(value_, handleChange)
+  const reset = () => {
+    value_.value = ''
+    handleChange('')
+  }
 
-    resetMethods.push(reset)
+  watch(value_, handleChange)
 
-    return {
-      value_,
-      size_,
-      options,
-      refresh,
-      reset,
-      handleChange,
-    }
-  },
-}
+  resetMethods.push(reset)
+
+  defineExpose({ refresh, reset })
 </script>

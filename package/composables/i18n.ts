@@ -1,8 +1,9 @@
-import { useI18n } from 'vue-i18n'
+import type { locales } from '@/locales'
+import { useI18n as usei18n } from 'vue-i18n'
 import { MessagesSchema } from '@/locales/lang/zh-cn'
 
-export default function () {
-  const { t } = useI18n<{ message: MessagesSchema }>()
-
-  return { t }
+const useI18n = () => {
+  return usei18n<{ message: MessagesSchema }, locales>()
 }
+
+export { useI18n }

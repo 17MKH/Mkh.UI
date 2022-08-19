@@ -7,7 +7,7 @@ import { useI18n } from 'vue-i18n';
   </m-button>
 </template>
 <script lang="ts" setup>
-  import useI18n from '@/composables/i18n'
+  import { useI18n } from '@/composables/i18n'
 
   defineProps({
     type: {

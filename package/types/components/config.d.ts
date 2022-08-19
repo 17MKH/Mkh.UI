@@ -3,6 +3,7 @@ import { RouteLocationRaw } from 'vue-router'
 import { Menu } from './menu'
 import { LoginDto, JwtCredential, Profile, VerifyCode, UpdateSkinDto } from './auth'
 import { Skin } from './skin'
+import { FormatterFunction } from './list'
 
 /**
  * 站点配置
@@ -21,6 +22,7 @@ interface SiteConfig {
          * 英文标题
          */
         en: string
+        [key: string]: string
       }
     | string
   /**
@@ -96,7 +98,7 @@ interface ComponentConfig {
     /**
      * 格式化方法集合
      */
-    formatters
+    formatters: Map<string, FormatterFunction>
   }
 }
 

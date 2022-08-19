@@ -1,6 +1,7 @@
 import type { Breadcrumb, Locales, Menu, Profile } from '@/types'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
+import { useSkinStore } from './skin'
 import mkh from '@/mkh'
 import { defaultProfile } from '@/defaults'
 
@@ -48,7 +49,7 @@ const resolveRouteMenu = (profile: Profile, menus: Array<Menu>, parent?: Menu) =
         m.routeParams = JSON.parse(m.routeParams as string)
       }
 
-      m.breadcrumb.push({ to: m.routeName, routeQuery: m.routeQuery as object, routeParams: m.routeParams as object, locales: m.locales as Locales })
+      m.breadcrumb.push({ to: m.routeName, routeQuery: m.routeQuery as any, routeParams: m.routeParams as any, locales: m.locales as Locales })
     } else if (m.children) {
       m.breadcrumb.push({ locales: m.locales as Locales })
       resolveRouteMenu(profile, m.children, m)
@@ -67,6 +68,7 @@ const actions = {
   async init() {
     try {
       const configStore = useConfigStore()
+      const skinStore = useSkinStore()
 
       //获取账户信息
       if (configStore.systemActions && configStore.systemActions.getProfile) {
@@ -82,7 +84,7 @@ const actions = {
         //解析路由菜单
         resolveRouteMenu(profile, profile.menus)
 
-        if (!profile.skin || !profile.skin.code || mkh.skins.every((m) => m.code !== profile.skin.code)) {
+        if (!profile.skin || !profile.skin.code || skinStore.skins.every((m) => m.code !== profile.skin.code)) {
           if (configStore.skin) {
             let skin = configStore.skin
             profile.skin = {
@@ -92,7 +94,7 @@ const actions = {
               size: skin.size,
             }
           } else {
-            let skin = mkh.skins[0]
+            let skin = skinStore.skins[0]
 
             profile.skin = {
               name: skin.name,

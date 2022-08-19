@@ -7,7 +7,7 @@
 </template>
 <script lang="ts" setup>
   import { useLoading, useMessage } from '@/composables'
-  import useI18n from '@/composables/i18n'
+  import { useI18n } from '@/composables/i18n'
 
   const props = defineProps({
     type: {

@@ -7,4 +7,5 @@ export default (app: App<Element>) => {
 
 export { useConfigStore } from './modules/config'
 export { useProfileStore } from './modules/profile'
+export { useSkinStore } from './modules/skin'
 export { useTokenStore } from './modules/token'

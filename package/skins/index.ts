@@ -2,6 +2,7 @@
 import { SkinDefinition } from '@/types'
 import { App } from 'vue'
 import './brief'
+import { useSkinStore } from '@/store'
 
 export default (app: App, skins: SkinDefinition[]) => {
   //注册皮肤
@@ -9,4 +10,7 @@ export default (app: App, skins: SkinDefinition[]) => {
     // 注册组件
     app.component('m-skin-' + skin.code.toLowerCase(), skin.component)
   })
+
+  const skinStore = useSkinStore()
+  skinStore.skins = skins
 }

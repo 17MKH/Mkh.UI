@@ -45,6 +45,7 @@
     "@types/html-minifier-terser": "^6.1.0",
     "@types/node": "^18.0.3",
     "@types/nprogress": "^0.2.0",
+    "@types/sortablejs": "^1.13.0",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "@vitejs/plugin-vue": "^3.0.1",

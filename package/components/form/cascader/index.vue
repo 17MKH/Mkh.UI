@@ -1,49 +1,43 @@
 <template>
   <el-cascader :options="options" @change="handleChange"></el-cascader>
 </template>
-<script>
-import { ref } from 'vue'
-export default {
-  props: {
+<script setup lang="ts">
+  import { ref } from 'vue'
+  const props = defineProps({
     /**数据查询方法 */
     action: {
       type: Function,
       required: true,
     },
-  },
-  emits: ['change'],
-  setup(props, { emit }) {
-    const options = ref([])
-    const allOptions = ref([])
+  })
 
-    const resolveAllOptions = opts => {
-      if (opts && opts.length > 0) {
-        opts.forEach(o => {
-          allOptions.value.push(o)
+  const emit = defineEmits(['change'])
 
-          resolveAllOptions(o.children)
-        })
-      }
+  const options = ref<Array<any>>([])
+  const allOptions = ref<Array<any>>([])
+
+  const resolveAllOptions = (opts: any) => {
+    if (opts && opts.length > 0) {
+      opts.forEach((o: any) => {
+        allOptions.value.push(o)
+
+        resolveAllOptions(o.children)
+      })
     }
+  }
 
-    const refresh = async () => {
-      options.value = await props.action()
+  const refresh = async () => {
+    options.value = await props.action()
 
-      allOptions.value = []
-      resolveAllOptions(options.value)
-    }
-    refresh()
+    allOptions.value = []
+    resolveAllOptions(options.value)
+  }
+  refresh()
 
-    const handleChange = val => {
-      let opt = allOptions.value.find(m => m.value === val)
-      emit('change', val, opt)
-    }
+  const handleChange = (val: any) => {
+    let opt = allOptions.value.find((m) => m.value === val)
+    emit('change', val, opt)
+  }
 
-    return {
-      options,
-      refresh,
-      handleChange,
-    }
-  },
-}
+  defineExpose({ refresh })
 </script>

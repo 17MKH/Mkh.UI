@@ -39,5 +39,7 @@ export interface MkhLocaleMessages extends LocaleMessages {
 }
 
 export interface MkhLocaleMessagesGroup {
+  en: MkhLocaleMessages
+  'zh-cn': MkhLocaleMessages
   [key: string]: MkhLocaleMessages
 }

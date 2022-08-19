@@ -1,4 +1,4 @@
-import { withProps as loading } from '../../composables/loading'
+import { withProps as loading } from '@/composables/loading'
 
 export default {
   ...loading,
@@ -90,7 +90,7 @@ export default {
     },
   },
   /** 操作列的宽度，默认自适应 */
-  operationWidth: { type: String, default: null },
+  operationWidth: { type: [String, Number], default: null },
   /** 高亮当前行 */
   highlightCurrentRow: { type: Boolean, default: false },
   /** 是否为斑马纹 table */
@@ -98,7 +98,7 @@ export default {
   /** 是否带有纵向边框 */
   border: { type: Boolean, default: true },
   /** 查询前执行的函数，该函数调用时第一个参数是查询参数对象，可在该函数内对参数进行调整 */
-  beforeQuery: { type: Boolean, default: false },
+  beforeQuery: { type: Function, default: false },
   /** 默认分页大小 */
   defaultPageSize: { type: Number, default: 15 },
   /** 不显示底部 */

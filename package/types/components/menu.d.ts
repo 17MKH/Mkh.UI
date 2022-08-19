@@ -16,6 +16,7 @@ interface Locales {
   en: string
   /** 中文 */
   'zh-cn': string
+  [key: string]: string
 }
 
 /** 菜单面包屑 */
@@ -23,9 +24,9 @@ interface Breadcrumb {
   /** 跳转路由 */
   to?: string
   /** 路由Query参数 */
-  routeQuery?: object
+  routeQuery?: { [key: string]: any }
   /** 路由Params参数 */
-  routeParams?: object
+  routeParams?: { [key: string]: any }
   /** 多语言 */
   locales: Locales
 }
@@ -34,9 +35,10 @@ interface Breadcrumb {
 interface Button {}
 
 /** 菜单信息 */
-export type Menu = Partial<{
+export type Menu = {
   /** 菜单编号 */
   id: string | number
+} & Partial<{
   /** 菜单类型 */
   type: MenuType
   /** 菜单图标 */
@@ -52,9 +54,9 @@ export type Menu = Partial<{
   /** 路由名称 */
   routeName: string
   /** 路由Query参数 */
-  routeQuery: string | object
+  routeQuery: string
   /** 路由Params参数 */
-  routeParams: string | object
+  routeParams: string
   /** 按钮 */
   buttons: Array<Button>
   /** 面包屑 */

@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :locale="$i18n.messages[$i18n.locale]" :size="size">
+  <el-config-provider :locale="messages[locale]" :size="size">
     <!--框架内显示-->
     <component :is="skinComponent" v-if="$route.meta.inFrame"></component>
     <!--不在框架中显示-->
@@ -10,11 +10,11 @@
   import { computed, ref, watchEffect } from 'vue'
   import useSize from '@/composables/size'
   import { useProfileStore } from '@/store'
-  import useI18n from '@/composables/i18n'
+  import { useI18n } from '@/composables/i18n'
 
-  const { size } = useSize()
+  const size = useSize()
 
-  const x = useI18n()
+  const { messages, locale } = useI18n()
 
   const skinComponent = ref('')
   const emit = defineEmits(['change', 'delete'])

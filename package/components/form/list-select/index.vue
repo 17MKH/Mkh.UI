@@ -27,17 +27,19 @@
           <slot name="querybar"></slot>
         </template>
         <template #footer>
-          <m-button type="success">确定</m-button>
-          <m-button type="info" @click="showDialog = false">取消</m-button>
+          <m-button type="success">{{ t('mkh.save') }}</m-button>
+          <m-button type="info" @click="showDialog = false">{{ t('mkh.cancel') }}</m-button>
         </template>
       </m-list>
     </m-dialog>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
   import { reactive, ref } from 'vue'
-  import props_ from './props'
-  const props = defineProps(props_)
+  import propsDefinition from './props'
+  import { useI18n } from '@/composables/i18n'
+  defineProps(propsDefinition)
+  const { t } = useI18n()
   const showDialog = ref(false)
   const model = reactive({ label: '', value: '' })
 </script>

@@ -1,11 +1,11 @@
-import { withProps as loading } from '../../composables/loading'
-import { elDialogProps, mDialogProps } from '../dialog/props'
+import { withProps as loading } from '@/composables/loading'
+import { elDrawerProps, mDrawerProps } from '../../advanced/drawer/props'
 import { elFormProps, mFormProps } from '../form/props'
 
 export default {
   ...loading,
-  ...elDialogProps,
-  ...mDialogProps,
+  ...elDrawerProps,
+  ...mDrawerProps,
   ...elFormProps,
   ...mFormProps,
   /** 显示底部 */

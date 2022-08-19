@@ -1,16 +1,18 @@
 import type { LoginDto } from '@/types'
 import type { FormInstance } from 'element-plus'
 import { onMounted, onUnmounted, reactive, Ref, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import dom from '@/utils/dom'
-import useI18n from './i18n'
-import { useConfigStore } from '@/store'
+import { useI18n } from './i18n'
+import { useConfigStore, useTokenStore } from '@/store'
 import useNotification from './notification'
 
 export default function () {
   const { t } = useI18n()
   const configStore = useConfigStore()
+  const tokenStore = useTokenStore()
   const route = useRoute()
+  const router = useRouter()
   const loading = ref(false)
   const formRef: Ref<FormInstance | undefined> = ref()
 
@@ -56,17 +58,13 @@ export default function () {
           .login(model)
           .then((data) => {
             notify.success(t('mkh.login.notify_success'), t('mkh.login.notify_title'), () => {
-              store.dispatch('app/token/login', data)
-              router.push(redirect)
+              tokenStore.set(data)
+              router.push(redirect as string)
             })
           })
           .catch((msg) => {
             loading.value = false
-            $notify.error({
-              title: t('mkh.login.notify_title'),
-              duration: 1500,
-              message: msg,
-            })
+            notify.error(msg, t('mkh.login.notify_title'))
           })
       }
     })
@@ -87,9 +85,8 @@ export default function () {
   })
 
   //如果令牌存在，则直接跳转
-  const { accessToken } = store.state.app.token
-  if (accessToken) {
-    router.push(redirect)
+  if (tokenStore.accessToken) {
+    router.push(redirect as string)
   }
 
   return {

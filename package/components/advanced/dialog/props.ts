@@ -12,25 +12,25 @@ const elDialogProps = {
   /** 是否需要遮罩层 */
   modal: { type: Boolean, default: true },
   /** Dialog 自身是否插入至 body 元素上。 嵌套的 Dialog 必须指定该属性并赋值为 true */
-  appendToBody: { type: true, default: false },
+  appendToBody: { type: Boolean, default: false },
   /** 是否在 Dialog 出现时将 body 滚动锁定 */
-  lockScroll: { type: true, default: true },
+  lockScroll: { type: Boolean, default: true },
   /** 自定义class */
-  customClass: { type: [String, Array], default: null },
+  customClass: { type: String, default: null },
   /** Dialog 打开的延时时间，单位毫秒 */
   openDelay: { type: Number, default: 0 },
   /** Dialog 关闭的延时时间，单位毫秒 */
   closeDelay: { type: Number, default: 0 },
   /** 是否可以通过点击 modal 关闭 Dialog */
-  closeOnClickModal: { type: true, default: true },
+  closeOnClickModal: { type: Boolean, default: true },
   /** 是否可以通过按下 ESC 关闭 Dialog */
-  closeOnPressEscape: { type: true, default: true },
+  closeOnPressEscape: { type: Boolean, default: true },
   /** 关闭前的回调，会暂停 Dialog 的关闭，function(done)，done 用于关闭 Dialog */
   beforeClose: { type: Function, default: null },
   /** 为 Dialog 启用可拖拽功能 */
   draggable: { type: Boolean, default: false },
   /** 当关闭 Dialog 时，销毁其中的元素 */
-  destroyOnClose: { type: true, default: false },
+  destroyOnClose: { type: Boolean, default: false },
 }
 
 const mDialogProps = {

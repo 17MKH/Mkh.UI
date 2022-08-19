@@ -1,11 +1,10 @@
 <template>
   <div class="m-flex-fixed" :style="{ width, height }">
-    <slot />
+    <slot></slot>
   </div>
 </template>
-<script>
-export default {
-  props: {
+<script setup lang="ts">
+  defineProps({
     width: {
       type: String,
       default: '',
@@ -14,6 +13,5 @@ export default {
       type: String,
       default: '',
     },
-  },
-}
+  })
 </script>

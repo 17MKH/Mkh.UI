@@ -61,139 +61,132 @@
     </div>
   </el-dialog>
 </template>
-<script lang="ts">
-  import { defineComponent, computed, nextTick, ref } from 'vue'
+<script>
+  export default {
+    inheritAttrs: false,
+  }
+</script>
+<script setup lang="ts">
+  import { computed, nextTick, ref } from 'vue'
   import { useVisible, useFullscreen } from '@/composables'
   import dom from '@/utils/dom'
-  import props from './props'
-  export default defineComponent({
-    inheritAttrs: false,
-    props,
-    emits: ['update:modelValue', 'open', 'opened', 'close', 'closed', 'open-auto-focus', 'close-auto-focus'],
-    setup(props, { emit }) {
-      //全屏操作
-      const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
+  import propsDefinition from './props'
 
-      const class_ = computed(() => {
-        const { customClass, noPadding, noScrollbar, height } = props
+  const props = defineProps(propsDefinition)
+  const emit = defineEmits(['update:modelValue', 'open', 'opened', 'close', 'closed', 'open-auto-focus', 'close-auto-focus', 'fullscreen-change'])
 
-        let classList = ['m-dialog']
-        if (props.size) classList.push(props.size)
-        if (noPadding) classList.push('no-padding')
-        if (noScrollbar) classList.push('no-scrollbar')
-        if (height) classList.push('has-height')
-        if (isFullscreen.value) classList.push('is-fullscreen')
-        if (customClass) {
-          classList.push(props.customClass)
-        }
-        return classList.join(' ')
-      })
+  const { visible, open, close } = useVisible(props, emit)
 
-      //标注是否在重置大小中
-      const resizing = ref(false)
+  //全屏操作
+  const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
 
-      const dialogRef = ref(null)
-      const headerRef = ref(null)
-      const footerRef = ref(null)
-      const scrollbarRef = ref(null)
-      const wrapperRef = ref(null)
-      const contentHeight = ref(0)
+  const class_ = computed(() => {
+    const { customClass, noPadding, noScrollbar, height } = props
 
-      let headAndFooterHeight = 0
+    let classList = ['m-dialog']
+    if (props.size) classList.push(props.size)
+    if (noPadding) classList.push('no-padding')
+    if (noScrollbar) classList.push('no-scrollbar')
+    if (height) classList.push('has-height')
+    if (isFullscreen.value) classList.push('is-fullscreen')
+    if (customClass) {
+      classList.push(props.customClass)
+    }
+    return classList.join(' ')
+  })
 
-      /**
-       * 重绘窗口尺寸
-       */
-      const resize = () => {
-        if (resizing.value) return
-        resizing.value = true
+  //标注是否在重置大小中
+  const resizing = ref(false)
 
-        const { height } = props
-        // 如果主动设置了高度
-        if (height) {
-          let h = 0
-          if (typeof height === 'number' && height > 0) {
-            h = height
-          } else if (height.endsWith('px')) {
-            h = parseFloat(height.replace('px', ''))
-          } else if (height.endsWith('%')) {
-            h = (document.body.clientHeight * parseFloat(height.replace('%', ''))) / 100
-          }
+  const dialogRef = ref()
+  const headerRef = ref()
+  const footerRef = ref()
+  const scrollbarRef = ref()
+  const wrapperRef = ref()
+  const contentHeight = ref(0)
 
-          contentHeight.value = h - headAndFooterHeight
-        } else {
-          contentHeight.value = props.noScrollbar ? wrapperRef.value.offsetHeight : scrollbarRef.value.$el.querySelector('.el-scrollbar__view').offsetHeight
-        }
+  let headAndFooterHeight = 0
 
-        //内容区域最大高度，不能超出body
-        let contentMaxHeight = document.body.clientHeight - headAndFooterHeight - 100
-        if (contentHeight.value > contentMaxHeight) {
-          contentHeight.value = contentMaxHeight
-        }
-        //更新滚动条
-        if (!props.noScrollbar) {
-          scrollbarRef.value.update()
-        }
+  /**
+   * 重绘窗口尺寸
+   */
+  const resize = () => {
+    if (resizing.value) return
+    resizing.value = true
 
-        resizing.value = false
+    const { height } = props
+    // 如果主动设置了高度
+    if (height) {
+      let h = 0
+      if (typeof height === 'number' && height > 0) {
+        h = height
+      } else if (typeof height === 'string' && height.endsWith('px')) {
+        h = parseFloat(height.replace('px', ''))
+      } else if (typeof height === 'string' && height.endsWith('%')) {
+        h = (document.body.clientHeight * parseFloat(height.replace('%', ''))) / 100
       }
 
-      const handleOpen = () => {
-        nextTick(() => {
-          headAndFooterHeight = headerRef.value.$el.offsetHeight
-          if (footerRef.value != null) {
-            headAndFooterHeight += footerRef.value.offsetHeight
-          }
+      contentHeight.value = h - headAndFooterHeight
+    } else {
+      contentHeight.value = props.noScrollbar ? wrapperRef.value.offsetHeight : scrollbarRef.value.$el.querySelector('.el-scrollbar__view').offsetHeight
+    }
 
-          resize()
-          dom.on(window, 'resize', resize)
-        })
-        emit('open')
+    //内容区域最大高度，不能超出body
+    let contentMaxHeight = document.body.clientHeight - headAndFooterHeight - 100
+    if (contentHeight.value > contentMaxHeight) {
+      contentHeight.value = contentMaxHeight
+    }
+    //更新滚动条
+    if (!props.noScrollbar) {
+      scrollbarRef.value.update()
+    }
+
+    resizing.value = false
+  }
+
+  const handleOpen = () => {
+    nextTick(() => {
+      headAndFooterHeight = headerRef.value.$el.offsetHeight
+      if (footerRef.value != null) {
+        headAndFooterHeight += footerRef.value.offsetHeight
       }
 
-      const handleOpened = () => {
-        emit('opened')
-      }
+      resize()
 
-      const handleClose = () => {
-        emit('close')
-      }
+      dom.on(window, 'resize', resize)
+    })
 
-      const handleClosed = () => {
-        dom.off(window, 'resize', resize)
-        emit('closed')
-      }
+    emit('open')
+  }
 
-      const handleOpenAutoFocus = () => {
-        emit('open-auto-focus')
-      }
+  const handleOpened = () => {
+    emit('opened')
+  }
 
-      const handleCloseAutoFocus = () => {
-        emit('open-auto-focus')
-      }
+  const handleClose = () => {
+    emit('close')
+  }
 
-      return {
-        ...useVisible(props, emit),
-        dialogRef,
-        headerRef,
-        footerRef,
-        scrollbarRef,
-        wrapperRef,
-        contentHeight,
-        class_,
-        isFullscreen,
-        openFullscreen,
-        closeFullscreen,
-        toggleFullscreen,
-        handleOpen,
-        handleOpened,
-        handleClose,
-        handleClosed,
-        resize,
-        handleOpenAutoFocus,
-        handleCloseAutoFocus,
-      }
-    },
+  const handleClosed = () => {
+    dom.off(window, 'resize', resize)
+    emit('closed')
+  }
+
+  const handleOpenAutoFocus = () => {
+    emit('open-auto-focus')
+  }
+
+  const handleCloseAutoFocus = () => {
+    emit('open-auto-focus')
+  }
+
+  defineExpose({
+    open,
+    close,
+    resize,
+    openFullscreen,
+    closeFullscreen,
+    toggleFullscreen,
   })
 </script>
 <style lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <div class="m-main">
-    <m-menu :collapse="$store.state.skin.brief.menuIsCollapse" />
+    <m-menu :collapse="store.menuIsCollapse" />
     <div class="m-content">
       <div class="m-content_wrapper">
         <router-view v-slot="{ Component }">
@@ -12,3 +12,7 @@
     </div>
   </div>
 </template>
+<script setup lang="ts">
+  import { useStore } from '../../store'
+  const store = useStore()
+</script>

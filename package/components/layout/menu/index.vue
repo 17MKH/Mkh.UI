@@ -5,41 +5,36 @@
     </m-scrollbar>
   </div>
 </template>
-<script>
+<script setup lang="ts">
   import { computed } from 'vue'
   import MenuItem from './item.vue'
   import { useRoute } from 'vue-router'
-  export default {
-    components: { MenuItem },
-    props: {
-      /** 折叠 */
-      collapse: {
-        type: Boolean,
-        default: false,
-      },
+  import { useProfileStore } from '@/store'
+
+  defineProps({
+    /** 折叠 */
+    collapse: {
+      type: Boolean,
+      default: false,
     },
-    setup() {
-      const { store } = mkh
+  })
 
-      const route = useRoute()
+  const route = useRoute()
 
-      const defaultActive = computed(() => {
-        const { _mid_ } = route.query
-        if (_mid_) return _mid_ + ''
+  const profileStore = useProfileStore()
 
-        //如果不存在_mid_参数，则通过路由名称匹配第一个菜单
-        const menu = store.state.app.profile.routeMenus.find((m) => m.routeName === route.name)
-        if (menu) return menu.id + ''
+  const defaultActive = computed(() => {
+    const { _mid_ } = route.query
+    if (_mid_) return _mid_ + ''
 
-        return '-1'
-      })
+    //如果不存在_mid_参数，则通过路由名称匹配第一个菜单
+    const menu = profileStore.routeMenus.find((m) => m.routeName === route.name)
+    if (menu) return menu.id + ''
 
-      return {
-        defaultActive,
-        menus: computed(() => store.state.app.profile.menus),
-      }
-    },
-  }
+    return '-1'
+  })
+
+  const menus = computed(() => profileStore.menus)
 </script>
 <style lang="scss">
   @import './index';

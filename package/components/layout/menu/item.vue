@@ -15,41 +15,44 @@
     </template>
   </template>
 </template>
-<script setup>
-import { getCurrentInstance } from 'vue'
-import MenuItem from './item.vue'
+<script setup lang="ts">
+  import { Menu } from '@/types'
+  import { useI18n } from '@/composables/i18n'
+  import { useRouter } from 'vue-router'
 
-const props = defineProps({
-  menus: {
-    type: Array,
-    required: true,
-  },
-})
+  const { t, locale } = useI18n()
 
-const cit = getCurrentInstance().proxy
+  const props = defineProps({
+    menus: {
+      type: Array,
+      required: true,
+    },
+  })
 
-const handleClick = menu => {
-  //路由菜单
-  if (menu.type === 1) {
-    //解析菜单对应的路由信息
-    let { routeName: name, routeQuery, routeParams: params } = menu
-    let query = routeQuery || {}
-    //传递菜单编号
-    query['_mid_'] = menu.id
+  const router = useRouter()
 
-    mkh.router.push({ name, query, params })
-  }
-}
-
-const renderLabel = menu => {
-  if (menu.locales) {
-    return menu.locales[cit.$i18n.locale] || 'Menu no name'
-  } else {
+  const handleClick = (menu: Menu) => {
+    //路由菜单
     if (menu.type === 1) {
-      return cit.$t('mkh.routes.' + menu.routeName)
-    } else {
-      return 'Menu no name'
+      //解析菜单对应的路由信息
+      let { routeName: name, routeQuery, routeParams: params } = menu
+      let query = routeQuery || { _mid_: '' }
+      //传递菜单编号
+      query['_mid_'] = menu.id
+
+      router.push({ name, query, params })
     }
   }
-}
+
+  const renderLabel = (menu: Menu) => {
+    if (menu.locales) {
+      return menu.locales[locale.value] || 'Menu no name'
+    } else {
+      if (menu.type === 1) {
+        return t('mkh.routes.' + menu.routeName)
+      } else {
+        return 'Menu no name'
+      }
+    }
+  }
 </script>

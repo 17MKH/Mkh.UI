@@ -1,6 +1,6 @@
 <template>
   <section class="m-flex-row">
-    <slot />
+    <slot></slot>
   </section>
 </template>
 <style lang="scss">

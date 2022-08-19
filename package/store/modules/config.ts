@@ -3,5 +3,5 @@ import { defineStore } from 'pinia'
 import { defaultConfig } from '@/defaults'
 
 export const useConfigStore = defineStore('app.config', {
-  state: (): Config => defaultConfig,
+  state: (): Config => defaultConfig as Config,
 })

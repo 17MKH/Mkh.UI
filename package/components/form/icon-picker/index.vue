@@ -1,7 +1,7 @@
 <template>
   <section class="m-icon-picker">
     <div class="m-icon-picker_input">
-      <el-input v-model="icon" :placeholder="placeholder || $t('mkh.icon_picker_placeholder')">
+      <el-input v-model="icon" :placeholder="placeholder || t('mkh.icon_picker_placeholder')">
         <template #prepend>
           <m-icon :name="icon" />
         </template>
@@ -13,53 +13,51 @@
     <panel v-model="showPannel" @success="handleSelect" />
   </section>
 </template>
-<script>
+<script setup lang="ts">
   import { computed, inject, ref } from 'vue'
   import Panel from './panel.vue'
-  export default {
-    components: { Panel },
-    props: {
-      modelValue: {
-        type: String,
-        default: '',
-      },
-      placeholder: {
-        type: String,
-        default: '',
-      },
+  import { useI18n } from '@/composables/i18n'
+
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      default: '',
     },
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
-      const resetMethods = inject('resetMethods', [])
-      const icon = computed({
-        get() {
-          return props.modelValue
-        },
-        set(val) {
-          emit('update:modelValue', val)
-        },
-      })
-
-      const showPannel = ref(false)
-
-      const handleSelect = (val) => {
-        icon.value = val
-      }
-
-      const reset = () => {
-        icon.value = ''
-      }
-
-      resetMethods.push(reset)
-
-      return {
-        icon,
-        showPannel,
-        handleSelect,
-        reset,
-      }
+    placeholder: {
+      type: String,
+      default: '',
     },
+  })
+  const emit = defineEmits(['update:modelValue'])
+
+  const { t } = useI18n()
+
+  const resetMethods: Array<() => void> = inject('resetMethods', [])
+
+  const icon = computed({
+    get() {
+      return props.modelValue
+    },
+    set(val) {
+      emit('update:modelValue', val)
+    },
+  })
+
+  const showPannel = ref(false)
+
+  const handleSelect = (val: string) => {
+    icon.value = val
   }
+
+  const reset = () => {
+    icon.value = ''
+  }
+
+  resetMethods.push(reset)
+
+  defineExpose({
+    reset,
+  })
 </script>
 <style lang="scss">
   @import './index';

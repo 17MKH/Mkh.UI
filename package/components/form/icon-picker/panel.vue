@@ -12,40 +12,35 @@
     </section>
   </m-dialog>
 </template>
-<script>
-import { computed, ref } from 'vue'
-import { useVisible } from '../../composables'
-export default {
-  props: {
+<script setup lang="ts">
+  import { computed, ref } from 'vue'
+  import { useVisible } from '@/composables'
+  import mkh from '@/mkh'
+
+  const props = defineProps({
     modelValue: Boolean,
-  },
-  emits: ['success'],
-  setup(props, { emit }) {
-    const { visible, open, close } = useVisible(props, emit)
+  })
+  const emit = defineEmits(['success', 'update:modelValue'])
 
-    const filter = ref('')
+  const { visible, open, close } = useVisible(props, emit)
 
-    const handleSelect = icon => {
-      emit('success', icon)
-      visible.value = false
+  const filter = ref('')
+
+  const handleSelect = (icon: string) => {
+    emit('success', icon)
+    visible.value = false
+  }
+
+  const filterList = computed(() => {
+    if (!filter.value) {
+      return mkh.icons
     }
 
-    const filterList = computed(() => {
-      if (!filter.value) {
-        return mkh.icons
-      }
+    return mkh.icons.filter((m) => m.indexOf(filter.value) > -1)
+  })
 
-      return mkh.icons.filter(m => m.indexOf(filter.value) > -1)
-    })
-
-    return {
-      visible,
-      open,
-      close,
-      filter,
-      filterList,
-      handleSelect,
-    }
-  },
-}
+  defineExpose({
+    open,
+    close,
+  })
 </script>

@@ -3,7 +3,7 @@
     v-loading="loading"
     :class="class_"
     :style="{ height }"
-    :element-loading-text="loadingText || $t('mkh.loading_text')"
+    :element-loading-text="loadingText || t('mkh.loading_text')"
     :element-loading-background="loadingBackground || loadingOptions.background"
     :element-loading-spinner="loadingSpinner || loadingOptions.spinner"
   >
@@ -12,7 +12,7 @@
       <slot name="title">{{ title }}</slot>
       <template #toolbar>
         <!--工具栏插槽-->
-        <slot name="toolbar" />
+        <slot name="toolbar"></slot>
         <!--折叠按钮，页模式下折叠功能无效-->
         <m-button v-if="showCollapse" :icon="isCollapse ? 'chevron-down' : 'chevron-up'" @click="toggleCollapse" />
         <!--全屏按钮-->
@@ -23,10 +23,10 @@
       <section v-show="!isCollapse" class="m-box_dialog">
         <section class="m-box_content">
           <m-scrollbar v-if="showScrollbar" ref="scrollbarRef" :horizontal="horizontalScrollbar">
-            <slot />
+            <slot></slot>
           </m-scrollbar>
           <section v-else class="m-box_body">
-            <slot />
+            <slot></slot>
           </section>
         </section>
         <footer v-if="$slots.footer" class="m-box_footer">
@@ -36,58 +36,59 @@
     </el-collapse-transition>
   </section>
 </template>
-<script>
+<script setup lang="ts">
+  import type { size } from '@/types'
   import { computed, ref } from 'vue'
-  import { useCollapse, useFullscreen, useSize } from '../../composables'
-  import props from './props'
-  export default {
-    props,
-    emits: ['fullscreen-change', 'collapse-change'],
-    setup(props, { emit }) {
-      const { store } = mkh
-      const scrollbarRef = ref()
-      const loadingOptions = store.state.app.config.component.loading
-      const { size: size_ } = useSize(props)
+  import { useCollapse, useFullscreen, useSize } from '@/composables'
+  import propsDefinition from './props'
+  import { useConfigStore } from '@/store'
+  import { useI18n } from '@/composables/i18n'
 
-      const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
+  const props = defineProps(propsDefinition)
+  const emit = defineEmits(['fullscreen-change', 'collapse-change'])
 
-      //判断是否显示滚动条
-      const showScrollbar = computed(() => !props.noScrollbar && (props.height || props.page))
+  const { t } = useI18n()
 
-      const class_ = computed(() => {
-        return [
-          'm-box',
-          size_,
-          isFullscreen.value ? 'is-fullscreen' : '',
-          props.height ? 'has-height' : '',
-          props.page ? 'page' : '',
-          props.noPadding ? 'no-padding' : '',
-          showScrollbar.value ? '' : 'no-scrollbar',
-        ]
-      })
+  const configSotre = useConfigStore()
 
-      //重置滚动条
-      const resizeScrollbar = () => {
-        if (showScrollbar.value) {
-          scrollbarRef.value.update()
-        }
-      }
+  const scrollbarRef = ref()
+  const loadingOptions = configSotre.component.loading
+  const size_ = useSize(props as { size: size })
 
-      return {
-        ...useCollapse(emit),
-        size_,
-        class_,
-        scrollbarRef,
-        loadingOptions,
-        showScrollbar,
-        isFullscreen,
-        openFullscreen,
-        closeFullscreen,
-        toggleFullscreen,
-        resizeScrollbar,
-      }
-    },
+  const { isFullscreen, openFullscreen, closeFullscreen, toggleFullscreen } = useFullscreen(emit)
+  const { isCollapse, openCollapse, closeCollapse, toggleCollapse } = useCollapse(emit)
+
+  //判断是否显示滚动条
+  const showScrollbar = computed(() => !props.noScrollbar && (props.height || props.page))
+
+  const class_ = computed(() => {
+    return [
+      'm-box',
+      size_,
+      isFullscreen.value ? 'is-fullscreen' : '',
+      props.height ? 'has-height' : '',
+      props.page ? 'page' : '',
+      props.noPadding ? 'no-padding' : '',
+      showScrollbar.value ? '' : 'no-scrollbar',
+    ]
+  })
+
+  //重置滚动条
+  const resizeScrollbar = () => {
+    if (showScrollbar.value) {
+      scrollbarRef.value.update()
+    }
   }
+
+  defineExpose({
+    openFullscreen,
+    closeFullscreen,
+    toggleFullscreen,
+    resizeScrollbar,
+    openCollapse,
+    closeCollapse,
+    toggleCollapse,
+  })
 </script>
 <style lang="scss">
   @import './index';

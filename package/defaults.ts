@@ -12,7 +12,7 @@ export const defaultSkin: Skin = {
 /**
  * 默认配置信息
  */
-export const defaultConfig: Config = {
+export const defaultConfig: Partial<Config> = {
   site: {
     title: '',
     logo: './assets/mkh/logo.png',
@@ -74,6 +74,7 @@ export const defaultBootstrapOptions: BootstrapOptions = {
     default: 'zh-cn',
     /** 备用语言 */
     fallback: 'zh-cn',
+    messages: {},
   },
   /** 接口配置 */
   http: {

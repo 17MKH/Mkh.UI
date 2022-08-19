@@ -1,4 +1,4 @@
-import { MoudleDefinition } from './module'
+import { ModuleDefinition } from './module'
 import { SkinDefinition } from './skin'
 import { ToolbarDefinition } from './tollbar'
 
@@ -7,9 +7,7 @@ export interface Mkh {
   /** 版本号 */
   readonly version: string
   /** 模块列表 */
-  readonly modules: MoudleDefinition[]
-  /** 皮肤集合 */
-  readonly skins: SkinDefinition[]
+  readonly modules: Array<{ id: string; code: string; label: string; version: string; description: string }>
   /** 工具栏 */
   readonly toolbars: {
     [key: string]: ToolbarDefinition

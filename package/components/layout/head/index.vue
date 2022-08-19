@@ -11,19 +11,14 @@
     </div>
   </header>
 </template>
-<script>
-  import { computed } from 'vue'
-  import props from './props'
-  export default {
-    props,
-    setup(props) {
-      const { store } = mkh
+<script setup lang="ts">
+  import propsDefinition from './props'
+  import { useSize } from '@/composables'
+  import { size } from '@/types'
 
-      return {
-        size_: computed(() => props.size || store.state.app.profile.skin.size),
-      }
-    },
-  }
+  const props = defineProps(propsDefinition)
+
+  const size_ = useSize(props as { size: size })
 </script>
 <style lang="scss">
   @import './index';

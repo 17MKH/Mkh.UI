@@ -5,10 +5,10 @@
     </slot>
   </el-select>
 </template>
-<script>
-import { computed, inject, ref } from 'vue'
-export default {
-  props: {
+<script setup lang="ts">
+  import { computed, inject, ref } from 'vue'
+
+  const props = defineProps({
     modelValue: {
       type: [String, Number],
       required: true,
@@ -22,64 +22,56 @@ export default {
       type: Number,
       default: 700,
     },
-  },
-  emits: ['update:modelValue', 'change'],
-  setup(props, { emit }) {
-    const { store } = mkh
+  })
 
-    const resetMethods = inject('resetMethods', [])
+  const emit = defineEmits(['update:modelValue', 'change'])
 
-    const value_ = computed({
-      get() {
-        return props.modelValue
-      },
-      set(val) {
-        emit('update:modelValue', val)
-      },
-    })
+  const resetMethods: Array<() => void> = inject('resetMethods', [])
 
-    let timer = null
-    const loading = ref(false)
-    const options = ref([])
+  const value_ = computed({
+    get() {
+      return props.modelValue
+    },
+    set(val) {
+      emit('update:modelValue', val)
+    },
+  })
 
-    const remoteMethod = keyword => {
-      if (timer) clearTimeout(timer)
-      timer = setTimeout(() => {
-        if (keyword !== '') {
-          loading.value = true
-          props
-            .action(keyword)
-            .then(data => {
-              options.value = data
-            })
-            .finally(() => {
-              loading.value = false
-            })
-        } else {
-          options.value = []
-        }
-      }, props.searchInterval)
-    }
+  let timer: any = undefined
+  const loading = ref(false)
+  const options = ref<any[]>([])
 
-    const handleChange = val => {
-      const option = options.value.find(m => m.value === val)
-      emit('change', val, option, options)
-    }
+  const remoteMethod = (keyword: string) => {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      if (keyword !== '') {
+        loading.value = true
+        props
+          .action(keyword)
+          .then((data: any) => {
+            options.value = data
+          })
+          .finally(() => {
+            loading.value = false
+          })
+      } else {
+        options.value = []
+      }
+    }, props.searchInterval)
+  }
 
-    const reset = () => {
-      value_.value = ''
-    }
+  const handleChange = (val: any) => {
+    const option = options.value.find((m) => m.value === val)
+    emit('change', val, option, options)
+  }
 
-    resetMethods.push(reset)
+  const reset = () => {
+    value_.value = ''
+  }
 
-    return {
-      value_,
-      loading,
-      options,
-      remoteMethod,
-      handleChange,
-      reset,
-    }
-  },
-}
+  resetMethods.push(reset)
+
+  defineExpose({
+    reset,
+  })
 </script>

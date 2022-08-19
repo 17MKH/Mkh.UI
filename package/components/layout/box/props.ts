@@ -1,4 +1,4 @@
-import { withProps as loading } from '../../../composables/loading'
+import { withProps as loading } from '@/composables/loading'
 import headProps from '../head/props'
 
 export default {

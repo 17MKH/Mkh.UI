@@ -74,7 +74,24 @@ export const defaultBootstrapOptions: BootstrapOptions = {
     default: 'zh-cn',
     /** 备用语言 */
     fallback: 'zh-cn',
-    messages: {},
+    messages: {
+      'zh-cn': {
+        name: 'zh-cn',
+        mkh: {},
+        el: {},
+        routes: {},
+        skin: {},
+        mod: {},
+      },
+      en: {
+        name: 'en',
+        mkh: {},
+        el: {},
+        routes: {},
+        skin: {},
+        mod: {},
+      },
+    },
   },
   /** 接口配置 */
   http: {

@@ -1,6 +1,6 @@
 import { computed, reactive, Ref, toRef } from 'vue'
 import _ from 'lodash'
-import useI18n from './i18n'
+import { useI18n } from './i18n'
 
 type Id = Ref<string | number>
 //mode: add、添加 edit、编辑 view、预览

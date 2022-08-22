@@ -1,4 +1,4 @@
-import type { AppService, BootstrapOptions, ModuleDefinition, SkinDefinition } from '@/types'
+import type { AppService, BootstrapOptions, Config, ModuleDefinition, SkinDefinition } from '@/types'
 import mkh from './mkh'
 import { createApp } from 'vue'
 import Locales from './locales'
@@ -68,13 +68,10 @@ export const useSkin = (skin: SkinDefinition) => {
  * @param options 配置项
  */
 export const bootstrap = (options_: BootstrapOptions) => {
-  const config = _.merge({}, defaultConfig)
+  const config = _.merge({}, defaultConfig) as Config
   const bootstrapOptions = _.merge({}, defaultBootstrapOptions, options_)
 
   const app = createApp(Layout)
-
-  //将mkh实例挂载到vue实例
-  app.config.globalProperties.$mkh = mkh
 
   //模块按照id排序
   modules.sort((a, b) => a.id - b.id)

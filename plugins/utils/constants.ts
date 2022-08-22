@@ -16,7 +16,7 @@ const SKIN_PREFIX = 'mkh-skin-'
 /**
  * 导入模块时的前缀
  */
-const IMPORT_MODULE_PREFIX = '$mkh-mod-'
+const IMPORT_MODULE_PREFIX = 'virtual:mkh-mod-'
 
 /**
  * 导入页面时的前缀

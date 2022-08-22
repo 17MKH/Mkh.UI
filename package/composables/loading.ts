@@ -1,12 +1,12 @@
 import { ElLoading } from 'element-plus'
 import { nextTick } from 'vue'
 import { useConfigStore } from '@/store'
-import useI18n from './i18n'
+import { useI18n } from './i18n'
 
 export default function () {
   const confitSotre = useConfigStore()
   const { t } = useI18n()
-  let loading: any
+  let loading: { close: () => void }
 
   const open = (
     text: string,

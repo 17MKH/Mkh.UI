@@ -1,12 +1,12 @@
 import type { BootstrapOptions, MkhLocaleMessages } from '@/types'
-import messages_zh_cn from './options.locale.zh-CN'
-import messages_en from './options.locale.en'
+import messages_zh_cn from './locale.zh-cn'
+import messages_en from './locale.en'
 
 const options: BootstrapOptions = {
   locale: {
     messages: {
-      'zh-cn': messages_zh_cn as MkhLocaleMessages,
-      en: messages_en as MkhLocaleMessages,
+      'zh-cn': messages_zh_cn,
+      en: messages_en,
     },
   },
   http: {

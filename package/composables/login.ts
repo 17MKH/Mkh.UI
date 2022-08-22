@@ -18,7 +18,7 @@ export default function () {
 
   const notify = useNotification()
 
-  let { redirect } = route.query
+  let redirect = route.query.redirect
   if (!redirect) {
     redirect = '/'
   }
@@ -51,7 +51,7 @@ export default function () {
   const tryLogin = () => {
     if (!formRef.value) return
 
-    formRef.value.validate((valid) => {
+    formRef.value.validate((valid: boolean) => {
       if (valid) {
         loading.value = true
         configStore.systemActions

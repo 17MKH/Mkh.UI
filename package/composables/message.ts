@@ -1,5 +1,5 @@
 import { ElMessage, ElMessageBox, ElMessageBoxOptions } from 'element-plus'
-import useI18n from './i18n'
+import { useI18n } from './i18n'
 
 // 显示时长
 const duration = 2500

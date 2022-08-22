@@ -1,5 +1,5 @@
 import type { Menu } from '@/types'
-const menus: Menu[] = [
+const menus = [
   // {
   //   type: 1,
   //   icon: 'home',
@@ -317,6 +317,6 @@ const setMenusId = (children: Menu[], parent?: Menu) => {
   })
 }
 
-setMenusId(menus)
+setMenusId(menus as Menu[], undefined)
 
 export default menus

@@ -1,11 +1,10 @@
 import type { App } from 'vue'
-import type { Page } from '@/types/mkh'
+import type { ModuleDefinition, PageDefinition } from '@/types'
 import type { Router, RouteRecordRaw } from 'vue-router'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import routes from './routes'
-import mkh from '@/mkh'
-import { useConfigStore, useTokenStore, useProfileStore } from '../store'
+import { useConfigStore, useTokenStore, useProfileStore } from '@/store'
 
 // 进度条初始值
 NProgress.configure({ minimum: 0.2 })
@@ -18,7 +17,7 @@ const isTrue = (val: boolean | undefined | null) => {
 /**
  * @description 页面转路由
  */
-const page2route = (page: Page, pages: Array<Page>, parentRoute?: RouteRecordRaw) => {
+const page2route = (page: PageDefinition, pages: Array<PageDefinition>, parentRoute?: RouteRecordRaw) => {
   /**********************************************
    * 页面属性与路由属性对应关系以及说明
    **********************************************
@@ -67,17 +66,14 @@ const page2route = (page: Page, pages: Array<Page>, parentRoute?: RouteRecordRaw
 
     parentRoute.children.push(route)
   }
-
-  //从page对象中删除component属性
-  delete page.component
 }
 
 //路由实例
 let router: Router
 
-export default (app: App) => {
+export default (app: App, modules: ModuleDefinition[]) => {
   //页面转换路由
-  mkh.modules
+  modules
     .filter((m) => m.pages)
     .forEach((m) => {
       m.pages
@@ -89,7 +85,7 @@ export default (app: App) => {
 
   //创建路由实例
   router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes,
   })
 
@@ -103,8 +99,8 @@ export default (app: App) => {
 
     //首页跳转
     if (to.name === 'home') {
-      if (configStore.site && configStore.site.home) {
-        return configStore.site.home
+      if (configStore.site && configStore.site.homePage) {
+        return configStore.site.homePage
       }
     }
 

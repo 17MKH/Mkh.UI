@@ -5,23 +5,12 @@
     </m-drag-sort>
   </m-doc-component-doc>
 </template>
-<script>
-import { ref } from 'vue'
-import props from './apis/_props'
-import events from './apis/_events'
-import methods from './apis/_methods'
-import slots from './apis/_slots'
-export default {
-  components: {},
-  setup() {
-    var list = ref([1, 2, 3, 4, 5])
-    return {
-      props,
-      events,
-      methods,
-      slots,
-      list,
-    }
-  },
-}
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import props from './apis/_props'
+  import events from './apis/_events'
+  import methods from './apis/_methods'
+  import slots from './apis/_slots'
+
+  var list = ref([1, 2, 3, 4, 5])
 </script>

@@ -108,5 +108,6 @@ const messages = {
 export default messages
 
 export type MessagesSchema = {
+  el: any
   mkh: typeof messages
 }

@@ -1,11 +1,11 @@
 <template>
-  <template v-for="menu in menus">
+  <template v-for="menu in (menus as Menu[])">
     <el-sub-menu v-if="menu.type === 0" :key="menu.id" popper-class="m-menu_popper" :index="menu.id + ''">
       <template #title>
         <m-icon class="m-menu_item_icon" :name="menu.icon"></m-icon>
         <span>{{ renderLabel(menu) }}</span>
       </template>
-      <menu-item :menus="menu.children" />
+      <item v-if="menu.children" :menus="menu.children" />
     </el-sub-menu>
     <template v-else>
       <el-menu-item :key="menu.id" :index="menu.id + ''" @click="handleClick(menu)">
@@ -16,13 +16,14 @@
   </template>
 </template>
 <script setup lang="ts">
+  import Item from './item.vue'
   import { Menu } from '@/types'
   import { useI18n } from '@/composables/i18n'
-  import { useRouter } from 'vue-router'
+  import { RouteLocationRaw, useRouter } from 'vue-router'
 
   const { t, locale } = useI18n()
 
-  const props = defineProps({
+  defineProps({
     menus: {
       type: Array,
       required: true,
@@ -35,12 +36,26 @@
     //路由菜单
     if (menu.type === 1) {
       //解析菜单对应的路由信息
-      let { routeName: name, routeQuery, routeParams: params } = menu
-      let query = routeQuery || { _mid_: '' }
+      let { routeName: name, routeQuery, routeParams } = menu
+      let query: { _mid_: string | number } = { _mid_: '' }
+
+      if (routeQuery) {
+        query = JSON.parse(routeQuery)
+      }
+
       //传递菜单编号
       query['_mid_'] = menu.id
 
-      router.push({ name, query, params })
+      let route: RouteLocationRaw = {
+        name,
+        query,
+      }
+
+      if (routeParams) {
+        route.params = JSON.parse(routeParams)
+      }
+
+      router.push(route)
     }
   }
 

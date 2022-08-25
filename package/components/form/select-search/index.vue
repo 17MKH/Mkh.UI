@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value_" :loading="loading" filterable remote :remote-method="remoteMethod" @change="handleChange">
+  <el-select v-model="value_" :loading="loading" filterable remote :remote-method="remoteMethod" @change="handleChange" :placeholder="placeholder || $t('mkh.please_select')">
     <slot :options="options">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
     </slot>
@@ -21,6 +21,10 @@
     searchInterval: {
       type: Number,
       default: 700,
+    },
+    placeholder: {
+      type: String,
+      default: '',
     },
   })
 

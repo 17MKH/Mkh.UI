@@ -18,7 +18,6 @@ export const defaultConfig: Partial<Config> = {
     logo: './assets/mkh/logo.png',
     homePage: '',
     profilePage: '',
-    menus: [],
   },
   auth: {
     enableButtonPermissions: true,
@@ -77,6 +76,7 @@ export const defaultBootstrapOptions: BootstrapOptions = {
     messages: {
       'zh-cn': {
         name: 'zh-cn',
+        label: '简体中文',
         mkh: {},
         el: {},
         routes: {},
@@ -85,6 +85,7 @@ export const defaultBootstrapOptions: BootstrapOptions = {
       },
       en: {
         name: 'en',
+        label: 'English',
         mkh: {},
         el: {},
         routes: {},

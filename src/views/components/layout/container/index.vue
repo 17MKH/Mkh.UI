@@ -10,15 +10,7 @@
     </m-doc-component-doc>
   </m-container>
 </template>
-<script>
-import props from './apis/_props'
-import methods from './apis/_methods'
-export default {
-  setup() {
-    return {
-      props,
-      methods,
-    }
-  },
-}
+<script setup lang="ts">
+  import props from './apis/_props'
+  import methods from './apis/_methods'
 </script>

@@ -199,15 +199,4 @@
     const params = { ...props.queryModel, isExport: true, export_model: model }
     return props.exportMethod(params)
   }
-
-  return {
-    model,
-    rules,
-    fileExt,
-    columns,
-    handleOpen,
-    handleSelectionChange,
-    handleCustomValidate,
-    handleExport,
-  }
 </script>

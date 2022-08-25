@@ -4,12 +4,14 @@ import { useConfigStore } from '@/store'
 import { useI18n } from './i18n'
 
 export default function () {
-  const confitSotre = useConfigStore()
+  //@ts-ignore
   const { t } = useI18n()
+
+  const confitSotre = useConfigStore()
   let loading: { close: () => void }
 
   const open = (
-    text: string,
+    text?: string,
     options?: {
       /**
        * 加载动画配景色

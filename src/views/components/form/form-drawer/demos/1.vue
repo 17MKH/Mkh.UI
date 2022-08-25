@@ -24,37 +24,32 @@
     </template>
   </m-form-drawer>
 </template>
-<script>
-import { reactive, ref } from 'vue'
-export default {
-  setup() {
-    const visible = ref(false)
-    const formRef = ref(null)
-    const model = reactive({
-      name: '',
-      region: '',
-      date1: '',
-      date2: '',
+<script setup lang="ts">
+  import { reactive, ref } from 'vue'
+
+  const visible = ref(false)
+  const formRef = ref()
+  const model = reactive({
+    name: '',
+    region: '',
+    date1: '',
+    date2: '',
+  })
+  const rules = {
+    name: [{ required: true, message: '请输入名称' }],
+  }
+
+  const action = () => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 2000)
     })
-    const rules = {
-      name: [{ required: true, message: '请输入名称' }],
-    }
+  }
 
-    const action = () => {
-      return new Promise(resolve => {
-        setTimeout(resolve, 2000)
-      })
-    }
+  const handleOpen = () => {
+    console.log('handleOpen')
+  }
 
-    const handleOpen = () => {
-      console.log('handleOpen')
-    }
-
-    const test = () => {
-      formRef.value.toggleFullscreen()
-    }
-
-    return { visible, model, rules, action, handleOpen, formRef, test }
-  },
-}
+  const test = () => {
+    formRef.value.toggleFullscreen()
+  }
 </script>

@@ -37,6 +37,3 @@
     return 'Menu no name'
   }
 </script>
-<style lang="scss">
-  @import './index';
-</style>

@@ -27,31 +27,31 @@
     </m-form>
   </div>
 </template>
-<script setup>
-import { inject, reactive, ref, watch } from 'vue'
-import { useMessage } from '../../../../../../package/composables'
-const message = useMessage()
-const formRef = ref(null)
-const model = reactive({
-  name: '',
-  region: '',
-  date1: '',
-  date2: '',
-})
-
-const rules = {
-  name: [{ required: true, message: '请输入名称' }],
-}
-
-const disabled = ref(false)
-
-const action = () => {
-  return new Promise(resolve => {
-    setTimeout(resolve, 2000)
+<script setup lang="ts">
+  import { reactive, ref } from 'vue'
+  import { useMessage } from '@/composables'
+  const message = useMessage()
+  const formRef = ref()
+  const model = reactive({
+    name: '',
+    region: '',
+    date1: '',
+    date2: '',
   })
-}
 
-const handleSuccess = () => {
-  message.success('恭喜你，保存成功')
-}
+  const rules = {
+    name: [{ required: true, message: '请输入名称' }],
+  }
+
+  const disabled = ref(false)
+
+  const action = () => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 2000)
+    })
+  }
+
+  const handleSuccess = () => {
+    message.success('恭喜你，保存成功')
+  }
 </script>

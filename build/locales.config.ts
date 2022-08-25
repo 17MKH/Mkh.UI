@@ -1,6 +1,6 @@
-const fs = require('fs')
-const fse = require('fs-extra')
-const path = require('path')
+import typescript from 'rollup-plugin-typescript2'
+import fs from 'fs'
+import path from 'path'
 
 let rootDir = process.cwd()
 
@@ -12,8 +12,9 @@ const createConfig = (input, fileName) => ({
       format: 'es',
     },
   ],
+  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: false }, include: [input] } })],
 })
-const pkg = JSON.parse(fs.readFileSync(path.resolve(rootDir, 'package.json')))
+const pkg = JSON.parse(fs.readFileSync(path.resolve(rootDir, 'package.json')).toString())
 
 let localePath = ''
 if (pkg.name === 'mkh-ui') {
@@ -22,5 +23,5 @@ if (pkg.name === 'mkh-ui') {
   localePath = path.resolve(rootDir, 'src/locales')
 }
 export default fs.readdirSync(localePath).map((m) => {
-  return createConfig(path.resolve(localePath, m, 'index.js'), m)
+  return createConfig(path.resolve(localePath, m, 'index.ts'), m)
 })

@@ -21,19 +21,6 @@ const off = (function () {
 })()
 
 /**
- * @description 绑定一次事件
- */
-const once = function (el, event, fn) {
-  var listener = function () {
-    if (fn) {
-      fn.apply(this, arguments)
-    }
-    off(el, event, listener)
-  }
-  on(el, event, listener)
-}
-
-/**
  * @description 判断是否含有指定的class
  */
 export function hasClass(el, cls) {
@@ -51,6 +38,5 @@ export function hasClass(el, cls) {
 export default {
   on,
   off,
-  once,
   hasClass,
 }

@@ -20,6 +20,3 @@
 
   const size_ = useSize(props as { size: size })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

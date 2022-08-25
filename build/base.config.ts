@@ -1,6 +1,6 @@
 import type { UserConfig } from 'vite'
 import { resolve } from 'path'
-import typescript from 'rollup-plugin-typescript2'
+// import typescript from 'rollup-plugin-typescript2'
 import vue from '@vitejs/plugin-vue'
 import mui from '../plugins/plugin-ui'
 
@@ -12,7 +12,6 @@ function replaceAll(find, replace, str) {
 export default ({ target, mode, command }): UserConfig => {
   return {
     plugins: [
-      typescript(),
       mui({
         target,
         mode,
@@ -64,8 +63,7 @@ export default ({ target, mode, command }): UserConfig => {
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, 'package'),
-        '/#/types': resolve(__dirname, 'package/types'),
+        '@': resolve(__dirname, '../package'),
       },
     },
   }

@@ -14,24 +14,16 @@
     <p>但愿人长久，千里共婵娟。</p>
   </m-box>
 </template>
-<script>
-import { ref } from 'vue'
-export default {
-  setup() {
-    const loading = ref(false)
+<script setup lang="ts">
+  import { ref } from 'vue'
 
-    const handleRefresh = () => {
-      loading.value = true
+  const loading = ref(false)
 
-      setTimeout(() => {
-        loading.value = false
-      }, 1500)
-    }
+  const handleRefresh = () => {
+    loading.value = true
 
-    return {
-      loading,
-      handleRefresh,
-    }
-  },
-}
+    setTimeout(() => {
+      loading.value = false
+    }, 1500)
+  }
 </script>

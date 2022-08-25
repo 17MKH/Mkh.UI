@@ -11,17 +11,17 @@
     </el-form-item>
   </m-form>
 </template>
-<script setup>
-import { reactive, ref } from '@vue/reactivity'
-import { query } from '../../../advanced/list/demos/api'
-const value = ref('')
-const cols = [
-  { prop: 'id', label: '编号', width: '55', show: false },
-  { prop: 'name', label: '名称' },
-]
-const queryModel = reactive({ name: '' })
+<script setup lang="ts">
+  import { reactive, ref } from 'vue'
+  import { query } from '../../../advanced/list/demos/api'
+  const value = ref('')
+  const cols = [
+    { prop: 'id', label: '编号', width: '55', show: false },
+    { prop: 'name', label: '名称' },
+  ]
+  const queryModel = reactive({ name: '' })
 
-const handleChange = val => {
-  console.log(val)
-}
+  const handleChange = (val) => {
+    console.log(val)
+  }
 </script>

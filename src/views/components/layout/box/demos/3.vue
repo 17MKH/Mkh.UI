@@ -19,18 +19,12 @@
     </pre>
   </m-box>
 </template>
-<script>
-import { useMessage } from '../../../../../../package/composables'
-export default {
-  setup() {
-    const message = useMessage()
+<script setup lang="ts">
+  import { useMessage } from '@/composables'
 
-    const handlePlus = () => {
-      message.success('恭喜您，您点击了自定义工具栏')
-    }
-    return {
-      handlePlus,
-    }
-  },
-}
+  const message = useMessage()
+
+  const handlePlus = () => {
+    message.success('恭喜您，您点击了自定义工具栏')
+  }
 </script>

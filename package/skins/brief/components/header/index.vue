@@ -42,12 +42,12 @@
 </template>
 <script setup lang="ts">
   import { useMessage } from '@/composables'
-  import { useConfigStore, useProfileStore, useTokenStore } from '@/store'
+  import { useComponentStore, useConfigStore, useProfileStore, useTokenStore } from '@/store'
   import { useI18n } from '@/composables/i18n'
-  import mkh from '@/mkh'
   import { useRouter } from 'vue-router'
   import { computed } from 'vue'
 
+  const componentStore = useComponentStore()
   const configStore = useConfigStore()
   const profileStore = useProfileStore()
   const tokenStore = useTokenStore()
@@ -58,9 +58,7 @@
 
   const message = useMessage()
   const site = configStore.site
-  const toolbars = Object.values(mkh.toolbars)
-    .filter((m) => m.show)
-    .sort((x, y) => x.sort - y.sort)
+  const toolbars = componentStore.toolbars.filter((m) => m.show).sort((x, y) => x.sort - y.sort)
 
   const title = computed(() => {
     return typeof site.title === 'object' ? site.title[locale.value] : site.title

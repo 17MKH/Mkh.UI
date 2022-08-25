@@ -51,10 +51,9 @@
     </div>
   </m-container>
 </template>
-<script>
-import { nextTick, onMounted, ref } from 'vue'
-export default {
-  props: {
+<script setup lang="ts">
+  import { nextTick, onMounted, Ref, ref } from 'vue'
+  defineProps({
     title: {
       type: String,
       required: true,
@@ -75,81 +74,78 @@ export default {
       type: Array,
       default: null,
     },
-  },
-  setup() {
-    const componentRef = ref()
-    const catalog = ref([])
+  })
 
-    const scrollIntoView = i => {
-      componentRef.value.querySelector('#title-' + i).scrollIntoView()
-    }
+  const componentRef = ref()
+  const catalog: Ref<string[]> = ref([])
 
-    onMounted(() => {
-      nextTick(() => {
-        componentRef.value.querySelectorAll('.title').forEach((element, i) => {
-          catalog.value.push(element.innerText)
-          element.setAttribute('id', 'title-' + i)
-        })
+  const scrollIntoView = (i) => {
+    componentRef.value.querySelector('#title-' + i).scrollIntoView()
+  }
+
+  onMounted(() => {
+    nextTick(() => {
+      componentRef.value.querySelectorAll('.title').forEach((element: HTMLElement, i) => {
+        catalog.value.push(element.innerText)
+        element.setAttribute('id', 'title-' + i)
       })
     })
-    return { componentRef, catalog, scrollIntoView }
-  },
-}
+  })
 </script>
 <style lang="scss">
-.m-doc-component {
-  &_wrapper {
-    padding: 10px 200px 10px 10px;
-    background-color: #fff;
-  }
-
-  &_title {
-    padding: 15px 15px 0 15px;
-    font-size: 28px;
-    font-weight: 400;
-    color: #1f2f3d;
-  }
-
-  h3 {
-    margin: 40px 0 20px;
-    font-weight: 700;
-    font-size: 26px;
-    color: #1f2f3d;
-  }
-
-  &_table {
-    height: 100%;
-    width: 100%;
-  }
-
-  &_catalog {
-    position: absolute;
-    padding: 10px;
-    right: 15px;
-    top: 10px;
-    border: 1px solid rgb(220, 223, 230);
-    border-radius: 3px;
-    min-width: 180px;
-
-    p {
-      margin-bottom: 10px;
-      font-size: 20px;
+  .m-doc-component {
+    &_wrapper {
+      padding: 10px 200px 10px 10px;
+      background-color: #fff;
     }
 
-    a {
-      display: block;
-      margin: 5px 2px;
-      font-size: 11px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      color: #909399;
-      cursor: pointer;
-      &:hover {
-        color: #409eff;
-        text-decoration: underline;
+    &_title {
+      padding: 15px 15px 0 15px;
+      font-size: 28px;
+      font-weight: 400;
+      color: #1f2f3d;
+    }
+
+    h3 {
+      margin: 40px 0 20px;
+      font-weight: 700;
+      font-size: 26px;
+      color: #1f2f3d;
+    }
+
+    &_table {
+      height: 100%;
+      width: 100%;
+    }
+
+    &_catalog {
+      position: absolute;
+      padding: 10px;
+      right: 15px;
+      top: 10px;
+      border: 1px solid rgb(220, 223, 230);
+      border-radius: 3px;
+      min-width: 180px;
+
+      p {
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+
+      a {
+        display: block;
+        margin: 5px 2px;
+        font-size: 11px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #909399;
+        cursor: pointer;
+        &:hover {
+          color: #409eff;
+          text-decoration: underline;
+        }
       }
     }
   }
-}
 </style>

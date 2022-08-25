@@ -92,6 +92,3 @@
     clearValidate: (props: any) => formRef.value.clearValidate(props),
   })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

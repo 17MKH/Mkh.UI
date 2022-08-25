@@ -1,6 +1,6 @@
 <template>
   <section class="m-login-h">
-    <m-toolbar-lang v-if="mkh.toolbars && mkh.toolbars.lang && mkh.toolbars.lang.show" class="m-login-h_toolbar_lang" />
+    <m-toolbar-lang v-if="toolbars && toolbars['lang'] && toolbars['lang'].show" class="m-login-h_toolbar_lang" />
     <div class="m-login-h_wrapper">
       <div class="m-login-h_left">
         <div class="m-login-h_modal"></div>
@@ -57,13 +57,15 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import { useLogin } from '@/composables'
-  import { useConfigStore } from '@/store'
+  import { useConfigStore, useComponentStore } from '@/store'
   import { useI18n } from '@/composables/i18n'
-  import mkh from '@/mkh'
 
   const { t, locale } = useI18n()
-
+  const componentStore = useComponentStore()
   const configStore = useConfigStore()
+
+  const toolbars = computed(() => componentStore.toolbars)
+
   const site = configStore.site
   const { model, rules, loading, formRef, tryLogin } = useLogin()
   const enableVerifyCode = computed(() => configStore.auth.enableVerifyCode)
@@ -72,6 +74,3 @@
     return typeof site.title === 'object' ? site.title[locale.value] : site.title
   })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

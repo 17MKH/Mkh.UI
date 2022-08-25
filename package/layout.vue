@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :locale="messages[locale]" :size="size">
+  <el-config-provider :locale="messages[locale].el" :size="size">
     <!--框架内显示-->
     <component :is="skinComponent" v-if="$route.meta.inFrame"></component>
     <!--不在框架中显示-->
@@ -17,7 +17,6 @@
   const { messages, locale } = useI18n()
 
   const skinComponent = ref('')
-  const emit = defineEmits(['change', 'delete'])
   const profileStore = useProfileStore()
   const skin = computed(() => profileStore.skin)
 

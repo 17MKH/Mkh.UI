@@ -10,20 +10,12 @@
     </div>
   </m-dialog>
 </template>
-<script>
-import { ref } from 'vue'
-export default {
-  setup() {
-    const visible = ref(false)
+<script setup lang="ts">
+  import { ref } from 'vue'
 
-    const handleClick = () => {
-      visible.value = true
-    }
+  const visible = ref(false)
 
-    return {
-      visible,
-      handleClick,
-    }
-  },
-}
+  const handleClick = () => {
+    visible.value = true
+  }
 </script>

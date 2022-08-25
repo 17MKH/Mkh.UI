@@ -1,19 +1,20 @@
-import type { App } from 'vue'
-import type { HttpClient } from '@/types/http'
+import type { BootstrapOptions, HttpClient, ModuleDefinition } from '@/types'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import qs from 'qs'
+import dayjs from 'dayjs'
+import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
-import { i18n } from '../locales'
+import { useI18n } from '@/composables/i18n'
 import { useTokenStore } from '../store/modules/token'
 import { useConfigStore } from '../store/modules/config'
-import dayjs from 'dayjs'
-import { BootstrapOptions, HttpOptions, Module } from '@/types/mkh'
 
 export class Http implements HttpClient {
   axios: AxiosInstance
 
   constructor(options) {
-    const mkh = window.mkh
+    const { t } = useI18n()
+    const router = useRouter()
+
     const _axios = axios.create(options)
     const tokenStore = useTokenStore()
     const configStore = useConfigStore()
@@ -24,7 +25,7 @@ export class Http implements HttpClient {
     //请求前拦截器，附加令牌
     _axios.interceptors.request.use(
       (config) => {
-        if (tokenStore.accessToken) {
+        if (tokenStore.accessToken && config.headers) {
           config.headers.Authorization = 'Bearer ' + tokenStore.accessToken
         }
         return config
@@ -43,7 +44,7 @@ export class Http implements HttpClient {
           const url = window.URL.createObjectURL(response.data)
 
           //预览模式直接返回
-          if (response.config.headers['mkh_preview']) return url
+          if (response.config.headers && response.config.headers['mkh_preview']) return url
 
           let fileName = ''
           let cd = response.headers['content-disposition']
@@ -69,7 +70,7 @@ export class Http implements HttpClient {
           //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
           ElNotification({
             type: 'error',
-            title: i18n.global.t('mkh.http_error_title'),
+            title: t('mkh.http_error_title'),
             message: response.data.msg,
             showClose: true,
             duration: 1500,
@@ -83,7 +84,7 @@ export class Http implements HttpClient {
         if (error && error.response) {
           switch (error.response.status) {
             case 401:
-              const refreshTokenAction = configStore.actions.refreshToken
+              const refreshTokenAction = configStore.systemActions.refreshToken
               if (tokenStore.refreshToken && refreshTokenAction) {
                 //尝试刷新令牌
                 return refreshTokenAction({
@@ -92,30 +93,30 @@ export class Http implements HttpClient {
                   refreshToken: tokenStore.refreshToken,
                 })
                   .then((data) => {
-                    tokenStore.login(data)
+                    tokenStore.set(data)
                     //重新发一起一次上次的的请求
                     error.config.headers.Authorization = 'Bearer ' + data.accessToken
                     return _axios.request(error.config)
                   })
                   .catch((e) => {
-                    tokenStore.logout()
+                    tokenStore.clear()
                   })
               } else {
-                tokenStore.logout()
+                tokenStore.clear()
               }
               break
             case 403:
-              mkh.router.push('/error/403')
+              router.push('/error/403')
               break
             default:
               console.error(error.response.data.msg)
-              mkh.router.push('/error/500')
+              router.push('/error/500')
               break
           }
 
           return
         }
-        return Promise.reject(i18n.global.t('mkh.http_error'))
+        return Promise.reject(t('mkh.http_error'))
       }
     )
 
@@ -201,10 +202,10 @@ const crud = (http, root) => {
 /**
  * 为模块创建HTTP实例
  */
-export const createHttp = (options: BootstrapOptions, mod: Module): HttpClient => {
+export const createHttp = (options: BootstrapOptions, mod: ModuleDefinition): HttpClient => {
   if (options.http) {
     const http = options.http
-    let httpOptions: HttpOptions = Object.assign({}, http.global)
+    let httpOptions = Object.assign({}, http.global)
 
     if (http.modules && http.modules[mod.code]) {
       httpOptions = http.modules[mod.code]

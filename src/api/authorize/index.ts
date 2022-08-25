@@ -58,7 +58,6 @@ export default {
         size: 'default',
       }
     }
-
     return new Promise((resolve) => {
       resolve({
         accountId: '10001',

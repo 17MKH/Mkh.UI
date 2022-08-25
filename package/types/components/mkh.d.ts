@@ -7,17 +7,9 @@ export interface Mkh {
   /** 版本号 */
   readonly version: string
   /** 模块列表 */
-  readonly modules: Array<{ id: string; code: string; label: string; version: string; description: string }>
-  /** 工具栏 */
-  readonly toolbars: {
-    [key: string]: ToolbarDefinition
-  }
-  /** 多语言 */
-  readonly locales: { name: string; code: string }[]
+  readonly modules: Array<{ id: number; code: string; label: string; version: string; description: string }>
   /** 全局组件名称集合 */
   readonly components: string[]
-  /** 多语言信息 */
-  readonly localeMessages: LocaleMessage[]
   /** 图标集合 */
   icons: string[]
 }

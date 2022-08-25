@@ -12,7 +12,7 @@ export default defineConfig(({ mode, command }) => {
   config.build = {
     outDir: 'lib',
     lib: {
-      entry: resolve(__dirname, '../package/index.js'),
+      entry: resolve(__dirname, '../package/index.ts'),
       formats: ['es'],
       fileName: 'index',
     },

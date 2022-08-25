@@ -59,7 +59,7 @@ export default function () {
           .then((data) => {
             notify.success(t('mkh.login.notify_success'), t('mkh.login.notify_title'), () => {
               tokenStore.set(data)
-              router.push(redirect as string)
+              if (typeof redirect === 'string') router.push(redirect as string)
             })
           })
           .catch((msg) => {
@@ -86,7 +86,7 @@ export default function () {
 
   //如果令牌存在，则直接跳转
   if (tokenStore.accessToken) {
-    router.push(redirect as string)
+    if (typeof redirect === 'string') router.push(redirect as string)
   }
 
   return {

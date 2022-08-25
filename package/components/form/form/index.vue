@@ -28,6 +28,7 @@
   import propsDefinition from './props'
   import dom from '@/utils/dom'
   import { useConfigStore } from '@/store'
+  import { ValidateFieldsError } from 'async-validator'
 
   const props = defineProps(propsDefinition)
   const emit = defineEmits(['success', 'error', 'validate-success', 'validate-error'])
@@ -106,11 +107,9 @@
   defineExpose({
     submit,
     reset,
+    validate: (callback?: (isValid: boolean, invalidFields?: ValidateFieldsError) => void) => formRef.value.validate(callback),
     validateField: (props: any, callback: any) => formRef.value.validateField(props, callback),
     scrollToField: (prop: any) => formRef.value.scrollToField(prop),
     clearValidate: (props: any) => formRef.value.clearValidate(props),
   })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

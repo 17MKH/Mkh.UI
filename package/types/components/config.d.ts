@@ -40,7 +40,7 @@ interface SiteConfig {
   /**
    * 自定义菜单
    */
-  menus:
+  menus?:
     | {
         (profile: Profile): Array<Menu>
       }
@@ -118,7 +118,7 @@ interface SystemActionsConfig {
   /**
    * 刷新令牌
    */
-  refreshToken(): Promise<JwtCredential>
+  refreshToken?(dto: { accountId: string; platform: 0; refreshToken: string }): Promise<JwtCredential>
   /**
    * 获取登录验证码
    */

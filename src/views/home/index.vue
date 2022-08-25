@@ -25,21 +25,14 @@
     <list-demo class="m-margin-t-20" />
   </m-container>
 </template>
-<script>
-import { useMessage } from '../../../../package/composables'
-import Chart1 from './components/chart-1.vue'
-import Chart2 from './components/chart-2.vue'
-import ListDemo from '../advanced/list/demos/3.vue'
-export default {
-  components: { Chart1, Chart2, ListDemo },
-  setup() {
-    const message = useMessage()
-    const handleMore = () => {
-      message.success('点击了更多')
-    }
-    return {
-      handleMore,
-    }
-  },
-}
+<script setup lang="ts">
+  import { useMessage } from '@/composables'
+  import Chart1 from './components/chart-1.vue'
+  import Chart2 from './components/chart-2.vue'
+  import ListDemo from '../components/advanced/list/demos/3.vue'
+
+  const message = useMessage()
+  const handleMore = () => {
+    message.success('点击了更多')
+  }
 </script>

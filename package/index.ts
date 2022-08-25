@@ -12,8 +12,9 @@ import 'element-plus/dist/index.css'
 import './styles/app.scss'
 import Components from './components'
 import Directives from './directives'
-import useSkins from './skins'
+import Skins from './skins'
 import { defaultConfig } from './defaults'
+import * as echarts from 'echarts'
 import VCharts from 'vue-echarts'
 import { defaultBootstrapOptions } from './defaults'
 
@@ -38,6 +39,14 @@ const skins: SkinDefinition[] = []
 export const useModule = (module: ModuleDefinition) => {
   if (modules.findIndex((m) => m.code === module.code) === -1) {
     modules.push(module)
+
+    mkh.modules.push({
+      id: module.id,
+      code: module.code,
+      label: module.label || '',
+      version: module.version,
+      description: module.description,
+    })
   }
 }
 
@@ -73,17 +82,22 @@ export const bootstrap = (options_: BootstrapOptions) => {
 
   const app = createApp(Layout)
 
+  //执行模块的回调函数
+  services.forEach((c) => {
+    c({ app, config, options: bootstrapOptions })
+  })
+
+  //注册状态
+  app.use(useStore, config)
+
   //模块按照id排序
   modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
-  app.use(Locales, bootstrapOptions, modules)
-
-  //注册状态
-  app.use(useStore)
+  app.use(Locales, bootstrapOptions)
 
   //注册路由
-  app.use(useRouter)
+  app.use(useRouter, modules)
 
   //注册ElementPlus
   app.use(ElementPlus)
@@ -99,20 +113,11 @@ export const bootstrap = (options_: BootstrapOptions) => {
   app.use(Directives)
 
   //注册皮肤
-  app.use(useSkins, skins)
-
-  //执行模块的回调函数
-  services.forEach((c) => {
-    c({ app, config, options: bootstrapOptions })
-  })
+  app.use(Skins, skins)
 
   //从本地存储中加载令牌
   const tokenStore = useTokenStore()
   tokenStore.load()
-
-  //初始化配置
-  const configStore = useConfigStore()
-  configStore.$state = config
 
   //等待路由注册完成后再挂载
   router.isReady().then(() => {
@@ -128,4 +133,4 @@ export const bootstrap = (options_: BootstrapOptions) => {
 export * from './composables'
 export * from './utils'
 export * from './store'
-export { mkh }
+export { mkh, echarts }

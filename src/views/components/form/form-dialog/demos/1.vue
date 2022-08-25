@@ -24,32 +24,26 @@
     </template>
   </m-form-dialog>
 </template>
-<script>
-import { reactive, ref } from 'vue'
-export default {
-  setup() {
-    const visible = ref(false)
-    const model = reactive({
-      name: '',
-      region: '',
-      date1: '',
-      date2: '',
+<script setup lang="ts">
+  import { reactive, ref } from 'vue'
+  const visible = ref(false)
+  const model = reactive({
+    name: '',
+    region: '',
+    date1: '',
+    date2: '',
+  })
+  const rules = {
+    name: [{ required: true, message: '请输入名称' }],
+  }
+
+  const action = () => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 2000)
     })
-    const rules = {
-      name: [{ required: true, message: '请输入名称' }],
-    }
+  }
 
-    const action = () => {
-      return new Promise(resolve => {
-        setTimeout(resolve, 2000)
-      })
-    }
-
-    const handleOpen = () => {
-      console.log('handleOpen')
-    }
-
-    return { visible, model, rules, action, handleOpen }
-  },
-}
+  const handleOpen = () => {
+    console.log('handleOpen')
+  }
 </script>

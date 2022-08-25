@@ -1,21 +1,25 @@
 import type { App, Component } from 'vue'
-import mkh from '@/mkh'
+import type { ModuleDefinition } from '@/types'
 import AdvancedComponents from './advanced'
 import BaseComponents from './base'
 import FormComponents from './form'
 import LayoutComponents from './layout'
 import LoginComponents from './login'
-import ToolbarComponents from './toolbar'
-import { ModuleDefinition } from '@/types'
+import ToolbarComponents, { toolbars } from './toolbar'
+import { useComponentStore } from '@/store'
 
 const components = [...AdvancedComponents, ...BaseComponents, ...FormComponents, ...LayoutComponents, ...LoginComponents, ...ToolbarComponents]
 
+const componentNames: string[] = []
+
 const registerComponent = (app: App, name: string, component: Component) => {
   app.component(`m-${name}`, component)
-  mkh.components.push(name)
+  componentNames.push(`m-${name}`)
 }
 
 export default (app: App, modules: ModuleDefinition[]) => {
+  const componentStore = useComponentStore()
+
   //框架中的全局组件
   components.forEach((m) => {
     registerComponent(app, m.name, m.component)
@@ -31,7 +35,7 @@ export default (app: App, modules: ModuleDefinition[]) => {
         } else if (name.startsWith('toolbar-')) {
           //顶部工具栏组件
           let code = name.replace('toolbar-', '')
-          mkh.toolbars[code] = { code: code, label: c.component.label || code, show: true, sort: 0 }
+          toolbars.push({ code: code, label: c.component.label || code, show: true, sort: 0 })
         } else {
           name = `${m.code}-${c.name}`
         }
@@ -40,4 +44,7 @@ export default (app: App, modules: ModuleDefinition[]) => {
       })
     }
   })
+
+  componentStore.toolbars = toolbars
+  componentStore.components = componentNames
 }

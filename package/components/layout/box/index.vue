@@ -90,6 +90,3 @@
     toggleCollapse,
   })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

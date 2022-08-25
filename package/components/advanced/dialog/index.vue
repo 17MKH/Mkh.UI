@@ -61,7 +61,7 @@
     </div>
   </el-dialog>
 </template>
-<script>
+<script lang="ts">
   export default {
     inheritAttrs: false,
   }
@@ -189,6 +189,3 @@
     toggleFullscreen,
   })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

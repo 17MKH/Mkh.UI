@@ -24,28 +24,18 @@
     </m-list>
   </div>
 </template>
-<script>
-import { reactive, ref } from 'vue'
-import { query } from './api'
-export default {
-  setup() {
-    const model = reactive({ name: '', author: '', dynasty: '' })
-    const cols = ref([
-      { prop: 'id', label: '编号', width: '55', show: false },
-      {
-        prop: 'name',
-        label: '名称',
-      },
-      { prop: 'author', label: '作者' },
-      { prop: 'dynasty', label: '朝代' },
-      { prop: 'type', label: '类型' },
-    ])
-
-    return {
-      model,
-      cols,
-      query,
-    }
-  },
-}
+<script setup lang="ts">
+  import { reactive, ref } from 'vue'
+  import { query } from './api'
+  const model = reactive({ name: '', author: '', dynasty: '' })
+  const cols = ref([
+    { prop: 'id', label: '编号', width: '55', show: false },
+    {
+      prop: 'name',
+      label: '名称',
+    },
+    { prop: 'author', label: '作者' },
+    { prop: 'dynasty', label: '朝代' },
+    { prop: 'type', label: '类型' },
+  ])
 </script>

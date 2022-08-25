@@ -2,21 +2,10 @@ import type { Breadcrumb, Locales, Menu, Profile } from '@/types'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import { useSkinStore } from './skin'
-import mkh from '@/mkh'
 import { defaultProfile } from '@/defaults'
 
 //解析自定义菜单
-const resolveMenu = async (
-  profile: Profile,
-  menus:
-    | {
-        (profile: Profile): Array<Menu>
-      }
-    | Array<Menu>
-    | undefined
-) => {
-  if (!menus) return
-
+const resolveMenu = async (profile: Profile, menus) => {
   if (typeof menus === 'function') {
     profile.menus = await menus(profile)
   } else if (typeof menus == 'object') {
@@ -73,11 +62,12 @@ const actions = {
       //获取账户信息
       if (configStore.systemActions && configStore.systemActions.getProfile) {
         const profile = await configStore.systemActions.getProfile()
+
         profile.routeMenus = []
         profile.buttons = []
 
         //设置自定义菜单
-        if (configStore.site) {
+        if (configStore.site && configStore.site.menus) {
           await resolveMenu(profile, configStore.site.menus)
         }
 
@@ -108,7 +98,6 @@ const actions = {
         if (!profile.skin.size) {
           profile.skin.size = 'default'
         }
-
         Object.assign(this, profile)
       }
     } catch (error) {

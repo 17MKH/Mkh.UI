@@ -36,6 +36,3 @@
 
   const menus = computed(() => profileStore.menus)
 </script>
-<style lang="scss">
-  @import './index';
-</style>

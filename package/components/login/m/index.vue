@@ -1,6 +1,6 @@
 <template>
   <section class="m-login-m">
-    <m-toolbar-lang v-if="mkh.toolbars && mkh.toolbars.lang && mkh.toolbars.lang.show" class="m-login-m_toolbar_lang" />
+    <m-toolbar-lang v-if="toolbars && toolbars['lang'] && toolbars['lang'].show" class="m-login-m_toolbar_lang" />
     <div class="m-login-m_wrapper">
       <div class="m-login-m_logo">
         <img :src="site.logo" />
@@ -33,13 +33,16 @@
 <script setup lang="ts">
   import { computed } from '@vue/reactivity'
   import { useLogin } from '@/composables'
-  import { useConfigStore } from '@/store'
+  import { useConfigStore, useComponentStore } from '@/store'
   import { useI18n } from '@/composables/i18n'
   import mkh from '@/mkh'
 
   const { t, locale } = useI18n()
 
   const configStore = useConfigStore()
+  const componentStore = useComponentStore()
+
+  const toolbars = computed(() => componentStore.toolbars)
 
   const site = configStore.site
   const { model, rules, loading, formRef, tryLogin } = useLogin()
@@ -50,6 +53,3 @@
     return typeof site.title === 'object' ? site.title[locale.value] : site.title
   })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

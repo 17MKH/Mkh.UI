@@ -43,6 +43,3 @@
   const showDialog = ref(false)
   const model = reactive({ label: '', value: '' })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

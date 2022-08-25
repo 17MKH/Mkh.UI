@@ -38,7 +38,7 @@
             </pre
           >
         </template>
-        <demo-1></demo-1>
+        <demo1></demo1>
       </m-doc-demo-block>
 
       <m-doc-demo-block title="查询栏按钮" :meta="code2">
@@ -46,42 +46,28 @@
           <p>查询栏内置了三个按钮，查询、重置、删除，其中查询和重置默认显示，删除默认不显示，三个按钮都可以通过属性控制是否显示</p>
           <p>同时您也可以通过<code>buttons</code>插槽，在三个按钮后面添加自定义的按钮</p>
         </template>
-        <demo-2></demo-2>
+        <demo2></demo2>
       </m-doc-demo-block>
 
-      <m-doc-demo-block title="工具栏" :meta="code2">
+      <m-doc-demo-block title="工具栏" :meta="code3">
         <template #desc>
           <p>工具栏位于列表页组件的头部的右侧区域，内置了两个工具按钮，刷新和全屏按钮，默认都显示，可以通过属性控制是否显示</p>
           <p>同时您也可以通过<code>toolbar</code>插槽，在刷新按钮前面添加自定义的工具按钮</p>
         </template>
-        <demo-3></demo-3>
+        <demo3></demo3>
       </m-doc-demo-block>
     </m-doc-component-doc>
   </m-container>
 </template>
-<script>
-import props from './apis/_props'
-import events from './apis/_events'
-import methods from './apis/_methods'
-import slots from './apis/_slots'
-import demo1 from './demos/1.vue'
-import code1 from './demos/1.vue?raw'
-import demo2 from './demos/2.vue'
-import code2 from './demos/2.vue?raw'
-import demo3 from './demos/3.vue'
-import code3 from './demos/3.vue?raw'
-export default {
-  components: { demo1, demo2, demo3 },
-  setup() {
-    return {
-      props,
-      events,
-      methods,
-      slots,
-      code1,
-      code2,
-      code3,
-    }
-  },
-}
+<script setup lang="ts">
+  import props from './apis/_props'
+  import events from './apis/_events'
+  import methods from './apis/_methods'
+  import slots from './apis/_slots'
+  import demo1 from './demos/1.vue'
+  import code1 from './demos/1.vue?raw'
+  import demo2 from './demos/2.vue'
+  import code2 from './demos/2.vue?raw'
+  import demo3 from './demos/3.vue'
+  import code3 from './demos/3.vue?raw'
 </script>

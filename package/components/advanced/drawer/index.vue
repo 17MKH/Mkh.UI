@@ -60,7 +60,7 @@
     </div>
   </el-drawer>
 </template>
-<script>
+<script lang="ts">
   export default {
     inheritAttrs: false,
   }
@@ -124,6 +124,3 @@
     toggleFullscreen,
   })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

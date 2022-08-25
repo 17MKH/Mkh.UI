@@ -26,7 +26,7 @@
         </div>
         <el-divider content-position="center">{{ t('mkh.theme') }}</el-divider>
         <div class="m-skin-toggle_themes">
-          <div v-for="theme in current!.themes" :key="theme.name" :class="['m-skin-toggle_theme', theme.name === model.theme ? 'active' : '']" @click="toggleTheme(theme)">
+          <div v-for="theme in current.themes" :key="theme.name" :class="['m-skin-toggle_theme', theme.name === model.theme ? 'active' : '']" @click="toggleTheme(theme)">
             <div :style="{ backgroundColor: theme.color }"></div>
             <p>{{ theme.name }}</p>
           </div>
@@ -40,7 +40,7 @@
   </m-drawer>
 </template>
 <script setup lang="ts">
-  import { reactive, ref } from 'vue'
+  import { computed, reactive, ref } from 'vue'
   import useMessage from '@/composables/message'
   import { useI18n } from '@/composables/i18n'
   import { useConfigStore, useProfileStore, useSkinStore } from '@/store'
@@ -58,8 +58,9 @@
 
   const skins = skinStore.skins
   const skin = profileStore.skin
-  const saveSkin = configStore.systemActions.toggleSkin
-  const current = ref(skinStore.skins.find((m) => m.code === skin.code))
+
+  const saveSkin = computed(() => configStore.systemActions.toggleSkin)
+  const current = ref(skinStore.skins.find((m) => m.code === skin.code)!)
 
   const model = reactive<Skin>({
     name: skin.name,
@@ -90,9 +91,10 @@
   const save = () => {
     profileStore.skin = model
 
-    if (saveSkin) {
+    if (saveSkin.value) {
       loading.value = true
-      saveSkin(model)
+      saveSkin
+        .value(model)
         .then(() => {
           message.success(t('mkh.skin_switch_success'))
         })
@@ -103,17 +105,4 @@
       message.success(t('mkh.skin_switch_success'))
     }
   }
-
-  return {
-    show,
-    current,
-    model,
-    loading,
-    toggleSkin,
-    toggleTheme,
-    save,
-  }
 </script>
-<style lang="scss">
-  @import './index';
-</style>

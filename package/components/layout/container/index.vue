@@ -29,6 +29,3 @@
 
   defineExpose({ resizeScrollbar })
 </script>
-<style lang="scss">
-  @import './index';
-</style>

@@ -6,7 +6,7 @@ import fs from 'fs'
 import os from 'os'
 import fg from 'fast-glob'
 import { normalizePath } from 'vite'
-import { IMPORT_MODULE_PREFIX, IMPORT_PAGE_PREFIX } from './utils/constants'
+import { IMPORT_MODULE_PREFIX } from './utils/constants'
 
 export default function (ctx: PluginContext) {
   //**匹配需要搜索的文件 */
@@ -21,7 +21,7 @@ export default function (ctx: PluginContext) {
 
   //加载路由页面信息
   const loadPages = async (dir: string, pages: string[]) => {
-    let files = await getFiles([dir + '/**/page.json'])
+    let files = await getFiles([dir + '/**/page.ts'])
     files.forEach((file) => {
       pages.push(normalizePath(file))
     })
@@ -40,26 +40,12 @@ export default function (ctx: PluginContext) {
     }
   }
 
-  //加载API
-  const loadApi = async () => {
-    let api: { name: string; path: string }[] = []
-    let files = await getFiles([normalizePath(path.resolve('./src/api/*.js'))])
-    files.forEach((file) => {
-      api.push({
-        name: path.basename(path.basename(file)).replace('.js', ''),
-        path: normalizePath(file),
-      })
-    })
-
-    return api
-  }
-
   //加载模块
   const loadModule = async () => {
     let src = '' //源码
 
-    const { pkg } = ctx
-    let modSrc = `id:${pkg.id}, code:'${ctx.entryModule}', version:'${pkg.version}', label:'${pkg.label}', icon:'${pkg.icon}', description:'${pkg.description}'`
+    const { pkg, entryModule } = ctx
+    let modSrc = `id:${pkg.id}, code:'${entryModule}', version:'${pkg.version}', label:'${pkg.label}', icon:'${pkg.icon}', description:'${pkg.description}'`
 
     /** 加载模块路由页面 */
     const pages: string[] = []
@@ -69,7 +55,7 @@ export default function (ctx: PluginContext) {
     pages.forEach((p, i) => {
       const name = `page_${i}`
       //这里将page.json替换成@page-模块编码，方便后续处理
-      src += `import ${name} from '${p.replace('page.json', IMPORT_PAGE_PREFIX)}'${os.EOL}`
+      src += `import ${name} from '${p}'${os.EOL}`
     })
 
     /** 加载模块全局组件 */

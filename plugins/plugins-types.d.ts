@@ -1,3 +1,10 @@
+export interface HtmlTransform {
+  /** 模板渲染数据，如果使用自己的模板，则自己定义渲染数据 */
+  render?: {}
+  /** 压缩配置 */
+  minify?: {}
+}
+
 /**
  * 插件上下文配置项
  */
@@ -16,13 +23,6 @@ export interface PluginContextOptions {
   target: 'app' | 'lib'
   /** index.html转换配置 */
   htmlTransform?: HtmlTransform
-}
-
-export interface HtmlTransform {
-  /** 模板渲染数据，如果使用自己的模板，则自己定义渲染数据 */
-  render?: {}
-  /** 压缩配置 */
-  minify?: {}
 }
 
 /**
@@ -44,13 +44,16 @@ export interface PluginContext {
     /** 说明 */
     description: string
   }
+  /**
+   * 配置项
+   */
   options: PluginContextOptions
-  isUI: boolean
-  isMod: boolean
-  isSkin: boolean
-  isLib: boolean
+  /**
+   * 入口模块
+   */
   entryModule: string
-  dependencyModules: string[]
-  skins: string[]
-  locales: string[]
+  /**
+   * 是否是库模式
+   */
+  isLib: boolean
 }

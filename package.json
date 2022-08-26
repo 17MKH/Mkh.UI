@@ -7,6 +7,7 @@
   "description": "17MKH前端框架",
   "author": "OLDLI",
   "main": "lib/index.es.js",
+  "type": "module",
   "typings": "package/types/main.d.ts",
   "scripts": {
     "dev": "vite --host --config=./build/app.config.ts",

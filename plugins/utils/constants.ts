@@ -19,11 +19,6 @@ const SKIN_PREFIX = 'mkh-skin-'
 const IMPORT_MODULE_PREFIX = 'virtual:mkh-mod-'
 
 /**
- * 导入页面时的前缀
- */
-const IMPORT_PAGE_PREFIX = '$mkh-page'
-
-/**
  * 导入语言包时的前缀
  */
 const IMPORT_LOCALE_PREFIX = '$mkh-locale'
@@ -31,4 +26,4 @@ const IMPORT_LOCALE_PREFIX = '$mkh-locale'
 //打包时忽略的依赖项
 const external = ['axios', 'vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n', 'echarts', 'vue-echarts']
 
-export { UI_NAME, MODULE_PREFIX, IMPORT_MODULE_PREFIX, IMPORT_PAGE_PREFIX, SKIN_PREFIX, IMPORT_LOCALE_PREFIX, external }
+export { UI_NAME, MODULE_PREFIX, IMPORT_MODULE_PREFIX, SKIN_PREFIX, IMPORT_LOCALE_PREFIX, external }

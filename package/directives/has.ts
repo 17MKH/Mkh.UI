@@ -1,7 +1,7 @@
 // 按钮权限指令
 import { Directive } from 'vue'
 import { useConfigStore, useProfileStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { router } from '@/router'
 
 const directive: Directive = {
   mounted: (el: HTMLImageElement, binding) => {
@@ -12,7 +12,6 @@ const directive: Directive = {
     const configStore = useConfigStore()
     // 验证是否开启按钮验证，按钮编码不区分大小写
     if (configStore.auth.enableButtonPermissions) {
-      const router = useRouter()
       const currentRoute = router.currentRoute.value
       let { _mid_ } = currentRoute.query
 

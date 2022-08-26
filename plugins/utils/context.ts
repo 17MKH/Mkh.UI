@@ -11,20 +11,13 @@ export default function (options: PluginContextOptions): PluginContext {
   const ctx: PluginContext = {
     pkg,
     options,
-    isUI: options.isUI || false,
-    isMod: options.isMod || false,
-    isSkin: options.isSkin || false,
-    isLib: options.target !== 'app',
-    /** 入口模块 */
     entryModule: '',
-    dependencyModules: options.dependencyModules || [],
-    skins: options.skins,
-    locales: options.locales || ['zh-cn'],
+    isLib: options.target === 'lib',
   }
 
-  if (ctx.isMod) {
+  if (options.isMod) {
     ctx.entryModule = pkg.name.replace(MODULE_PREFIX, '')
-  } else if (ctx.isUI) {
+  } else if (options.isUI) {
     ctx.entryModule = 'doc'
   }
 

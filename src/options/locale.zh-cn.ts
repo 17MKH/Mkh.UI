@@ -6,7 +6,6 @@ import mod_doc_routes from '../locales/zh-cn/routes'
 
 const options: MkhLocaleMessages = {
   name: 'zh-cn',
-  label: '简体中文',
   el: el,
   mkh: mkh,
   routes: { ...mod_doc_routes },

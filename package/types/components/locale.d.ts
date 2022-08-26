@@ -14,10 +14,6 @@ export interface MkhLocaleMessages extends LocaleMessages {
    */
   name: locale
   /**
-   * 语言显示名称
-   */
-  label: string
-  /**
    * Element Plus 语言信息
    */
   el: {}

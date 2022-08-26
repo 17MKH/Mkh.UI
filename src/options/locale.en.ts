@@ -6,7 +6,6 @@ import mod_doc_routes from '../locales/en/routes'
 
 const options: MkhLocaleMessages = {
   name: 'en',
-  label: 'English',
   el: el,
   mkh: mkh,
   routes: { ...mod_doc_routes },

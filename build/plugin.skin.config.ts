@@ -7,5 +7,5 @@ export default defineConfig({
     format: 'cjs',
     file: 'lib/plugins/skin.js',
   },
-  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: false }, include: ['plugins/plugin-skin.ts'] } })],
+  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: true }, include: ['plugins/plugin-skin.ts'] } })],
 })

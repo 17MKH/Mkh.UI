@@ -12,7 +12,7 @@ const createConfig = (input, fileName) => ({
       format: 'es',
     },
   ],
-  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: false }, include: [input] } })],
+  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: true }, include: [input] } })],
 })
 const pkg = JSON.parse(fs.readFileSync(path.resolve(rootDir, 'package.json')).toString())
 

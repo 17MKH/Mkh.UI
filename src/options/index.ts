@@ -1,4 +1,4 @@
-import type { BootstrapOptions, MkhLocaleMessages } from '@/types'
+import type { BootstrapOptions } from '@/types'
 import messages_zh_cn from './locale.zh-cn'
 import messages_en from './locale.en'
 

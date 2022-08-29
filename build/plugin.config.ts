@@ -7,5 +7,5 @@ export default defineConfig({
     format: 'cjs',
     file: 'lib/plugins/index.js',
   },
-  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: false }, include: ['plugins/plugin-module.ts'] } })],
+  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: true }, include: ['plugins/plugin-module.ts'] } })],
 })

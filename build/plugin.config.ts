@@ -4,9 +4,8 @@ import { defineConfig } from 'rollup'
 export default defineConfig({
   input: 'plugins/plugin-module.ts',
   output: {
-    dir: 'lib/plugins',
     format: 'cjs',
-    name: 'index.js',
+    file: 'lib/plugins/index.js',
   },
   plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: false }, include: ['plugins/plugin-module.ts'] } })],
 })

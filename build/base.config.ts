@@ -1,6 +1,5 @@
 import type { UserConfig } from 'vite'
 import { resolve } from 'path'
-// import typescript from 'rollup-plugin-typescript2'
 import vue from '@vitejs/plugin-vue'
 import mui from '../plugins/plugin-ui'
 

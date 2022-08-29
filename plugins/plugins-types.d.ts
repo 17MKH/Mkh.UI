@@ -56,4 +56,12 @@ export interface PluginContext {
    * 是否是库模式
    */
   isLib: boolean
+  /**
+   * 模块
+   */
+  modules: string[]
+  /**
+   * 皮肤
+   */
+  skins: string[]
 }

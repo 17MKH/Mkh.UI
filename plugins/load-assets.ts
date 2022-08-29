@@ -22,11 +22,14 @@ const copyUIAssets = (ctx: PluginContext) => {
 const copySkinAssets = (ctx: PluginContext) => {
   fse.readdir(path.resolve('node_modules'), (err, dirs) => {
     dirs.forEach((m) => {
-      if (m.startsWith(SKIN_PREFIX) && skins.includes(m.replace(SKIN_PREFIX, ''))) {
+      const code = m.replace(SKIN_PREFIX, '')
+      if (m.startsWith(SKIN_PREFIX) && ctx.skins.includes(code)) {
         const assetsPath = path.resolve(`node_modules/${m}/lib/assets`)
         fse.pathExists(assetsPath, (err, exists) => {
           if (exists) {
-            fse.copy(assetsPath, path.resolve(outputRoot, 'skins', m.replace(SKIN_PREFIX, '')))
+            const output = path.resolve(outputRoot, 'skins', code)
+            fse.copy(assetsPath, output)
+            console.log(`Copy skin ${code} assets to ${output}`)
           }
         })
       }
@@ -42,11 +45,14 @@ const copyDependencyModuleAssets = (ctx: PluginContext) => {
 
   fse.readdir(path.resolve('node_modules'), (err, dirs) => {
     dirs.forEach((m) => {
-      if (m.startsWith(MODULE_PREFIX) && ctx.dependencyModules.includes(m.replace(MODULE_PREFIX, ''))) {
+      const code = m.replace(MODULE_PREFIX, '')
+      if (m.startsWith(MODULE_PREFIX) && ctx.modules.includes(code)) {
         const assetsPath = path.resolve(`node_modules/${m}/lib/assets`)
         fse.pathExists(assetsPath, (err, exists) => {
           if (exists) {
-            fse.copy(assetsPath, path.resolve(outputRoot, 'mods', m.replace(MODULE_PREFIX, '')))
+            const output = path.resolve(outputRoot, 'mods', code)
+            fse.copy(assetsPath, output)
+            console.log(`Copy module ${code} assets to ${output}`)
           }
         })
       }
@@ -72,7 +78,7 @@ export default function (ctx: PluginContext) {
   const plguin: Plugin = {
     name: 'mkh-load-assets',
     enforce: 'post',
-    buildStart() {
+    async buildStart() {
       if (ctx.isLib || ctx.options.isSkin) return
 
       const mainSrc = path.resolve('src/main.ts')
@@ -86,15 +92,21 @@ export default function (ctx: PluginContext) {
         })
 
         for await (const line of rl) {
-          // Each line in input.txt will be successively available here as `line`.
+          //匹配模块
+          const moduleMatch = line.match(/(.*?)import.*?from(.*?)'mkh-mod-(.*)'/)
+          if (moduleMatch) {
+            ctx.modules.push(moduleMatch[3])
+          }
 
-          const s = line.match(/(.*?)import.*?from(.*?)'mkh-skin-(.*)'/)
-
-          console.log(s)
+          //匹配皮肤
+          const skinMatch = line.match(/(.*?)import.*?from(.*?)'mkh-skin-(.*)'/)
+          if (skinMatch) {
+            ctx.skins.push(skinMatch[3])
+          }
         }
       }
 
-      processLineByLine()
+      await processLineByLine()
 
       copyUIAssets(ctx)
 

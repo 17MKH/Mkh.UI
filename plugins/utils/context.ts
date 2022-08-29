@@ -13,6 +13,8 @@ export default function (options: PluginContextOptions): PluginContext {
     options,
     entryModule: '',
     isLib: options.target === 'lib',
+    skins: [],
+    modules: [],
   }
 
   if (options.isMod) {

@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import Locales from './locales'
 import Layout from './layout.vue'
 import useRouter, { router } from './router'
-import useStore, { useTokenStore, useConfigStore } from './store'
+import useStore, { useTokenStore } from './store'
 import _ from 'lodash'
 /** 导入ElementPlus */
 import ElementPlus from 'element-plus'
@@ -134,3 +134,5 @@ export * from './composables'
 export * from './utils'
 export * from './store'
 export { mkh, echarts }
+
+export * from './types/index'

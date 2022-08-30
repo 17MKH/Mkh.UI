@@ -1,4 +1,5 @@
 import type { Component } from 'vue'
+import { Breadcrumb, Button } from './menu'
 
 /**
  * 页面定义

@@ -8,11 +8,12 @@ import { useI18n } from '@/composables/i18n'
 import { useTokenStore } from '../store/modules/token'
 import { useConfigStore } from '../store/modules/config'
 
+const { t } = useI18n()
+
 export class Http implements HttpClient {
   axios: AxiosInstance
 
   constructor(options) {
-    const { t } = useI18n()
     const router = useRouter()
 
     const _axios = axios.create(options)
@@ -122,10 +123,12 @@ export class Http implements HttpClient {
 
     this.axios = _axios
   }
-  post(url: string, params?: object, config?: AxiosRequestConfig) {
-    return this.axios.post(url, params, config)
+
+  post<T>(url: string, params?: object, config?: AxiosRequestConfig) {
+    return this.axios.post(url, params, config) as Promise<T>
   }
-  get(url: string, params?: object, config?: AxiosRequestConfig) {
+
+  get<T>(url: string, params?: object, config?: AxiosRequestConfig) {
     const config_ = Object.assign({}, config, {
       // 参数
       params,
@@ -137,9 +140,10 @@ export class Http implements HttpClient {
         })
       },
     })
-    return this.axios.get(url, config_)
+    return this.axios.get(url, config_) as Promise<T>
   }
-  delete(url: string, params?: object, config?: AxiosRequestConfig) {
+
+  delete<T>(url: string, params?: object, config?: AxiosRequestConfig) {
     const config_ = Object.assign({}, config, {
       // 参数
       params,
@@ -151,14 +155,17 @@ export class Http implements HttpClient {
         })
       },
     })
-    return this.axios.delete(url, config_)
+    return this.axios.delete(url, config_) as Promise<T>
   }
-  put(url: string, params?: object, config?: AxiosRequestConfig) {
-    return this.axios.put(url, params, config)
+
+  put<T>(url: string, params?: object, config?: AxiosRequestConfig) {
+    return this.axios.put(url, params, config) as Promise<T>
   }
+
   download(url: string, params?: object, config?: AxiosRequestConfig) {
-    return this.axios.post(url, params, Object.assign({ responseType: 'blob' }, config))
+    return this.axios.post(url, params, Object.assign({ responseType: 'blob' }, config)) as Promise<void>
   }
+
   preview(url: string, params?: object, config?: AxiosRequestConfig) {
     const config_ = Object.assign({ responseType: 'blob', headers: { mkh_preview: true } }, config, {
       // 参数
@@ -171,15 +178,21 @@ export class Http implements HttpClient {
         })
       },
     })
-    return this.axios.get(url, config_)
+    return this.axios.get(url, config_) as Promise<void>
   }
+
   getUrl(url: string): string {
     return this.axios.defaults.baseURL + url
   }
 }
 
-//通用的增删改查方法
-const crud = (http, root) => {
+/**
+ * 通用的增删改查方法
+ * @param http
+ * @param root
+ * @returns
+ */
+export const crud = (http, root) => {
   return {
     query(params) {
       return http.get(`${root}/query`, params)

@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import { PageDefinition } from './page'
 
 /**
@@ -43,6 +44,6 @@ export interface ModuleDefinition {
     /**
      * 组件模板
      */
-    component: Component
+    component: { label: string } & Component
   }[]
 }

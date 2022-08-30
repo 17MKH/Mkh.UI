@@ -1,3 +1,4 @@
+import { Menu } from './menu'
 import { Skin } from './skin'
 
 /**
@@ -112,3 +113,21 @@ export interface VerifyCode {
  * 更新皮肤模型
  */
 export interface UpdateSkinDto extends Skin {}
+
+/**
+ * 刷新令牌模型
+ */
+export interface RefreshTokenDto {
+  /**
+   * 账户编号
+   */
+  accountId: string
+  /**
+   * 平台编号
+   */
+  platform: 0
+  /**
+   * 刷新令牌
+   */
+  refreshToken: string
+}

@@ -1,4 +1,4 @@
-import { Messages } from 'vue-i18n'
+import { App } from 'vue'
 import { locale, MkhLocaleMessagesGroup } from './locale'
 import { Config } from './config'
 

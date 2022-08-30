@@ -13,7 +13,7 @@ const directive: Directive = {
     // 验证是否开启按钮验证，按钮编码不区分大小写
     if (configStore.auth.enableButtonPermissions) {
       const currentRoute = router.currentRoute.value
-      let { _mid_ } = currentRoute.query
+      let _mid_ = currentRoute.query._mid_ as string | number
 
       const profileStore = useProfileStore()
       if (!_mid_) {

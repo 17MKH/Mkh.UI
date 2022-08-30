@@ -1,5 +1,3 @@
-import { LocaleMessages } from 'vue-i18n'
-
 /**
  * 语言选项
  */
@@ -8,7 +6,7 @@ export declare type locale = 'zh-cn' | 'en'
 /**
  * 多语言信息
  */
-export interface MkhLocaleMessages extends LocaleMessages {
+export interface MkhLocaleMessages {
   /**
    * 语言名称
    */

@@ -1,4 +1,4 @@
-import { Component } from 'vue'
+import type { Component } from 'vue'
 
 /**
  * 尺寸

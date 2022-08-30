@@ -1,6 +1,11 @@
 import type { Component, Ref } from 'vue'
 import { ref } from 'vue'
 
+/**
+ *
+ * @param emit
+ * @returns
+ */
 export default function (emit: { (e: 'fullscreen-change', isFullscreen: Ref<boolean>): void }) {
   const isFullscreen = ref(false)
 

@@ -1,5 +1,5 @@
 /** 菜单类型 */
-declare enum MenuType {
+export declare enum MenuType {
   /** 节点菜单 */
   Node,
   /** 路由菜单 */
@@ -11,7 +11,7 @@ declare enum MenuType {
 }
 
 /** 多语言 */
-interface Locales {
+export interface Locales {
   /** 英文 */
   en: string
   /** 中文 */
@@ -20,7 +20,7 @@ interface Locales {
 }
 
 /** 菜单面包屑 */
-interface Breadcrumb {
+export interface Breadcrumb {
   /** 跳转路由 */
   to?: string
   /** 路由Query参数 */
@@ -32,7 +32,7 @@ interface Breadcrumb {
 }
 
 /** 按钮信息 */
-interface Button {}
+export interface Button {}
 
 /** 菜单信息 */
 export type Menu = {

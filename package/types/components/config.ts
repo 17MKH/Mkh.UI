@@ -1,7 +1,7 @@
 /** 17MKH配置相关类型 */
 import { RouteLocationRaw } from 'vue-router'
 import { Menu } from './menu'
-import { LoginDto, JwtCredential, Profile, VerifyCode, UpdateSkinDto } from './auth'
+import { LoginDto, JwtCredential, Profile, VerifyCode, UpdateSkinDto, RefreshTokenDto } from './auth'
 import { Skin } from './skin'
 import { FormatterFunction } from './list'
 
@@ -118,7 +118,7 @@ interface SystemActionsConfig {
   /**
    * 刷新令牌
    */
-  refreshToken?(dto: { accountId: string; platform: 0; refreshToken: string }): Promise<JwtCredential>
+  refreshToken?(dto: RefreshTokenDto): Promise<JwtCredential>
   /**
    * 获取登录验证码
    */
@@ -131,7 +131,7 @@ interface SystemActionsConfig {
    * 切换皮肤
    * @param skin 皮肤更新对象
    */
-  toggleSkin(skin: UpdateSkinDto): Promise
+  toggleSkin(skin: UpdateSkinDto): Promise<void>
 }
 
 /**

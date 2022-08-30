@@ -1,4 +1,4 @@
-import type { BootstrapOptions, locale, MkhLocaleMessagesGroup } from '@/types'
+import type { BootstrapOptions, locale } from '@/types'
 import { LOCALE_DEFINITIONS } from '@/utils/constants'
 import { defaultBootstrapOptions } from '@/defaults'
 import { App } from 'vue'

@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { ref } from 'vue'
 
-interface Emit {
+export interface Emit {
   (e: 'collapse-change', isCollapse: Ref<boolean>): void
 }
 

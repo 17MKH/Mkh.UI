@@ -8,7 +8,7 @@ import { FormatterFunction } from './list'
 /**
  * 站点配置
  */
-interface SiteConfig {
+export interface SiteConfig {
   /**
    * 系统标题
    */
@@ -50,7 +50,7 @@ interface SiteConfig {
 /**
  * 认证和授权配置
  */
-interface AuthConfig {
+export interface AuthConfig {
   /**
    * 启用按钮权限
    */
@@ -64,7 +64,7 @@ interface AuthConfig {
 /**
  * 组件配置
  */
-interface ComponentConfig {
+export interface ComponentConfig {
   /**
    * 加载动画
    */
@@ -109,14 +109,15 @@ interface ComponentConfig {
  *
  * 供系统内部使用，用户需要通过替换默认操作方法来实现自定义功能
  */
-interface SystemActionsConfig {
+export interface SystemActionsConfig {
   /**
    * 登录方法
-   * @param dto 登录对象
+   * @param dto - 登录模型
    */
   login(dto: LoginDto): Promise<JwtCredential>
   /**
    * 刷新令牌
+   * @param dto - 刷新令牌模型
    */
   refreshToken?(dto: RefreshTokenDto): Promise<JwtCredential>
   /**
@@ -129,7 +130,7 @@ interface SystemActionsConfig {
   getProfile(): Promise<Profile>
   /**
    * 切换皮肤
-   * @param skin 皮肤更新对象
+   * @param skin - 皮肤更新对象
    */
   toggleSkin(skin: UpdateSkinDto): Promise<void>
 }

@@ -1,5 +1,5 @@
 /**
- * @description 绑定事件
+ * 绑定事件
  */
 const on = (function () {
   return function (element, event, handler) {
@@ -10,7 +10,7 @@ const on = (function () {
 })()
 
 /**
- * @description 删除事件
+ * 删除事件
  */
 const off = (function () {
   return function (element, event, handler) {
@@ -21,9 +21,12 @@ const off = (function () {
 })()
 
 /**
- * @description 判断是否含有指定的class
+ * 判断是否含有指定的class
+ * @param el - Dom元素
+ * @param cls - class名称
+ * @returns
  */
-export function hasClass(el, cls) {
+const hasClass = (el: HTMLElement, cls: string) => {
   if (!el || !cls) return false
   if (cls.indexOf(' ') !== -1) {
     throw new Error('className should not contain space.')

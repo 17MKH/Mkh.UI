@@ -34,7 +34,7 @@ const skins: SkinDefinition[] = []
 
 /**
  * 注册模块
- * @param module 模块
+ * @param module - 模块
  */
 export const useModule = (module: ModuleDefinition) => {
   if (modules.findIndex((m) => m.code === module.code) === -1) {
@@ -52,7 +52,7 @@ export const useModule = (module: ModuleDefinition) => {
 
 /**
  * 注册应用服务
- * @param service 应用服务
+ * @param service - 应用服务
  *
  * @remarks
  *
@@ -64,7 +64,7 @@ export const useAppService = (service: AppService) => {
 
 /**
  * 注册皮肤
- * @param skin 皮肤定义
+ * @param skin - 皮肤定义
  */
 export const useSkin = (skin: SkinDefinition) => {
   if (skins.findIndex((m) => m.code === skin.code) === -1) {
@@ -74,7 +74,7 @@ export const useSkin = (skin: SkinDefinition) => {
 
 /**
  * 启动应用
- * @param options 配置项
+ * @param options - 配置项
  */
 export const bootstrap = (options_: BootstrapOptions) => {
   const config = _.merge({}, defaultConfig) as Config

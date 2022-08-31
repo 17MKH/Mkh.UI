@@ -5,13 +5,13 @@ const prefix = 'mkh-'
 
 export default {
   /**
-   * @description 设置
+   * 设置
    */
   set(key: string, value: any) {
     localStorage.setItem(`${prefix}${key}`, JSON.stringify(value))
   },
   /**
-   * @description 获取
+   * 获取
    */
   get<T>(key: string) {
     const str = localStorage.getItem(`${prefix}${key}`)
@@ -22,13 +22,13 @@ export default {
     return undefined
   },
   /**
-   * @description 删除令牌
+   * 删除令牌
    */
   remove(key: string) {
     localStorage.removeItem(`${prefix}${key}`)
   },
   /**
-   * @description 清除全部
+   * 清除全部
    */
   clearAll() {
     localStorage.clear()

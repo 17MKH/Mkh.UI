@@ -106,7 +106,7 @@ const actions = {
   },
   /**
    *
-   * @param this 清除账户信息
+   * @param this - 清除账户信息
    */
   clear(this: Profile) {
     this.accountId = ''

@@ -15,7 +15,7 @@ const isTrue = (val: boolean | undefined | null) => {
 }
 
 /**
- * @description 页面转路由
+ * 页面转路由
  */
 const page2route = (page: PageDefinition, pages: Array<PageDefinition>, parentRoute?: RouteRecordRaw) => {
   /**********************************************

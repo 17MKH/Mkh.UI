@@ -319,4 +319,4 @@ const setMenusId = (children: Menu[], parent?: Menu) => {
 
 setMenusId(menus as Menu[], undefined)
 
-export default menus
+export default menus as Menu[]

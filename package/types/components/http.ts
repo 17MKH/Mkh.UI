@@ -13,49 +13,49 @@ export interface HttpClient {
   readonly axios: AxiosInstance
   /**
    * 发起 POST 请求
-   * @param url 请求地址
-   * @param params  请求参数
-   * @param config  请求配置
+   * @param url - 请求地址
+   * @param params - 请求参数
+   * @param config - 请求配置
    */
   post<T>(url: string, params?: object, config?: AxiosRequestConfig): Promise<T>
   /**
    * 发起 GET 请求
-   * @param url 请求地址
-   * @param params  请求参数
-   * @param config  请求配置
+   * @param url - 请求地址
+   * @param params - 请求参数
+   * @param config - 请求配置
    */
   get<T>(url: string, params?: object, config?: AxiosRequestConfig): Promise<T>
   /**
    * 发起 DELETE 请求
-   * @param url 请求地址
-   * @param params  请求参数
-   * @param config  请求配置
+   * @param url - 请求地址
+   * @param params - 请求参数
+   * @param config - 请求配置
    */
   delete<T>(url: string, params?: object, config?: AxiosRequestConfig): Promise<T>
   /**
    * 发起 PUT 请求
-   * @param url 请求地址
-   * @param params  请求参数
-   * @param config  请求配置
+   * @param url - 请求地址
+   * @param params - 请求参数
+   * @param config - 请求配置
    */
   put<T>(url: string, params?: object, config?: AxiosRequestConfig): Promise<T>
   /**
    * 文件下载
-   * @param url 请求地址
-   * @param params  请求参数
-   * @param config  请求配置
+   * @param url - 请求地址
+   * @param params - 请求参数
+   * @param config - 请求配置
    */
   download(url: string, params?: object, config?: AxiosRequestConfig): Promise<void>
   /**
    * 文件预览
-   * @param url 请求地址
-   * @param params  请求参数
-   * @param config  请求配置
+   * @param url - 请求地址
+   * @param params - 请求参数
+   * @param config - 请求配置
    */
   preview(url: string, params?: object, config?: AxiosRequestConfig): Promise<void>
   /**
    * 获取完整URL
-   * @param url 要拼接的url地址
+   * @param url - 要拼接的url地址
    */
   getUrl(url: string): string
 }

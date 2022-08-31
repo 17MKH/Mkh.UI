@@ -8,12 +8,11 @@ import { useI18n } from '@/composables/i18n'
 import { useTokenStore } from '../store/modules/token'
 import { useConfigStore } from '../store/modules/config'
 
-const { t } = useI18n()
-
 export class Http implements HttpClient {
   axios: AxiosInstance
 
   constructor(options) {
+    const { t } = useI18n()
     const router = useRouter()
 
     const _axios = axios.create(options)
@@ -187,33 +186,35 @@ export class Http implements HttpClient {
 }
 
 /**
- * 通用的增删改查方法
- * @param http
- * @param root
- * @returns
+ * 获取指定实体的通用增删改查方法
+ * @param http - 当前模块的HttpClient实例
+ * @param entityName - 实体名称
  */
-export const crud = (http, root) => {
+export const crud = (http: HttpClient, entityName: string) => {
   return {
     query(params) {
-      return http.get(`${root}/query`, params)
+      return http.get(`${entityName}/query`, params)
     },
     add(params) {
-      return http.post(`${root}/add`, params)
+      return http.post(`${entityName}/add`, params)
     },
     remove(id) {
-      return http.delete(`${root}/delete`, { id })
+      return http.delete(`${entityName}/delete`, { id })
     },
     edit(id) {
-      return http.get(`${root}/edit`, { id })
+      return http.get(`${entityName}/edit`, { id })
     },
     update(params) {
-      return http.post(`${root}/update`, params)
+      return http.post(`${entityName}/update`, params)
     },
   }
 }
 
 /**
  * 为模块创建HTTP实例
+ * @param options - 应用启动配置项
+ * @param mod - 模块定义
+ * @returns 当前模块的HttpClient实例
  */
 export const createHttp = (options: BootstrapOptions, mod: ModuleDefinition): HttpClient => {
   if (options.http) {

@@ -41,7 +41,7 @@
 </template>
 <script setup lang="ts">
   import { computed, reactive, ref } from 'vue'
-  import useMessage from '@/composables/message'
+  import { useMessage } from '@/composables'
   import { useI18n } from '@/composables/i18n'
   import { useConfigStore, useProfileStore, useSkinStore } from '@/store'
   import { Skin, SkinDefinition } from '@/types'

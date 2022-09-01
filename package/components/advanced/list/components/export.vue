@@ -101,7 +101,7 @@
 <script setup lang="ts">
   import { computed, ref, reactive, watchEffect } from 'vue'
   import dayjs from 'dayjs'
-  import useNotification from '@/composables/notification'
+  import { useNotification } from '@/composables'
   import { useI18n } from '@/composables/i18n'
   import { Column } from '@/types'
 

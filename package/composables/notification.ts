@@ -4,7 +4,7 @@ import { useI18n } from './i18n'
 // 显示时长
 const duration = 2500
 
-export default function () {
+export const useNotification = function () {
   const { t } = useI18n()
 
   const notification = (title: string, message: string, type: 'success' | 'warning' | 'info' | 'error', onClose?: () => void) => {

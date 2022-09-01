@@ -3,11 +3,41 @@ import { nextTick } from 'vue'
 import { useConfigStore } from '@/store'
 import { useI18n } from './i18n'
 
-export default function () {
+export interface LoadingObject {
+  /**
+   *
+   * @param text - 显示文本
+   * @param options - 选项
+   */
+  open: (
+    text?: string,
+    options?: {
+      /**
+       * 加载动画配景色
+       */
+      background: string
+      /**
+       * 加载动画图标
+       */
+      spinner: string
+    }
+  ) => void
+  /**
+   * 关闭
+   */
+  close: () => void
+}
+
+/**
+ * 使用加载中动画
+ * @returns
+ */
+export const useLoading = function (): LoadingObject {
   //@ts-ignore
   const { t } = useI18n()
 
   const confitSotre = useConfigStore()
+
   let loading: { close: () => void }
 
   const open = (

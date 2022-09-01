@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { SIZE_DEFINITIONS } from '../utils/constants'
 import { useConfigStore } from '@/store'
 
-export default function (props?: { size: size }) {
+export const useSize = function (props?: { size: size }) {
   return computed(() => {
     let size = SIZE_DEFINITIONS.DEFAULT
     if (props && props.size) {

@@ -5,9 +5,9 @@ import { useRoute, useRouter } from 'vue-router'
 import dom from '@/utils/dom'
 import { useI18n } from './i18n'
 import { useConfigStore, useTokenStore } from '@/store'
-import useNotification from './notification'
+import { useNotification } from './notification'
 
-export default function () {
+export const useLogin = function () {
   const { t } = useI18n()
   const configStore = useConfigStore()
   const tokenStore = useTokenStore()

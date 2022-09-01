@@ -107,7 +107,9 @@ const messages = {
 
 export default messages
 
-export type MessagesSchema = {
-  el: any
-  mkh: typeof messages
+/**
+ * 17MKH 多语言类型定义
+ */
+export interface MkhMessagesSchema extends typeof messages{
+  
 }

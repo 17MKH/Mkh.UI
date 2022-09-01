@@ -226,7 +226,7 @@
 </template>
 <script setup lang="ts">
   import type { size, Row, Column, FormatterFunction } from '@/types/index'
-  import { computed, nextTick, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue'
+  import { computed, nextTick, onMounted, onBeforeUnmount, reactive, ref, watch, defineComponent } from 'vue'
   import { useFullscreen, useLoading, useMessage, useSize } from '@/composables'
   import { columnOptions, paginationOptions } from './default'
   import propsDefinition from './props'

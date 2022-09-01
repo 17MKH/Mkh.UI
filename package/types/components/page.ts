@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import { Breadcrumb, Button } from './menu'
+import { Breadcrumb, Button, PermissionCode } from './menu'
 
 /**
  * 页面定义
@@ -40,11 +40,13 @@ export interface PageDefinition {
   /**
    * 绑定权限列表
    */
-  permissions?: string[]
+  permissions?: PermissionCode[]
   /**
-   * 按钮列表
+   * 按钮
    */
-  buttons?: Button[]
+  buttons?: {
+    [key: string]: Button
+  }
   /**
    * 自定义面包屑
    */

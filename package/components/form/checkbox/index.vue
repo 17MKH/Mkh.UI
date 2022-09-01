@@ -7,7 +7,7 @@
 </template>
 <script setup lang="ts">
   import { computed, inject, ref, watch } from 'vue'
-  import useSize from '@/composables/size'
+  import { useSize } from '@/composables/size'
   import { size } from '@/types'
 
   const props = defineProps({

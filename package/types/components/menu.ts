@@ -31,8 +31,28 @@ export interface Breadcrumb {
   locales: Locales
 }
 
-/** 按钮信息 */
-export interface Button {}
+/**
+ * 权限编码，按照约定，权限编码格式统一为：模块编码_实体名称_操作名称_请求名称，如：admin_account_add_post
+ */
+export type PermissionCode = string
+
+/**
+ * 按钮信息
+ */
+export interface Button {
+  /**
+   * 按钮文本，多语言字符串
+   */
+  text: string
+  /**
+   * 按钮唯一编码，按照约定编码格式统一为：模块编码_实体名称_操作名称，如：admin_account_add
+   */
+  code: string
+  /**
+   * 页面关联权限编码
+   */
+  permissions: PermissionCode[]
+}
 
 /** 菜单信息 */
 export type Menu = {

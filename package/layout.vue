@@ -8,10 +8,11 @@
 </template>
 <script setup lang="ts">
   import { computed, ref, watchEffect } from 'vue'
-  import useSize from '@/composables/size'
-  import { useProfileStore } from '@/store'
+  import type { FormInstance } from 'element-plus'
+  import { useSize } from '@/composables'
   import { useI18n } from '@/composables/i18n'
-
+  import { useProfileStore } from '@/store'
+  const formRef = ref<FormInstance>()
   const size = useSize()
 
   const { messages, locale } = useI18n()

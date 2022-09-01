@@ -31,6 +31,7 @@
   import { ValidateFieldsError } from 'async-validator'
 
   const props = defineProps(propsDefinition)
+
   const emit = defineEmits(['success', 'error', 'validate-success', 'validate-error'])
 
   const configSotre = useConfigStore()

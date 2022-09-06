@@ -1,7 +1,7 @@
 /**
  * 语言选项
  */
-export declare type locale = 'zh-cn' | 'en'
+export declare type Locale = 'zh-cn' | 'en'
 
 /**
  * 多语言信息
@@ -10,7 +10,7 @@ export interface MkhLocaleMessages {
   /**
    * 语言名称
    */
-  name: locale
+  name: Locale
   /**
    * Element Plus 语言信息
    */

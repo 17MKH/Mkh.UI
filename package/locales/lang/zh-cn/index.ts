@@ -110,6 +110,4 @@ export default messages
 /**
  * 17MKH 多语言类型定义
  */
-export interface MkhMessagesSchema extends typeof messages{
-  
-}
+export declare type MkhMessagesSchema = typeof messages

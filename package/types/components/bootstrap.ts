@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import { locale, MkhLocaleMessagesGroup } from './locale'
+import { Locale, MkhLocaleMessagesGroup } from './locale'
 import { Config } from './config'
 
 /**
@@ -23,11 +23,11 @@ export interface BootstrapOptions {
     /**
      * 默认语言，默认中文
      */
-    default?: locale
+    default?: Locale
     /**
      * 备用语言
      */
-    fallback?: locale
+    fallback?: Locale
     /**
      * 多语言列表
      */

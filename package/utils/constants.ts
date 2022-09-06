@@ -1,4 +1,4 @@
-import type { locale, size } from '@/types'
+import type { Locale, size } from '@/types'
 
 export interface SIZE_DEFINITIONS {
   /**
@@ -25,8 +25,8 @@ export const SIZE_DEFINITIONS: SIZE_DEFINITIONS = {
 }
 
 export interface LOCALE_DEFINITIONS {
-  ZhCN: locale
-  En: locale
+  ZhCN: Locale
+  En: Locale
 }
 
 /**

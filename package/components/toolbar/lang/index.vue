@@ -16,13 +16,13 @@
   </el-dropdown>
 </template>
 <script setup lang="ts">
+  import type { Locale } from '@/types'
   import db from '@/utils/db'
   import { useI18n } from '@/composables/i18n'
-  import type { locales } from '@/locales'
 
   const { locale } = useI18n()
 
-  const handleCommand = (command: locales) => {
+  const handleCommand = (command: Locale) => {
     locale.value = command
     db.set('lang', command)
   }

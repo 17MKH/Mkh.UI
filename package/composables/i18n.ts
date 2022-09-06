@@ -1,4 +1,4 @@
-import type { locales } from '@/locales'
+import type { Locale } from '@/types'
 import { useI18n as usei18n } from 'vue-i18n'
 import { MkhMessagesSchema } from '@/locales/lang/zh-cn'
 
@@ -13,7 +13,7 @@ const useI18n = () => {
         mkh: MkhMessagesSchema
       }
     },
-    locales
+    Locale
   >()
 }
 

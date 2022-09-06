@@ -135,5 +135,5 @@ export * from './utils'
 export * from './store'
 export { mkh, echarts }
 
-import MkhLocaleMessages from './locales/lang/zh-cn'
+/** 类型导出 */
 export * from './types/index'

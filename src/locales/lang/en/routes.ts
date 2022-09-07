@@ -22,4 +22,5 @@ export default {
   doc_layout_head: 'Head',
   doc_layout_scrollbar: 'Scrollbar',
   doc_profile: 'Profile',
+  doc_account: 'Account Manage',
 }

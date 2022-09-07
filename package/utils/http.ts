@@ -192,18 +192,33 @@ export class Http implements HttpClient {
  */
 export const crud = (http: HttpClient, entityName: string) => {
   return {
-    query(params) {
-      return http.get(`${entityName}/query`, params)
+    /**
+     * 分页查询列表
+     */
+    query(model) {
+      return http.get(`${entityName}/query`, model)
     },
+    /**
+     * 新增
+     */
     add(params) {
       return http.post(`${entityName}/add`, params)
     },
+    /**
+     * 删除
+     */
     remove(id) {
       return http.delete(`${entityName}/delete`, { id })
     },
+    /**
+     * 编辑
+     */
     edit(id) {
       return http.get(`${entityName}/edit`, { id })
     },
+    /**
+     * 更新
+     */
     update(params) {
       return http.post(`${entityName}/update`, params)
     },

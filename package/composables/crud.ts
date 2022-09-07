@@ -41,6 +41,7 @@ export interface ActionOptions<TModel, TId> {
     add?: (model: TModel) => Promise<any>
     edit: (id: TId) => Promise<void>
     update?: (model: TModel) => Promise<void>
+    [key: string]: any
   }
   /**
    * 模型
@@ -81,6 +82,9 @@ export interface ActionObject {
    * 表单对象
    */
   form: ActionForm
+  /**
+   * 绑定的事件
+   */
   on: {
     open: () => void
     reset: () => void

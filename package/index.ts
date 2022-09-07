@@ -137,3 +137,4 @@ export { mkh, echarts }
 
 /** 类型导出 */
 export * from './types/index'
+export * from './locales/lang/zh-cn'

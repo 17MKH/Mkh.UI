@@ -301,6 +301,29 @@ const menus = [
       },
     ],
   },
+  {
+    type: 0,
+    icon: 'user',
+    level: 1,
+    show: true,
+    locales: {
+      en: 'Power',
+      'zh-cn': '权限管理',
+    },
+    children: [
+      {
+        type: 1,
+        icon: 'user',
+        level: 2,
+        show: true,
+        routeName: 'doc_account',
+        locales: {
+          en: 'Account Manage',
+          'zh-cn': '账户管理',
+        },
+      },
+    ],
+  },
 ]
 
 const setMenusId = (children: Menu[], parent?: Menu) => {

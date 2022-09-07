@@ -22,4 +22,5 @@ export default {
   doc_layout_head: '头部',
   doc_layout_scrollbar: '滚动条',
   doc_profile: '个人中心',
+  doc_account: '账户管理',
 }

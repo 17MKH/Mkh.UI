@@ -385,7 +385,6 @@
         props
           .queryMethod(params)
           .then((data: any) => {
-            console.log(data)
             rows.value = data[props.actionDataStr] || []
             total.value = data.total
 

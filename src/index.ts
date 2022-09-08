@@ -14,8 +14,6 @@ useAppService(({ config }) => {
   }
 })
 
-console.log(mod)
-
 export default mod
 
 /**

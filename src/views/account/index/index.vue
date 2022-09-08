@@ -13,41 +13,34 @@
         </el-form-item>
       </template>
       <template #buttons>
-        <m-button-add :code="page.buttons.add.code" @click="handleAdd" />
+        <m-button-add :code="page.buttons.add.code" @click="add" />
       </template>
       <template #operation="{ row }">
-        <m-button-edit :code="page.buttons!.edit.code" @click="handleEdit(row)" @success="refresh"></m-button-edit>
+        <m-button-edit :code="page.buttons!.edit.code" @click="edit(row)" @success="refresh"></m-button-edit>
         <m-button-delete :code="page.buttons!.remove.code" :action="api.remove" :data="row.id" @success="refresh"></m-button-delete>
       </template>
     </m-list>
-    <add-page v-model="showAddDialog" @success="refresh"></add-page>
+    {{ action }}
+    <action v-model="action.visible" :id="selection.id" @success="refresh"></action>
   </m-container>
 </template>
 <script setup lang="ts">
   import { useEntityBaseCols } from '@/index'
   import { reactive, ref } from 'vue'
+  import { useI18n } from '#/locales'
+  import { useList } from '@/composables/list'
+  import Action from '../action/index.vue'
   import page from './page'
   import api from '#/api/account'
-  import { useI18n } from '#/locales'
-  import AddPage from '../components/add/index.vue'
 
   const { t } = useI18n()
-
-  //列表组件引用
-  const listRef = ref()
-
-  const showAddDialog = ref(false)
+  const {
+    listRef,
+    selection,
+    action,
+    methods: { add, edit, refresh },
+  } = useList()
 
   const model = reactive({ username: '', name: '', phone: '' })
   const cols = [{ prop: 'id', label: 'mkh.id', width: '55', show: false }, { prop: 'username', label: 'mkh.login.username' }, { prop: 'name', label: 'mod.doc.name' }, ...useEntityBaseCols()]
-
-  const handleAdd = () => {
-    showAddDialog.value = true
-  }
-
-  const handleEdit = (row) => {}
-
-  const refresh = () => {
-    listRef.value.refresh()
-  }
 </script>

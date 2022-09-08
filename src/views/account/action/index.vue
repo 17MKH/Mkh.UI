@@ -15,6 +15,15 @@
 
   const { t } = useI18n()
 
+  const props = defineProps({
+    id: {
+      type: [String, Number],
+    },
+    mode: {
+      type: String,
+    },
+  })
+
   const model = reactive({ username: '', name: '' })
   const rules = {
     username: [{ required: true, message: t('mod.doc.input_username') }],

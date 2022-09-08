@@ -2,12 +2,11 @@ import { computed, ComputedRef, ExtractPropTypes, reactive, Ref, ref, toRef } fr
 import _ from 'lodash'
 import { useI18n } from './i18n'
 import FormDialog from '@/components/form/form-dialog/index.vue'
-import List from '@/components/advanced/list/index.vue'
 
 /**
  * 主键
  */
-export declare type Id = Ref<string | number>
+export declare type Id = Ref<string | number | undefined>
 
 /**
  * 操作模式
@@ -193,116 +192,4 @@ export const withActionProps = {
     type: String,
     default: 'add',
   },
-}
-
-export type ListType = InstanceType<typeof List>
-
-export interface ListObject<TRow> {
-  /**
-   * 列表组件的引用
-   */
-  listRef: Ref<ListType | null>
-  /**
-   * 当前选择的列
-   */
-  selection: Ref<TRow | undefined>
-  /**
-   *当前操作模式
-   */
-  actionMode: Ref<ActionMode>
-  /**
-   * 显示操作对话框
-   */
-  actionDialogVisible: Ref<boolean>
-  /**
-   * 处理新增操作
-   */
-  handleAdd: () => void
-  /**
-   * 处理编辑操作
-   */
-  handleEdit: (row: TRow) => void
-  /**
-   * 处理预览操作
-   */
-  handleView: (row: TRow) => void
-  /**
-   * 刷新列表
-   */
-  refresh: () => void
-  /**
-   * 重置搜索条件
-   */
-  reset: () => void
-}
-
-/**
- * 使用列表
- * @returns
- */
-export const useList = function <TRow>(): ListObject<TRow> {
-  //列表组件引用
-  const listRef = ref<ListType | null>(null)
-  //当前操作选择的列
-  const selection: Ref<TRow | undefined> = ref()
-  //当前操作模式
-  const mode: Ref<ActionMode> = ref('add')
-  //显示编辑或添加
-  const visible = ref(false)
-
-  //添加
-  const handleAdd = () => {
-    mode.value = 'add'
-    visible.value = true
-  }
-
-  //编辑
-  const handleEdit = (row: TRow) => {
-    selection.value = row
-    mode.value = 'edit'
-    visible.value = true
-  }
-
-  //预览
-  const handleView = (row: TRow) => {
-    selection.value = row
-    mode.value = 'view'
-    visible.value = true
-  }
-
-  //刷新
-  const refresh = () => {
-    if (listRef.value) listRef.value.refresh()
-  }
-
-  //重置
-  const reset = () => {
-    if (listRef.value) listRef.value.reset()
-  }
-
-  return {
-    listRef,
-    selection,
-    actionMode: mode,
-    actionDialogVisible: visible,
-    handleAdd,
-    handleEdit,
-    handleView,
-    refresh,
-    reset,
-  }
-}
-
-const s = useList()
-
-/**
- * 使用基类实体的列信息
- */
-export const useEntityBaseCols = function () {
-  return [
-    { prop: 'creator', label: 'mkh.creator', width: 150, expand: true },
-    { prop: 'createdTime', label: 'mkh.created_time', width: 200, expand: true },
-    { prop: 'modifier', label: 'mkh.modifier', width: 150, expand: true },
-    { prop: 'modifiedTime', label: 'mkh.modified_time', width: 200, expand: true },
-  ]
 }

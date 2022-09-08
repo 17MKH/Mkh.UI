@@ -287,7 +287,7 @@
   const pagination_ = computed(() => Object.assign({}, paginationOptions, props.pagination || {}))
 
   //处理列配置信息
-  const cols_ = computed(() => (props.cols as Column[]).map((m) => _.merge({}, columnOptions, m)) as Column[])
+  const cols_ = ref((props.cols as Column[]).map((m) => _.merge({}, columnOptions, m)) as Column[])
 
   //在表格中显示的列
   const tableCols = computed(() => cols_.value.filter((m) => !m.expand))
@@ -385,6 +385,7 @@
         props
           .queryMethod(params)
           .then((data: any) => {
+            console.log(data)
             rows.value = data[props.actionDataStr] || []
             total.value = data.total
 

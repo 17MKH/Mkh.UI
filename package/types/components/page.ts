@@ -44,7 +44,7 @@ export interface PageDefinition {
   /**
    * 按钮
    */
-  buttons?: {
+  buttons: {
     [key: string]: Button
   }
   /**

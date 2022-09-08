@@ -15,14 +15,13 @@ const directive: Directive = {
       const currentRoute = router.currentRoute.value
       let _mid_ = currentRoute.query._mid_ as string | number
 
-      const profileStore = useProfileStore()
+      const { buttons, routeMenus } = useProfileStore()
       if (!_mid_) {
-        const menu = profileStore.routeMenus.find((m) => m.routeName === currentRoute.name)
+        const menu = routeMenus.find((m) => m.routeName === currentRoute.name)
         if (menu) {
           _mid_ = menu.id
         }
       }
-      const { buttons } = profileStore
       const buttonCode = `${_mid_}_${code.toLowerCase()}`
       if (buttons && buttons.every((c) => c.toLowerCase() !== buttonCode) && el.parentNode) {
         el.parentNode.removeChild(el)

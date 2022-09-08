@@ -321,6 +321,7 @@ const menus = [
           en: 'Account Manage',
           'zh-cn': '账户管理',
         },
+        buttons: ['doc_account_add', 'doc_account_edit', 'doc_account_delete'],
       },
     ],
   },

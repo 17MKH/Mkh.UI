@@ -13,13 +13,14 @@
         </el-form-item>
       </template>
       <template #buttons>
-        <m-button-add :code="page.buttons!.add.code" @click="handleAdd" />
+        <m-button-add :code="page.buttons.add.code" @click="handleAdd" />
       </template>
       <template #operation="{ row }">
         <m-button-edit :code="page.buttons!.edit.code" @click="handleEdit(row)" @success="refresh"></m-button-edit>
         <m-button-delete :code="page.buttons!.remove.code" :action="api.remove" :data="row.id" @success="refresh"></m-button-delete>
       </template>
     </m-list>
+    <add-page v-model="showAddDialog" @success="refresh"></add-page>
   </m-container>
 </template>
 <script setup lang="ts">
@@ -28,20 +29,25 @@
   import page from './page'
   import api from '#/api/account'
   import { useI18n } from '#/locales'
+  import AddPage from '../components/add/index.vue'
 
   const { t } = useI18n()
 
   //列表组件引用
-  const listRef = ref(null)
-  //当前操作选择的列
-  const selection = ref()
+  const listRef = ref()
+
+  const showAddDialog = ref(false)
 
   const model = reactive({ username: '', name: '', phone: '' })
   const cols = [{ prop: 'id', label: 'mkh.id', width: '55', show: false }, { prop: 'username', label: 'mkh.login.username' }, { prop: 'name', label: 'mod.doc.name' }, ...useEntityBaseCols()]
 
-  const handleAdd = () => {}
+  const handleAdd = () => {
+    showAddDialog.value = true
+  }
 
   const handleEdit = (row) => {}
 
-  const refresh = () => {}
+  const refresh = () => {
+    listRef.value.refresh()
+  }
 </script>

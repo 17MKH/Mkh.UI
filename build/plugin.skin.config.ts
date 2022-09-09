@@ -4,8 +4,8 @@ import { defineConfig } from 'rollup'
 export default defineConfig({
   input: 'plugins/plugin-skin.ts',
   output: {
-    format: 'cjs',
+    format: 'module',
     file: 'lib/plugins/skin.js',
   },
-  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: true }, include: ['plugins/plugin-skin.ts'] } })],
+  plugins: [typescript({ tsconfigOverride: { compilerOptions: { declaration: false }, include: ['plugins/plugin-skin.ts'] } })],
 })

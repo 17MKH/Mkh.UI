@@ -5,7 +5,7 @@ import htmlTransform from './html-transform'
 import loadEntryModule from './load-entry-module'
 import loadAssets from './load-assets'
 
-export default function (options: PluginContextOptions): Plugin[] {
+export default function mui(options: PluginContextOptions): Plugin[] {
   options.isUI = true
   const ctx = useCtx(options)
 

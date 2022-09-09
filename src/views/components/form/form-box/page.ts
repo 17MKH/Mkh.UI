@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_formbox',
   path: '/doc/formbox',
   component,
+  buttons: {},
 }
 
 export default page

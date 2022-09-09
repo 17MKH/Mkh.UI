@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_layout_head',
   path: '/doc/layout/head',
   component,
+  buttons: {},
 }
 
 export default page

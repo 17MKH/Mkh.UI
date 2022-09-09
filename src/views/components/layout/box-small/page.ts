@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_layout_boxsmall',
   path: '/doc/layout/box/small',
   component,
+  buttons: {},
 }
 
 export default page

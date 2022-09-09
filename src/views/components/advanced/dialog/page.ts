@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_advanced_dialog',
   path: '/doc/advanced/dialog',
   component,
+  buttons: {},
 }
 
 export default page

@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_advanced_listbox',
   path: '/doc/advanced/listbox',
   component,
+  buttons: {},
 }
 
 export default page

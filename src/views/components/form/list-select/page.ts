@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_form_list_select',
   path: '/doc/form/list_select',
   component,
+  buttons: {},
 }
 
 export default page

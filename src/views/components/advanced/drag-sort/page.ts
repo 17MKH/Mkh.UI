@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_advanced_drag_sort',
   path: '/doc/advanced/drag_sort',
   component,
+  buttons: {},
 }
 
 export default page

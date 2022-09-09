@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'i18n',
   path: '/i18n',
   component,
+  buttons: {},
 }
 
 export default page

@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_advanced_drawer',
   path: '/doc/advanced/drawer',
   component,
+  buttons: {},
 }
 
 export default page

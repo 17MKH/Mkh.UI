@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_advanced_list',
   path: '/doc/advanced/list',
   component,
+  buttons: {},
 }
 
 export default page

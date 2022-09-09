@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_layout_split',
   path: '/doc/layout/split',
   component,
+  buttons: {},
 }
 
 export default page

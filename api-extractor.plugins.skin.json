@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
 
-  "mainEntryPointFilePath": "<projectFolder>/.temp/package/index.d.ts",
+  "mainEntryPointFilePath": "<projectFolder>/.temp/plugins/plugin-skin.d.ts",
 
   "projectFolder": "./",
 
   "dtsRollup": {
     "enabled": true,
-    "untrimmedFilePath": "<projectFolder>/lib/index.d.ts",
+    "untrimmedFilePath": "<projectFolder>/lib/plugins/skin.d.ts",
     "publicTrimmedFilePath": ""
   },
 

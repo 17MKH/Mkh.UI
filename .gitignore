@@ -6,4 +6,4 @@ dist-ssr
 /lib
 /package-lock.json
 /public
-/temp
+/.temp

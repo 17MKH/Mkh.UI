@@ -20,13 +20,12 @@
         <m-button-delete :code="page.buttons!.remove.code" :action="api.remove" :data="row.id" @success="refresh"></m-button-delete>
       </template>
     </m-list>
-    {{ action }}
-    <action v-model="action.visible" :id="selection.id" @success="refresh"></action>
+    <action v-model="actionProps.visible" :id="id" :mode="actionProps.mode" @success="refresh"></action>
   </m-container>
 </template>
 <script setup lang="ts">
   import { useEntityBaseCols } from '@/index'
-  import { reactive, ref } from 'vue'
+  import { reactive } from 'vue'
   import { useI18n } from '#/locales'
   import { useList } from '@/composables/list'
   import Action from '../action/index.vue'
@@ -34,13 +33,14 @@
   import api from '#/api/account'
 
   const { t } = useI18n()
-  const {
-    listRef,
-    selection,
-    action,
-    methods: { add, edit, refresh },
-  } = useList()
 
   const model = reactive({ username: '', name: '', phone: '' })
   const cols = [{ prop: 'id', label: 'mkh.id', width: '55', show: false }, { prop: 'username', label: 'mkh.login.username' }, { prop: 'name', label: 'mod.doc.name' }, ...useEntityBaseCols()]
+
+  const {
+    listRef,
+    id,
+    actionProps,
+    methods: { add, edit, refresh },
+  } = useList<{ id: number }>()
 </script>

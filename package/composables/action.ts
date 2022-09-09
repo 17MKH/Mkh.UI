@@ -1,4 +1,4 @@
-import { computed, ComputedRef, ExtractPropTypes, reactive, Ref, ref, toRef } from 'vue'
+import { computed, ComputedRef, reactive, defineEmits } from 'vue'
 import _ from 'lodash'
 import { useI18n } from './i18n'
 import FormDialog from '@/components/form/form-dialog/index.vue'
@@ -16,40 +16,33 @@ export type ActionMode = 'add' | 'edit' | 'view'
 /**
  * 操作选项
  */
-export interface ActionOptions<TModel, TId> {
+export interface ActionOptions<TKey, TModel> {
   /**
-   *属性
+   * 属性
    */
-  props: Readonly<
-    ExtractPropTypes<{
-      /**
-       * 主键
-       */
-      id: TId
-      /**
-       *模式
-       */
-      mode: ActionMode
-      [key: string]: any
-    }>
-  >
+  props: {
+    /**
+     * 主键
+     */
+    id: TKey | undefined
+    /**
+     * 操作模式
+     */
+    mode: ActionMode
+  }
   /**
    * 接口
    */
   api: {
-    add?: (model: TModel) => Promise<any>
-    edit: (id: TId) => Promise<void>
-    update?: (model: TModel) => Promise<void>
+    add?: (model: TModel) => Promise<unknown>
+    edit: (id: TKey) => Promise<unknown>
+    update?: (model: TModel) => Promise<unknown>
     [key: string]: any
   }
   /**
    * 模型
    */
   model: TModel
-  /**
-   * 事件触发器
-   */
-  emit: { (e: 'success', data: any): void; (e: 'error'): void; (e: 'reset'): void }
   /**
    * 自定义方法，在获取编辑信息后执行，可用于对数据进行修改
    */
@@ -80,71 +73,84 @@ export interface ActionObject {
   /**
    * 表单对象
    */
-  form: ActionForm
-  /**
-   * 绑定的事件
-   */
-  on: {
-    open: () => void
-    reset: () => void
-    success: (data: any) => void
-    error: () => void
+  form: {
+    /**
+     * 表单属性
+     */
+    props: ActionForm
+    /**
+     * 表单事件触发器
+     */
+    emit: {
+      (e: 'success', data: any): void
+      (e: 'error'): void
+      (e: 'reset'): void
+    }
+    /**
+     * 表单事件
+     */
+    on: {
+      open: () => void
+      reset: () => void
+      success: (data: any) => void
+      error: () => void
+    }
   }
+}
+
+export const useActionEmits = function (emits) {
+  return defineEmits(['success', 'error', 'reset', ...emits])
 }
 
 /**
  * 使用通用操作
- * @param param0 - 操作配置项
  * @remarks
  *
  * 包含通用的新增、编辑、预览
  */
-export const useAction = function <TModel, TId extends Id>(options: ActionOptions<TModel, TId>): ActionObject {
+export const useAction = function <TKey, TModel>(options: ActionOptions<TKey, TModel>): ActionObject {
+  //@ts-ignore
   const { t } = useI18n()
-  const { props, api, model, emit, afterEdit } = options
+  const { props, api, model, afterEdit } = options
   const { add, edit, update } = api
-
-  const id: Ref<TId> = toRef(props, 'id')
-  const mode: Ref<ActionMode> = toRef(props, 'mode')
 
   const model_ = reactive({})
   //绑定属性
-  const form: ActionForm = reactive({
+  const formProps: ActionForm = reactive({
     title: '',
     icon: '',
     action: undefined,
-    footer: true,
-    destroyOnClose: true,
-    loading: false,
   })
 
-  const isAdd = computed(() => mode.value === 'add')
-  const isEdit = computed(() => mode.value === 'edit')
-  const isView = computed(() => mode.value === 'view')
+  const isAdd = computed(() => props.mode === 'add')
+  const isEdit = computed(() => props.mode === 'edit')
+  const isView = computed(() => props.mode === 'view')
+
+  const emit = defineEmits<{ (e: 'success', data: any): void; (e: 'error'): void; (e: 'reset'): void }>()
 
   const handleOpen = () => {
-    switch (mode.value) {
+    switch (props.mode) {
       case 'add':
-        form.title = t('mkh.add')
-        form.icon = 'plus'
-        form.action = add
-        form.disabled = false
+        formProps.title = t('mkh.add')
+        formProps.icon = 'plus'
+        formProps.action = add
+        formProps.disabled = false
         break
       case 'edit':
-        form.title = t('mkh.edit')
-        form.icon = 'edit'
-        form.action = update
-        form.disabled = false
+        formProps.title = t('mkh.edit')
+        formProps.icon = 'edit'
+        formProps.action = update
+        formProps.disabled = false
 
-        form.loading = true
-        if (id.value) {
-          edit(id.value).then((data) => {
+        formProps.loading = true
+        if (props.id) {
+          edit(props.id).then((data) => {
             _.merge(model_, data)
             _.merge(model, model_)
 
             afterEdit && afterEdit()
 
-            form.loading = false
+            formProps.loading = false
           })
         } else {
           //
@@ -155,7 +161,7 @@ export const useAction = function <TModel, TId extends Id>(options: ActionOption
 
   const handleReset = () => {
     //如果编辑模式，重置会将表单数据重置为修改前，而不是清空
-    if (mode.value === 'edit') {
+    if (props.mode === 'edit') {
       _.merge(model, model_)
     }
 
@@ -174,23 +180,15 @@ export const useAction = function <TModel, TId extends Id>(options: ActionOption
     isAdd,
     isEdit,
     isView,
-    form,
-    on: { open: handleOpen, reset: handleReset, success: handleSuccess, error: handleError },
+    form: {
+      props: formProps,
+      emit,
+      on: {
+        open: handleOpen,
+        reset: handleReset,
+        success: handleSuccess,
+        error: handleError,
+      },
+    },
   }
-}
-
-/**
- * 操作通用属性
- */
-export const withActionProps = {
-  //主键
-  id: {
-    type: [String, Number],
-    default: 0,
-  },
-  //预览
-  mode: {
-    type: String,
-    default: 'add',
-  },
 }

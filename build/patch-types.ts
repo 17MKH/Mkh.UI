@@ -19,4 +19,4 @@ const patch = (rootDir: string, relativePath: string) => {
   })
 }
 
-patch(path.resolve('./temp/package'), '')
+patch(path.resolve('./.temp/package'), '')

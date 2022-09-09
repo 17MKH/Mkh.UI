@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_layout_scrollbar',
   path: '/doc/layout/scrollbar',
   component,
+  buttons: {},
 }
 
 export default page

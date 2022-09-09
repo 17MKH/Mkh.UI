@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_formdialog',
   path: '/doc/formdialog',
   component,
+  buttons: {},
 }
 
 export default page

@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_layout_flex',
   path: '/doc/layout/flex',
   component,
+  buttons: {},
 }
 
 export default page

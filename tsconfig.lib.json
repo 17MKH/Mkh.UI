@@ -4,5 +4,6 @@
         "package/**/*.ts",
         "package/**/*.d.ts",
         "package/**/*.vue",
+        "plugins/**/*.ts"
     ],
 }

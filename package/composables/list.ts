@@ -1,4 +1,4 @@
-import { reactive, Ref, ref } from 'vue'
+import { reactive, Ref, ref, UnwrapNestedRefs } from 'vue'
 import _ from 'lodash'
 import { Id, ActionMode } from './action'
 import List from '@/components/advanced/list/index.vue'
@@ -6,6 +6,9 @@ import List from '@/components/advanced/list/index.vue'
 export type ListType = InstanceType<typeof List>
 
 export interface IRow {
+  /**
+   * 主键
+   */
   id: Id
 }
 
@@ -18,13 +21,17 @@ export interface ListObject<TRow extends IRow> {
    */
   listRef: Ref<ListType>
   /**
+   * 当前操作的数据编号
+   */
+  id: Ref<TRow['id'] | undefined>
+  /**
    * 当前操作的数据
    */
-  selection: Ref<TRow>
+  selection: Ref<TRow | undefined>
   /**
    * 操作属性
    */
-  action: {
+  actionProps: {
     /**
      * 显示
      */
@@ -68,33 +75,39 @@ export interface ListObject<TRow extends IRow> {
 export const useList = function <TRow extends IRow>(): ListObject<TRow> {
   //列表组件引用
   const listRef = ref()
-  //当前操作选择的列
-  const selection: Ref<TRow> = ref({ id: '' })
 
-  const action: { visible: boolean; mode: ActionMode } = reactive({
+  //当前操作选择的列
+  const id: Ref<TRow['id'] | undefined> = ref()
+
+  const selection: Ref<TRow | undefined> = ref()
+
+  const actionProps: { visible: boolean; mode: ActionMode } = reactive({
     visible: false,
     mode: 'add',
   })
 
   //添加
   const handleAdd = () => {
-    selection.value = { id: '' } as TRow
-    action.mode = 'add'
-    action.visible = true
+    id.value = undefined
+    selection.value = undefined
+    actionProps.mode = 'add'
+    actionProps.visible = true
   }
 
   //编辑
   const handleEdit = (row: TRow) => {
+    id.value = row.id
     selection.value = row
-    action.mode = 'edit'
-    action.visible = true
+    actionProps.mode = 'edit'
+    actionProps.visible = true
   }
 
   //预览
   const handleView = (row: TRow) => {
+    id.value = row.id
     selection.value = row
-    action.mode = 'view'
-    action.visible = true
+    actionProps.mode = 'view'
+    actionProps.visible = true
   }
 
   //刷新
@@ -109,8 +122,9 @@ export const useList = function <TRow extends IRow>(): ListObject<TRow> {
 
   return {
     listRef,
+    id,
     selection,
-    action,
+    actionProps,
     methods: {
       add: handleAdd,
       edit: handleEdit,

@@ -1,5 +1,5 @@
 <template>
-  <m-form-dialog title="新增" icon="plus" :model="model" :rules="rules" :action="api.add">
+  <m-form-dialog :model="model" :rules="rules" v-bind="form.props" v-on="form.on">
     <el-form-item :label="t('mkh.login.username')" prop="username">
       <el-input v-model="model.username" />
     </el-form-item>
@@ -9,24 +9,23 @@
   </m-form-dialog>
 </template>
 <script setup lang="ts">
-  import { reactive } from 'vue'
+  import { computed, reactive } from 'vue'
+  import { ActionMode, useAction } from '@/composables'
   import { useI18n } from '#/locales'
   import api from '#/api/account'
 
   const { t } = useI18n()
 
-  const props = defineProps({
-    id: {
-      type: [String, Number],
-    },
-    mode: {
-      type: String,
-    },
-  })
+  const props = defineProps<{ id: number | undefined; mode: ActionMode }>()
 
   const model = reactive({ username: '', name: '' })
-  const rules = {
-    username: [{ required: true, message: t('mod.doc.input_username') }],
-    name: [{ required: true, message: t('mod.doc.input_name') }],
-  }
+
+  const rules = computed(() => {
+    return {
+      username: [{ required: true, message: t('mod.doc.input_username') }],
+      name: [{ required: true, message: t('mod.doc.input_name') }],
+    }
+  })
+
+  const { form } = useAction({ props, api, model })
 </script>

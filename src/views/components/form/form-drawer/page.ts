@@ -6,6 +6,7 @@ const page: PageDefinition = {
   name: 'doc_formdrawer',
   path: '/doc/formdrawer',
   component,
+  buttons: {},
 }
 
 export default page

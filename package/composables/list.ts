@@ -20,7 +20,7 @@ export interface ListObject<TRow extends IRow> {
   /**
    * 当前操作的数据
    */
-  selection: Ref<TRow | undefined>
+  selection: Ref<TRow>
   /**
    * 操作属性
    */
@@ -69,7 +69,7 @@ export const useList = function <TRow extends IRow>(): ListObject<TRow> {
   //列表组件引用
   const listRef = ref()
   //当前操作选择的列
-  const selection: TRow = reactive({ id: '' })
+  const selection: Ref<TRow> = ref({ id: '' })
 
   const action: { visible: boolean; mode: ActionMode } = reactive({
     visible: false,
@@ -78,7 +78,7 @@ export const useList = function <TRow extends IRow>(): ListObject<TRow> {
 
   //添加
   const handleAdd = () => {
-    selection.value = undefined
+    selection.value = { id: '' } as TRow
     action.mode = 'add'
     action.visible = true
   }

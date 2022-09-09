@@ -6,7 +6,7 @@ import FormDialog from '@/components/form/form-dialog/index.vue'
 /**
  * 主键
  */
-export declare type Id = Ref<string | number | undefined>
+export declare type Id = string | number
 
 /**
  * 操作模式
@@ -99,8 +99,9 @@ export interface ActionObject {
  *
  * 包含通用的新增、编辑、预览
  */
-export const useAction = function <TModel, TId extends Id>({ props, api, model, emit, afterEdit }: ActionOptions<TModel, TId>): ActionObject {
+export const useAction = function <TModel, TId extends Id>(options: ActionOptions<TModel, TId>): ActionObject {
   const { t } = useI18n()
+  const { props, api, model, emit, afterEdit } = options
   const { add, edit, update } = api
 
   const id: Ref<TId> = toRef(props, 'id')

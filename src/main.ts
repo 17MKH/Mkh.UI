@@ -1,11 +1,11 @@
-import { bootstrap, useAppService, useModule } from '@/index'
+import { bootstrap, useAppCreatedService, useModule } from '@/index'
 import options from './options'
 import mod_doc from './index.js'
 //import m from 'mkh-skin-sky';
 
 useModule(mod_doc)
 
-useAppService(({ config }) => {
+useAppCreatedService(({ config }) => {
   config.site.title = '17MKH'
 
   // config.site.title = {

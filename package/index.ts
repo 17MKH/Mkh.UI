@@ -22,10 +22,16 @@ import { defaultBootstrapOptions } from './defaults'
  * 模块列表
  */
 const modules: ModuleDefinition[] = []
+
 /**
- * 应用服务集合
+ * 应用创建后服务集合
  */
-const services: AppService[] = []
+const createdServices: AppService[] = []
+
+/**
+ * 应用挂在去服务集合
+ */
+const mountServices: AppService[] = []
 
 /**
  * 皮肤集合
@@ -51,15 +57,27 @@ export const useModule = (module: ModuleDefinition) => {
 }
 
 /**
- * 注册应用服务
+ * 注册应用创建后服务
  * @param service - 应用服务
  *
  * @remarks
  *
- * 应用服务会在Vue根实例挂载前调用，您可以在该服务内添加自定义的功能，如注册第三方组件，也可以更改系统默认属性和行为，如自定义登录方法
+ * 应用服务会在Vue实例创建后调用，您可以在该服务内添加自定义的功能，如更改系统默认属性和行为，如自定义登录方法
  */
-export const useAppService = (service: AppService) => {
-  services.push(service)
+export const useAppCreatedService = (service: AppService) => {
+  createdServices.push(service)
+}
+
+/**
+ * 注册应用挂载前服务
+ * @param service - 应用服务
+ *
+ * @remarks
+ *
+ * 应用服务会在Vue实例创建后调用，您可以在该服务内添加自定义的功能，如注册第三方组件
+ */
+export const useAppMountService = (service: AppService) => {
+  mountServices.push(service)
 }
 
 /**
@@ -82,8 +100,8 @@ export const bootstrap = (options_: BootstrapOptions) => {
 
   const app = createApp(Layout)
 
-  //执行模块的回调函数
-  services.forEach((c) => {
+  //执行应用创建后的服务
+  createdServices.forEach((c) => {
     c({ app, config, options: bootstrapOptions })
   })
 
@@ -118,6 +136,11 @@ export const bootstrap = (options_: BootstrapOptions) => {
   //从本地存储中加载令牌
   const tokenStore = useTokenStore()
   tokenStore.load()
+
+  //执行应用挂载前服务
+  mountServices.forEach((c) => {
+    c({ app, config, options: bootstrapOptions })
+  })
 
   //等待路由注册完成后再挂载
   router.isReady().then(() => {

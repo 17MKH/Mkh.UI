@@ -1,23 +1,18 @@
-import type { BootstrapOptions, HttpClient, ModuleDefinition } from '@/types'
+import type { BootstrapOptions, HttpClient } from '@/types'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 import dayjs from 'dayjs'
-import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
-import i18n from '@/locales'
+import { i18n } from '@/locales'
 import { useTokenStore } from '../store/modules/token'
 import { useConfigStore } from '../store/modules/config'
+import { router } from '@/router'
 
 export class Http implements HttpClient {
   axios: AxiosInstance
 
   constructor(options) {
-    const { t } = i18n.global
-    const router = useRouter()
-
     const _axios = axios.create(options)
-    const tokenStore = useTokenStore()
-    const configStore = useConfigStore()
 
     _axios.defaults.headers.post['Content-Type'] = 'application/json'
     _axios.defaults.headers.put['Content-Type'] = 'application/json'
@@ -25,6 +20,7 @@ export class Http implements HttpClient {
     //请求前拦截器，附加令牌
     _axios.interceptors.request.use(
       (config) => {
+        const tokenStore = useTokenStore()
         if (tokenStore.accessToken && config.headers) {
           config.headers.Authorization = 'Bearer ' + tokenStore.accessToken
         }
@@ -70,7 +66,7 @@ export class Http implements HttpClient {
           //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
           ElNotification({
             type: 'error',
-            title: t('mkh.http_error_title'),
+            title: i18n.global.t('mkh.http_error_title'),
             message: response.data.msg,
             showClose: true,
             duration: 1500,
@@ -84,6 +80,8 @@ export class Http implements HttpClient {
         if (error && error.response) {
           switch (error.response.status) {
             case 401:
+              const tokenStore = useTokenStore()
+              const configStore = useConfigStore()
               const refreshTokenAction = configStore.systemActions.refreshToken
               if (tokenStore.refreshToken && refreshTokenAction) {
                 //尝试刷新令牌
@@ -98,11 +96,13 @@ export class Http implements HttpClient {
                     error.config.headers.Authorization = 'Bearer ' + data.accessToken
                     return _axios.request(error.config)
                   })
-                  .catch((e) => {
+                  .catch(() => {
                     tokenStore.clear()
+                    router.push({ name: 'login' })
                   })
               } else {
                 tokenStore.clear()
+                router.push({ name: 'login' })
               }
               break
             case 403:
@@ -116,7 +116,7 @@ export class Http implements HttpClient {
 
           return
         }
-        return Promise.reject(t('mkh.http_error'))
+        return Promise.reject(i18n.global.t('mkh.http_error'))
       }
     )
 
@@ -228,19 +228,19 @@ export const crud = (http: HttpClient, entityName: string) => {
 /**
  * 为模块创建HTTP实例
  * @param options - 应用启动配置项
- * @param mod - 模块定义
+ * @param code - 模块编码
  * @returns 当前模块的HttpClient实例
  */
-export const createHttp = (options: BootstrapOptions, mod: ModuleDefinition): HttpClient => {
+export const createHttp = (options: BootstrapOptions, code: string): HttpClient => {
   if (options.http) {
     const http = options.http
     let httpOptions = Object.assign({}, http.global)
 
-    if (http.modules && http.modules[mod.code]) {
-      httpOptions = http.modules[mod.code]
+    if (http.modules && http.modules[code]) {
+      httpOptions = http.modules[code]
     }
     if (httpOptions.baseURL) {
-      httpOptions.baseURL = `${httpOptions.baseURL}${httpOptions.baseURL.endsWith('/') ? '' : '/'}${mod.code}/`
+      httpOptions.baseURL = `${httpOptions.baseURL}${httpOptions.baseURL.endsWith('/') ? '' : '/'}${code}/`
     }
     //创建模块的Http实例
     return new Http(httpOptions)

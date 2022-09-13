@@ -11,6 +11,7 @@
     :label-position="labelPosition"
     :label-suffix="labelSuffix"
     :hide-required-asterisk="hideRequiredAsterisk"
+    :require-asterisk-position="requireAsteriskPosition"
     :show-message="showMessage"
     :inline-message="inlineMessage"
     :status-icon="statusIcon"

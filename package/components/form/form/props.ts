@@ -15,6 +15,8 @@ const elFormProps = {
   labelSuffix: { type: String, default: '：' },
   /** 是否显示必填字段的标签旁边的红色星号 */
   hideRequiredAsterisk: { type: Boolean, default: false },
+  /** 星号的位置 */
+  requireAsteriskPosition: { type: String, default: 'left' },
   /** 是否显示校验错误信息 */
   showMessage: { type: Boolean, default: true },
   /** 是否以行内形式展示校验信息 */

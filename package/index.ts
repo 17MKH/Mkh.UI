@@ -1,7 +1,7 @@
 import type { AppService, BootstrapOptions, Config, ModuleDefinition, SkinDefinition } from '@/types'
 import mkh from './mkh'
 import { createApp } from 'vue'
-import { usei18n } from './locales'
+import Locales from './locales'
 import Layout from './layout.vue'
 import useRouter, { router } from './router'
 import useStore, { useTokenStore } from './store'
@@ -95,7 +95,7 @@ export const useSkin = (skin: SkinDefinition) => {
  * @param options - 配置项
  */
 export const bootstrap = (options_: BootstrapOptions) => {
-  const config = _.merge({}, defaultConfig) as Config
+  const config = _.cloneDeep(defaultConfig) as Config
   const bootstrapOptions = _.merge({}, defaultBootstrapOptions, options_)
 
   const app = createApp(Layout)
@@ -112,7 +112,7 @@ export const bootstrap = (options_: BootstrapOptions) => {
   modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
-  app.use(usei18n, bootstrapOptions)
+  app.use(Locales, bootstrapOptions)
 
   //注册路由
   app.use(useRouter, modules)
@@ -153,11 +153,11 @@ export const bootstrap = (options_: BootstrapOptions) => {
   })
 }
 
+export * from './components'
 export * from './composables'
 export * from './utils'
 export * from './store'
-export { mkh, echarts }
-
-/** 类型导出 */
 export * from './types/index'
 export * from './locales/lang/zh-cn'
+
+export { mkh, echarts }

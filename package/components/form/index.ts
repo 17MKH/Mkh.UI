@@ -29,3 +29,17 @@ export default [
   { name: 'select-whether', component: SelectWhether },
   { name: 'verifycode-input', component: VerifycodeInput },
 ]
+
+export type MCascader = InstanceType<typeof Cascader>
+export type MCheckbox = InstanceType<typeof Checkbox>
+export type MDateRangePicker = InstanceType<typeof DateRangePicker>
+export type MForm = InstanceType<typeof Form>
+export type MFormDialog = InstanceType<typeof FormDialog>
+export type MFormDrawer = InstanceType<typeof FormDrawer>
+export type MIconPicker = InstanceType<typeof IconPicker>
+export type MListSelect = InstanceType<typeof ListSelect>
+export type MRadio = InstanceType<typeof Radio>
+export type MSelect = InstanceType<typeof Select>
+export type MSelectSearch = InstanceType<typeof SelectSearch>
+export type MSelectWhether = InstanceType<typeof SelectWhether>
+export type MVerifycodeInput = InstanceType<typeof VerifycodeInput>

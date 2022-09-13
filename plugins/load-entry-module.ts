@@ -40,7 +40,17 @@ export default function (ctx: PluginContext) {
     }
   }
 
-  //加载模块
+  //加载基本模块
+  const loadBaseModule = async () => {
+    let src = '' //源码
+    const { pkg, entryModule } = ctx
+    src += `const mod = {id:${pkg.id}, code:'${entryModule}', version:'${pkg.version}', label:'${pkg.label}', icon:'${pkg.icon}', description:'${pkg.description}', pages:[], components:[] }${os.EOL}`
+    //导出模块
+    src += 'export default mod'
+
+    return src
+  }
+  //加载完整模块
   const loadModule = async () => {
     let src = '' //源码
 
@@ -100,6 +110,13 @@ export default function (ctx: PluginContext) {
     },
     load(id) {
       if (id.startsWith(IMPORT_MODULE_PREFIX)) {
+        const temp = id.split('?')
+        if (temp.length > 1) {
+          const params = temp[1].split('&')
+          if (params.includes('base')) {
+            return loadBaseModule()
+          }
+        }
         return loadModule()
       }
       return null

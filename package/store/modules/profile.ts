@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import { useSkinStore } from './skin'
 import { defaultProfile } from '@/defaults'
+import _ from 'lodash'
 
 //解析自定义菜单
 const resolveMenu = async (profile: Profile, menus) => {
@@ -47,7 +48,7 @@ const resolveRouteMenu = (profile: Profile, menus: Array<Menu>, parent?: Menu) =
 }
 
 const state = (): Profile => {
-  return defaultProfile
+  return _.cloneDeep(defaultProfile)
 }
 
 const actions = {

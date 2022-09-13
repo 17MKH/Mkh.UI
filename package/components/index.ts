@@ -48,3 +48,6 @@ export default (app: App, modules: ModuleDefinition[]) => {
   componentStore.toolbars = toolbars
   componentStore.components = componentNames
 }
+
+export * from './advanced'
+export * from './form'

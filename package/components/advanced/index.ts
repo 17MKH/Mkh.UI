@@ -11,3 +11,9 @@ export default [
   { name: 'list', component: List },
   { name: 'list-box', component: ListBox },
 ]
+
+export type MDialog = InstanceType<typeof Dialog>
+export type MDragSort = InstanceType<typeof DragSort>
+export type MDrawer = InstanceType<typeof Drawer>
+export type MList = InstanceType<typeof List>
+export type MListBox = InstanceType<typeof ListBox>

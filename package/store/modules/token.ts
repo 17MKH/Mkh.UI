@@ -8,7 +8,7 @@ const key = `token`
 /** 使用令牌存储 */
 export const useTokenStore = defineStore('app.token', {
   state(): JwtCredential {
-    return defaultCredential
+    return Object.assign({}, defaultCredential)
   },
   actions: {
     /** 加载令牌 */
@@ -17,13 +17,14 @@ export const useTokenStore = defineStore('app.token', {
     },
     set(credential?: JwtCredential) {
       if (credential) {
-        Object.assign(this, credential)
+        this.$patch(credential)
         db.set(key, credential)
       }
     },
     clear() {
       // 清除令牌信息
-      Object.assign(this, defaultCredential)
+      this.$patch(defaultCredential)
+      db.remove(key)
     },
   },
 })

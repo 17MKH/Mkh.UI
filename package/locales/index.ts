@@ -7,7 +7,7 @@ import db from '@/utils/db'
 
 let i18n
 
-export const usei18n = function (app: App, options: BootstrapOptions) {
+export default (app: App, options: BootstrapOptions) => {
   const lang = db.get<Locale>('lang')
   const browserLang = navigator.language == 'zh-CN' ? LOCALE_DEFINITIONS.ZhCN : LOCALE_DEFINITIONS.En
   const localeOptions = options.locale || defaultBootstrapOptions.locale
@@ -26,4 +26,4 @@ export const usei18n = function (app: App, options: BootstrapOptions) {
   app.use(i18n)
 }
 
-export default i18n
+export { i18n }

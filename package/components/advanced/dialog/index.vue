@@ -3,7 +3,7 @@
     ref="dialogRef"
     v-model="visible"
     :width="width"
-    :custom-class="class_"
+    :class="class_"
     :top="top"
     :show-close="false"
     :modal="modal"

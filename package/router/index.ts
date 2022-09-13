@@ -105,16 +105,18 @@ export default (app: App, modules: ModuleDefinition[]) => {
     }
 
     //验证是否登录
-    const { enablePermissionVerify } = to.meta
-    if (enablePermissionVerify) {
-      const { accessToken } = tokenStore
-      if (!accessToken) {
-        return '/login'
-      }
+    if (to.name !== 'login') {
+      const { enablePermissionVerify } = to.meta
+      if (enablePermissionVerify) {
+        const { accessToken } = tokenStore
+        if (!accessToken) {
+          return '/login'
+        }
 
-      //加载个人信息
-      if (!profileStore.accountId) {
-        await profileStore.init()
+        //加载个人信息
+        if (!profileStore.accountId) {
+          await profileStore.init()
+        }
       }
     }
 

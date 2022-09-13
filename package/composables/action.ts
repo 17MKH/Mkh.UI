@@ -1,7 +1,7 @@
+import type { MFormDialog } from '../components'
 import { computed, ComputedRef, reactive, defineEmits } from 'vue'
 import _ from 'lodash'
 import { useI18n } from './i18n'
-import FormDialog from '@/components/form/form-dialog/index.vue'
 
 /**
  * 主键
@@ -50,11 +50,6 @@ export interface ActionOptions<TKey, TModel> {
 }
 
 /**
- * 操作表单
- */
-export declare type ActionForm = InstanceType<typeof FormDialog>['$props']
-
-/**
  * 操作对象
  */
 export interface ActionObject {
@@ -77,7 +72,7 @@ export interface ActionObject {
     /**
      * 表单属性
      */
-    props: ActionForm
+    props: MFormDialog['$props']
     /**
      * 表单事件触发器
      */
@@ -116,7 +111,7 @@ export const useAction = function <TKey, TModel>(options: ActionOptions<TKey, TM
 
   const model_ = reactive({})
   //绑定属性
-  const formProps: ActionForm = reactive({
+  const formProps: MFormDialog['$props'] = reactive({
     title: '',
     icon: '',
     action: undefined,

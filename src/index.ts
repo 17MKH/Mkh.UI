@@ -1,9 +1,9 @@
 import mod from 'virtual:mkh-mod-doc'
-import { useAppService } from '@/index'
+import { useAppCreatedService } from '@/index'
 import api from './api'
 
 //注册服务
-useAppService(({ config }) => {
+useAppCreatedService(({ config }) => {
   const { login, getVerifyCode, getProfile, toggleSkin } = api.authorize
 
   config.systemActions = {

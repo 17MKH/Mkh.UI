@@ -1,7 +1,7 @@
 import type { AppService, BootstrapOptions, Config, ModuleDefinition, SkinDefinition } from '@/types'
 import mkh from './mkh'
 import { createApp } from 'vue'
-import Locales from './locales'
+import { usei18n } from './locales'
 import Layout from './layout.vue'
 import useRouter, { router } from './router'
 import useStore, { useTokenStore } from './store'
@@ -94,7 +94,7 @@ export const bootstrap = (options_: BootstrapOptions) => {
   modules.sort((a, b) => a.id - b.id)
 
   //注册国际化
-  app.use(Locales, bootstrapOptions)
+  app.use(usei18n, bootstrapOptions)
 
   //注册路由
   app.use(useRouter, modules)

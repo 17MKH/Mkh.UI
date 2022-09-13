@@ -4,7 +4,7 @@ import qs from 'qs'
 import dayjs from 'dayjs'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
-import { useI18n } from '@/composables/i18n'
+import i18n from '@/locales'
 import { useTokenStore } from '../store/modules/token'
 import { useConfigStore } from '../store/modules/config'
 
@@ -12,7 +12,7 @@ export class Http implements HttpClient {
   axios: AxiosInstance
 
   constructor(options) {
-    const { t } = useI18n()
+    const { t } = i18n.global
     const router = useRouter()
 
     const _axios = axios.create(options)

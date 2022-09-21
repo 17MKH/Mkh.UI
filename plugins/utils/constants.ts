@@ -24,6 +24,6 @@ const IMPORT_MODULE_PREFIX = 'virtual:mkh-mod-'
 const IMPORT_LOCALE_PREFIX = '$mkh-locale'
 
 //打包时忽略的依赖项
-const external = ['axios', 'vue', 'vue-router', 'vuex', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n', 'echarts', 'vue-echarts']
+const external = ['axios', 'vue', 'vue-router', 'pinia', 'element-plus', 'lodash', 'sortablejs', 'vue-i18n', 'echarts', 'vue-echarts']
 
 export { UI_NAME, MODULE_PREFIX, IMPORT_MODULE_PREFIX, SKIN_PREFIX, IMPORT_LOCALE_PREFIX, external }

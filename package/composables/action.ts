@@ -80,14 +80,6 @@ export interface ActionObject {
      */
     props: MFormDialog['$props']
     /**
-     * 表单事件触发器
-     */
-    emit: {
-      (e: 'success', data: any): void
-      (e: 'error'): void
-      (e: 'reset'): void
-    }
-    /**
      * 表单事件
      */
     on: {
@@ -178,7 +170,6 @@ export const useAction = function <TKey, TModel, TResult = any>(options: ActionO
     isView,
     form: {
       props: formProps,
-      emit,
       on: {
         open: handleOpen,
         reset: handleReset,

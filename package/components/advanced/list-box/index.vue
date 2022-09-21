@@ -53,8 +53,8 @@
   const refresh = () => {
     props.action().then((data: any) => {
       rows.value = data
-      if (data.length > 0) {
-        handleChange(data[0])
+      if (rows.value.length > 0) {
+        handleChange(rows.value[0])
       }
     })
   }

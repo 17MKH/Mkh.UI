@@ -72,7 +72,7 @@ export interface ListObject<TRow extends IRow> {
  * 使用列表
  * @returns
  */
-export const useList = function <TRow extends IRow>(): ListObject<TRow> {
+export const useList = function <TRow extends IRow = { id: string }>(): ListObject<TRow> {
   //列表组件引用
   const listRef = ref()
 

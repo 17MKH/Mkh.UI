@@ -27,3 +27,17 @@ export default [
   { name: 'split', component: Split },
   { name: 'tabs', component: Tabs },
 ]
+
+export type MBox = InstanceType<typeof Box>
+export type MBoxSmall = InstanceType<typeof BoxSmall>
+export type MBreadcrumb = InstanceType<typeof Breadcrumb>
+export type MContainer = InstanceType<typeof Container>
+export type MFlexAuto = InstanceType<typeof FlexAuto>
+export type MFlexCol = InstanceType<typeof FlexCol>
+export type MFlexFixed = InstanceType<typeof FlexFixed>
+export type MFlexRow = InstanceType<typeof FlexRow>
+export type MHead = InstanceType<typeof Head>
+export type MMenu = InstanceType<typeof Menu>
+export type MScrollbar = InstanceType<typeof Scrollbar>
+export type MSplit = InstanceType<typeof Split>
+export type MTabs = InstanceType<typeof Tabs>

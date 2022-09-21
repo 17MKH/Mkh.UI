@@ -50,4 +50,6 @@ export default (app: App, modules: ModuleDefinition[]) => {
 }
 
 export * from './advanced'
+export * from './base'
 export * from './form'
+export * from './layout'

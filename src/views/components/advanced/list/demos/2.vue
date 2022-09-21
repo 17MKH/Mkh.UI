@@ -28,10 +28,10 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { getCurrentInstance, reactive, ref } from 'vue'
+  import { ElMessageBox } from 'element-plus'
+  import { reactive, ref } from 'vue'
   import { query } from './api'
 
-  const { $alert } = getCurrentInstance()!.proxy as any
   const model = reactive({ name: '', author: '', dynasty: '' })
   const cols = ref([
     { prop: 'id', label: '编号', width: '55', show: false },
@@ -51,12 +51,14 @@
   }
 
   const handleCustomButton = () => {
-    $alert('您点击了自定义按钮~', '提示', {
+    ElMessageBox.alert('您点击了自定义按钮~', '提示', {
       confirmButtonText: '确定',
     })
   }
 
   const handleEdit = (row) => {
-    alert(`编辑列：${row.id}`)
+    ElMessageBox.alert(`编辑列：${row.id}`, '提示', {
+      confirmButtonText: '确定',
+    })
   }
 </script>

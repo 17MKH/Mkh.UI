@@ -13,3 +13,10 @@ export default [
   { name: 'icon', component: Icon },
   { name: 'tip', component: Tip },
 ]
+
+export type MButton = InstanceType<typeof Button>
+export type MButtonAdd = InstanceType<typeof ButtonAdd>
+export type MButtonDelete = InstanceType<typeof ButtonDelete>
+export type MButtonEdit = InstanceType<typeof ButtonEdit>
+export type MIcon = InstanceType<typeof Icon>
+export type MTip = InstanceType<typeof Tip>

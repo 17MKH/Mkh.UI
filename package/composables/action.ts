@@ -1,5 +1,5 @@
 import type { MFormDialog } from '../components'
-import { computed, ComputedRef, reactive, defineEmits } from 'vue'
+import { computed, ComputedRef, ExtractPropTypes, reactive } from 'vue'
 import _ from 'lodash'
 import { useI18n } from './i18n'
 
@@ -20,16 +20,22 @@ export interface ActionOptions<TKey, TModel> {
   /**
    * 属性
    */
-  props: {
-    /**
-     * 主键
-     */
-    id: TKey | undefined
-    /**
-     * 操作模式
-     */
-    mode: ActionMode
-  }
+  props: Readonly<
+    ExtractPropTypes<{
+      id: {
+        type: NumberConstructor
+      }
+      mode: {
+        type: StringConstructor
+        default: string
+      }
+      [key: string]: any
+    }>
+  >
+  /**
+   * 事件发射器
+   */
+  emit: any
   /**
    * 接口
    */
@@ -93,20 +99,16 @@ export interface ActionObject {
   }
 }
 
-export const useActionEmits = function (emits) {
-  return defineEmits(['success', 'error', 'reset', ...emits])
-}
-
 /**
  * 使用通用操作
  * @remarks
  *
  * 包含通用的新增、编辑、预览
  */
-export const useAction = function <TKey, TModel>(options: ActionOptions<TKey, TModel>): ActionObject {
+export const useAction = function <TKey, TModel, TResult = any>(options: ActionOptions<TKey, TModel>): ActionObject {
   //@ts-ignore
   const { t } = useI18n()
-  const { props, api, model, afterEdit } = options
+  const { props, emit, api, model, afterEdit } = options
   const { add, edit, update } = api
 
   const model_ = reactive({})
@@ -115,13 +117,12 @@ export const useAction = function <TKey, TModel>(options: ActionOptions<TKey, TM
     title: '',
     icon: '',
     action: undefined,
+    destroyOnClose: true,
   })
 
   const isAdd = computed(() => props.mode === 'add')
   const isEdit = computed(() => props.mode === 'edit')
   const isView = computed(() => props.mode === 'view')
-
-  const emit = defineEmits<{ (e: 'success', data: any): void; (e: 'error'): void; (e: 'reset'): void }>()
 
   const handleOpen = () => {
     switch (props.mode) {
@@ -163,7 +164,7 @@ export const useAction = function <TKey, TModel>(options: ActionOptions<TKey, TM
     emit('reset')
   }
 
-  const handleSuccess = (data: any) => {
+  const handleSuccess = (data: TResult) => {
     emit('success', data)
   }
 

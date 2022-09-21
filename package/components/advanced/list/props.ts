@@ -98,7 +98,7 @@ export default {
   /** 是否带有纵向边框 */
   border: { type: Boolean, default: true },
   /** 查询前执行的函数，该函数调用时第一个参数是查询参数对象，可在该函数内对参数进行调整 */
-  beforeQuery: { type: Function, default: false },
+  beforeQuery: { type: Function, default: null },
   /** 默认分页大小 */
   defaultPageSize: { type: Number, default: 15 },
   /** 不显示底部 */

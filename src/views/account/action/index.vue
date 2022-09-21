@@ -10,13 +10,22 @@
 </template>
 <script setup lang="ts">
   import { computed, reactive } from 'vue'
-  import { ActionMode, useAction } from '@/composables'
+  import { useAction } from '@/composables'
   import { useI18n } from '#/locales'
   import api from '#/api/account'
 
   const { t } = useI18n()
 
-  const props = defineProps<{ id: number | undefined; mode: ActionMode }>()
+  const props = defineProps({
+    id: {
+      type: Number,
+    },
+    mode: {
+      type: String,
+      default: 'add',
+    },
+  })
+  const emit = defineEmits()
 
   const model = reactive({ username: '', name: '' })
 
@@ -27,5 +36,5 @@
     }
   })
 
-  const { form } = useAction({ props, api, model })
+  const { form } = useAction({ props, emit, api, model })
 </script>

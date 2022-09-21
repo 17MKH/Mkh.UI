@@ -46,13 +46,7 @@ export const useModule = (module: ModuleDefinition) => {
   if (modules.findIndex((m) => m.code === module.code) === -1) {
     modules.push(module)
 
-    mkh.modules.push({
-      id: module.id,
-      code: module.code,
-      label: module.label || '',
-      version: module.version,
-      description: module.description,
-    })
+    mkh.modules.push(module)
   }
 }
 

@@ -54,19 +54,6 @@
     }
   }
 
-  &.no-scrollbar {
-    > .el-drawer__body {
-      > #{$prefix}-drawer_content {
-        > #{$prefix}-drawer_body {
-          > #{$prefix}-drawer_wrapper {
-            padding: 10px;
-            height: auto;
-          }
-        }
-      }
-    }
-  }
-
   &.no-padding {
     > .el-drawer__body {
       > #{$prefix}-drawer_content {

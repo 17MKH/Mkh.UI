@@ -34,6 +34,7 @@ export type MCascader = InstanceType<typeof Cascader>
 export type MCheckbox = InstanceType<typeof Checkbox>
 export type MDateRangePicker = InstanceType<typeof DateRangePicker>
 export type MForm = InstanceType<typeof Form>
+export type MFormBox = InstanceType<typeof FormBox>
 export type MFormDialog = InstanceType<typeof FormDialog>
 export type MFormDrawer = InstanceType<typeof FormDrawer>
 export type MIconPicker = InstanceType<typeof IconPicker>

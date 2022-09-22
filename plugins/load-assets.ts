@@ -120,7 +120,7 @@ export default function (ctx: PluginContext) {
       if (ctx.isLib) {
         //如果是库模式，需要在打包结束后复制资源目录到输出目录
         let output = path.resolve('lib/assets')
-        if (ctx.options.isUI) {
+        if (ctx.options.isUI || ctx.options.isSkin) {
           fse.copy(path.resolve('package/assets'), output)
         } else {
           let assetsPath = path.resolve('src/assets')

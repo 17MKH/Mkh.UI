@@ -15,22 +15,13 @@
     </m-flex-row>
   </div>
 </template>
-<script>
-import { ref } from 'vue'
-import { query } from './api'
-export default {
-  setup() {
-    const value = ref()
-    const current = ref()
-    const edit = item => {
-      current.value = item
-    }
-    return {
-      value,
-      query,
-      edit,
-      current,
-    }
-  },
-}
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { query } from './api'
+
+  const value = ref()
+  const current = ref()
+  const edit = (item) => {
+    current.value = item
+  }
 </script>

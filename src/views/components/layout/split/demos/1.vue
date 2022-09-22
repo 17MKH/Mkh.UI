@@ -11,20 +11,13 @@
     </m-split>
   </div>
 </template>
-<script>
-import { ref } from 'vue'
-export default {
-  setup() {
-    const value = ref(0.3)
-    return {
-      value,
-    }
-  },
-}
+<script setup lang="ts">
+  import { ref } from 'vue'
+  const value = ref(0.3)
 </script>
 <style lang="scss" scoped>
-.demo {
-  height: 100%;
-  background: #ebeef5;
-}
+  .demo {
+    height: 100%;
+    background: #ebeef5;
+  }
 </style>

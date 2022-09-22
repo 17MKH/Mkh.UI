@@ -29,74 +29,63 @@
     </m-doc-component-doc>
   </m-container>
 </template>
-<script>
-import { ref } from 'vue'
-import { useMessage } from '../../../../../package/composables'
-import props from './apis/_props'
-import copy from 'clipboard-copy'
-import demo from './demos/1.vue'
-import code from './demos/1.vue?raw'
-export default {
-  components: { demo },
-  setup() {
-    const message = useMessage()
-    const list = ref([])
-    var symbols = document.querySelectorAll('body>svg>symbol')
-    symbols.forEach(m => {
-      list.value.push(m.id.replace('m-', ''))
-    })
+<script setup lang="ts">
+  import { Ref, ref } from 'vue'
+  import { useMessage } from '@/composables'
+  import props from './apis/_props'
+  import copy from 'clipboard-copy'
+  import demo from './demos/1.vue'
+  import code from './demos/1.vue?raw'
 
-    const handleCopy = code => {
-      const html = `<m-icon name="${code}"></m-icon>`
+  const message = useMessage()
+  const list: Ref<string[]> = ref([])
+  var symbols = document.querySelectorAll('body>svg>symbol')
+  symbols.forEach((m) => {
+    list.value.push(m.id.replace('m-', ''))
+  })
 
-      copy(html)
+  const handleCopy = (code) => {
+    const html = `<m-icon name="${code}"></m-icon>`
 
-      message.success(`代码已复制到粘贴板：${html}`)
-    }
+    copy(html)
 
-    return {
-      props,
-      list,
-      code,
-      handleCopy,
-    }
-  },
-}
+    message.success(`代码已复制到粘贴板：${html}`)
+  }
 </script>
 <style lang="scss" scoped>
-.icon-panel {
-  li {
-    position: relative;
-    float: left;
-    width: 16.66%;
-    text-align: center;
-    height: 120px;
-    line-height: 120px;
-    color: #666;
-    font-size: 13px;
-    border-right: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    margin-right: -1px;
-    margin-bottom: -1px;
-    cursor: pointer;
+  .icon-panel {
+    li {
+      position: relative;
+      float: left;
+      width: 16.66%;
+      text-align: center;
+      height: 120px;
+      line-height: 120px;
+      color: #666;
+      font-size: 13px;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      margin-right: -1px;
+      margin-bottom: -1px;
+      cursor: pointer;
 
-    .m-icon {
-      font-size: 32px;
-      margin-bottom: 15px;
-      transition: color 0.15s linear;
-    }
+      .m-icon {
+        font-size: 32px;
+        margin-bottom: 15px;
+        transition: color 0.15s linear;
+      }
 
-    span {
-      position: absolute;
-      left: 50%;
-      bottom: -40px;
-      transform: translateX(-50%);
-      font-size: 14px;
-    }
+      span {
+        position: absolute;
+        left: 50%;
+        bottom: -40px;
+        transform: translateX(-50%);
+        font-size: 14px;
+      }
 
-    &:hover {
-      color: #5cb6ff;
+      &:hover {
+        color: #5cb6ff;
+      }
     }
   }
-}
 </style>

@@ -3,7 +3,7 @@
     <m-header />
     <div class="m-sub-header">
       <!--菜单折叠-->
-      <m-icon class="m-sub-header_menu" :name="$store.state.skin.brief.menuIsCollapse ? 'unfold' : 'fold'" @click="handleMeunCollapse" />
+      <m-icon class="m-sub-header_menu" :name="store.menuIsCollapse ? 'unfold' : 'fold'" @click="handleMeunCollapse" />
       <m-breadcrumb />
       <div v-show="showGoBack" class="m-back">
         <el-link type="primary" @click="goBack"
@@ -14,37 +14,31 @@
     <m-main />
   </div>
 </template>
-<script>
-import { computed } from '@vue/runtime-core'
-import MHeader from './components/header/index.vue'
-import MMain from './components/main/index.vue'
-import { useRoute } from 'vue-router'
-export default {
-  components: { MHeader, MMain },
-  setup() {
-    const { store, router } = mkh
-    const route = useRoute()
+<script setup lang="ts">
+  import { computed } from '@vue/runtime-core'
+  import MHeader from './components/header/index.vue'
+  import MMain from './components/main/index.vue'
+  import { useRoute, useRouter } from 'vue-router'
+  import { useConfigStore } from '@/store'
+  import { useStore } from './store'
 
-    const showGoBack = computed(() => {
-      return route.name !== 'home' && route.path !== store.state.app.config.site.home
-    })
+  const store = useStore()
+  const configStore = useConfigStore()
+  const route = useRoute()
+  const router = useRouter()
 
-    const handleMeunCollapse = () => {
-      store.commit('skin/brief/toggleMenuCollapse')
-    }
+  const showGoBack = computed(() => {
+    return route.name !== 'home' && route.path !== configStore.site.homePage
+  })
 
-    const goBack = () => {
-      router.back()
-    }
+  const handleMeunCollapse = () => {
+    store.toggleMenuCollapse()
+  }
 
-    return {
-      showGoBack,
-      handleMeunCollapse,
-      goBack,
-    }
-  },
-}
+  const goBack = () => {
+    router.back()
+  }
 </script>
 <style lang="scss">
-@import './styles/index.scss';
+  @import './styles/index.scss';
 </style>

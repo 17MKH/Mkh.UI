@@ -29,40 +29,40 @@
   </div>
 </template>
 <style lang="scss">
-.m-error-403 {
-  padding-top: 50px;
-  height: 100%;
-  background-color: #d3deea;
+  .m-error-403 {
+    padding-top: 50px;
+    height: 100%;
+    background-color: #d3deea;
 
-  .header {
-    text-align: center;
-
-    h1 {
-      color: #ededed;
+    .header {
       text-align: center;
-      font-size: 9em;
-      margin: 0;
-      text-shadow: -1px 0 #bfc0c0, 0 1px #bfc0c0, 1px 0 #bfc0c0, 0 -1px #bfc0c0;
+
+      h1 {
+        color: #ededed;
+        text-align: center;
+        font-size: 9em;
+        margin: 0;
+        text-shadow: -1px 0 #bfc0c0, 0 1px #bfc0c0, 1px 0 #bfc0c0, 0 -1px #bfc0c0;
+      }
+
+      h3 {
+        font-size: 2em;
+        text-transform: uppercase;
+        text-align: center;
+        color: #bfc0c0;
+        margin-top: -20px;
+        font-weight: 900;
+      }
     }
 
-    h3 {
-      font-size: 2em;
-      text-transform: uppercase;
+    .main {
+      margin-top: 30px;
       text-align: center;
-      color: #bfc0c0;
-      margin-top: -20px;
-      font-weight: 900;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      text-align: center;
     }
   }
-
-  .main {
-    margin-top: 30px;
-    text-align: center;
-  }
-
-  .buttons {
-    margin-top: 30px;
-    text-align: center;
-  }
-}
 </style>

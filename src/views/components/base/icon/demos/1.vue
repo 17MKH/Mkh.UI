@@ -9,14 +9,7 @@
     </el-row>
   </m-form>
 </template>
-<script>
-import { ref } from 'vue'
-export default {
-  setup() {
-    const icon = ref('')
-    return {
-      icon,
-    }
-  },
-}
+<script setup lang="ts">
+  import { ref } from 'vue'
+  const icon = ref('')
 </script>

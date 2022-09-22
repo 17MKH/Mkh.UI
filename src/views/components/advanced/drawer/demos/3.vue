@@ -14,37 +14,27 @@
     <p>剑阁峥嵘而崔嵬，一夫当关，万夫莫开。<br />所守或匪亲，化为狼与豺。<br />朝避猛虎，夕避长蛇，磨牙吮血，杀人如麻。<br />锦城虽云乐，不如早还家。<br />蜀道之难，难于上青天，侧身西望长咨嗟！</p>
   </m-drawer>
 </template>
-<script>
-import { ref } from 'vue'
-import { useLoading, useMessage } from '../../../../../../package/composables'
-export default {
-  setup() {
-    const message = useMessage()
-    const visible = ref(false)
-    const loading = useLoading()
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { useLoading, useMessage } from '@/composables'
 
-    const handleClick = () => {
-      visible.value = true
-    }
+  const message = useMessage()
+  const visible = ref(false)
+  const loading = useLoading()
 
-    const handleRefrech = () => {
-      loading.open()
+  const handleClick = () => {
+    visible.value = true
+  }
 
-      setTimeout(() => {
-        loading.close()
-      }, 1500)
-    }
+  const handleRefrech = () => {
+    loading.open()
 
-    const handlePlus = () => {
-      message.success('恭喜你，这是一条成功消息')
-    }
+    setTimeout(() => {
+      loading.close()
+    }, 1500)
+  }
 
-    return {
-      visible,
-      handleClick,
-      handleRefrech,
-      handlePlus,
-    }
-  },
-}
+  const handlePlus = () => {
+    message.success('恭喜你，这是一条成功消息')
+  }
 </script>

@@ -24,36 +24,26 @@
     </m-list>
   </div>
 </template>
-<script>
-import { getCurrentInstance, reactive, ref } from 'vue'
-import { query } from './api'
-export default {
-  setup() {
-    const { $alert } = getCurrentInstance().proxy
-    const model = reactive({ name: '', author: '', dynasty: '' })
-    const cols = ref([
-      { prop: 'id', label: '编号', width: '55', show: false },
-      {
-        prop: 'name',
-        label: '名称',
-      },
-      { prop: 'author', label: '作者' },
-      { prop: 'dynasty', label: '朝代' },
-      { prop: 'type', label: '类型' },
-    ])
+<script setup lang="ts">
+  import { ElMessageBox } from 'element-plus'
+  import { reactive, ref } from 'vue'
+  import { query } from './api'
 
-    const handleCustomButton = () => {
-      $alert('您点击了自定义按钮~', '提示', {
-        confirmButtonText: '确定',
-      })
-    }
+  const model = reactive({ name: '', author: '', dynasty: '' })
+  const cols = ref([
+    { prop: 'id', label: '编号', width: '55', show: false },
+    {
+      prop: 'name',
+      label: '名称',
+    },
+    { prop: 'author', label: '作者' },
+    { prop: 'dynasty', label: '朝代' },
+    { prop: 'type', label: '类型' },
+  ])
 
-    return {
-      model,
-      cols,
-      query,
-      handleCustomButton,
-    }
-  },
-}
+  const handleCustomButton = () => {
+    ElMessageBox.alert('您点击了自定义按钮~', '提示', {
+      confirmButtonText: '确定',
+    })
+  }
 </script>

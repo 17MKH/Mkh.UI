@@ -18,25 +18,25 @@
     </el-form-item>
   </m-form>
 </template>
-<script setup>
-import { ref } from 'vue'
-const value = ref([])
-const value1 = ref('')
-const value2 = ref('')
-const value3 = ref('')
-const value4 = ref('')
-const selectRef = ref(null)
+<script setup lang="ts">
+  import { ref } from 'vue'
+  const value = ref([])
+  const value1 = ref('')
+  const value2 = ref('')
+  const value3 = ref('')
+  const value4 = ref('')
+  const selectRef = ref()
 
-const query = () => {
-  return new Promise(resolve => {
-    resolve([
-      { label: '张三', value: 1 },
-      { label: '李四', value: 2 },
-    ])
-  })
-}
+  const query = () => {
+    return new Promise((resolve) => {
+      resolve([
+        { label: '张三', value: 1 },
+        { label: '李四', value: 2 },
+      ])
+    })
+  }
 
-const handleChange = val => {
-  console.log(val)
-}
+  const handleChange = (val) => {
+    console.log(val)
+  }
 </script>

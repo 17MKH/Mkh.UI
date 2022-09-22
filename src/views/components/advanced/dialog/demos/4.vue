@@ -27,23 +27,13 @@
     </p>
   </m-dialog>
 </template>
-<script>
-import { ref } from 'vue'
-export default {
-  setup() {
-    const visible = ref(false)
-    const dragOutPage = ref(false)
-    const dragMinWidth = ref(100)
-    const handleClick = () => {
-      visible.value = true
-    }
+<script setup lang="ts">
+  import { ref } from 'vue'
 
-    return {
-      visible,
-      dragOutPage,
-      dragMinWidth,
-      handleClick,
-    }
-  },
-}
+  const visible = ref(false)
+  const dragOutPage = ref(false)
+  const dragMinWidth = ref(100)
+  const handleClick = () => {
+    visible.value = true
+  }
 </script>

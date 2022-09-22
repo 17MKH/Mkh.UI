@@ -27,48 +27,38 @@
     </m-list>
   </div>
 </template>
-<script>
-import { getCurrentInstance, reactive, ref } from 'vue'
-import { query } from './api'
-export default {
-  setup() {
-    const { $alert } = getCurrentInstance().proxy
-    const model = reactive({ name: '', author: '', dynasty: '' })
-    const cols = ref([
-      { prop: 'id', label: '编号', width: '55', show: false },
-      {
-        prop: 'name',
-        label: '名称',
-      },
-      { prop: 'author', label: '作者' },
-      { prop: 'dynasty', label: '朝代朝代', expand: true },
-      { prop: 'type', label: '类型', expand: true },
-    ])
+<script setup lang="ts">
+  import { ElMessageBox } from 'element-plus'
+  import { reactive, ref } from 'vue'
+  import { query } from './api'
 
-    const deleteMethod = ids => {
-      return new Promise(resolve => {
-        resolve()
-      })
-    }
+  const model = reactive({ name: '', author: '', dynasty: '' })
+  const cols = ref([
+    { prop: 'id', label: '编号', width: '55', show: false },
+    {
+      prop: 'name',
+      label: '名称',
+    },
+    { prop: 'author', label: '作者' },
+    { prop: 'dynasty', label: '朝代朝代', expand: true },
+    { prop: 'type', label: '类型', expand: true },
+  ])
 
-    const handleCustomButton = () => {
-      $alert('您点击了自定义按钮~', '提示', {
-        confirmButtonText: '确定',
-      })
-    }
+  const deleteMethod = (ids) => {
+    return new Promise((resolve) => {
+      resolve(ids)
+    })
+  }
 
-    const handleEdit = row => {
-      alert(`编辑列：${row.id}`)
-    }
+  const handleCustomButton = () => {
+    ElMessageBox.alert('您点击了自定义按钮~', '提示', {
+      confirmButtonText: '确定',
+    })
+  }
 
-    return {
-      model,
-      cols,
-      query,
-      deleteMethod,
-      handleCustomButton,
-      handleEdit,
-    }
-  },
-}
+  const handleEdit = (row) => {
+    ElMessageBox.alert(`编辑列：${row.id}`, '提示', {
+      confirmButtonText: '确定',
+    })
+  }
 </script>

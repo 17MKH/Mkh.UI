@@ -1,23 +1,16 @@
 <template>
   <div class="m-login-container">
-    <component :is="`m-login-${loginComponent}`"></component>
+    <component :is="`m-login-${configSotre.component.login}`"></component>
   </div>
 </template>
-<script>
-export default {
-  setup() {
-    const { store } = mkh
-
-    return {
-      loginComponent: store.state.app.config.component.login,
-    }
-  },
-}
+<script setup lang="ts">
+  import { useConfigStore } from '@/store'
+  const configSotre = useConfigStore()
 </script>
 <style lang="scss">
-.m-login-container {
-  position: relative;
-  width: 100%;
-  min-height: 100%;
-}
+  .m-login-container {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+  }
 </style>

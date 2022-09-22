@@ -14,7 +14,7 @@
     "dev": "vite --host --config=./build/app.config.ts",
     "serve": "vite preview",
     "build": "vue-tsc --noEmit && vite build --config=./build/app.config.ts",
-    "lib": "npm run clean && vue-tsc --declaration --emitDeclarationOnly --outDir ./.temp && vite build --config=./build/lib.config.ts && npm run locales && npm run plugins && npm run build:dts",
+    "lib": "npm run clean && vite build --config=./build/lib.config.ts && npm run locales && npm run plugins && npm run build:dts",
     "build:dts": "npm run build-temp-types && npm run patch-types && api-extractor run && npm run build:plguins:dts && rimraf ./.temp",
     "build:plguins:dts": "api-extractor run -c api-extractor.plugins.module.json && api-extractor run -c api-extractor.plugins.skin.json",
     "build-temp-types": "tsc --emitDeclarationOnly -p ./tsconfig.lib.json --outDir ./.temp",

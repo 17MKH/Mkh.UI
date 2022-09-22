@@ -115,7 +115,14 @@ export default (app: App, modules: ModuleDefinition[]) => {
 
         //加载个人信息
         if (!profileStore.accountId) {
-          await profileStore.init()
+          try {
+            await profileStore.init()
+          } catch (err) {
+            console.log(err)
+            tokenStore.clear()
+
+            return '/login'
+          }
         }
       }
     }

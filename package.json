@@ -79,8 +79,7 @@
   },
   "files": [
     "entries",
-    "lib",
-    "build"
+    "lib"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

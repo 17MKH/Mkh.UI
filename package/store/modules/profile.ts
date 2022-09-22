@@ -56,53 +56,49 @@ const actions = {
    * 初始化账户信息，调用接口
    */
   async init() {
-    try {
-      const configStore = useConfigStore()
-      const skinStore = useSkinStore()
+    const configStore = useConfigStore()
+    const skinStore = useSkinStore()
 
-      //获取账户信息
-      if (configStore.systemActions && configStore.systemActions.getProfile) {
-        const profile = await configStore.systemActions.getProfile()
+    //获取账户信息
+    if (configStore.systemActions && configStore.systemActions.getProfile) {
+      const profile = await configStore.systemActions.getProfile()
 
-        profile.routeMenus = []
-        profile.buttons = []
+      profile.routeMenus = []
+      profile.buttons = []
 
-        //设置自定义菜单
-        if (configStore.site && configStore.site.menus) {
-          await resolveMenu(profile, configStore.site.menus)
-        }
+      //设置自定义菜单
+      if (configStore.site && configStore.site.menus) {
+        await resolveMenu(profile, configStore.site.menus)
+      }
 
-        //解析路由菜单
-        resolveRouteMenu(profile, profile.menus)
+      //解析路由菜单
+      resolveRouteMenu(profile, profile.menus)
 
-        if (!profile.skin || !profile.skin.code || skinStore.skins.every((m) => m.code !== profile.skin.code)) {
-          if (configStore.skin) {
-            let skin = configStore.skin
-            profile.skin = {
-              name: skin.name,
-              code: skin.code,
-              theme: skin.theme,
-              size: skin.size,
-            }
-          } else {
-            let skin = skinStore.skins[0]
+      if (!profile.skin || !profile.skin.code || skinStore.skins.every((m) => m.code !== profile.skin.code)) {
+        if (configStore.skin) {
+          let skin = configStore.skin
+          profile.skin = {
+            name: skin.name,
+            code: skin.code,
+            theme: skin.theme,
+            size: skin.size,
+          }
+        } else {
+          let skin = skinStore.skins[0]
 
-            profile.skin = {
-              name: skin.name,
-              code: skin.code,
-              theme: skin.themes[0].name,
-              size: '',
-            }
+          profile.skin = {
+            name: skin.name,
+            code: skin.code,
+            theme: skin.themes[0].name,
+            size: '',
           }
         }
-
-        if (!profile.skin.size) {
-          profile.skin.size = 'default'
-        }
-        Object.assign(this, profile)
       }
-    } catch (error) {
-      console.log(error)
+
+      if (!profile.skin.size) {
+        profile.skin.size = 'default'
+      }
+      Object.assign(this, profile)
     }
   },
   /**

@@ -19,6 +19,11 @@ import VCharts from 'vue-echarts'
 import { defaultBootstrapOptions } from './defaults'
 
 /**
+ * 启动配置项
+ */
+let bootstrapOptions: BootstrapOptions
+
+/**
  * 模块列表
  */
 const modules: ModuleDefinition[] = []
@@ -85,12 +90,18 @@ export const useSkin = (skin: SkinDefinition) => {
 }
 
 /**
+ * 设置启动配置项
+ */
+export const useBootstrapOptions = (options_: BootstrapOptions) => {
+  bootstrapOptions = _.merge({}, defaultBootstrapOptions, options_)
+}
+
+/**
  * 启动应用
  * @param options - 配置项
  */
-export const bootstrap = (options_: BootstrapOptions) => {
+export const bootstrap = () => {
   const config = _.cloneDeep(defaultConfig) as Config
-  const bootstrapOptions = _.merge({}, defaultBootstrapOptions, options_)
 
   const app = createApp(Layout)
 
@@ -154,4 +165,4 @@ export * from './store'
 export * from './types/index'
 export * from './locales/lang/zh-cn'
 
-export { mkh, echarts }
+export { mkh, echarts, bootstrapOptions }

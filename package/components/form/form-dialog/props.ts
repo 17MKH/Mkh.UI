@@ -21,7 +21,7 @@ export default {
   /** 重置按钮图标 */
   btnResetIcon: { type: String, default: 'reset' },
   /** 关闭时重置表单 */
-  resetOnClosed: { type: Boolean, default: true },
+  resetOnClosed: { type: Boolean, default: false },
   /** 表单提交成功后关闭对话框 */
   closeOnSuccess: { type: Boolean, default: true },
   /** 需要自动获取焦点的组件引用 */

@@ -75,7 +75,6 @@
   import { computed, ref } from 'vue'
   import { useVisible, useMessage } from '@/composables'
   import { fullscreenMixins } from '@/composables/fullscreen'
-  import _ from 'lodash'
   import propsDefinition from './props'
   import { useI18n } from '@/composables/i18n'
 
@@ -95,8 +94,6 @@
     }
     return list.join(' ')
   })
-
-  const model_ = _.cloneDeep(props.model)
 
   const { visible, open, close } = useVisible(props, emit)
 
@@ -146,7 +143,7 @@
 
   const handleClosed = () => {
     if (props.resetOnClosed) {
-      _.merge(props.model, model_)
+      reset()
     }
     emit('closed')
   }

@@ -1,5 +1,5 @@
 import { bootstrap, useAppCreatedService, useModule } from '@/index'
-import options from './options'
+import './options'
 import mod_doc from './index.js'
 //import m from 'mkh-skin-sky';
 
@@ -18,4 +18,4 @@ useAppCreatedService(({ config }) => {
   config.component.login = 'k'
 })
 
-bootstrap(options)
+bootstrap()

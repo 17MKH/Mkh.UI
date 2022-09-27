@@ -1,5 +1,5 @@
 import type { MFormDialog } from '../components'
-import { computed, ComputedRef, ExtractPropTypes, reactive } from 'vue'
+import { computed, ComputedRef, ExtractPropTypes, reactive, Ref } from 'vue'
 import _ from 'lodash'
 import { useI18n } from './i18n'
 
@@ -48,11 +48,15 @@ export interface ActionOptions<TKey, TModel> {
   /**
    * 模型
    */
-  model: TModel
+  model: Ref<TModel>
   /**
-   * 自定义方法，在获取编辑信息后执行，可用于对数据进行修改
+   * 自定义编辑方法，在获取编辑信息后执行，可用于对数据进行修改
    */
   afterEdit?: () => void
+  /**
+   * 自定义重置方法，在重置事件触发后执行
+   */
+  afterReset?: () => void
 }
 
 /**
@@ -100,16 +104,21 @@ export interface ActionObject {
 export const useAction = function <TKey, TModel, TResult = any>(options: ActionOptions<TKey, TModel>): ActionObject {
   //@ts-ignore
   const { t } = useI18n()
-  const { props, emit, api, model, afterEdit } = options
+  const { props, emit, api, model, afterEdit, afterReset } = options
   const { add, edit, update } = api
 
-  const model_ = reactive({})
+  //深度克隆model的初始数据
+  const initialModel = _.cloneDeep(model.value)
+
+  //深度克隆编辑模式的初始数据
+  let editInitialModel: any = {}
+
   //绑定属性
   const formProps: MFormDialog['$props'] = reactive({
     title: '',
     icon: '',
     action: undefined,
-    destroyOnClose: true,
+    resetOnClosed: true,
   })
 
   const isAdd = computed(() => props.mode === 'add')
@@ -132,27 +141,29 @@ export const useAction = function <TKey, TModel, TResult = any>(options: ActionO
 
         formProps.loading = true
         if (props.id) {
-          edit(props.id).then((data) => {
-            _.merge(model_, data)
-            _.merge(model, model_)
+          edit(props.id).then((data: any) => {
+            editInitialModel = data
+            model.value = data
+            console.log(data)
 
             afterEdit && afterEdit()
 
             formProps.loading = false
           })
-        } else {
-          //
         }
         break
     }
   }
 
   const handleReset = () => {
-    //如果编辑模式，重置会将表单数据重置为修改前，而不是清空
+    //如果编辑模式，重置会将表单数据重置为修改前，而不是最初始状态
     if (props.mode === 'edit') {
-      _.merge(model, model_)
+      model.value = _.cloneDeep(editInitialModel)
+    } else if (props.mode == 'add') {
+      model.value = _.cloneDeep(initialModel)
     }
 
+    afterReset && afterReset()
     emit('reset')
   }
 

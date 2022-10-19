@@ -79,6 +79,7 @@
           })
           .then(() => {
             tokenStore.clear()
+            profileStore.clear()
 
             router.push({ name: 'login', query: { redirect: router.currentRoute.value.fullPath } })
           })

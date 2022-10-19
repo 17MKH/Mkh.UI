@@ -12,7 +12,6 @@
   const props = defineProps({
     modelValue: {
       type: [String, Number],
-      required: true,
     },
     action: {
       type: Function,
@@ -87,7 +86,7 @@
   if (props.refreshOnCreated) refresh()
 
   const reset = () => {
-    value_.value = ''
+    value_.value = undefined
     handleChange('')
   }
 

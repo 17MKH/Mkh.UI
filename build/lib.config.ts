@@ -20,7 +20,6 @@ export default defineConfig(({ mode, command }) => {
       /** 排除无需打包进去的依赖库 */
       external,
     },
-    minify: false,
   }
 
   return config

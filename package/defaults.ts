@@ -12,7 +12,7 @@ export const defaultSkin: Skin = {
 /**
  * 默认配置信息
  */
-export const defaultConfig: Partial<Config> = {
+export const defaultConfig: Config = {
   site: {
     title: '',
     logo: './assets/mkh/logo.png',
@@ -37,6 +37,7 @@ export const defaultConfig: Partial<Config> = {
     },
   },
   skin: defaultSkin,
+  systemActions: {},
 }
 
 /**

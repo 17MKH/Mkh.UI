@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import Locales from './locales'
 import Layout from './layout.vue'
 import useRouter, { router } from './router'
-import useStore, { useTokenStore } from './store'
+import useStore, { useTokenStore, useConfigStore } from './store'
 import _ from 'lodash'
 /** 导入ElementPlus */
 import ElementPlus from 'element-plus'
@@ -111,7 +111,7 @@ export const bootstrap = () => {
   })
 
   //注册状态
-  app.use(useStore, config)
+  app.use(useStore)
 
   //模块按照id排序
   modules.sort((a, b) => a.id - b.id)
@@ -146,6 +146,10 @@ export const bootstrap = () => {
   mountServices.forEach((c) => {
     c({ app, config, options: bootstrapOptions })
   })
+
+  //更新配置
+  const configStore = useConfigStore()
+  configStore.$patch(config)
 
   //等待路由注册完成后再挂载
   router.isReady().then(() => {

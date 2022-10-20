@@ -114,7 +114,7 @@ export interface SystemActionsConfig {
    * 登录方法
    * @param dto - 登录模型
    */
-  login(dto: LoginDto): Promise<JwtCredential>
+  login?(dto: LoginDto): Promise<JwtCredential>
   /**
    * 刷新令牌
    * @param dto - 刷新令牌模型
@@ -123,16 +123,16 @@ export interface SystemActionsConfig {
   /**
    * 获取登录验证码
    */
-  getVerifyCode(): Promise<VerifyCode>
+  getVerifyCode?(): Promise<VerifyCode>
   /**
    * 获取账户信息
    */
-  getProfile(): Promise<Profile>
+  getProfile?(): Promise<Profile>
   /**
    * 切换皮肤
    * @param skin - 皮肤更新对象
    */
-  toggleSkin(skin: UpdateSkinDto): Promise<void>
+  toggleSkin?(skin: UpdateSkinDto): Promise<void>
 }
 
 /**

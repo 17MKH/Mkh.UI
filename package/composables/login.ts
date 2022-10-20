@@ -54,18 +54,19 @@ export const useLogin = function () {
     formRef.value.validate((valid: boolean) => {
       if (valid) {
         loading.value = true
-        configStore.systemActions
-          .login(model)
-          .then((data) => {
-            notify.success(t('mkh.login.notify_success'), t('mkh.login.notify_title'), () => {
-              tokenStore.set(data)
-              if (typeof redirect === 'string') router.push(redirect as string)
+        const loginAction = configStore.systemActions.login
+        if (loginAction)
+          loginAction(model)
+            .then((data) => {
+              notify.success(t('mkh.login.notify_success'), t('mkh.login.notify_title'), () => {
+                tokenStore.set(data)
+                if (typeof redirect === 'string') router.push(redirect as string)
+              })
             })
-          })
-          .catch((msg) => {
-            loading.value = false
-            notify.error(msg, t('mkh.login.notify_title'))
-          })
+            .catch((msg) => {
+              loading.value = false
+              notify.error(msg, t('mkh.login.notify_title'))
+            })
       }
     })
   }

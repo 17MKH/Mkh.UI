@@ -38,7 +38,7 @@
 
   const value_ = computed({
     get() {
-      return props.modelValue
+      return props.modelValue || null
     },
     set(val) {
       emit('update:modelValue', val)
@@ -86,7 +86,7 @@
   if (props.refreshOnCreated) refresh()
 
   const reset = () => {
-    value_.value = undefined
+    value_.value = null
     handleChange('')
   }
 

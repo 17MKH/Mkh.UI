@@ -12,6 +12,7 @@
   const props = defineProps({
     modelValue: {
       type: [String, Number],
+      required: true,
     },
     action: {
       type: Function,
@@ -38,7 +39,7 @@
 
   const value_ = computed({
     get() {
-      return props.modelValue || null
+      return props.modelValue
     },
     set(val) {
       emit('update:modelValue', val)
@@ -86,8 +87,8 @@
   if (props.refreshOnCreated) refresh()
 
   const reset = () => {
-    value_.value = null
-    handleChange('')
+    value_.value = ''
+    handleChange(value_.value)
   }
 
   watch(value_, handleChange)

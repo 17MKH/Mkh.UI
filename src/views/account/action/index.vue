@@ -26,21 +26,14 @@
 </template>
 <script setup lang="ts">
   import { computed, Ref, ref } from 'vue'
-  import { useAction } from '@/composables'
+  import { ActionMode, useAction } from '@/composables'
   import { useI18n } from '#/locales'
   import api from '#/api/account'
 
   const { t } = useI18n()
 
-  const props = defineProps({
-    id: {
-      type: Number,
-    },
-    mode: {
-      type: String,
-      default: 'add',
-    },
-  })
+  const props = defineProps<{ id?: number; mode: ActionMode }>()
+
   const emit = defineEmits()
 
   const model: Ref<any> = ref({ username: '', name: '', list: [] })

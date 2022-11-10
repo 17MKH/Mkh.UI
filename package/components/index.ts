@@ -29,17 +29,18 @@ export default (app: App, modules: ModuleDefinition[]) => {
   modules.forEach((m) => {
     if (m.components) {
       m.components.forEach((c) => {
-        let name = c.name
+        let name = c.component.alias || c.name
         if (name.startsWith('login-')) {
           //登录组件与众不同~
         } else if (name.startsWith('toolbar-')) {
           //顶部工具栏组件
           let code = name.replace('toolbar-', '')
           toolbars.push({ code: code, label: c.component.label || code, show: true, sort: 0 })
-        } else {
-          name = `${m.code}-${c.name}`
+        } else if (!c.component.alias) {
+          name = `${m.code}-${name}`
         }
 
+        console.log(name)
         registerComponent(app, name, c.component)
       })
     }

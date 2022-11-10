@@ -73,7 +73,7 @@ export const useAppCreatedService = (service: AppService) => {
  *
  * @remarks
  *
- * 应用服务会在Vue实例创建后调用，您可以在该服务内添加自定义的功能，如注册第三方组件
+ * 应用服务会在Vue实例创建后调用，您可以在该服务内添加自定义的功能，如注册全局或者第三方组件
  */
 export const useAppMountService = (service: AppService) => {
   mountServices.push(service)

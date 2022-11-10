@@ -44,6 +44,11 @@ export interface ModuleDefinition {
     /**
      * 组件模板
      */
-    component: { label: string } & Component
+    component: {
+      /** 组件说明 */
+      label: string
+      /** 组件别名，不遵循默认名称 */
+      alias?: string
+    } & Component
   }[]
 }

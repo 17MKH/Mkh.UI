@@ -64,6 +64,7 @@ export default ({ target, mode, command }): UserConfig => {
       alias: {
         '@': resolve(__dirname, '../package'),
         '#': resolve(__dirname, '../src'),
+        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
       },
     },
   }

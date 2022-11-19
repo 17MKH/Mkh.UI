@@ -135,7 +135,7 @@ export default function (ctx: PluginContext) {
         let styleFilePath = path.resolve(bundle.dir as string, 'style.css')
         fse.pathExists(styleFilePath, (err, exists) => {
           if (exists) {
-            let entryFilePath = path.resolve(bundle.dir as string, bundle.entryFileNames as string)
+            let entryFilePath = path.resolve(bundle.dir as string, 'index.js')
             fs.appendFile(entryFilePath, "import './style.css';", () => {})
           }
         })

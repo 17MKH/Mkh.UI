@@ -10,7 +10,7 @@
         "resolveJsonModule": true,
         "isolatedModules": false,
         "esModuleInterop": true,
-        "declaration": true,
+        "declaration": false,
         "noImplicitAny": false,
         "lib": [
             "esnext",
@@ -27,7 +27,8 @@
             ]
         },
         "types": [
-            "vite/client"
+            "vite/client",
+            "node"
         ]
     },
 }

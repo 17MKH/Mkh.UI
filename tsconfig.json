@@ -6,6 +6,7 @@
     "package/**/*.vue",
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "build/**/*.ts"
   ],
 }

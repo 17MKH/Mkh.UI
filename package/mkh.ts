@@ -1,4 +1,4 @@
-import pkg from '../package.json'
+import { version } from '../package.json'
 import { Mkh } from './types'
 
 /**
@@ -6,7 +6,7 @@ import { Mkh } from './types'
  * 解析出来的一些固定数据，理论上系统启动后，该对象不允许再被更改
  */
 const mkh: Mkh = {
-  version: pkg.version,
+  version: version,
   modules: [],
   components: [],
   icons: [],

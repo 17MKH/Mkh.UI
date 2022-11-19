@@ -132,11 +132,13 @@ export class Http implements HttpClient {
       // 参数
       params,
       // 修改参数序列化方法
-      paramsSerializer: (p) => {
-        // 使用逗号分隔参数
-        return qs.stringify(p, {
-          allowDots: true,
-        })
+      paramsSerializer: {
+        serialize: (p) => {
+          // 使用逗号分隔参数
+          return qs.stringify(p, {
+            allowDots: true,
+          })
+        },
       },
     })
     return this.axios.get(url, config_) as Promise<T>
@@ -147,11 +149,13 @@ export class Http implements HttpClient {
       // 参数
       params,
       // 修改参数序列化方法
-      paramsSerializer: (p) => {
-        // 使用逗号分隔参数
-        return qs.stringify(p, {
-          allowDots: true,
-        })
+      paramsSerializer: {
+        serialize: (p) => {
+          // 使用逗号分隔参数
+          return qs.stringify(p, {
+            allowDots: true,
+          })
+        },
       },
     })
     return this.axios.delete(url, config_) as Promise<T>
@@ -170,11 +174,13 @@ export class Http implements HttpClient {
       // 参数
       params,
       // 修改参数序列化方法
-      paramsSerializer: (p) => {
-        // 使用逗号分隔参数
-        return qs.stringify(p, {
-          allowDots: true,
-        })
+      paramsSerializer: {
+        serialize: (p) => {
+          // 使用逗号分隔参数
+          return qs.stringify(p, {
+            allowDots: true,
+          })
+        },
       },
     })
     return this.axios.get(url, config_) as Promise<void>

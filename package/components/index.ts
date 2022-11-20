@@ -40,7 +40,6 @@ export default (app: App, modules: ModuleDefinition[]) => {
           name = `${m.code}-${name}`
         }
 
-        console.log(name)
         registerComponent(app, name, c.component)
       })
     }

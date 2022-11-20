@@ -144,7 +144,6 @@ export const useAction = function <TKey, TModel, TResult = any>(options: ActionO
           edit(props.id).then((data: any) => {
             editInitialModel = data
             model.value = data
-            console.log(data)
 
             afterEdit && afterEdit()
 

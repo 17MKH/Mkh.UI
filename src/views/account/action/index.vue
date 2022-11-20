@@ -54,9 +54,6 @@
   })
 
   const test = () => {
-    console.log(model.value)
     model.value.list.push({ name: new Date().getMilliseconds() })
-
-    console.log(model.value.list)
   }
 </script>

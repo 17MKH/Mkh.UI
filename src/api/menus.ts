@@ -20,6 +20,7 @@ const menus = [
     locales: {
       en: 'i18n',
       'zh-cn': '国际化',
+      th: 'สากล', //'国际化',
     },
   },
   {
@@ -30,6 +31,7 @@ const menus = [
     locales: {
       en: 'Layout Component',
       'zh-cn': '布局组件',
+      th: 'ส่วนประกอบการจัดวาง', //'布局组件',
     },
     children: [
       {
@@ -41,6 +43,7 @@ const menus = [
         locales: {
           en: 'Container',
           'zh-cn': '容器',
+          th: 'กล่องบรรจุ', //'容器',
         },
       },
       {
@@ -52,6 +55,7 @@ const menus = [
         locales: {
           en: 'Box',
           'zh-cn': '盒子',
+          th: 'กล่อง', //'盒子',
         },
       },
       {
@@ -63,6 +67,7 @@ const menus = [
         locales: {
           en: 'Small Box',
           'zh-cn': '小盒子',
+          th: 'กล่องทิ้งขยะ', //'小盒子',
         },
       },
       {
@@ -74,6 +79,7 @@ const menus = [
         locales: {
           en: 'Flex layout',
           'zh-cn': '弹性布局',
+          th: 'การจัดวางแบบยืดหยุ่น', //'弹性布局',
         },
       },
       {
@@ -85,6 +91,7 @@ const menus = [
         locales: {
           en: 'Scrollbar',
           'zh-cn': '滚动条',
+          th: 'แถบเลื่อน', //'滚动条',
         },
       },
       {
@@ -96,6 +103,7 @@ const menus = [
         locales: {
           en: 'Head',
           'zh-cn': '头部',
+          th: 'หัว', //'头部',
         },
       },
       {
@@ -107,6 +115,7 @@ const menus = [
         locales: {
           en: 'Panel Split',
           'zh-cn': '面板分割',
+          th: 'ส่วนของพาเนล', //'面板分割',
         },
       },
     ],
@@ -119,6 +128,7 @@ const menus = [
     locales: {
       en: 'Base Component',
       'zh-cn': '基础组件',
+      th: 'ส่วนประกอบพื้นฐาน', //'基础组件',
     },
     children: [
       {
@@ -130,6 +140,7 @@ const menus = [
         locales: {
           en: 'Icon',
           'zh-cn': '图标',
+          th: 'ภาพไอคอน', //'图标',
         },
       },
       {
@@ -141,6 +152,7 @@ const menus = [
         locales: {
           en: 'Button',
           'zh-cn': '按钮',
+          th: 'ปุ่ม', //'按钮',
         },
       },
     ],
@@ -153,6 +165,7 @@ const menus = [
     locales: {
       en: 'Advanced Component',
       'zh-cn': '高级组件',
+      th: 'ส่วนประกอบขั้นสูง', //'高级组件',
     },
     children: [
       {
@@ -164,6 +177,7 @@ const menus = [
         locales: {
           en: 'Dialog',
           'zh-cn': '对话框',
+          th: 'กล่องโต้ตอบ', //'对话框',
         },
       },
       {
@@ -175,6 +189,7 @@ const menus = [
         locales: {
           en: 'Drawer',
           'zh-cn': '抽屉',
+          th: 'ลิ้นชัก', //'抽屉',
         },
       },
       {
@@ -186,6 +201,7 @@ const menus = [
         locales: {
           en: 'List',
           'zh-cn': '列表页',
+          th: 'หน้ารายการ', //'列表页',
         },
       },
       {
@@ -197,6 +213,7 @@ const menus = [
         locales: {
           en: 'ListBox',
           'zh-cn': '列表盒子',
+          th: 'กล่องรายการ', //'列表盒子',
         },
       },
       {
@@ -208,6 +225,7 @@ const menus = [
         locales: {
           en: 'DragSort',
           'zh-cn': '拖拽排序',
+          th: 'ลาก และเรียงลำดับ', //'拖拽排序',
         },
       },
     ],
@@ -220,6 +238,7 @@ const menus = [
     locales: {
       en: 'Form Component',
       'zh-cn': '表单组件',
+      th: 'ส่วนประกอบแบบฟอร์ม', //'表单组件',
     },
     children: [
       {
@@ -231,6 +250,7 @@ const menus = [
         locales: {
           en: 'Base Form',
           'zh-cn': '基本表单',
+          th: 'ฟอร์มพื้นฐาน', //'基本表单',
         },
       },
       {
@@ -242,6 +262,7 @@ const menus = [
         locales: {
           en: 'Dialog Form',
           'zh-cn': '对话框表单',
+          th: 'รูปแบบกล่องโต้ตอบ', //'对话框表单',
         },
       },
       {
@@ -253,6 +274,7 @@ const menus = [
         locales: {
           en: 'Drawer Form',
           'zh-cn': '抽屉表单',
+          th: 'ฟอร์มของลิ้นชัก', //'抽屉表单',
         },
       },
       {
@@ -264,6 +286,7 @@ const menus = [
         locales: {
           en: 'Box Form',
           'zh-cn': '盒子表单',
+          th: 'แบบฟอร์มกล่อง', //'盒子表单',
         },
       },
       {
@@ -275,6 +298,7 @@ const menus = [
         locales: {
           en: 'Select',
           'zh-cn': '下拉框',
+          th: 'กล่องหย่อน', //'下拉框',
         },
       },
       {
@@ -286,6 +310,7 @@ const menus = [
         locales: {
           en: 'Select Search',
           'zh-cn': '可搜索下拉框',
+          th: 'ค้นหากล่องดึงข้อมูล', //'可搜索下拉框',
         },
       },
       {
@@ -297,6 +322,7 @@ const menus = [
         locales: {
           en: 'List Select',
           'zh-cn': '列表选择',
+          th: 'การเลือกรายการ', //'国际化',
         },
       },
     ],
@@ -309,6 +335,7 @@ const menus = [
     locales: {
       en: 'Power',
       'zh-cn': '权限管理',
+      th: 'การจัดการสิทธิ์', //'权限管理',
     },
     children: [
       {
@@ -320,6 +347,7 @@ const menus = [
         locales: {
           en: 'Account Manage',
           'zh-cn': '账户管理',
+          th: 'การจัดการบัญชี', //'账户管理',
         },
         buttons: ['doc_account_add', 'doc_account_edit', 'doc_account_delete'],
       },

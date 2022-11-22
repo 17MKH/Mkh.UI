@@ -11,6 +11,9 @@
         <el-dropdown-item command="en">
           <div :class="'en' === locale ? 'is-active' : ''">English</div>
         </el-dropdown-item>
+        <el-dropdown-item command="th">
+          <div :class="'th' === locale ? 'is-active' : ''">ไทย</div>
+        </el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>

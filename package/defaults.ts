@@ -93,6 +93,16 @@ export const defaultBootstrapOptions: BootstrapOptions = {
         skin: {},
         mod: {},
       },
+      // 泰语
+      'th-TH': {
+        name: 'th-TH',
+        label: 'ไทย',
+        mkh: {},
+        el: {},
+        routes: {},
+        skin: {},
+        mod: {},
+      },
     },
   },
   /** 接口配置 */

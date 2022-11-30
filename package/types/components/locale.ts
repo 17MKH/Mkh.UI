@@ -1,7 +1,7 @@
 /**
  * 语言选项
  */
-export declare type Locale = 'zh-cn' | 'en' | 'th-TH'
+export declare type Locale = 'zh-cn' | 'en' | 'th'
 
 /**
  * 多语言信息
@@ -39,6 +39,6 @@ export interface MkhLocaleMessages {
 export interface MkhLocaleMessagesGroup {
   en: MkhLocaleMessages
   'zh-cn': MkhLocaleMessages
-  'th-TH': MkhLocaleMessages
+  th: MkhLocaleMessages
   [key: string]: MkhLocaleMessages
 }

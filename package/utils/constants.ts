@@ -27,7 +27,7 @@ export const SIZE_DEFINITIONS: SIZE_DEFINITIONS = {
 export interface LOCALE_DEFINITIONS {
   ZhCN: Locale
   En: Locale
-  ThTH: Locale //泰语
+  Th: Locale //泰语
 }
 
 /**
@@ -36,5 +36,5 @@ export interface LOCALE_DEFINITIONS {
 export const LOCALE_DEFINITIONS = {
   ZhCN: 'zh-cn',
   En: 'en',
-  ThTH:'th-TH' //泰语
+  Th: 'th', //泰语
 }

@@ -94,8 +94,8 @@ export const defaultBootstrapOptions: BootstrapOptions = {
         mod: {},
       },
       // 泰语
-      'th-TH': {
-        name: 'th-TH',
+      th: {
+        name: 'th',
         label: 'ไทย',
         mkh: {},
         el: {},

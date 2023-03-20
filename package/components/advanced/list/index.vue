@@ -316,7 +316,7 @@
     size: number
     sort: Array<{
       field: string
-      order: number
+      type: number
     }>
   }
 
@@ -482,7 +482,7 @@
 
     // 将排序信息转化成后端的格式
     if (prop !== null) {
-      page.sort.push({ field: prop, order: order === 'ascending' ? 0 : 1 })
+      page.sort.push({ field: prop, type: order === 'ascending' ? 0 : 1 })
     }
 
     refresh()

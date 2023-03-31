@@ -36,6 +36,10 @@ export class Http implements HttpClient {
     _axios.interceptors.response.use(
       (response) => {
         const config = response.config as HttpRequestConfig
+        if (config.ignoreResponseInterceptor) {
+          return response.data
+        }
+
         if (config.responseType && config.responseType === 'blob') {
           const url = window.URL.createObjectURL(response.data)
 
@@ -62,7 +66,7 @@ export class Http implements HttpClient {
           return
         } else if (response.data.successful) {
           return response.data.data
-        } else if (!response.data.successful && !config.notShowErrorMsg) {
+        } else {
           let data = response.data as HttpResponse<any>
           //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
           ElNotification({
@@ -73,8 +77,6 @@ export class Http implements HttpClient {
             duration: 1500,
           })
           return Promise.reject(data.msg)
-        } else {
-          return response.data
         }
       },
       (error) => {

@@ -64,7 +64,7 @@ export const useLogin = function () {
                 if (typeof redirect === 'string') router.push(redirect as string)
               })
             } else {
-              notify.error(res.msg, t('mkh.login.notify_title'))
+              notify.error(t(res.errorCode), t('mkh.login.notify_title'))
             }
           })
       }

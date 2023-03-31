@@ -1,4 +1,4 @@
-import type { LoginDto, JwtCredential, VerifyCode, UpdateSkinDto, Profile, Skin } from '@/types'
+import type { LoginDto, JwtCredential, VerifyCode, UpdateSkinDto, Profile, Skin, HttpResponse } from '@/types'
 import db from '@/utils/db'
 import menus from '../menus'
 
@@ -16,7 +16,7 @@ export default {
   /**
    * 登录
    */
-  login: ({ username, password }: LoginDto): Promise<JwtCredential> => {
+  login: ({ username, password }: LoginDto): Promise<HttpResponse<JwtCredential>> => {
     return new Promise((resolve, reject) => {
       if (username === '17mkh' && password === '123456') {
         const resultModel: JwtCredential = {
@@ -26,7 +26,7 @@ export default {
           expiresIn: 7200,
           loginTime: new Date().getMilliseconds(),
         }
-        resolve(resultModel)
+        resolve({ successful: true, code: '', data: resultModel, errorCode: '', msg: '', timestamp: 0 })
       } else {
         reject(new Error('用户名或密码错误'))
       }

@@ -1,4 +1,4 @@
-import type { LoginDto } from '@/types'
+import type { HttpResponse, JwtCredential, LoginDto } from '@/types'
 import type { FormInstance } from 'element-plus'
 import { onMounted, onUnmounted, reactive, Ref, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -56,17 +56,17 @@ export const useLogin = function () {
         loading.value = true
         const loginAction = configStore.systemActions.login
         if (loginAction)
-          loginAction(model)
-            .then((data) => {
+          loginAction(model).then((res: HttpResponse<JwtCredential>) => {
+            loading.value = false
+            if (res.successful) {
               notify.success(t('mkh.login.notify_success'), t('mkh.login.notify_title'), () => {
-                tokenStore.set(data)
+                tokenStore.set(res.data)
                 if (typeof redirect === 'string') router.push(redirect as string)
               })
-            })
-            .catch((msg) => {
-              loading.value = false
-              notify.error(msg, t('mkh.login.notify_title'))
-            })
+            } else {
+              notify.error(res.msg, t('mkh.login.notify_title'))
+            }
+          })
       }
     })
   }

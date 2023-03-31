@@ -4,6 +4,7 @@ import { Menu } from './menu'
 import { LoginDto, JwtCredential, Profile, VerifyCode, UpdateSkinDto, RefreshTokenDto } from './auth'
 import { Skin } from './skin'
 import { FormatterFunction } from './list'
+import { HttpResponse } from './http'
 
 /**
  * 站点配置
@@ -114,7 +115,7 @@ export interface SystemActionsConfig {
    * 登录方法
    * @param dto - 登录模型
    */
-  login?(dto: LoginDto): Promise<JwtCredential>
+  login?(dto: LoginDto): Promise<HttpResponse<JwtCredential>>
   /**
    * 刷新令牌
    * @param dto - 刷新令牌模型

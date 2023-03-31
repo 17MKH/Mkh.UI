@@ -1,4 +1,4 @@
-import type { BootstrapOptions, HttpClient } from '@/types'
+import type { BootstrapOptions, HttpClient, HttpRequestConfig, HttpResponse } from '@/types'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 import dayjs from 'dayjs'
@@ -35,7 +35,7 @@ export class Http implements HttpClient {
     // 响应前拦截器
     _axios.interceptors.response.use(
       (response) => {
-        const { config } = response
+        const config = response.config as HttpRequestConfig
         if (config.responseType && config.responseType === 'blob') {
           const url = window.URL.createObjectURL(response.data)
 
@@ -63,15 +63,16 @@ export class Http implements HttpClient {
         } else if (response.data.successful) {
           return response.data.data
         } else if (!response.data.successful && !config.notShowErrorMsg) {
+          let data = response.data as HttpResponse<any>
           //noErrorMsg表示不显示错误信息，有时候希望在业务中根据返回的code自行进行信息提醒时可用
           ElNotification({
             type: 'error',
             title: i18n.global.t('mkh.http_error_title'),
-            message: i18n.global.t(response.data.errorCode),
+            message: i18n.global.t(data.errorCode),
             showClose: true,
             duration: 1500,
           })
-          return Promise.reject(response.data.msg)
+          return Promise.reject(data.msg)
         } else {
           return response.data
         }

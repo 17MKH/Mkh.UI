@@ -67,7 +67,7 @@ export class Http implements HttpClient {
           ElNotification({
             type: 'error',
             title: i18n.global.t('mkh.http_error_title'),
-            message: response.data.msg,
+            message: i18n.global.t(response.data.errorCode),
             showClose: true,
             duration: 1500,
           })

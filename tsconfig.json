@@ -1,6 +1,13 @@
 {
   "extends": "./tsconfig.base.json",
   "include": [
-    "build/**/*.ts"
+    "build/**/*.ts",
+    "package/**/*.ts",
+    "package/**/*.d.ts",
+    "package/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "plugins/**/*.ts"
   ],
 }

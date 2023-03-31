@@ -369,6 +369,6 @@ const setMenusId = (children: Menu[], parent?: Menu) => {
   })
 }
 
-setMenusId(menus as Menu[], undefined)
+setMenusId(menus as unknown as Menu[], undefined)
 
-export default menus as Menu[]
+export default menus as unknown as Menu[]

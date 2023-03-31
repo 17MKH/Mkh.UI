@@ -1,4 +1,5 @@
 import login from './login'
+import errors from './errors'
 
 export default {
   home: 'หน้าหลัก', //'首页',
@@ -103,4 +104,5 @@ export default {
   more_info: 'ข้อมูลเพิ่มเติม', //'更多信息',
   displayed_expand: 'ขยายภาพใหญ่', //'显示在展开区域',
   login,
+  errors,
 }

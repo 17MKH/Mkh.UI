@@ -1,4 +1,5 @@
 import login from './login'
+import errors from './errors'
 
 export default {
   home: 'Home',
@@ -101,4 +102,5 @@ export default {
   more_info: 'More Info',
   displayed_expand: 'Displayed in the expanded area',
   login,
+  errors,
 }

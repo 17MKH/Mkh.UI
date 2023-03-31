@@ -1,4 +1,5 @@
 import login from './login'
+import errors from './errors'
 
 const messages = {
   home: '首页',
@@ -103,6 +104,7 @@ const messages = {
   more_info: '更多信息',
   displayed_expand: '显示在展开区域',
   login,
+  errors,
 }
 
 export default messages
